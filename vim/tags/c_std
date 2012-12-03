@@ -1,0 +1,301 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFSIZ	/usr/include/stdio.h	127;"	d
+EOF	/usr/include/stdio.h	134;"	d
+EXIT_FAILURE	/usr/include/stdlib.h	133;"	d
+EXIT_SUCCESS	/usr/include/stdlib.h	134;"	d
+FILE	/usr/include/stdio.h	/^typedef struct _IO_FILE FILE;$/;"	t	typeref:struct:_IO_FILE
+FSETLOCKING_BYCALLER	/usr/include/stdio_ext.h	/^  FSETLOCKING_BYCALLER$/;"	e	enum:__anon1
+FSETLOCKING_BYCALLER	/usr/include/stdio_ext.h	38;"	d
+FSETLOCKING_INTERNAL	/usr/include/stdio_ext.h	/^  FSETLOCKING_INTERNAL,$/;"	e	enum:__anon1
+FSETLOCKING_INTERNAL	/usr/include/stdio_ext.h	35;"	d
+FSETLOCKING_QUERY	/usr/include/stdio_ext.h	/^  FSETLOCKING_QUERY = 0,$/;"	e	enum:__anon1
+FSETLOCKING_QUERY	/usr/include/stdio_ext.h	31;"	d
+INT16_C	/usr/include/stdint.h	290;"	d
+INT16_MAX	/usr/include/stdint.h	165;"	d
+INT16_MIN	/usr/include/stdint.h	160;"	d
+INT32_C	/usr/include/stdint.h	291;"	d
+INT32_MAX	/usr/include/stdint.h	166;"	d
+INT32_MIN	/usr/include/stdint.h	161;"	d
+INT64_C	/usr/include/stdint.h	293;"	d
+INT64_C	/usr/include/stdint.h	295;"	d
+INT64_MAX	/usr/include/stdint.h	167;"	d
+INT64_MIN	/usr/include/stdint.h	162;"	d
+INT8_C	/usr/include/stdint.h	289;"	d
+INT8_MAX	/usr/include/stdint.h	164;"	d
+INT8_MIN	/usr/include/stdint.h	159;"	d
+INTMAX_C	/usr/include/stdint.h	310;"	d
+INTMAX_C	/usr/include/stdint.h	313;"	d
+INTMAX_MAX	/usr/include/stdint.h	242;"	d
+INTMAX_MIN	/usr/include/stdint.h	240;"	d
+INTPTR_MAX	/usr/include/stdint.h	230;"	d
+INTPTR_MAX	/usr/include/stdint.h	234;"	d
+INTPTR_MIN	/usr/include/stdint.h	229;"	d
+INTPTR_MIN	/usr/include/stdint.h	233;"	d
+INT_FAST16_MAX	/usr/include/stdint.h	207;"	d
+INT_FAST16_MAX	/usr/include/stdint.h	210;"	d
+INT_FAST16_MIN	/usr/include/stdint.h	197;"	d
+INT_FAST16_MIN	/usr/include/stdint.h	200;"	d
+INT_FAST32_MAX	/usr/include/stdint.h	208;"	d
+INT_FAST32_MAX	/usr/include/stdint.h	211;"	d
+INT_FAST32_MIN	/usr/include/stdint.h	198;"	d
+INT_FAST32_MIN	/usr/include/stdint.h	201;"	d
+INT_FAST64_MAX	/usr/include/stdint.h	213;"	d
+INT_FAST64_MIN	/usr/include/stdint.h	203;"	d
+INT_FAST8_MAX	/usr/include/stdint.h	205;"	d
+INT_FAST8_MIN	/usr/include/stdint.h	195;"	d
+INT_LEAST16_MAX	/usr/include/stdint.h	183;"	d
+INT_LEAST16_MIN	/usr/include/stdint.h	178;"	d
+INT_LEAST32_MAX	/usr/include/stdint.h	184;"	d
+INT_LEAST32_MIN	/usr/include/stdint.h	179;"	d
+INT_LEAST64_MAX	/usr/include/stdint.h	185;"	d
+INT_LEAST64_MIN	/usr/include/stdint.h	180;"	d
+INT_LEAST8_MAX	/usr/include/stdint.h	182;"	d
+INT_LEAST8_MIN	/usr/include/stdint.h	177;"	d
+MB_CUR_MAX	/usr/include/stdlib.h	138;"	d
+PTRDIFF_MAX	/usr/include/stdint.h	253;"	d
+PTRDIFF_MAX	/usr/include/stdint.h	256;"	d
+PTRDIFF_MIN	/usr/include/stdint.h	252;"	d
+PTRDIFF_MIN	/usr/include/stdint.h	255;"	d
+P_tmpdir	/usr/include/stdio.h	151;"	d
+RAND_MAX	/usr/include/stdlib.h	128;"	d
+SEEK_CUR	/usr/include/stdio.h	141;"	d
+SEEK_DATA	/usr/include/stdio.h	144;"	d
+SEEK_END	/usr/include/stdio.h	142;"	d
+SEEK_HOLE	/usr/include/stdio.h	145;"	d
+SEEK_SET	/usr/include/stdio.h	140;"	d
+SIG_ATOMIC_MAX	/usr/include/stdint.h	261;"	d
+SIG_ATOMIC_MIN	/usr/include/stdint.h	260;"	d
+SIZE_MAX	/usr/include/stdint.h	265;"	d
+SIZE_MAX	/usr/include/stdint.h	267;"	d
+UINT16_C	/usr/include/stdint.h	300;"	d
+UINT16_MAX	/usr/include/stdint.h	171;"	d
+UINT32_C	/usr/include/stdint.h	301;"	d
+UINT32_MAX	/usr/include/stdint.h	172;"	d
+UINT64_C	/usr/include/stdint.h	303;"	d
+UINT64_C	/usr/include/stdint.h	305;"	d
+UINT64_MAX	/usr/include/stdint.h	173;"	d
+UINT8_C	/usr/include/stdint.h	299;"	d
+UINT8_MAX	/usr/include/stdint.h	170;"	d
+UINTMAX_C	/usr/include/stdint.h	311;"	d
+UINTMAX_C	/usr/include/stdint.h	314;"	d
+UINTMAX_MAX	/usr/include/stdint.h	245;"	d
+UINTPTR_MAX	/usr/include/stdint.h	231;"	d
+UINTPTR_MAX	/usr/include/stdint.h	235;"	d
+UINT_FAST16_MAX	/usr/include/stdint.h	218;"	d
+UINT_FAST16_MAX	/usr/include/stdint.h	221;"	d
+UINT_FAST32_MAX	/usr/include/stdint.h	219;"	d
+UINT_FAST32_MAX	/usr/include/stdint.h	222;"	d
+UINT_FAST64_MAX	/usr/include/stdint.h	224;"	d
+UINT_FAST8_MAX	/usr/include/stdint.h	216;"	d
+UINT_LEAST16_MAX	/usr/include/stdint.h	189;"	d
+UINT_LEAST32_MAX	/usr/include/stdint.h	190;"	d
+UINT_LEAST64_MAX	/usr/include/stdint.h	191;"	d
+UINT_LEAST8_MAX	/usr/include/stdint.h	188;"	d
+WCHAR_MAX	/usr/include/stdint.h	274;"	d
+WCHAR_MIN	/usr/include/stdint.h	273;"	d
+WEXITSTATUS	/usr/include/stdlib.h	84;"	d
+WIFCONTINUED	/usr/include/stdlib.h	91;"	d
+WIFEXITED	/usr/include/stdlib.h	87;"	d
+WIFSIGNALED	/usr/include/stdlib.h	88;"	d
+WIFSTOPPED	/usr/include/stdlib.h	89;"	d
+WINT_MAX	/usr/include/stdint.h	279;"	d
+WINT_MIN	/usr/include/stdint.h	278;"	d
+WSTOPSIG	/usr/include/stdlib.h	86;"	d
+WTERMSIG	/usr/include/stdlib.h	85;"	d
+_ASSERT_H	/usr/include/assert.h	25;"	d
+_ASSERT_H	/usr/include/assert.h	35;"	d
+_IOFBF	/usr/include/stdio.h	120;"	d
+_IOLBF	/usr/include/stdio.h	121;"	d
+_IONBF	/usr/include/stdio.h	122;"	d
+_STDC_PREDEF_H	/usr/include/stdc-predef.h	19;"	d
+_STDINT_H	/usr/include/stdint.h	23;"	d
+_STDIO_EXT_H	/usr/include/stdio_ext.h	23;"	d
+_STDIO_H	/usr/include/stdio.h	26;"	d
+_STDIO_USES_IOSTREAM	/usr/include/stdio.h	72;"	d
+_STDLIB_H	/usr/include/stdlib.h	37;"	d
+_STRING_H	/usr/include/string.h	23;"	d
+_VA_LIST_DEFINED	/usr/include/stdio.h	80;"	d
+__ASSERT_FUNCTION	/usr/include/assert.h	104;"	d
+__ASSERT_VOID_CAST	/usr/include/assert.h	27;"	d
+__ASSERT_VOID_CAST	/usr/include/assert.h	39;"	d
+__ASSERT_VOID_CAST	/usr/include/assert.h	41;"	d
+__COMPAR_FN_T	/usr/include/stdlib.h	743;"	d
+__CORRECT_ISO_CPP_STRING_H_PROTO	/usr/include/string.h	36;"	d
+__FILE	/usr/include/stdio.h	/^typedef struct _IO_FILE __FILE;$/;"	t	typeref:struct:_IO_FILE
+__FILE_defined	/usr/include/stdio.h	56;"	d
+__INT64_C	/usr/include/stdint.h	149;"	d
+__INT64_C	/usr/include/stdint.h	152;"	d
+__STDC_IEC_559_COMPLEX__	/usr/include/stdc-predef.h	31;"	d
+__STDC_IEC_559__	/usr/include/stdc-predef.h	30;"	d
+__STDC_ISO_10646__	/usr/include/stdc-predef.h	35;"	d
+__STDC_NO_THREADS__	/usr/include/stdc-predef.h	38;"	d
+__UINT64_C	/usr/include/stdint.h	150;"	d
+__UINT64_C	/usr/include/stdint.h	153;"	d
+__WAIT_INT	/usr/include/stdlib.h	50;"	d
+__WAIT_STATUS	/usr/include/stdlib.h	63;"	d
+__WAIT_STATUS_DEFN	/usr/include/stdlib.h	64;"	d
+____FILE_defined	/usr/include/stdio.h	66;"	d
+__a	/usr/include/stdlib.h	/^    unsigned long long int __a;	\/* Factor in congruential formula.  *\/$/;"	m	struct:drand48_data	access:public
+__attribute_deprecated__	/usr/include/stdio.h	/^extern char *gets (char *__s) __wur __attribute_deprecated__;$/;"	v
+__attribute_warn_unused_result__	/usr/include/stdlib.h	/^     __THROW __attribute_warn_unused_result__;$/;"	v
+__c	/usr/include/stdlib.h	/^    unsigned short int __c;	\/* Additive const. in congruential formula.  *\/$/;"	m	struct:drand48_data	access:public
+__compar_d_fn_t	/usr/include/stdlib.h	/^typedef int (*__compar_d_fn_t) (const void *, const void *, void *);$/;"	t
+__compar_fn_t	/usr/include/stdlib.h	/^typedef int (*__compar_fn_t) (const void *, const void *);$/;"	t
+__init	/usr/include/stdlib.h	/^    unsigned short int __init;	\/* Flag for initializing.  *\/$/;"	m	struct:drand48_data	access:public
+__int8_t_defined	/usr/include/stdint.h	35;"	d
+__intptr_t_defined	/usr/include/stdint.h	120;"	d
+__intptr_t_defined	/usr/include/stdint.h	126;"	d
+__ldiv_t_defined	/usr/include/stdlib.h	110;"	d
+__lldiv_t_defined	/usr/include/stdlib.h	122;"	d
+__malloc_and_calloc_defined	/usr/include/stdlib.h	467;"	d
+__need_FILE	/usr/include/stdio.h	36;"	d
+__need_FILE	/usr/include/stdio.h	58;"	d
+__need_NULL	/usr/include/stdio.h	32;"	d
+__need_NULL	/usr/include/stdlib.h	30;"	d
+__need_NULL	/usr/include/string.h	31;"	d
+__need___FILE	/usr/include/stdio.h	37;"	d
+__need___FILE	/usr/include/stdio.h	68;"	d
+__need_getopt	/usr/include/stdio.h	927;"	d
+__need_malloc_and_calloc	/usr/include/stdlib.h	964;"	d
+__need_size_t	/usr/include/stdio.h	31;"	d
+__need_size_t	/usr/include/stdlib.h	27;"	d
+__need_size_t	/usr/include/string.h	30;"	d
+__need_wchar_t	/usr/include/stdlib.h	29;"	d
+__off64_t_defined	/usr/include/stdio.h	98;"	d
+__off_t_defined	/usr/include/stdio.h	94;"	d
+__old_x	/usr/include/stdlib.h	/^    unsigned short int __old_x[3]; \/* Old state.  *\/$/;"	m	struct:drand48_data	access:public
+__ssize_t_defined	/usr/include/stdio.h	103;"	d
+__uint32_t_defined	/usr/include/stdint.h	52;"	d
+__wur	/usr/include/stdio.h	/^			  _IO_cookie_io_functions_t __io_funcs) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^     __THROW __attribute_malloc__ __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^     __THROWNL __attribute__ ((__format__ (__printf__, 2, 0))) __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^     __THROWNL __attribute__ ((__format__ (__printf__, 2, 3))) __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^  __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern FILE *fdopen (int __fd, const char *__modes) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern char *tmpnam (char *__s) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern char *tmpnam_r (char *__s) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int feof (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int feof_unlocked (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int ferror (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int ferror_unlocked (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int fileno (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int fileno_unlocked (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdio.h	/^extern int ftrylockfile (FILE *__stream) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^		       char *__restrict __resolved) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^		   const char *__restrict __s, size_t __n) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^     __THROW __attribute__ ((__const__)) __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^     __THROW __attribute_malloc__ __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^     __THROW __wur __attribute__ ((__malloc__, __alloc_size__ (2)));$/;"	v
+__wur	/usr/include/stdlib.h	/^extern char *l64a (long int __n) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern char *ptsname (int __fd) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern int abs (int __x) __THROW __attribute__ ((__const__)) __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern int mblen (const char *__s, size_t __n) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern int wctomb (char *__s, wchar_t __wchar) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern long int labs (long int __x) __THROW __attribute__ ((__const__)) __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern size_t __ctype_get_mb_cur_max (void) __THROW __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern void *malloc (size_t __size) __THROW __attribute_malloc__ __wur;$/;"	v
+__wur	/usr/include/stdlib.h	/^extern void *valloc (size_t __size) __THROW __attribute_malloc__ __wur;$/;"	v
+__x	/usr/include/stdlib.h	/^    unsigned short int __x[3];	\/* Current state.  *\/$/;"	m	struct:drand48_data	access:public
+assert	/usr/include/assert.h	26;"	d
+assert	/usr/include/assert.h	51;"	d
+assert	/usr/include/assert.h	86;"	d
+assert_perror	/usr/include/assert.h	30;"	d
+assert_perror	/usr/include/assert.h	60;"	d
+assert_perror	/usr/include/assert.h	92;"	d
+atof	/usr/include/stdlib.h	/^__NTH (atof (const char *__nptr))$/;"	f
+atoi	/usr/include/stdlib.h	/^__NTH (atoi (const char *__nptr))$/;"	f
+atol	/usr/include/stdlib.h	/^__NTH (atol (const char *__nptr))$/;"	f
+atoll	/usr/include/stdlib.h	/^__NTH (atoll (const char *__nptr))$/;"	f
+comparison_fn_t	/usr/include/stdlib.h	/^typedef __compar_fn_t comparison_fn_t;$/;"	t
+div_t	/usr/include/stdlib.h	/^  } div_t;$/;"	t	typeref:struct:__anon2
+drand48_data	/usr/include/stdlib.h	/^struct drand48_data$/;"	s
+end_ptr	/usr/include/stdlib.h	/^    int32_t *end_ptr;		\/* Pointer behind state table.  *\/$/;"	m	struct:random_data	access:public
+fpos64_t	/usr/include/stdio.h	/^typedef _G_fpos64_t fpos64_t;$/;"	t
+fpos_t	/usr/include/stdio.h	/^typedef _G_fpos_t fpos_t;$/;"	t
+fptr	/usr/include/stdlib.h	/^    int32_t *fptr;		\/* Front pointer.  *\/$/;"	m	struct:random_data	access:public
+fscanf	/usr/include/stdio.h	457;"	d
+getc	/usr/include/stdio.h	543;"	d
+int16_t	/usr/include/stdint.h	/^typedef short int		int16_t;$/;"	t
+int32_t	/usr/include/stdint.h	/^typedef int			int32_t;$/;"	t
+int64_t	/usr/include/stdint.h	/^typedef long int		int64_t;$/;"	t
+int64_t	/usr/include/stdint.h	/^typedef long long int		int64_t;$/;"	t
+int8_t	/usr/include/stdint.h	/^typedef signed char		int8_t;$/;"	t
+int_fast16_t	/usr/include/stdint.h	/^typedef int			int_fast16_t;$/;"	t
+int_fast16_t	/usr/include/stdint.h	/^typedef long int		int_fast16_t;$/;"	t
+int_fast32_t	/usr/include/stdint.h	/^typedef int			int_fast32_t;$/;"	t
+int_fast32_t	/usr/include/stdint.h	/^typedef long int		int_fast32_t;$/;"	t
+int_fast64_t	/usr/include/stdint.h	/^typedef long int		int_fast64_t;$/;"	t
+int_fast64_t	/usr/include/stdint.h	/^typedef long long int		int_fast64_t;$/;"	t
+int_fast8_t	/usr/include/stdint.h	/^typedef signed char		int_fast8_t;$/;"	t
+int_least16_t	/usr/include/stdint.h	/^typedef short int		int_least16_t;$/;"	t
+int_least32_t	/usr/include/stdint.h	/^typedef int			int_least32_t;$/;"	t
+int_least64_t	/usr/include/stdint.h	/^typedef long int		int_least64_t;$/;"	t
+int_least64_t	/usr/include/stdint.h	/^typedef long long int		int_least64_t;$/;"	t
+int_least8_t	/usr/include/stdint.h	/^typedef signed char		int_least8_t;$/;"	t
+intmax_t	/usr/include/stdint.h	/^typedef long int		intmax_t;$/;"	t
+intmax_t	/usr/include/stdint.h	/^typedef long long int		intmax_t;$/;"	t
+intptr_t	/usr/include/stdint.h	/^typedef int			intptr_t;$/;"	t
+intptr_t	/usr/include/stdint.h	/^typedef long int		intptr_t;$/;"	t
+ldiv_t	/usr/include/stdlib.h	/^  } ldiv_t;$/;"	t	typeref:struct:__anon3
+lldiv_t	/usr/include/stdlib.h	/^  } lldiv_t;$/;"	t	typeref:struct:__anon4
+mkostemp	/usr/include/stdlib.h	682;"	d
+mkostemps	/usr/include/stdlib.h	704;"	d
+mkstemp	/usr/include/stdlib.h	628;"	d
+mkstemps	/usr/include/stdlib.h	650;"	d
+off64_t	/usr/include/stdio.h	/^typedef __off64_t off64_t;$/;"	t
+off_t	/usr/include/stdio.h	/^typedef __off64_t off_t;$/;"	t
+off_t	/usr/include/stdio.h	/^typedef __off_t off_t;$/;"	t
+putc	/usr/include/stdio.h	585;"	d
+quot	/usr/include/stdlib.h	/^    int quot;			\/* Quotient.  *\/$/;"	m	struct:__anon2	access:public
+quot	/usr/include/stdlib.h	/^    long int quot;		\/* Quotient.  *\/$/;"	m	struct:__anon3	access:public
+quot	/usr/include/stdlib.h	/^    long long int quot;		\/* Quotient.  *\/$/;"	m	struct:__anon4	access:public
+rand_deg	/usr/include/stdlib.h	/^    int rand_deg;		\/* Degree of random number generator.  *\/$/;"	m	struct:random_data	access:public
+rand_sep	/usr/include/stdlib.h	/^    int rand_sep;		\/* Distance between front and rear.  *\/$/;"	m	struct:random_data	access:public
+rand_type	/usr/include/stdlib.h	/^    int rand_type;		\/* Type of random number generator.  *\/$/;"	m	struct:random_data	access:public
+random_data	/usr/include/stdlib.h	/^struct random_data$/;"	s
+rem	/usr/include/stdlib.h	/^    int rem;			\/* Remainder.  *\/$/;"	m	struct:__anon2	access:public
+rem	/usr/include/stdlib.h	/^    long int rem;		\/* Remainder.  *\/$/;"	m	struct:__anon3	access:public
+rem	/usr/include/stdlib.h	/^    long long int rem;		\/* Remainder.  *\/$/;"	m	struct:__anon4	access:public
+rptr	/usr/include/stdlib.h	/^    int32_t *rptr;		\/* Rear pointer.  *\/$/;"	m	struct:random_data	access:public
+scanf	/usr/include/stdio.h	458;"	d
+sscanf	/usr/include/stdio.h	459;"	d
+ssize_t	/usr/include/stdio.h	/^typedef __ssize_t ssize_t;$/;"	t
+state	/usr/include/stdlib.h	/^    int32_t *state;		\/* Array of state values.  *\/$/;"	m	struct:random_data	access:public
+static_assert	/usr/include/assert.h	118;"	d
+static_assert	/usr/include/assert.h	119;"	d
+stderr	/usr/include/stdio.h	174;"	d
+stdin	/usr/include/stdio.h	172;"	d
+stdout	/usr/include/stdio.h	173;"	d
+strdupa	/usr/include/string.h	186;"	d
+strndupa	/usr/include/string.h	196;"	d
+uint16_t	/usr/include/stdint.h	/^typedef unsigned short int	uint16_t;$/;"	t
+uint32_t	/usr/include/stdint.h	/^typedef unsigned int		uint32_t;$/;"	t
+uint64_t	/usr/include/stdint.h	/^typedef unsigned long int	uint64_t;$/;"	t
+uint64_t	/usr/include/stdint.h	/^typedef unsigned long long int	uint64_t;$/;"	t
+uint8_t	/usr/include/stdint.h	/^typedef unsigned char		uint8_t;$/;"	t
+uint_fast16_t	/usr/include/stdint.h	/^typedef unsigned int		uint_fast16_t;$/;"	t
+uint_fast16_t	/usr/include/stdint.h	/^typedef unsigned long int	uint_fast16_t;$/;"	t
+uint_fast32_t	/usr/include/stdint.h	/^typedef unsigned int		uint_fast32_t;$/;"	t
+uint_fast32_t	/usr/include/stdint.h	/^typedef unsigned long int	uint_fast32_t;$/;"	t
+uint_fast64_t	/usr/include/stdint.h	/^typedef unsigned long int	uint_fast64_t;$/;"	t
+uint_fast64_t	/usr/include/stdint.h	/^typedef unsigned long long int	uint_fast64_t;$/;"	t
+uint_fast8_t	/usr/include/stdint.h	/^typedef unsigned char		uint_fast8_t;$/;"	t
+uint_least16_t	/usr/include/stdint.h	/^typedef unsigned short int	uint_least16_t;$/;"	t
+uint_least32_t	/usr/include/stdint.h	/^typedef unsigned int		uint_least32_t;$/;"	t
+uint_least64_t	/usr/include/stdint.h	/^typedef unsigned long int	uint_least64_t;$/;"	t
+uint_least64_t	/usr/include/stdint.h	/^typedef unsigned long long int	uint_least64_t;$/;"	t
+uint_least8_t	/usr/include/stdint.h	/^typedef unsigned char		uint_least8_t;$/;"	t
+uintmax_t	/usr/include/stdint.h	/^typedef unsigned long int	uintmax_t;$/;"	t
+uintmax_t	/usr/include/stdint.h	/^typedef unsigned long long int	uintmax_t;$/;"	t
+uintptr_t	/usr/include/stdint.h	/^typedef unsigned int		uintptr_t;$/;"	t
+uintptr_t	/usr/include/stdint.h	/^typedef unsigned long int	uintptr_t;$/;"	t
+va_list	/usr/include/stdio.h	/^typedef _G_va_list va_list;$/;"	t
+vfscanf	/usr/include/stdio.h	516;"	d
+vscanf	/usr/include/stdio.h	517;"	d
+vsscanf	/usr/include/stdio.h	518;"	d
