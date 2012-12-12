@@ -3,7 +3,7 @@
 	url = https://github.com/thisivan/vim-taglist.git
 [submodule "vim/bundle/nerdtree"]
 	path = vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
+	url = https://github.com/laserdude11/nerdtree.git
 [submodule "vim/bundle/singlecompile"]
 	path = vim/bundle/singlecompile
 	url = https://github.com/xuhdev/SingleCompile.git
