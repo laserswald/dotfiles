@@ -13,3 +13,24 @@
 [submodule "vim/bundle/vim-fugitive"]
 	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
+	url = https://github.com/sjl/gundo.vim.git
+[submodule "vim/bundle/commandt"]
+	path = vim/bundle/commandt
+	url = https://github.com/wincent/Command-T.git
+[submodule "vim/bundle/minibufexpl"]
+	path = vim/bundle/minibufexpl
+	url = https://github.com/fholgado/minibufexpl.vim
+[submodule "vim/bundle/makegreen"]
+	path = vim/bundle/makegreen
+	url = https://github.com/reinh/vim-makegreen.git
+[submodule "vim/bundle/pytest"]
+	path = vim/bundle/pytest
+	url = https://github.com/alfredodeza/pytest.vim.git
+[submodule "nose.vim"]
+	path = nose.vim
+	url = https://github.com/lambdalisue/nose.vim.git
+[submodule "vim/bundle/nose"]
+	path = vim/bundle/nose
+	url = https://github.com/lambdalisue/nose.vim.git

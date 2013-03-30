@@ -27,6 +27,7 @@ alignment center_left
 background no
 border_width 1
 cpu_avg_samples 2
+double_buffer yes
 default_color white
 default_outline_color white
 default_shade_color white
@@ -40,12 +41,13 @@ gap_x 5
 gap_y 60
 minimum_size 5 5
 net_avg_samples 2
-no_buffers yes
 out_to_console no
 out_to_stderr no
 extra_newline no
-own_window no
+own_window yes
 own_window_transparent yes
+own_window_type desktop
+own_window_hints below,undecorated,sticky,skip_taskbar,skip_pager
 stippled_borders 0
 update_interval 1.0
 uppercase no
@@ -54,10 +56,9 @@ show_graph_scale no
 show_graph_range no
 
 TEXT
-${font Armata:size=50}${time %l:%M}${font Armata:size=24}${time %P}${font}
+${font Armata:size=50:style=bold}${time %l:%M}${font Armata:size=24}${time %P}${font}
 
 ${font Armata:size=20}${time %a} ${font Armata:size=36}${time %B %d}${font}
 
 ${color cyan}$nodename${color} - $sysname $kernel on $machine
 
-${font Armata:size=10}${exec ~/scripts/todo.sh -p ls}
