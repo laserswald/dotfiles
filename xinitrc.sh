@@ -50,5 +50,4 @@ xmonad|*)
     setupTiledWM &
     exec xmonad
     ;;
-
 esac

@@ -1,0 +1,30 @@
+MAILDIR=$HOME/mail/
+SHELL=/bin/zsh
+DEFAULT=$HOME/mail/inbox/
+
+# Stuff already sent.
+
+# Secular Student Alliance stuff.
+:0:
+* ^From: .*carl.*
+* ^From: .*@secularstudents.org
+
+* ^Subject: .*SSA
+* ^Subject: .*[Aa]theist
+
+* ^To: .*spsu@secularstudents\.org
+ssa/
+
+:0:
+* ^From: .*harvey
+* ^From: .*@github
+* ^From: .*@travis-ci
+*
+programming/
+
+:0:
+* ^From: .*spsu\.edu
+* spsu
+spsu/
+
+

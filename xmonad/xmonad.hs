@@ -122,10 +122,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Custom keybindings.
     , ((modm              , xK_v     ), spawn "gvim")             -- v for Vim.
     , ((modm .|. shiftMask, xK_v     ), spawn "urxvt -e vim")     -- V for Vim in console.
-    , ((modm              , xK_b     ), spawn "firefox")          -- b for Browser(Chromium).
+    , ((modm              , xK_b     ), spawn "dwb")          -- b for Browser(Chromium).
     , ((modm .|. shiftMask, xK_b     ), spawn "chromium")         -- B for Browser(Firefox).
-    , ((modm              , xK_f     ), spawn "pcmanfm")          -- f for Files. 
-    , ((modm .|. shiftMask, xK_f     ), spawn "thunar")           -- F for Files (Thunar)
+    , ((modm              , xK_f     ), spawn "urxvt -e ranger")          -- f for Files. 
+    , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")           -- F for Files (Thunar)
     , ((0                 , 0x1008ff11), spawn "amixer set Master 5%-")  -- Voldown
     , ((0                 , 0x1008ff13), spawn "amixer set Master 5%+")  -- Volup
     , ((0                 , 0x1008ff12), spawn "amixer set Master toggle")  -- Volmute

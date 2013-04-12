@@ -3,20 +3,17 @@
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
 
-" Editing section.
-"      Preferential bindings.
-
 let mapleader = ","  " Perhaps the best map leader.
 nnoremap ' `
 nnoremap ` '
 
-"      Set the multibuffer mappings to something more sane.
+" Set the multibuffer mappings to something more sane.
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-"      Vimrc autoloading.
+" Vimrc autoloading.
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
 " Automatic syntax highlighting and completion.
@@ -25,21 +22,20 @@ filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 set gfn=Clean
 set guioptions=aegirLt
-let g:SuperTabDefaultCompletionType = "context"
+set nocompatible
+set laststatus=2
+set encoding=utf-8
 
-" Filetype only stuff here.
-" Python.
 au FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python compiler nose
-" Java.
+au FileType python compiler nose
+au FileType c compiler speedunit
 
 " Tags.
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/c_std
-set hidden
 
+set hidden
 set autoread
-" Keeps Vim from autochanging directories.
 set noacd
 
 " Folding for indented programs.
@@ -52,42 +48,31 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 
-" Load up pathogen and the plugins therein.
+" Plugin settings and shortcuts.
 call pathogen#infect()
 
-" My leader mappings. It starts out at first with nothing but build stuff.
-
+"=== Writing and building.
 nmap <leader>w :w!<cr>
-" Write the current buffer. Super fast and super handy.
-
-"" Project mappings.
-"    Build the current project. Wham. Done.
 nmap <leader>b :MakeGreen<cr>
-
-"    I usually have a rebuild target in my build files that builds everything
-"    from scratch, so this is very useful.
 nmap <leader>B :MakeGreen("rebuild")<cr>
-
-
-"" Plugin settings.
-"    SingleCompile is awesome for really small stuff, like random C tiny programs
-"    and Java assignments that only have like one class. 
 nmap <leader>c :SCCompile<cr>
 nmap <leader>r :SCCompileRun<cr>
 
-" More plugin window shortcuts.
+"=== Information viewing.
 nmap <leader>v <Plug>TaskList
-nmap <leader>tg :TlistToggle<cr>
 nmap <leader>p :Project<cr>
 nmap <leader>f :NERDTreeToggle<cr>
-nmap <leader>dt <Plug>MakeGreen
+
+"==== Taglist.
+nmap <leader>tg :TlistToggle<cr>
 let Tlist_Use_Right_Window = 1
 
-" Edit the settings with [,s].
-nmap <leader>s :e ~/.vimrc<cr>
-" Delete the current buffer with [,d].
-nmap <leader>d :bd<cr>
-" Set to wombat, a very well meaning color scheme.
-colors wombat
+"==== SuperTab.
 
+nmap <leader>s :e ~/.vimrc<cr>
+nmap <leader>d :bd<cr>
+
+" Colors and visual tweaks.
+
+colors wombat
 

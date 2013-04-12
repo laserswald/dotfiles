@@ -34,3 +34,12 @@
 [submodule "vim/bundle/nose"]
 	path = vim/bundle/nose
 	url = https://github.com/lambdalisue/nose.vim.git
+[submodule "vim/bundle/ctrl-p"]
+	path = vim/bundle/ctrl-p
+	url = http://github.com/kien/ctrlp.vim
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = https://github.com/ervandew/supertab
+[submodule "vim/bundle/powerline"]
+	path = vim/bundle/powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
