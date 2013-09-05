@@ -9,6 +9,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.SpawnOnce
 import System.IO
 import System.Exit
 
@@ -17,16 +18,25 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 
+-- Useful functions.
+
+spawnAndNotify app title desc = spawn app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
+
 -- Settings.
 ----------------------------------------------------------------------- 
 myTerminal = "urxvt"
-myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "other"]
+myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "(other"]
 
 -- Statusbars.
 -----------------------------------------------------------------------
 myLeftBar = "dzen2 -w 800 -ta 'l' -xs 1"
 myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 800 -w 800 -ta r"
 
+
+-- Startup programs.
+-----------------------------------------------------------------------
+myStartupHook = do
+   spawnOnce "twmnd &"
 
 -- Management hooks.
 ----------------------------------------------------------------------- 
@@ -35,6 +45,7 @@ myManageHook = composeAll
     , className =? "Vncviewer" --> doFloat
     , className =? "net-minecraft-LauncherFrame" --> doShift "fun"
     , className =? "net-minecraft-LauncherFrame" --> doFloat
+    , className =? "irssi" --> doShift "chat"
     ]
 
 -- Log hook settings..
@@ -69,7 +80,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- Exit xmonad.
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")  -- Restart xmonad
+    , ((modm              , xK_q     ), spawnAndNotify "xmonad --recompile; xmonad --restart" "Xmonad" "Recompiled.")  -- Restart xmonad
     
     -- Applications.
     , ((modm              , xK_v     ), spawn "gvim")             -- v for Vim.
@@ -121,5 +132,6 @@ main = do
         , workspaces = myWorkspaces
         , keys = myKeys
         , handleEventHook = fullscreenEventHook
+        , startupHook = myStartupHook
         }
 
