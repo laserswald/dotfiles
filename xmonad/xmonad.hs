@@ -20,7 +20,7 @@ import qualified XMonad.StackSet as W
 -- Settings.
 ----------------------------------------------------------------------- 
 myTerminal = "urxvt"
-myWorkspaces = ["!term", "@net", "#code", "$graph", "%chat", "^fun", "&vid", "*music", "(other"]
+myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "other"]
 
 -- Statusbars.
 -----------------------------------------------------------------------
