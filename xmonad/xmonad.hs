@@ -90,6 +90,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_f     ), spawn "urxvt -e ranger")          -- f for Files. 
     , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")           -- F for Files (Thunar)
     , ((modm              , xK_c     ), spawn "urxvt -e irssi")
+    , ((modm .|. shiftMask, xK_m     ), spawn "urxvt -e mutt")
+
 
     -- Media Bar
     , ((0                 , 0x1008ff11), spawn "amixer set Master 5%-")  -- Voldown

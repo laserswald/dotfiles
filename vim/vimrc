@@ -3,6 +3,8 @@
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
 
+set g:snips_author="Ben Davenport-Ray"
+
 call pathogen#infect()
 
 """" General settings.
@@ -15,6 +17,7 @@ set encoding=utf-8
 set hidden
 set autoread
 set noacd
+set number
 
 " Tags.
 set tags+=~/.vim/tags/cpp
@@ -39,7 +42,7 @@ au! bufwritepost .vimrc source ~/.vimrc
 " Visual panels and looks.
 colors solarized
 let Tlist_Use_Right_Window = 1
-set gfn=Anonymous\ Pro\ 10
+set gfn=Terminus\ 10
 set guioptions=aegirLt
 
 """" Mappings.
@@ -47,26 +50,40 @@ let mapleader = ","  " Perhaps the best map leader.
 nnoremap ' `
 nnoremap ` '
 
+" Force to use mappings
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+inoremap <esc> <nop>
+
 " Set the multibuffer mappings to something more sane.
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-map <c-w> <c-w>w
+noremap <c-j> <c-w>j
+noremap <c-k> <c-w>k
+noremap <c-l> <c-w>l
+noremap <c-h> <c-w>h
+noremap <c-w> <c-w>w
 
+inoremap <Up> <nop>
+inoremap <Down> <nop>
+inoremap <Left> <nop>
+inoremap <Right> <nop>
+inoremap jk <esc>
 
-" Normal mode mappings. 
-nmap <leader>b      :MakeGreen<cr>
-nmap <leader>br     :MakeGreen("rebuild")<cr>
-nmap <leader>c      :SCCompile<cr>
-nmap <leader>d      :bd<cr>
-nmap <leader>f      :NERDTreeToggle<cr>
-nmap <leader>p      :Project<cr>
-nmap <leader>r      :SCCompileRun<cr>
-nmap <leader>v      :e ~/.vimrc<cr>
-nmap <leader>tg     :TlistToggle<cr>
-nmap <leader>tl      <Plug>TaskList
-nmap <leader>w      :w<cr>
-nmap <leader>W      :Gwrite<cr>
-nmap <leader>x      :cwin<cr>
+" Normal mode leader mappings. 
+nnoremap <leader>b      :MakeGreen<cr>
+nnoremap <leader>br     :MakeGreen("rebuild")<cr>
+nnoremap <leader>c      :SCCompile<cr>
+nnoremap <leader>d      :bd<cr>
+nnoremap <leader>f      :NERDTreeToggle<cr>
+nnoremap <leader>p      :Project<cr>
+nnoremap <leader>r      :SCCompileRun<cr>
+nnoremap <leader>sc     :e ~/dotfiles/vim/bundle/snipmate/snippets/c.snippets
+nnoremap <leader>scc    :e ~/dotfiles/vim/bundle/snipmate/snippets/cpp.snippets
+nnoremap <leader>v      :e ~/.vimrc<cr>
+nnoremap <leader>tg     :TlistToggle<cr>
+nnoremap <leader>tl      <Plug>TaskList
+nnoremap <leader>w      :w<cr>
+nnoremap <leader>W      :Gwrite<cr>
+nnoremap <leader>x      :cwin<cr>
 

@@ -1,8 +1,14 @@
 
 source ~/dotfiles/theme.sh
-serverlisten=$(netstat -ano | grep 25565 | grep LISTEN)
-if [[ $serverlisten == "" ]]; then
-    echo "[^fg($off)mc^fg()]"
-else 
-    echo "[^fg($on)mc^fg()]"
-fi
+ports=[25565 80]
+portservnames=[mc http]
+printf "["
+for (( i = 0; i < 2; i++ )); do
+    serverlisten=$(netstat -ano | grep ${ports[$i]} | grep LISTEN)
+    if [[ $serverlisten == "" ]]; then
+        printf "^fg($off)${portservnames[$i]}^fg()" 
+    else 
+        printf "^fg($on)${portservnames[$i]}^fg()" 
+    fi
+done
+printf "]"

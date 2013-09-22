@@ -16,4 +16,5 @@ autoload -Uz promptinit
 promptinit
 prompt oliver green
 
+export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
