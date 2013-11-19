@@ -35,6 +35,10 @@ xsetroot -cursor_name left_ptr &
 ~/.screenlayout/dualhead.sh 
 xrdb -merge ~/.Xresources &
 
+if [ -s ~/.Xmodmap ]; then
+    xmodmap ~/.Xmodmap
+fi
+
 case $1 in
 cinnamon)
     setupStandard &
@@ -51,6 +55,11 @@ xfce)
 openbox)
     setupTiledWM &
     exec openbox-session
+    ;;
+dwm)
+    setupTiledWM &
+    # twmnd &
+    exec dwm
     ;;
 xmonad|*)
     setupTiledWM &

@@ -20,7 +20,7 @@ import qualified XMonad.StackSet as W
 
 -- Useful functions.
 
-spawnAndNotify app title desc = spawn app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
+spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
 
 -- Settings.
 ----------------------------------------------------------------------- 
@@ -61,6 +61,7 @@ myLogHook proc = dynamicLogWithPP $ defaultPP
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ 
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
     , ((modm,               xK_p     ), spawn "dmenu_run")
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
     , ((modm .|. shiftMask, xK_c     ), kill)

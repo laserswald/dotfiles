@@ -3,9 +3,10 @@
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
 
-set g:snips_author="Ben Davenport-Ray"
 
 call pathogen#infect()
+
+let g:snips_author="Ben Davenport-Ray"
 
 """" General settings.
 syntax enable
@@ -24,7 +25,7 @@ set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/c_std
 
 " Folding for indented programs.
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 
 " Sets the tabs for four everything, all spaces.
@@ -42,7 +43,7 @@ au! bufwritepost .vimrc source ~/.vimrc
 " Visual panels and looks.
 colors solarized
 let Tlist_Use_Right_Window = 1
-set gfn=Terminus\ 10
+set gfn=Anonymous\ Pro\ 12
 set guioptions=aegirLt
 
 """" Mappings.

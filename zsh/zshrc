@@ -14,7 +14,9 @@ compinit
 
 autoload -Uz promptinit
 promptinit
-prompt oliver green
+prompt oliver white
 
 export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
+source "/home/ben/dotfiles/zsh/functions.zsh"
+
