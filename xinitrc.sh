@@ -1,6 +1,10 @@
 # laserdude's /.xinitrc
 #
 
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+    eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
     for f in /etc/X11/xinit/xinitrc.d/*; do
         [-x "$f"] && . "$f"
@@ -10,8 +14,10 @@ fi
 
 setupTiledWM(){
     echo "Starting tiling windows"
+    xcompmgr &
     nitrogen --restore &
     xscreensaver &
+    /usr/lib/lxpolkit/lxpolkit &
     wmname LG3D
 
     if [[ windowmgr == dwm ]]; then
@@ -34,7 +40,7 @@ setupStandard() {
 xsetroot -cursor_name left_ptr &
 ~/.screenlayout/dualhead.sh 
 xrdb -merge ~/.Xresources &
-
+twmnd &
 if [ -s ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
@@ -52,7 +58,7 @@ xfce)
     setupStandard &
     exec xfce4-session
     ;;
-openbox)
+openbox-session)
     setupTiledWM &
     exec openbox-session
     ;;
@@ -63,7 +69,7 @@ dwm)
     ;;
 xmonad|*)
     setupTiledWM &
-    # twmnd &
+    twmnd &
     exec xmonad
     ;;
 esac

@@ -1,4 +1,8 @@
 #!/bin/sh
-folder=$1
-newmailc=$(ls $folder/new | wc -l)
-echo $newmailc
+
+inbox(){
+    folder=$1
+    newmailc=$(ls $folder/new | wc -l)
+    echo $newmailc
+}
+inbox $1

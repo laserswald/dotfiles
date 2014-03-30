@@ -40,3 +40,9 @@
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = http://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/todotxt"]
+	path = bundle/todotxt
+	url = https://github.com/davidoc/todo.txt-vim.git
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = http://github.com/majutsushi/tagbar.git

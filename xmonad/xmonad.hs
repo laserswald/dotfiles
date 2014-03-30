@@ -19,18 +19,18 @@ import qualified XMonad.StackSet as W
 
 
 -- Useful functions.
-
 spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
 
 -- Settings.
 ----------------------------------------------------------------------- 
 myTerminal = "urxvt"
-myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "(other"]
+myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "other"]
+myFont = "envycoder:size=10"
 
 -- Statusbars.
 -----------------------------------------------------------------------
-myLeftBar = "dzen2 -w 800 -ta 'l' -xs 1"
-myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 800 -w 800 -ta r"
+myLeftBar = "dzen2 -w 600 -ta l -xs 1 -fn " ++ myFont
+myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 600 -w 1000 -ta r -fn " ++ myFont
 
 
 -- Startup programs.
@@ -55,7 +55,18 @@ myLogHook proc = dynamicLogWithPP $ defaultPP
     , ppTitle = dzenColor "green" "" . shorten 50
     , ppCurrent = dzenColor "yellow" ""
     , ppUrgent = dzenColor "orange" ""
+    , ppLayout = myLayout
     }
+
+xbmPath = "/usr/share/icons/stlarch_icons/"
+
+dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
+
+myLayout n 
+    | n == "Full" = dzenIcon "monocle.xbm"
+    | n == "Tall" = dzenIcon "tile.xbm"
+    | n == "Mirror Tall" = dzenIcon "bstack.xbm" 
+    | otherwise = n
 
 -- Key Bindings.
 -----------------------------------------------------------------------
@@ -85,7 +96,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     
     -- Applications.
     , ((modm              , xK_v     ), spawn "gvim")             -- v for Vim.
-    , ((modm .|. shiftMask, xK_v     ), spawn "urxvt-e vim")     -- V for Vim in console.
+    , ((modm .|. shiftMask, xK_v     ), spawn "urxvt -e vim")     -- V for Vim in console.
     , ((modm              , xK_b     ), spawn "dwb")          -- b for Browser(Chromium).
     , ((modm .|. shiftMask, xK_b     ), spawn "chromium")         -- B for Browser(Firefox).
     , ((modm              , xK_f     ), spawn "urxvt -e ranger")          -- f for Files. 

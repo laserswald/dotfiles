@@ -1,3 +1,3 @@
 source ~/dotfiles/theme.sh
-action=$(/home/ben/bin/todoc -p ls | head -1)
-echo "na: $action"
+action=$(todoc -f ~/org/todo.txt -p ls | head -1)
+echo "^i(/home/ben/dotfiles/dzen/sm4tik-icon-pack/xbm/info_03.xbm) $action"

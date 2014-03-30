@@ -19,4 +19,5 @@ prompt oliver white
 export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
 source "/home/ben/dotfiles/zsh/functions.zsh"
+eval "$(fasd --init auto)"
 
