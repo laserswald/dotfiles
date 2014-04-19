@@ -81,10 +81,10 @@ snippet println
 snippet getset
 	private ${1:String} ${2:Var};
 	
-	public ${1} get${2}(){
-		return ${2};
+	public ${1:} get${2:}(){
+		return ${2:};
 	}
 	
-	public void set${2}(${1} ${2}){
-		this.${2} = ${2};
+	public void set${2:}(${1:} ${2:}){
+		this.${2:} = ${2:};
 	}

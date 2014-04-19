@@ -12,10 +12,17 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-autoload -Uz promptinit
-promptinit
-prompt oliver white
+autoload -U colors && colors
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' check-for-changes true
+precmd(){
+    vcs_info
+}
 
+zstyle ':vcs_info:git*' formats " [%s %{$fg[white]%}%r%{$reset_color%} %{$fg[yellow]%}%b%{$reset_color%} %m%{$fg[red]%}%u%{$reset_color%}%{$fg[magenta]%}%c%{$reset_color%}]"
+setopt prompt_subst
+prompt='%{$fg[green]%}%n%{$reset_color%}%# at %{$fg[blue]%}%m%{$reset_color%}${vcs_info_msg_0_}> '
 export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
 source "/home/ben/dotfiles/zsh/functions.zsh"
