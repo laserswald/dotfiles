@@ -45,7 +45,8 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 
 " Visual panels and looks
-colors solarized
+colors vividchalk
+set background=light
 let Tlist_Use_Right_Window = 1
 set gfn=Envy\ Code\ R\ 11
 " set gfn=Inconsolata\ 12

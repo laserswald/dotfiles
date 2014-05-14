@@ -17,6 +17,9 @@ import System.Exit
 import qualified Data.Map as M 
 import qualified XMonad.StackSet as W
 
+-- Prompts
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
 -- Useful functions.
 spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
@@ -103,6 +106,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")           -- F for Files (Thunar)
     , ((modm              , xK_c     ), spawn "urxvt -e irssi")
     , ((modm .|. shiftMask, xK_m     ), spawn "urxvt -e mutt")
+
+    -- Prompts.
+    --TODO: Looks like we need a better XPconfig
+    , ((modm .|. shiftMask, xK_slash), shellPrompt defaultXPConfig)
+    
+    
 
 
     -- Media Bar
