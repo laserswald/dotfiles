@@ -43,9 +43,6 @@
 [submodule "bundle/todotxt"]
 	path = bundle/todotxt
 	url = https://github.com/davidoc/todo.txt-vim.git
-[submodule "vim/bundle/tagbar"]
-	path = vim/bundle/tagbar
-	url = http://github.com/majutsushi/tagbar.git
 [submodule "vim/bundle/vim-argumentative"]
 	path = vim/bundle/vim-argumentative
 	url = http://github.com/PeterRincker/vim-argumentative
@@ -55,3 +52,6 @@
 [submodule "vim/bundle/jellybeans"]
 	path = vim/bundle/jellybeans
 	url = http://github.com/nanotech/jellybeans.vim.git
+[submodule "vim/bundle/molokai"]
+	path = vim/bundle/molokai
+	url = http://github.com/tomasr/molokai.git

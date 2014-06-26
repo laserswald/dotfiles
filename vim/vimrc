@@ -6,8 +6,6 @@
 
 call pathogen#infect()
 
-
-
 """" General settings.
 syntax enable
 filetype plugin indent on
@@ -45,8 +43,9 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 
 " Visual panels and looks
-colors vividchalk
-set background=light
+colors solarized
+
+set background=dark
 let Tlist_Use_Right_Window = 1
 set gfn=Envy\ Code\ R\ 11
 " set gfn=Inconsolata\ 12
@@ -93,7 +92,7 @@ nnoremap <leader>r      :SCCompileRun<cr>
 nnoremap <leader>sc     :e ~/dotfiles/vim/bundle/snipmate/snippets/c.snippets
 nnoremap <leader>scc    :e ~/dotfiles/vim/bundle/snipmate/snippets/cpp.snippets
 nnoremap <leader>v      :e ~/.vimrc<cr>
-nnoremap <leader>tg     :TagbarToggle<cr>
+nnoremap <leader>tg     :TlistToggle<cr>
 nnoremap <leader>tl      <Plug>TaskList
 nnoremap <leader>w      :w<cr>
 nnoremap <leader>W      :Gwrite<cr>
