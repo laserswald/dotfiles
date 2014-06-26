@@ -9,14 +9,19 @@ get_subs(){
 }
 
 inst_vim(){
-    ln -s ~/.vim vim
-    ln -s ~/.vimrc vim/vimrc
+    ln -s vim ~/.vim
+    ln -s vim/vimrc ~/.vimrc
 }
+
 inst_xmonad(){
-    ln -s ~/.xmonad xmonad
+    ln -s xmonad ~/.xmonad
+}
+
+inst_tmux(){
+    ln -s tmux.conf ~/.tmux.conf
 }
 
 get_subs
 inst_vim
 inst_xmonad
-
+inst_tmux
