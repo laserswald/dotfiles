@@ -19,7 +19,7 @@ set noacd
 set number
 set vb
 set nocp
-
+set backspace=indent,eol,start
 
 " Tags.
 set tags+=~/.vim/tags/cpp_tags
@@ -38,7 +38,7 @@ set expandtab
 au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python compiler nose
 au FileType c compiler speedunit
-au! bufwritepost .vimrc source ~/.vimrc
+au! bufwritepost $MYVIMRC source $MYVIMRC
 au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 
@@ -47,9 +47,16 @@ colors solarized
 
 set background=dark
 let Tlist_Use_Right_Window = 1
-set gfn=Envy\ Code\ R\ 11
-" set gfn=Inconsolata\ 12
-" set gfn=Anonymous\ Pro\ 12
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=inconsolata:h12
+    cd ~
+  endif
+endif
 set guioptions=aegirLt
 
 """" Mappings.
@@ -91,7 +98,7 @@ nnoremap <leader>p      :Project<cr>
 nnoremap <leader>r      :SCCompileRun<cr>
 nnoremap <leader>sc     :e ~/dotfiles/vim/bundle/snipmate/snippets/c.snippets
 nnoremap <leader>scc    :e ~/dotfiles/vim/bundle/snipmate/snippets/cpp.snippets
-nnoremap <leader>v      :e ~/.vimrc<cr>
+nnoremap <leader>ev     :vsplit $MYVIMRC<cr>
 nnoremap <leader>tg     :TlistToggle<cr>
 nnoremap <leader>tl      <Plug>TaskList
 nnoremap <leader>w      :w<cr>
