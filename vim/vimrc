@@ -48,7 +48,7 @@ colors solarized
 set background=dark
 let Tlist_Use_Right_Window = 1
 set gfn=Envy\ Code\ R\ 11
-" set gfn=Inconsolata\ 12
+set gfn=Inconsolata\ 12
 " set gfn=Anonymous\ Pro\ 12
 set guioptions=aegirLt
 
