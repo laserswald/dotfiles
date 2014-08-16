@@ -53,7 +53,7 @@ xfce)
     setupStandard &
     exec xfce4-session
     ;;
-openbox-session)
+openbox-session|*)
     setupTiledWM &
     exec openbox-session
     ;;

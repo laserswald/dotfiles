@@ -1102,7 +1102,7 @@ if !exists("b:otl_installed_mappings")
     nnoremap <buffer><silent> <LocalLeader>h            :let g:otl_bold_headers=!g:otl_bold_headers<CR>:syn enable<CR>
 
     " Word count
-    nnoremap <buffer><silent> <LocalLeader>w	          :silent! call <SID>OtlCountWords()<CR>
+    " nnoremap <buffer><silent> <LocalLeader>w	          :silent! call <SID>OtlCountWords()<CR>
 
     " Demote or promote current
     nnoremap <buffer><silent> <LocalLeader>>            :call <SID>OtlPromoteBy(-1)<CR>
