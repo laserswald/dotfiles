@@ -9,23 +9,32 @@ get_subs(){
 }
 
 inst_vim(){
-    ln -s vim ~/.vim
-    ln -s vim/vimrc ~/.vimrc
+    ln -s ~/dotfiles/vim ~/.vim
+    ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 }
 
 inst_xmonad(){
-    ln -s xmonad ~/.xmonad
+    ln -s ~/dotfiles/xmonad ~/.xmonad
 }
 
 inst_tmux(){
-    ln -s tmux.conf ~/.tmux.conf
+    ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+}
+
+inst_zsh(){
+    ln -s ~/dotfiles/zsh/zshrc ~/.zshrc
+    ln -s ~/dotfiles/zsh/zlogin ~/.zlogin
+    ln -s ~/dotfiles/zsh/zprofile ~/.zprofile
+    ln -s ~/dotfiles/zsh/zshenv ~/.zshenv
 }
 
 inst_urxvt(){
     ln -s Xresources ~/.Xresources
 }
 get_subs
+
 inst_vim
 inst_xmonad
 inst_tmux
 inst_urxvt
+inst_zsh
