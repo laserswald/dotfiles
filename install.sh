@@ -21,7 +21,11 @@ inst_tmux(){
     ln -s tmux.conf ~/.tmux.conf
 }
 
+inst_urxvt(){
+    ln -s Xresources ~/.Xresources
+}
 get_subs
 inst_vim
 inst_xmonad
 inst_tmux
+inst_urxvt
