@@ -22,8 +22,8 @@ precmd(){
 
 zstyle ':vcs_info:git*' formats " [%s %{$fg[white]%}%r%{$reset_color%} %{$fg[yellow]%}%b%{$reset_color%} %m%{$fg[red]%}%u%{$reset_color%}%{$fg[magenta]%}%c%{$reset_color%}]"
 setopt prompt_subst
-prompt='%{$fg[green]%}%n%{$reset_color%}%# at %{$fg[blue]%}%m%{$reset_color%}${vcs_info_msg_0_}> '
-rprompt='%d'
+PROMPT='%{$fg[green]%}%n%{$reset_color%}%# at %{$fg[blue]%}%m%{$reset_color%}${vcs_info_msg_0_}> '
+RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
 export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
 source "/home/ben/dotfiles/zsh/functions.zsh"
