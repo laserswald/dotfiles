@@ -33,7 +33,7 @@ myFont = "envycoder:size=10"
 -- Statusbars.
 -----------------------------------------------------------------------
 myLeftBar = "dzen2 -w 600 -ta l -xs 1 -fn " ++ myFont
-myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 600 -w 1000 -ta r -fn " ++ myFont
+myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 600 -w 1320 -ta r -fn " ++ myFont
 
 
 -- Startup programs.
