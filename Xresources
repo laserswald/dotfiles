@@ -1,6 +1,6 @@
 URxvt.depth: 32
-#include ".urxvt_solarized_theme"
-!#include ".urxvt_theme_eleven"
+!#include "urxvt_solarized_theme"
+#include "urxvt_theme_eleven"
 Rxvt.font:              xft:Envy Code R:style=Regular:size=12
 URxvt.perl-ext: default,url-select
 URxvt.keysym.M-u: perl:url-select:select_next

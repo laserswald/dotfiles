@@ -48,4 +48,5 @@ export EDITOR="vim"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
 source "/home/ben/dotfiles/zsh/functions.zsh"
 eval "$(fasd --init auto)"
+PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
 

@@ -1,24 +1,31 @@
-#!/bin/bash
+#!/bin/sh
 # Installs this repository.
 # Make sure you have cloned this repo in your user directory.
 # If your user directory is 'user' then this repo should be "/home/user/dotfiles".
+
+dfdir="/home/$USER/dotfiles"
 
 get_subs(){
     git submodule init
     git submodule update
 }
 
+#install dot file
+idf(){
+    ln -s $dfdir/$1 ~/.$1
+}
+
 inst_vim(){
-    ln -s ~/dotfiles/vim ~/.vim
+    idf vim
     ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 }
 
 inst_xmonad(){
-    ln -s ~/dotfiles/xmonad ~/.xmonad
+    idf xmonad 
 }
 
 inst_tmux(){
-    ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+    idf tmux.conf
 }
 
 inst_zsh(){
@@ -29,12 +36,15 @@ inst_zsh(){
 }
 
 inst_urxvt(){
-    ln -s Xresources ~/.Xresources
+    echo $dfdir
+    idf Xresources
 }
+
+
 get_subs
 
 inst_vim
 inst_xmonad
-inst_tmux
 inst_urxvt
+inst_tmux
 inst_zsh
