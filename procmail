@@ -1,6 +1,6 @@
 MAILDIR=$HOME/mail/
 SHELL=/bin/zsh
-DEFAULT=$HOME/mail/inbox/
+DEFAULT=$HOME/mail/in/
 
 # Stuff already sent.
 
@@ -8,13 +8,13 @@ DEFAULT=$HOME/mail/inbox/
 :0:
 * ^From: .*carl.*
 * ^From: .*@secularstudents.org
-
 * ^Subject: .*SSA
 * ^Subject: .*[Aa]theist
-
+* ^Subject: .*[Ss]ecular
 * ^To: .*spsu@secularstudents\.org
 ssa/
 
+# Computer programming
 :0:
 * ^From: .*harvey
 * ^From: .*@github
@@ -26,5 +26,4 @@ programming/
 * ^From: .*spsu\.edu
 * spsu
 spsu/
-
 
