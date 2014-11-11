@@ -30,6 +30,8 @@ Plugin 'tpope/vim-projectionist'
 Plugin 'vim-scripts/Scons-compiler-plugin'
 Plugin 'laserdude11/vim-minunit'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'jpalardy/vim-slime'
+Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 
@@ -61,12 +63,12 @@ set vb
 " Tags.
 
 " Visual panels and looks
-colors jellybeans
+set background=dark
+let base16colorspace=256
+colors base16-default
 
 if has("gui_running")
   if has("gui_gtk2")
-    colors solarized
-    set background=light
     set guifont=Inconsolata-g\ for\ Powerline\ 11
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
@@ -134,6 +136,10 @@ nnoremap <leader>w      :w<cr>
 
 "" Plugin settings.
 """""""""""""""""""
+
+" Vim Slime!
+let g:slime_target = "tmux"
+
 let g:airline_powerline_fonts = 1
 let g:SuperTabDefaultCompletionType = 'context'
 
