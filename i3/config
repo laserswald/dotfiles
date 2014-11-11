@@ -174,9 +174,10 @@ bar {
 # -- Laser
 
 exec --no-startup-id i3-msg 'exec skype'
-exec --no-startup-id "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs Ruuua r -fn inconsolata"
+exec --no-startup-id "conky -c ~/dotfiles/dzconkyrc | dzen2 -ta r -fn inconsolata"
+bindsym Mod4+Shift+m exec urxvt -e mutt
 bindsym Mod4+Shift+Return exec urxvt -e tmux
-bindsym Mod4+Shift+b exec dwb
+bindsym Mod4+Shift+b exec chromium
 
 
 #######################################################################
