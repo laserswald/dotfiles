@@ -6,8 +6,8 @@ appnd () {
 }
 
 # Todo.txt aliases.
-alias t="todoc -f ~/org/todo.txt"
-alias ta="t append"
+alias t="todo.sh"
+alias ta="t add"
 alias tl="t ls"
 
 # Environment aliases.
@@ -18,6 +18,8 @@ alias ping="ping -c 3"
 alias ls="ls --color -xX"
 alias eclimd="/usr/share/eclipse/eclimd"
 alias v="f -e vim"
+## Make this a function. Wheeeee!
+alias pomo="sleep 25m && printf '\apomodoro done!\n'"
 
 # Git flow aliases
 gfmkfeat(){
