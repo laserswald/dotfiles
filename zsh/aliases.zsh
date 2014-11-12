@@ -11,7 +11,9 @@ alias ta="t add"
 alias tl="t ls"
 
 # Environment aliases.
-alias eal="vim ~/dotfiles/zsh/aliases.zsh"
+alias ea="vim ~/dotfiles/zsh/aliases.zsh"
+alias ei3="vim ~/dotfiles/i3/config"
+alias reload="source ~/.zshrc"
 
 # Ease of use aliases.
 alias ping="ping -c 3"
