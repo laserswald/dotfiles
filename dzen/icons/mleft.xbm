@@ -1,0 +1,4 @@
+#define mleft_width 8
+#define mleft_height 8
+static unsigned short mleft_bits[] = {
+   0x00ff, 0x0091, 0x00f1, 0x0091, 0x0091, 0x00f1, 0x0091, 0x00ff };

@@ -1,0 +1,4 @@
+#define tabs_width 8
+#define tabs_height 8
+static unsigned short tabs_bits[] = {
+   0x00ff, 0x009f, 0x00ff, 0x0081, 0x0081, 0x0081, 0x0081, 0x00ff };

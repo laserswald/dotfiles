@@ -1,0 +1,4 @@
+#define vim_width 8
+#define vim_height 8
+static unsigned short vim_bits[] = {
+   0x0000, 0x00f7, 0x0066, 0x0036, 0x001e, 0x002e, 0x00f6, 0x00f2 };
