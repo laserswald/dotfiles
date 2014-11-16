@@ -31,111 +31,113 @@ set $down j
 set $left h
 set $right l
 
-# use Mouse+Mod4 to drag floating windows to their wanted position
-floating_modifier Mod4
+set $modkey Mod4
+
+# use Mouse+$modkey to drag floating windows to their wanted position
+floating_modifier $modkey
 
 # start a terminal
-bindsym Mod4+Return exec urxvt
+bindsym $modkey+Return exec urxvt
 
 # kill focused window
-bindsym Mod4+Shift+c kill
+bindsym $modkey+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym Mod4+p exec dmenu_run
+bindsym $modkey+p exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $modkey+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym Mod4+$left focus left
-bindsym Mod4+$down focus down
-bindsym Mod4+$up focus up
-bindsym Mod4+$right focus right
+bindsym $modkey+$left focus left
+bindsym $modkey+$down focus down
+bindsym $modkey+$up focus up
+bindsym $modkey+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod4+Left focus left
-bindsym Mod4+Down focus down
-bindsym Mod4+Up focus up
-bindsym Mod4+Right focus right
+bindsym $modkey+Left focus left
+bindsym $modkey+Down focus down
+bindsym $modkey+Up focus up
+bindsym $modkey+Right focus right
 
 # move focused window
-bindsym Mod4+Shift+$left move left
-bindsym Mod4+Shift+$down move down
-bindsym Mod4+Shift+$up move up
-bindsym Mod4+Shift+$right move right
+bindsym $modkey+Shift+$left move left
+bindsym $modkey+Shift+$down move down
+bindsym $modkey+Shift+$up move up
+bindsym $modkey+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod4+Shift+Left move left
-bindsym Mod4+Shift+Down move down
-bindsym Mod4+Shift+Up move up
-bindsym Mod4+Shift+Right move right
+bindsym $modkey+Shift+Left move left
+bindsym $modkey+Shift+Down move down
+bindsym $modkey+Shift+Up move up
+bindsym $modkey+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod4+b split h
+bindsym $modkey+b split h
 
 # split in vertical orientation
-bindsym Mod4+v split v
+bindsym $modkey+v split v
 
 # enter fullscreen mode for the focused container
 # Xmonad default binding; m for monocle
-bindsym Mod4+m fullscreen
+bindsym $modkey+m fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod4+s layout stacking
-bindsym Mod4+t layout tabbed
-bindsym Mod4+e layout toggle split
+bindsym $modkey+s layout stacking
+bindsym $modkey+t layout tabbed
+bindsym $modkey+e layout toggle split
 
 # toggle tiling / floating
-bindsym Mod4+Shift+space floating toggle
+bindsym $modkey+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod4+space focus mode_toggle
+bindsym $modkey+space focus mode_toggle
 
 # focus the parent container
-bindsym Mod4+a focus parent
+bindsym $modkey+a focus parent
 
 # focus the child container
 # Bound to z because z is below a and for sense making
-bindsym Mod4+z focus child
+bindsym $modkey+z focus child
 
 # move the currently focused window to the scratchpad
-bindsym Mod4+Shift+minus move scratchpad
+bindsym $modkey+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod4+minus scratchpad show
+bindsym $modkey+minus scratchpad show
 
 # switch to workspace
-bindsym Mod4+1 workspace number 1 term
-bindsym Mod4+2 workspace number 2 net
-bindsym Mod4+3 workspace number 3 proj
-bindsym Mod4+4 workspace number 4 work
-bindsym Mod4+5 workspace number 5 comm
-bindsym Mod4+6 workspace number 6 games
-bindsym Mod4+7 workspace number 7 srv
-bindsym Mod4+8 workspace number 8 alpha
-bindsym Mod4+9 workspace number 9 beta
-bindsym Mod4+0 workspace number 10 omega
+bindsym $modkey+1 workspace number 1 term
+bindsym $modkey+2 workspace number 2 net
+bindsym $modkey+3 workspace number 3 proj
+bindsym $modkey+4 workspace number 4 work
+bindsym $modkey+5 workspace number 5 comm
+bindsym $modkey+6 workspace number 6 games
+bindsym $modkey+7 workspace number 7 srv
+bindsym $modkey+8 workspace number 8 alpha
+bindsym $modkey+9 workspace number 9 beta
+bindsym $modkey+0 workspace number 10 omega
 
 # move focused container to workspace
-bindsym Mod4+Shift+1 move container to workspace number 1 term
-bindsym Mod4+Shift+2 move container to workspace number 2 net
-bindsym Mod4+Shift+3 move container to workspace number 3 proj
-bindsym Mod4+Shift+4 move container to workspace number 4 work
-bindsym Mod4+Shift+5 move container to workspace number 5 comm
-bindsym Mod4+Shift+6 move container to workspace number 6 games
-bindsym Mod4+Shift+7 move container to workspace number 7 srv
-bindsym Mod4+Shift+8 move container to workspace number 8 alpha
-bindsym Mod4+Shift+9 move container to workspace number 9 beta
-bindsym Mod4+Shift+0 move container to workspace number 10 omega
+bindsym $modkey+Shift+1 move container to workspace number 1 term
+bindsym $modkey+Shift+2 move container to workspace number 2 net
+bindsym $modkey+Shift+3 move container to workspace number 3 proj
+bindsym $modkey+Shift+4 move container to workspace number 4 work
+bindsym $modkey+Shift+5 move container to workspace number 5 comm
+bindsym $modkey+Shift+6 move container to workspace number 6 games
+bindsym $modkey+Shift+7 move container to workspace number 7 srv
+bindsym $modkey+Shift+8 move container to workspace number 8 alpha
+bindsym $modkey+Shift+9 move container to workspace number 9 beta
+bindsym $modkey+Shift+0 move container to workspace number 10 omega
 
 # reload the configuration file
-bindsym Mod4+Shift+x reload
+bindsym $modkey+Shift+x reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod4+Shift+r restart
+bindsym $modkey+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $modkey+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -161,12 +163,12 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym Mod4+r mode "resize"
+bindsym $modkey+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
+    status_command $HOME/dotfiles/i3/conky.sh
 }
 
 
@@ -175,9 +177,9 @@ bar {
 
 exec --no-startup-id i3-msg 'exec skype'
 exec --no-startup-id "conky -c ~/dotfiles/dzconkyrc | dzen2 -ta r -fn inconsolata"
-bindsym Mod4+Shift+m exec urxvt -e mutt
-bindsym Mod4+Shift+Return exec urxvt -e tmux
-bindsym Mod4+Shift+b exec chromium
+bindsym $modkey+Shift+m exec urxvt -e mutt
+bindsym $modkey+Shift+Return exec urxvt -e tmux
+bindsym $modkey+Shift+b exec chromium
 
 
 #######################################################################

@@ -1,8 +1,8 @@
 #!/bin/sh
 source ~/dotfiles/theme.sh
 numupdates=$( pacman -Qu | wc -l )
-color=$yellow
+color=$on
 if [ $numupdates -eq 0 ]; then 
-   color=$blue 
+   color=$off
 fi
-printf "^fg($color)^i(/home/ben/dotfiles/dzen/sm4tik-icon-pack/xbm/pacman.xbm) $numupdates^fg()"
+printf "^fg($color)^i(/home/ben/dotfiles/dzen/icons/pacman.xbm) $numupdates^fg()"

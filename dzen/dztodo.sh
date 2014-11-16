@@ -1,3 +1,3 @@
 source ~/dotfiles/theme.sh
-action=$(todoc -f ~/org/todo.txt -p ls | head -1)
-echo "$action"
+action=$(~/scripts/todo.sh -p ls | head -1)
+echo $action

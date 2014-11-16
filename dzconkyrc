@@ -6,4 +6,4 @@ total_run_times 0
 use_spacer none
 
 TEXT
-${exec ~/dotfiles/dzen/dztodo.sh} | ${exec ~/dotfiles/dzen/dzmcstatus.sh} | ${exec ~/dotfiles/dzen/dzinbox.sh} | ${exec ~/dotfiles/dzen/dzpacman.sh} | ${exec ~/dotfiles/dzen/dzvol.sh} | ^fg(\#0071ff)${time %a %b %d %I:%M%P}^fg() 
+${exec ~/dotfiles/dzen/dztodo.sh} | ${exec ~/dotfiles/dzen/dzmcstatus.sh} | ${exec ~/dotfiles/dzen/dzinbox.sh} | ${exec ~/dotfiles/dzen/dzpacman.sh} | ${exec ~/dotfiles/dzen/dzvol.sh} | ${exec ~/dotfiles/dzen/dztime.sh}

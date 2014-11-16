@@ -21,20 +21,26 @@ import qualified XMonad.StackSet as W
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 
+-- Color theme.
+-- solarized!
+solar-fg = "#839496"
+solar-bg = "#002b36"
+
 -- Useful functions.
+----------------------------------------------------------------------- 
 spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
 
 -- Settings.
 ----------------------------------------------------------------------- 
 myTerminal = "urxvt"
 myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "other"]
-myFont = "envycoder:size=10"
+myFont = "terminesspowerline:size=10"
 
 -- Statusbars.
 -----------------------------------------------------------------------
-myLeftBar = "dzen2 -w 600 -ta l -xs 1 -fn " ++ myFont
-myRightBar = "conky -c ~/dotfiles/dzconkyrc | dzen2 -xs 1 -x 600 -w 1320 -ta r -fn " ++ myFont
+myLeftBar = "~/dotfiles/dzen/left.sh"
 
+myRightBar = "~/dotfiles/dzen/right.sh"
 
 -- Startup programs.
 -----------------------------------------------------------------------
@@ -55,20 +61,21 @@ myManageHook = composeAll
 -----------------------------------------------------------------------
 myLogHook proc = dynamicLogWithPP $ defaultPP
     { ppOutput = hPutStrLn proc
-    , ppTitle = dzenColor "green" "" . shorten 50
-    , ppCurrent = dzenColor "yellow" ""
-    , ppUrgent = dzenColor "orange" ""
+    , ppTitle = dzenColor "#93a1a1" "" . shorten 50
+    , ppCurrent = dzenColor "#eee8d5" ""
+    , ppUrgent = dzenColor "#d33682" ""
     , ppLayout = myLayout
     }
 
-xbmPath = "/usr/share/icons/stlarch_icons/"
+xbmPath = "/home/ben/dotfiles/dzen/icons/"
 
 dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
 
-myLayout n 
-    | n == "Full" = dzenIcon "monocle.xbm"
-    | n == "Tall" = dzenIcon "tile.xbm"
-    | n == "Mirror Tall" = dzenIcon "bstack.xbm" 
+myLayout :: String -> String
+myLayout n  
+    | n == "Full" = dzenIcon "fullscr.xbm"
+    | n == "Tall" = dzenIcon "half.xbm"
+    | n == "Mirror Tall" = dzenIcon "test.xbm" 
     | otherwise = n
 
 -- Key Bindings.
@@ -156,5 +163,7 @@ main = do
         , keys = myKeys
         , handleEventHook = fullscreenEventHook
         , startupHook = myStartupHook
+        , normalBorderColor = "#002b36"
+        , focusedBorderColor = "#839496"
         }
 

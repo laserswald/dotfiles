@@ -65,7 +65,7 @@ set vb
 " Visual panels and looks
 set background=dark
 let base16colorspace=256
-colors base16-default
+colors jellybeans
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -118,6 +118,7 @@ nnoremap <leader>d      :bd<cr>
 nnoremap <leader>ev     :vsplit $MYVIMRC<cr>
 nnoremap <leader>f      :e.<cr>
 nnoremap <leader>fs     :sp.<cr>
+nnoremap <leader>fv     :vsp.<cr>
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
 nnoremap <leader>gs     :Gstatus<cr>
@@ -131,7 +132,7 @@ nnoremap <leader>scc    :e ~/dotfiles/vim/bundle/vim-snippets/snippets/cpp.snipp
 nnoremap <leader>sj     :e ~/dotfiles/vim/bundle/vim-snippets/snippets/java.snippets<cr>
 nnoremap <leader>t      :TagbarToggle<cr>
 nnoremap <leader>v      :vsplit<cr>
-nnoremap <leader>x      :cwin<cr>
+nnoremap <leader>m      :cwin<cr>
 nnoremap <leader>w      :w<cr>
 
 "" Plugin settings.
