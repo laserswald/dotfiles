@@ -1,0 +1,6 @@
+*.sw?
+.o
+.errors
+xmonad-x*
+.hi
+
