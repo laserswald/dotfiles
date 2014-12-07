@@ -2,7 +2,6 @@
 " My Vimrc for awesomeness.
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
-
 set nocompatible
 filetype off
 
@@ -17,7 +16,6 @@ Plugin 'fholgado/minibufexpl.vim'
 Plugin 'reinh/vim-makegreen'
 Plugin 'nanotech/jellybeans'
 Plugin 'bling/vim-airline'
-Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
@@ -32,6 +30,8 @@ Plugin 'laserdude11/vim-minunit'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jpalardy/vim-slime'
 Plugin 'chriskempson/base16-vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'ervandew/supertab'
 
 call vundle#end()
 
@@ -65,7 +65,7 @@ set vb
 " Visual panels and looks
 set background=dark
 let base16colorspace=256
-colors jellybeans
+colors base16-default
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -108,32 +108,40 @@ noremap j gj
 noremap k gk
 
 "" Normal mode leader mappings. 
-"""""""""""""""""""""""""""""""
 
-" Plugin mappings.
+" Highest level mappings.
+" Class b: build
 nnoremap <leader>b      :MakeGreen<cr>
+nnoremap <leader>bf     :SCCompile<cr>
 nnoremap <leader>br     :MakeGreen("rebuild")<cr>
-nnoremap <leader>c      :SCCompile<cr>
+nnoremap <leader>be     :MakeGreen("run")   
 nnoremap <leader>d      :bd<cr>
-nnoremap <leader>ev     :vsplit $MYVIMRC<cr>
+nnoremap <leader>e      :! ./%<cr>
+nnoremap <leader>ev     :e $MYVIMRC<cr>
+" Class f: file
 nnoremap <leader>f      :e.<cr>
 nnoremap <leader>fs     :sp.<cr>
 nnoremap <leader>fv     :vsp.<cr>
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
 nnoremap <leader>gs     :Gstatus<cr>
+
 " Playback the current macro, go to the first letter of the next line
 nnoremap <leader>j      @qj^
-nnoremap <leader>p      :Project<cr>
+nnoremap <leader>n      :bn<cr>   
+nnoremap <leader>p      :bp<cr>
 nnoremap <leader>r      :SCCompileRun<cr>
+
 " Edit snippets files.
-nnoremap <leader>sc     :e ~/dotfiles/vim/bundle/vim-snippets/snippets/c.snippets<cr>
-nnoremap <leader>scc    :e ~/dotfiles/vim/bundle/vim-snippets/snippets/cpp.snippets<cr>
-nnoremap <leader>sj     :e ~/dotfiles/vim/bundle/vim-snippets/snippets/java.snippets<cr>
+nnoremap <leader>s      :split<cr>   
+nnoremap <leader>sn     :UltiSnipsEdit<cr>
 nnoremap <leader>t      :TagbarToggle<cr>
 nnoremap <leader>v      :vsplit<cr>
 nnoremap <leader>m      :cwin<cr>
 nnoremap <leader>w      :w<cr>
+
+"" Visual mode leader mappings. 
+vnoremap <leader>mnf  "md:enew"mp
 
 "" Plugin settings.
 """""""""""""""""""
@@ -142,15 +150,18 @@ nnoremap <leader>w      :w<cr>
 let g:slime_target = "tmux"
 
 let g:airline_powerline_fonts = 1
-let g:SuperTabDefaultCompletionType = 'context'
 
 " Easytags.
 
-" Snippets.
+" Snippets, autocompletion
 let g:snips_author="Ben Davenport-Ray"
+let g:SuperTabDefaultCompletionType = '<c-tab>'
+let g:ycm_key_list_select_completion = ['<c-tab>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-s-tab>', '<Up>']
 
 " Ctrl-P.
-let g:ctrlp_map = '<c-p>'
+
+let g:ctrlp_map = '<c-p>' 
 
 " OmniC++.
 let OmniCpp_NamespaceSearch = 1
@@ -171,3 +182,5 @@ au FileType python compiler nose
 au! bufwritepost $MYVIMRC source $MYVIMRC | :AirlineRefresh
 au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
+au bufread,bufenter * if winnr() != bufwinnr("__Tagbar__") && line('$') > 100 | call tagbar#OpenWindow() | endif
+

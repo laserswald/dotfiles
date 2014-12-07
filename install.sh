@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 # Installs this repository.
 # Make sure you have cloned this repo in your user directory.
 # If your user directory is 'user' then this repo should be "/home/user/dotfiles".
 
 dfdir="/home/$USER/dotfiles"
+. $dfdir/install.cfg
 
 get_subs(){
     git submodule init
@@ -12,39 +13,33 @@ get_subs(){
 
 #install dot file
 idf(){
-    ln -s $dfdir/$1 ~/.$1
+    if [[ ! -e ~/.$1 ]]; then 
+        echo "installing $1 to ~/.$1"
+        rm ~/.$1
+        ln -s $dfdir/$1 ~/.$1
+    else
+        echo "skipping install of $1 " 
+    fi
 }
 
-inst_vim(){
-    idf vim
-    ln -s ~/dotfiles/vim/vimrc ~/.vimrc
+is_in(){
+    echo "checking for in $1"
+    for i in $1; do
+        if [ $i == $2 ]; then return 0; fi
+    done
+    return 1
 }
 
-inst_xmonad(){
-    idf xmonad 
+install(){
+    cd $dfdir
+    for file in *; do
+        # If the file is in the "do not move" stuff then don't move it
+        if is_in ${excludes[@]} $file; then
+            echo "Excluding $file .";
+        else 
+            idf $file
+        fi
+    done
+    cd -
 }
-
-inst_tmux(){
-    idf tmux.conf
-}
-
-inst_zsh(){
-    ln -s ~/dotfiles/zsh/zshrc ~/.zshrc
-    ln -s ~/dotfiles/zsh/zlogin ~/.zlogin
-    ln -s ~/dotfiles/zsh/zprofile ~/.zprofile
-    ln -s ~/dotfiles/zsh/zshenv ~/.zshenv
-}
-
-inst_urxvt(){
-    echo $dfdir
-    idf Xresources
-}
-
-
-get_subs
-
-inst_vim
-inst_xmonad
-inst_urxvt
-inst_tmux
-inst_zsh
+install

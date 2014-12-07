@@ -61,14 +61,13 @@ myManageHook = composeAll
 -----------------------------------------------------------------------
 myLogHook proc = dynamicLogWithPP $ defaultPP
     { ppOutput = hPutStrLn proc
-    , ppTitle = dzenColor "#93a1a1" "" . shorten 50
-    , ppCurrent = dzenColor "#eee8d5" ""
+    , ppTitle = dzenColor "#a1b56c" "" . shorten 50
+    , ppCurrent = dzenColor "#86c1b9" ""
     , ppUrgent = dzenColor "#d33682" ""
     , ppLayout = myLayout
     }
 
 xbmPath = "/home/ben/dotfiles/dzen/icons/"
-
 dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
 
 myLayout :: String -> String
@@ -78,12 +77,14 @@ myLayout n
     | n == "Mirror Tall" = dzenIcon "test.xbm" 
     | otherwise = n
 
+dmenuCustom = "dmenu_run -i -p 'execute>' -fn terminesspowerline:size=10"
+
 -- Key Bindings.
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ 
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
-    , ((modm,               xK_p     ), spawn "dmenu_run")
+    , ((modm,               xK_p     ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
     , ((modm .|. shiftMask, xK_c     ), kill)
     , ((modm,               xK_space ), sendMessage NextLayout)
@@ -105,10 +106,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_q     ), spawnAndNotify "xmonad --recompile; xmonad --restart" "Xmonad" "Recompiled.")  -- Restart xmonad
     
     -- Applications.
-    , ((modm              , xK_v     ), spawn "gvim")             -- v for Vim.
-    , ((modm .|. shiftMask, xK_v     ), spawn "urxvt -e vim")     -- V for Vim in console.
     , ((modm              , xK_b     ), spawn "dwb")          -- b for Browser(Chromium).
-    , ((modm .|. shiftMask, xK_b     ), spawn "chromium")         -- B for Browser(Firefox).
+    , ((modm .|. shiftMask, xK_b     ), spawn "firefox")         -- B for Browser(Firefox).
     , ((modm              , xK_f     ), spawn "urxvt -e ranger")          -- f for Files. 
     , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")           -- F for Files (Thunar)
     , ((modm              , xK_c     ), spawn "urxvt -e irssi")
