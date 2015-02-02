@@ -1,6 +1,6 @@
-*.sw?
-.o
-.errors
-xmonad-x*
-.hi
+**/*.sw?
+**/*.o
+**/*.errors
+**/*xmonad-x*
+**/*.hi
 

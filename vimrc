@@ -8,30 +8,37 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'xuhdev/SingleCompile'
-Plugin 'sjl/gundo.vim'
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'reinh/vim-makegreen'
-Plugin 'nanotech/jellybeans'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'rlipscombe/vim-scons'
-Plugin 'shemerey/vim-project'
-Plugin 'tpope/vim-projectionist'
-Plugin 'vim-scripts/Scons-compiler-plugin'
-Plugin 'laserdude11/vim-minunit'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'jpalardy/vim-slime'
+Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'ervandew/supertab'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'honza/vim-snippets'
+Plugin 'jpalardy/vim-slime'
+Plugin 'kien/ctrlp.vim'
+Plugin 'laserdude11/vim-minunit'
+Plugin 'majutsushi/tagbar'
+Plugin 'nanotech/jellybeans'
+Plugin 'reinh/vim-makegreen'
+Plugin 'rking/ag.vim'
+Plugin 'rlipscombe/vim-scons'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'shemerey/vim-project'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
+Plugin 'SirVer/ultisnips'
+Plugin 'sjl/gundo.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/Scons-compiler-plugin'
+Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
+Plugin 'xuhdev/SingleCompile'
+Plugin 'mrtazz/simplenote.vim'
 
 call vundle#end()
 
@@ -54,6 +61,7 @@ set ofu=syntaxcomplete#Complete
 set noacd
 set nocp
 set number
+set relativenumber
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
@@ -109,6 +117,8 @@ noremap k gk
 
 "" Normal mode leader mappings. 
 
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 " Highest level mappings.
 " Class b: build
 nnoremap <leader>b      :MakeGreen<cr>
@@ -116,32 +126,36 @@ nnoremap <leader>bf     :SCCompile<cr>
 nnoremap <leader>br     :MakeGreen("rebuild")<cr>
 nnoremap <leader>be     :MakeGreen("run")   
 nnoremap <leader>d      :bd<cr>
-nnoremap <leader>e      :! ./%<cr>
+nnoremap <leader>e      :NERDTreeToggle<cr>
+nnoremap <leader>E      :ProjectTree<cr>
 nnoremap <leader>ev     :e $MYVIMRC<cr>
 " Class f: file
-nnoremap <leader>f      :e.<cr>
-nnoremap <leader>fs     :sp.<cr>
-nnoremap <leader>fv     :vsp.<cr>
+nnoremap <leader>f      :Unite -buffer-name=files -no-split -start-insert file_rec<cr>
+nnoremap <leader>F      :e.<cr>
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
 nnoremap <leader>gs     :Gstatus<cr>
 
 " Playback the current macro, go to the first letter of the next line
 nnoremap <leader>j      @qj^
+nnoremap <leader>l      :Unite -buffer-name=buffers -start-insert -no-split buffer<cr>
 nnoremap <leader>n      :bn<cr>   
-nnoremap <leader>p      :bp<cr>
+nnoremap <leader>N      :bp<cr>
 nnoremap <leader>r      :SCCompileRun<cr>
 
 " Edit snippets files.
 nnoremap <leader>s      :split<cr>   
 nnoremap <leader>sn     :UltiSnipsEdit<cr>
-nnoremap <leader>t      :TagbarToggle<cr>
+nnoremap <leader>t      :Unite -buffer-name=tags outline<cr>
 nnoremap <leader>v      :vsplit<cr>
 nnoremap <leader>m      :cwin<cr>
 nnoremap <leader>w      :w<cr>
 
+" Unite commands.
+
 "" Visual mode leader mappings. 
-vnoremap <leader>mnf  "md:enew"mp
+" Extract to another file
+vnoremap <leader>x      "md:enew"mp
 
 "" Plugin settings.
 """""""""""""""""""
@@ -158,7 +172,7 @@ let g:snips_author="Ben Davenport-Ray"
 let g:SuperTabDefaultCompletionType = '<c-tab>'
 let g:ycm_key_list_select_completion = ['<c-tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<c-s-tab>', '<Up>']
-
+let g:EclimCompletionMethod = 'omnifunc'
 " Ctrl-P.
 
 let g:ctrlp_map = '<c-p>' 
@@ -176,11 +190,14 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " Taglist
 let Tlist_Use_Right_Window = 1
 
+" Simplenote. 
+source ~/.simplenoterc
+
 """" Auto commands.
 au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python compiler nose
 au! bufwritepost $MYVIMRC source $MYVIMRC | :AirlineRefresh
 au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
-au bufread,bufenter * if winnr() != bufwinnr("__Tagbar__") && line('$') > 100 | call tagbar#OpenWindow() | endif
+
 

@@ -10,6 +10,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.SpawnOnce
+import XMonad.Actions.CycleWS
 import System.IO
 import System.Exit
 
@@ -39,13 +40,14 @@ myFont = "terminesspowerline:size=10"
 -- Statusbars.
 -----------------------------------------------------------------------
 myLeftBar = "~/dotfiles/dzen/left.sh"
-
 myRightBar = "~/dotfiles/dzen/right.sh"
 
 -- Startup programs.
 -----------------------------------------------------------------------
 myStartupHook = do
    spawnOnce "twmnd &"
+   spawnOnce "~/.screenlayout/dellaoc.sh"
+   spawnOnce "nitrogen --restore"
 
 -- Management hooks.
 ----------------------------------------------------------------------- 
@@ -73,23 +75,26 @@ dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
 myLayout :: String -> String
 myLayout n  
     | n == "Full" = dzenIcon "fullscr.xbm"
-    | n == "Tall" = dzenIcon "half.xbm"
-    | n == "Mirror Tall" = dzenIcon "test.xbm" 
+    | n == "Tall" = dzenIcon "tall.xbm"
+    | n == "Mirror Tall" = dzenIcon "mirrortall.xbm" 
     | otherwise = n
 
-dmenuCustom = "dmenu_run -i -p 'execute>' -fn terminesspowerline:size=10"
+dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 
 -- Key Bindings.
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ 
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
-    , ((modm,               xK_p     ), spawn dmenuCustom)
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    , ((modm,               xK_semicolon ), spawn dmenuCustom)
+    , ((modm .|. shiftMask, xK_semicolon ), spawn "gmrun")
     , ((modm .|. shiftMask, xK_c     ), kill)
     , ((modm,               xK_space ), sendMessage NextLayout)
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    , ((modm,               xK_n     ), refresh)
+    , ((modm,               xK_n     ), nextWS)
+    , ((modm,               xK_p     ), prevWS)
+    , ((modm .|. shiftMask, xK_n     ), shiftToNext)
+    , ((modm .|. shiftMask, xK_p     ), shiftToPrev)
     , ((modm,               xK_Tab   ), windows W.focusDown)
     , ((modm,               xK_j     ), windows W.focusDown)
     , ((modm,               xK_k     ), windows W.focusUp  )
@@ -106,12 +111,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_q     ), spawnAndNotify "xmonad --recompile; xmonad --restart" "Xmonad" "Recompiled.")  -- Restart xmonad
     
     -- Applications.
-    , ((modm              , xK_b     ), spawn "dwb")          -- b for Browser(Chromium).
-    , ((modm .|. shiftMask, xK_b     ), spawn "firefox")         -- B for Browser(Firefox).
-    , ((modm              , xK_f     ), spawn "urxvt -e ranger")          -- f for Files. 
-    , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")           -- F for Files (Thunar)
-    , ((modm              , xK_c     ), spawn "urxvt -e irssi")
-    , ((modm .|. shiftMask, xK_m     ), spawn "urxvt -e mutt")
+    , ((modm              , xK_b     ), spawn "firefox")          
+    , ((modm .|. shiftMask, xK_b     ), spawn "dwb")
+    , ((modm              , xK_f     ), spawn "urxvt -e ranger")
+    , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")
+    , ((modm              , xK_c     ), spawn "urxvt -e 'tmux new-session -A -s chat'")
+    , ((modm .|. shiftMask, xK_m     ), spawn "urxvt -e 'tmux new-session -A -s mail'")
 
     -- Prompts.
     --TODO: Looks like we need a better XPconfig
