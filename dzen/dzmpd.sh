@@ -1,3 +1,9 @@
 #!/bin/sh
+source ~/dotfiles/dzen/dzbase.sh
 np=$( mpc current )
-echo "mpd: $np"
+color=$green
+if [ -z $np ]; then
+    np="---"
+    color=$off
+fi
+show_item $color ~/dotfiles/dzen/icons/note.xbm "$np"

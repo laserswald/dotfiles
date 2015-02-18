@@ -1,9 +1,9 @@
 #!/bin/sh
 source ~/dotfiles/theme.sh
-pacmancolor=$yellow
+source ~/dotfiles/dzen/dzbase.sh
 numupdates=$( pacman -Qu | wc -l )
-color=$on
+color=$yellow
 if [ $numupdates -eq 0 ]; then 
    color=$off
 fi
-printf "^fg($base04)^bg($color) ^i(/home/ben/dotfiles/dzen/icons/pacman.xbm) ^bg() $numupdates^fg()"
+show_item $color /home/ben/dotfiles/dzen/icons/pacman.xbm $numupdates

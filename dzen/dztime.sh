@@ -1,4 +1,5 @@
-source ~/dotfiles/theme.sh
-d=$(date +'%a, %b %d - %R ')
-printf "^fg($blue)$d^fg()"
+source ~/dotfiles/dzen/dzbase.sh
+d=$(date +'%a %b %d - %R ')
+show_item $blue /home/ben/dotfiles/dzen/icons/clock.xbm "$d"
+
 
