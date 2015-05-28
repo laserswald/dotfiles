@@ -1,44 +1,72 @@
-""""""""""""""""""""""""""""""""""""""
 " My Vimrc for awesomeness.
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
+echo ">^.^<"
+
 set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'chriskempson/base16-vim'
-Plugin 'ervandew/supertab'
+call vundle#begin()
+" Plugins. plugin plug 
+
 Plugin 'gmarik/Vundle.vim'
-Plugin 'honza/vim-snippets'
-Plugin 'jpalardy/vim-slime'
-Plugin 'kien/ctrlp.vim'
-Plugin 'laserdude11/vim-minunit'
+
+" Tagging plugins.
 Plugin 'majutsushi/tagbar'
-Plugin 'nanotech/jellybeans'
-Plugin 'reinh/vim-makegreen'
-Plugin 'rking/ag.vim'
-Plugin 'rlipscombe/vim-scons'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'shemerey/vim-project'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'SirVer/ultisnips'
-Plugin 'sjl/gundo.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-scripts/Scons-compiler-plugin'
 Plugin 'xolox/vim-easytags'
 Plugin 'xolox/vim-misc'
+
+" Completion plugins. 
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'tpope/vim-surround'
+
+" Themes and eye candy.
+Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
+
+" REPL plugins
+Plugin 'jpalardy/vim-slime'
+
+" File opening and management plugins
+Plugin 'shemerey/vim-project'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-projectionist'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-fugitive'
+
+" Filetype plugins
+Plugin 'plasticboy/vim-markdown'
+Plugin 'laserdude11/vim-minunit'
+Plugin 'rlipscombe/vim-scons'
+
+" Movement plugins
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'godlygeek/tabular'
+
+" Building and compiling plugins
+Plugin 'reinh/vim-makegreen'
 Plugin 'xuhdev/SingleCompile'
-Plugin 'mrtazz/simplenote.vim'
+
+" Compiler settings.
+Plugin 'JalaiAmitahl/maven-compiler.vim'
+Plugin 'vim-scripts/Scons-compiler-plugin'
+
+" Unite.
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
+
+" Tools and improvements
+Plugin 'sjl/gundo.vim'
+Plugin 'vimoutliner/vimoutliner'
 
 call vundle#end()
 
@@ -51,12 +79,19 @@ set background=dark
 set completeopt=menuone,menu,longest,preview
 set encoding=utf-8
 set expandtab
-set ea
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set autowrite
+set mouse=n
+set equalalways
 set foldlevel=99
 set foldmethod=syntax
 set guioptions=aegirLt
 set hidden
 set laststatus=2
+set linebreak
 set ofu=syntaxcomplete#Complete
 set noacd
 set nocp
@@ -67,7 +102,6 @@ set softtabstop=4
 set tabstop=4
 set tags+=~/.vim/tags/cpp_tags
 set vb
-
 " Tags.
 
 " Visual panels and looks
@@ -89,6 +123,7 @@ endif
 
 """" Mappings.
 let mapleader = ","  " Perhaps the best map leader.
+let maplocalleader = ","
 nnoremap ' `
 nnoremap ` '
 
@@ -104,11 +139,15 @@ noremap <c-j> <c-w>j
 noremap <c-k> <c-w>k
 noremap <c-l> <c-w>l
 noremap <c-h> <c-w>h
+nmap <Space> :nohlsearch<cr>
 
+" Force using hjkl for movement
 inoremap <Up> <nop>
 inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
+
+" Make jk escape to normal mode
 inoremap jk <esc>
 
 " Go by graphical lines instead of real ones
@@ -116,50 +155,65 @@ noremap j gj
 noremap k gk
 
 "" Normal mode leader mappings. 
+call unite#custom#source('buffer,file,file_rec', 'matchers', 'matcher_fuzzy')
+call unite#filters#sorter_default#use(['sorter_selecta'])
 
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>ev     :e $MYVIMRC<cr>
 
-" Highest level mappings.
-" Class b: build
+" Default Build stuff
 nnoremap <leader>b      :MakeGreen<cr>
 nnoremap <leader>bf     :SCCompile<cr>
-nnoremap <leader>br     :MakeGreen("rebuild")<cr>
-nnoremap <leader>be     :MakeGreen("run")   
-nnoremap <leader>d      :bd<cr>
-nnoremap <leader>e      :NERDTreeToggle<cr>
-nnoremap <leader>E      :ProjectTree<cr>
-nnoremap <leader>ev     :e $MYVIMRC<cr>
-" Class f: file
-nnoremap <leader>f      :Unite -buffer-name=files -no-split -start-insert file_rec<cr>
-nnoremap <leader>F      :e.<cr>
+nnoremap <leader>br     :MakeGreen("rebuild") <cr>
+nnoremap <leader>be     :MakeGreen("run") <cr>  
+nnoremap <leader>r      :SCCompileRun<cr>
+
+" Buffer manipulation
+
+nnoremap <leader>e      :ProjectTree<cr>
+
+" Git 
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
 nnoremap <leader>gs     :Gstatus<cr>
+nnoremap <leader>gd     :Gvdiff<cr>   
 
 " Playback the current macro, go to the first letter of the next line
 nnoremap <leader>j      @qj^
-nnoremap <leader>l      :Unite -buffer-name=buffers -start-insert -no-split buffer<cr>
-nnoremap <leader>n      :bn<cr>   
-nnoremap <leader>N      :bp<cr>
-nnoremap <leader>r      :SCCompileRun<cr>
 
 " Edit snippets files.
-nnoremap <leader>s      :split<cr>   
 nnoremap <leader>sn     :UltiSnipsEdit<cr>
-nnoremap <leader>t      :Unite -buffer-name=tags outline<cr>
-nnoremap <leader>v      :vsplit<cr>
-nnoremap <leader>m      :cwin<cr>
-nnoremap <leader>w      :w<cr>
+
+" Window manipulation
 
 " Unite commands.
+nnoremap <leader>bl     :Unite -buffer-name=buffers -no-split buffer<cr>
 
 "" Visual mode leader mappings. 
 " Extract to another file
 vnoremap <leader>x      "md:enew"mp
 
+"" Unified Movement
+nnoremap <leader>n      :bn<cr>   
+nnoremap <leader>p      :bp<cr>
+nnoremap <leader>v      :vsplit<cr>
+nnoremap <leader>s      :split<cr>   
+nnoremap <leader>c      :new<cr>
+nnoremap <leader>x      :bd<cr>
+nnoremap <leader>W      <c-w>w
+nnoremap <leader>M      :copen<cr>
+nnoremap <leader>f      :e.<cr>
+nnoremap <leader>F      :Se.<cr>
+nnoremap <leader>t      :Unite -buffer-name=tags -no-split outline<cr>
+nnoremap <leader>T      :TagbarToggle<cr>
+nnoremap <leader>w      :w<cr>
+nnoremap <leader>o      :res <cr> :vertical res <cr>
+nnoremap <leader>=      <c-w>=
+
+"" Import fixer
+au filetype java nnoremap <localleader>i :JavaImport<cr> 
+
 "" Plugin settings.
 """""""""""""""""""
-
 " Vim Slime!
 let g:slime_target = "tmux"
 
@@ -169,10 +223,18 @@ let g:airline_powerline_fonts = 1
 
 " Snippets, autocompletion
 let g:snips_author="Ben Davenport-Ray"
-let g:SuperTabDefaultCompletionType = '<c-tab>'
-let g:ycm_key_list_select_completion = ['<c-tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-s-tab>', '<Up>']
 let g:EclimCompletionMethod = 'omnifunc'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 " Ctrl-P.
 
 let g:ctrlp_map = '<c-p>' 
@@ -200,4 +262,4 @@ au! bufwritepost $MYVIMRC source $MYVIMRC | :AirlineRefresh
 au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
 
-
+" vim: fdm=marker
