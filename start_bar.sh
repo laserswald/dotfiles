@@ -1,3 +1,3 @@
-conky -c ~/dotfiles/dzconkyrc | dzen2 -ta r -fn "terminesspowerline" 
-conky -c ~/dotfiles/dzconkyleftrc | dzen2 -ta l -fn "terminesspowerline" 
+~/dotfiles/bar/bar_top.sh | lemonbar -f "-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*" -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*"
+~/dotfiles/bar/bar_bottom.sh | lemonbar -b -f "-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*" -f "-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*"
 
