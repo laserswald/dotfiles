@@ -20,10 +20,8 @@ brown="#a16946"
 
 bg=$base00
 fg=$base07
-clock=$blue
-info=$base1
+info=$cyan
 warn=$red
 alert=$magenta
-on=$green
-off=$orange
+off=$base02
 

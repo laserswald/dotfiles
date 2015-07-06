@@ -13,6 +13,7 @@ import XMonad.Util.SpawnOnce
 import XMonad.Actions.CycleWS
 import System.IO
 import System.Exit
+import XMonad.Layout.Tabbed
 
 -- Other.
 import qualified Data.Map as M 
@@ -23,9 +24,6 @@ import XMonad.Prompt
 import XMonad.Prompt.Shell
 
 -- Color theme.
--- solarized!
-solar-fg = "#839496"
-solar-bg = "#002b36"
 
 -- Useful functions.
 ----------------------------------------------------------------------- 
@@ -34,7 +32,7 @@ spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' 
 -- Settings.
 ----------------------------------------------------------------------- 
 myTerminal = "urxvt"
-myWorkspaces = ["term", "net", "code", "graph", "chat", "fun", "vid", "music", "other"]
+myWorkspaces = ["main", "net", "support", "graph", "comm", "fun", "servers", "other", "background"]
 myFont = "terminesspowerline:size=10"
 
 -- Statusbars.
@@ -63,9 +61,11 @@ myManageHook = composeAll
 -----------------------------------------------------------------------
 myLogHook proc = dynamicLogWithPP $ defaultPP
     { ppOutput = hPutStrLn proc
-    , ppTitle = dzenColor "#a1b56c" "" . shorten 50
-    , ppCurrent = dzenColor "#86c1b9" ""
+    , ppTitle = dzenColor "#d8d8d8" "" . shorten 50
+    , ppCurrent = dzenColor "#e8e8e8" ""
+    , ppVisible = dzenColor "#b8b8b8" ""
     , ppUrgent = dzenColor "#d33682" ""
+    , ppHidden = dzenColor "#585858" ""
     , ppLayout = myLayout
     }
 
@@ -77,7 +77,8 @@ myLayout n
     | n == "Full" = dzenIcon "fullscr.xbm"
     | n == "Tall" = dzenIcon "tall.xbm"
     | n == "Mirror Tall" = dzenIcon "mirrortall.xbm" 
-    | otherwise = n
+    | n == "Tabbed Simplest" = dzenIcon "tabs.xbm" 
+    | otherwise = n 
 
 dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 
@@ -158,7 +159,7 @@ main = do
     dzenrightbar <- spawnPipe myRightBar 
     xmonad $ defaultConfig{
         manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
-        , layoutHook = avoidStruts $ layoutHook defaultConfig
+        , layoutHook =  avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed  )
         , logHook = myLogHook dzenleftbar
         , terminal = myTerminal
         , borderWidth = 1
