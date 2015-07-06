@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import sys
 import subprocess
 import socket
 import struct
@@ -33,25 +34,23 @@ def print_monitor(monitor):
         bg = ''
         if space['focused']:
             bg = 'blue'
-
-        status += "^fg({})^bg({}){}^fg()^bg() ".format(fg, bg, space['name'])
+        status += "%{{F{}}}%{{B{}}}{}%{{F}}%{{B}}".format(fg, bg, space['name'])
     return status
 
-def print_ws(ws):
+def print_ws(ws, monitor):
     # sort into monitor spaces
-    lmon = []
-    rmon = []
+    found_spaces = []
     for space in ws:
-        if space['output'] == "HDMI-0":
-            lmon.append(space)
-        else:
-            rmon.append(space)
-    print(print_monitor(lmon), " | ", print_monitor(rmon))
+        if monitor in space['output']:
+            found_spaces.append(space)
+    print(print_monitor(found_spaces))
 
 def main():
+    if sys.argv[1]: 
+        monitor = sys.argv[1] 
     socket = connect_to_i3()
-    ws = get_workspaces(socket)
-    print_ws(ws)
+    aws = get_workspaces(socket)
+    print_ws(aws, monitor)
     
 if __name__ == '__main__':
     main()
