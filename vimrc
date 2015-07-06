@@ -1,76 +1,74 @@
 " My Vimrc for awesomeness.
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
-echo ">^.^<"
-
-set nocompatible
+" vim: fdm=marker fdl=0 :
 filetype off
-
+set nocompatible
+" Plugins {{{1 
+"Vundle setup {{{
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
-" Plugins. plugin plug 
-
 Plugin 'gmarik/Vundle.vim'
-
-" Tagging plugins.
+"}}}
+" Tagging plugins."{{{
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-easytags'
 Plugin 'xolox/vim-misc'
-
-" Completion plugins. 
+"}}}
+" Completion plugins. {{{2 
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-surround'
-
-" Themes and eye candy.
+" }}}2
+" Themes and eye candy."{{{
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
-
-" REPL plugins
+"}}}
+" REPL plugins"{{{
 Plugin 'jpalardy/vim-slime'
-
-" File opening and management plugins
+"}}}
+" File opening and management plugins"{{{
 Plugin 'shemerey/vim-project'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-projectionist'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-fugitive'
-
-" Filetype plugins
+"}}}
+" Filetype plugins"{{{
 Plugin 'plasticboy/vim-markdown'
 Plugin 'laserdude11/vim-minunit'
 Plugin 'rlipscombe/vim-scons'
-
-" Movement plugins
+"}}}
+" Movement plugins"{{{
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'godlygeek/tabular'
-
-" Building and compiling plugins
+Plugin 'wikitopian/hardmode'
+"}}}
+" Building and compiling plugins"{{{
 Plugin 'reinh/vim-makegreen'
 Plugin 'xuhdev/SingleCompile'
-
-" Compiler settings.
+"}}}
+" Compiler settings."{{{
 Plugin 'JalaiAmitahl/maven-compiler.vim'
 Plugin 'vim-scripts/Scons-compiler-plugin'
-
-" Unite.
+"}}}
+" Unite."{{{
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/unite-outline'
-
-" Tools and improvements
+"}}}
+" Tools and improvements"{{{
 Plugin 'sjl/gundo.vim'
 Plugin 'vimoutliner/vimoutliner'
-
+"}}}
 call vundle#end()
-
-"""" General settings.
+" 1}}} "
+"General settings. "{{{
 syntax enable
 filetype plugin indent on
 set autoread
@@ -86,8 +84,8 @@ set hlsearch
 set autowrite
 set mouse=n
 set equalalways
-set foldlevel=99
-set foldmethod=syntax
+set foldlevel=0
+set foldmethod=marker
 set guioptions=aegirLt
 set hidden
 set laststatus=2
@@ -102,9 +100,8 @@ set softtabstop=4
 set tabstop=4
 set tags+=~/.vim/tags/cpp_tags
 set vb
-" Tags.
-
-" Visual panels and looks
+"}}}
+" Visual panels and looks"{{{
 set background=dark
 let base16colorspace=256
 colors base16-default
@@ -119,27 +116,19 @@ if has("gui_running")
     cd ~
   endif
 endif
-
-
-"""" Mappings.
+"}}}
+" Mappings. {{{
 let mapleader = ","  " Perhaps the best map leader.
-let maplocalleader = ","
+let maplocalleader = "\\"
 nnoremap ' `
 nnoremap ` '
-
-" Force to use mappings
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
-inoremap <esc> <nop>
 
 " Set the multibuffer mappings to something more sane.
 noremap <c-j> <c-w>j
 noremap <c-k> <c-w>k
 noremap <c-l> <c-w>l
 noremap <c-h> <c-w>h
-nmap <Space> :nohlsearch<cr>
+noremap <Space> :nohlsearch<cr>
 
 " Force using hjkl for movement
 inoremap <Up> <nop>
@@ -147,38 +136,34 @@ inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
 
-" Make jk escape to normal mode
-inoremap jk <esc>
-
 " Go by graphical lines instead of real ones
 noremap j gj
 noremap k gk
 
-"" Normal mode leader mappings. 
+"" Normal mode leader mappings.
 call unite#custom#source('buffer,file,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#filters#sorter_default#use(['sorter_selecta'])
 
-nnoremap <leader>ev     :e $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr> | AirlineRefresh<cr>
 
 " Default Build stuff
 nnoremap <leader>b      :MakeGreen<cr>
 nnoremap <leader>bf     :SCCompile<cr>
 nnoremap <leader>br     :MakeGreen("rebuild") <cr>
-nnoremap <leader>be     :MakeGreen("run") <cr>  
+nnoremap <leader>be     :MakeGreen("run") <cr>
 nnoremap <leader>r      :SCCompileRun<cr>
 
-" Buffer manipulation
-
-nnoremap <leader>e      :ProjectTree<cr>
-
-" Git 
+" Git "{{{
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
 nnoremap <leader>gs     :Gstatus<cr>
-nnoremap <leader>gd     :Gvdiff<cr>   
+nnoremap <leader>gd     :Gvdiff<cr>
+"}}}
 
 " Playback the current macro, go to the first letter of the next line
 nnoremap <leader>j      @qj^
+nnoremap <leader>J      @qk^ 
 
 " Edit snippets files.
 nnoremap <leader>sn     :UltiSnipsEdit<cr>
@@ -188,15 +173,15 @@ nnoremap <leader>sn     :UltiSnipsEdit<cr>
 " Unite commands.
 nnoremap <leader>bl     :Unite -buffer-name=buffers -no-split buffer<cr>
 
-"" Visual mode leader mappings. 
+"" Visual mode leader mappings.
 " Extract to another file
-vnoremap <leader>x      "md:enew"mp
+vnoremap <leader>x      "md:enew<cr>"mp
 
-"" Unified Movement
-nnoremap <leader>n      :bn<cr>   
+"" Unified Movement"{{{
+nnoremap <leader>n      :bn<cr>
 nnoremap <leader>p      :bp<cr>
 nnoremap <leader>v      :vsplit<cr>
-nnoremap <leader>s      :split<cr>   
+nnoremap <leader>s      :split<cr>
 nnoremap <leader>c      :new<cr>
 nnoremap <leader>x      :bd<cr>
 nnoremap <leader>W      <c-w>w
@@ -208,20 +193,27 @@ nnoremap <leader>T      :TagbarToggle<cr>
 nnoremap <leader>w      :w<cr>
 nnoremap <leader>o      :res <cr> :vertical res <cr>
 nnoremap <leader>=      <c-w>=
+"}}}
 
-"" Import fixer
-au filetype java nnoremap <localleader>i :JavaImport<cr> 
+"Capitalize the word at the cursor.
+inoremap <c-u> <esc>viwUea
+nnoremap <leader>u viwUe
 
-"" Plugin settings.
-"""""""""""""""""""
-" Vim Slime!
+" Force to use mappings
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+inoremap <esc> <nop>
+
+" Make jk escape to normal mode
+inoremap jk <esc>
+"}}}
+" Plugin settings."{{{
+" Vim Slime"{{{
 let g:slime_target = "tmux"
-
-let g:airline_powerline_fonts = 1
-
-" Easytags.
-
-" Snippets, autocompletion
+"}}}
+" Snippets, autocompletion"{{{
 let g:snips_author="Ben Davenport-Ray"
 let g:EclimCompletionMethod = 'omnifunc'
 
@@ -234,32 +226,52 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" Ctrl-P.
-
-let g:ctrlp_map = '<c-p>' 
-
-" OmniC++.
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_MayCompleteDot = 1
-let OmniCpp_MayCompleteArrow = 1
-let OmniCpp_MayCompleteScope = 1
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
-" Taglist
+"}}}
+" Ctrl-P."{{{
+let g:ctrlp_map = '<c-p>'
+"}}}
+" Taglist {{{
 let Tlist_Use_Right_Window = 1
-
-" Simplenote. 
+"}}}
+" Simplenote."{{{
 source ~/.simplenoterc
+"}}}
+"}}}
+" Auto commands."{{{
+augroup all_group
+    au! 
+    " au vimenter,bufnewfile,bufreadpost * silent! call HardMode()
+augroup end
 
-"""" Auto commands.
-au FileType python set omnifunc=pythoncomplete#Complete
-au FileType python compiler nose
-au! bufwritepost $MYVIMRC source $MYVIMRC | :AirlineRefresh
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif 
 
-" vim: fdm=marker
+augroup eclim_group
+    au!
+    au FileType python,java,c,c++ nnoremap <leader>F :ProjectTree<cr>
+augroup end
+
+augroup python_group
+    " this one is which you're most likely to use?
+    au!
+    au FileType python set omnifunc=pythoncomplete#Complete
+    au FileType python compiler nose
+augroup end
+
+augroup c_cpp_group
+    au!
+    au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+augroup end
+
+augroup java_group
+    au!
+    au filetype java nnoremap <localleader>i :JavaImport<cr>
+augroup end
+
+augroup vim_group
+    au!
+    au filetype vim set fdm=marker
+augroup end
+
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+
+"}}}
+
