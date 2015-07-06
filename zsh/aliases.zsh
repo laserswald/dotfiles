@@ -2,7 +2,9 @@
 # Todo.txt aliases.
 alias t="todo.sh"
 alias ta="t add"
-alias tl="t ls"
+alias tl="clear; t ls"
+alias td="t do"
+
 
 # Environment aliases.
 alias ea="vim ~/dotfiles/zsh/aliases.zsh"
@@ -18,6 +20,9 @@ alias ping="ping -c 3"
 alias ls="ls --color -xX"
 alias eclimd="/usr/share/eclipse/eclimd &"
 alias v="f -e vim"
+
+# Tmux aliases
+alias tmn="tmux new-session -s "
 
 ## Make this a function. Wheeeee!
 alias pomo="sleep 25m && printf '\apomodoro done!\n'"

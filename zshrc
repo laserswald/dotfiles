@@ -45,6 +45,7 @@ setopt prompt_subst
 PROMPT='%{$fg[green]%}%n%{$reset_color%} at %{$fg[blue]%}%m%{$reset_color%}${vcs_info_msg_0_}> '
 RPROMPT='%{$fg[yellow]%}%~%{$reset_color%}'
 export EDITOR="vim"
+source "/home/ben/dotfiles/zsh/paths.zsh"
 source "/home/ben/dotfiles/zsh/aliases.zsh"
 source "/home/ben/dotfiles/zsh/functions.zsh"
 eval "$(fasd --init auto)"
