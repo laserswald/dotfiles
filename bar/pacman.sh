@@ -6,4 +6,4 @@ color=$yellow
 if [ $numupdates -eq 0 ]; then 
    color=$off
 fi
-show_item $color /home/ben/dotfiles/dzen/icons/pacman.xbm $numupdates
+show_item $color "" $numupdates

@@ -8,7 +8,7 @@ for (( i = 0; i < 3; i++ )); do
     else 
         fgcolor=$on
     fi
-    show_item $fgcolor "adf" "${portservnames[$i]}" 
+    show_item $fgcolor "" "${portservnames[$i]}" 
     if [[ $i < 2 ]]; then
         printf " "
     fi

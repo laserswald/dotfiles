@@ -8,4 +8,4 @@ if (( $inbox > 0 )); then
 else
     current=$off
 fi
-show_item $current "icon" "${inbox}"
+show_item $current "" "${inbox}"
