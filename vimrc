@@ -4,6 +4,9 @@
 " vim: fdm=marker fdl=0 :
 filetype off
 set nocompatible
+if has('nvim')
+    runtime! plugin/python_setup.vim
+endif
 " Plugins {{{1 
 "Vundle setup {{{
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -65,6 +68,9 @@ Plugin 'Shougo/unite-outline'
 " Tools and improvements"{{{
 Plugin 'sjl/gundo.vim'
 Plugin 'vimoutliner/vimoutliner'
+if has('nvim')
+    Plugin 'floobits/floobits-neovim'
+endif
 "}}}
 call vundle#end()
 " 1}}} "
@@ -145,7 +151,7 @@ call unite#custom#source('buffer,file,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#filters#sorter_default#use(['sorter_selecta'])
 
 nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr> | AirlineRefresh<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Default Build stuff
 nnoremap <leader>b      :MakeGreen<cr>
@@ -180,8 +186,8 @@ vnoremap <leader>x      "md:enew<cr>"mp
 "" Unified Movement"{{{
 nnoremap <leader>n      :bn<cr>
 nnoremap <leader>p      :bp<cr>
-nnoremap <leader>v      :vsplit<cr>
-nnoremap <leader>s      :split<cr>
+nnoremap <leader>v      :Vex<cr>
+nnoremap <leader>s      :Sex<cr>
 nnoremap <leader>c      :new<cr>
 nnoremap <leader>x      :bd<cr>
 nnoremap <leader>W      <c-w>w

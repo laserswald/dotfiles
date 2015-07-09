@@ -42,4 +42,9 @@ install(){
     done
     cd -
 }
-install
+if [ -z $1 ]; then 
+    install
+    exit 0
+fi
+
+idf $1

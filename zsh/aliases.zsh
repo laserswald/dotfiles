@@ -22,7 +22,7 @@ alias eclimd="/usr/share/eclipse/eclimd &"
 alias v="f -e vim"
 
 # Tmux aliases
-alias tmn="tmux new-session -s "
+alias tmn="tmux new-session -s -A "
 
 ## Make this a function. Wheeeee!
 alias pomo="sleep 25m && printf '\apomodoro done!\n'"
@@ -37,3 +37,5 @@ ghclone(){
 
 # Script-added aliases. These should be sorted around.
 alias gco='git checkout '
+
+
