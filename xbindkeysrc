@@ -37,7 +37,7 @@
 #keystate_capslock = enable
 #keystate_scrolllock= enable
 
-"xbindkeys_show" 
+"urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s'" 
   control + shift + q
 
 "urxvt"
@@ -57,6 +57,9 @@
   
 "firefox"
   Mod4 + b  
+
+"urxvt -name ranger -e ranger"
+  Mod4 + f
 
 ##################################
 # End of xbindkeys configuration #

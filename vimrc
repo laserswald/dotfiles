@@ -36,7 +36,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'jpalardy/vim-slime'
 "}}}
 " File opening and management plugins"{{{
-Plugin 'shemerey/vim-project'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-projectionist'
 Plugin 'kien/ctrlp.vim'

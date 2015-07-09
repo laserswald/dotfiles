@@ -3,4 +3,4 @@
 **/*.errors
 **/*xmonad-x*
 **/*.hi
-
+xmonad/xmonad
