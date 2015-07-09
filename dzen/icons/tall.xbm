@@ -1,0 +1,13 @@
+#define tall_width 8
+#define tall_height 8
+static unsigned char tall_bits[] = {
+    0xEF,
+    0xEF,
+    0xEF,
+    0x0F,
+    0xEF,
+    0xEF,
+    0xEF,
+    0xEF
+}
+    

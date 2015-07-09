@@ -1,0 +1,1 @@
+~/.screenlayout/dellaoc.sh
