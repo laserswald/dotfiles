@@ -43,17 +43,20 @@
 "urxvt"
   Mod4 + Return
 
-"urxvt -e ncmpcpp"
+"urxvt -name ncmpcpp -e ncmpcpp"
   Mod4 + n
 
-"urxvt -e mutt"
+"urxvt -name mutt -e mutt"
   Mod4 + m
 
-"firefox"
-  Mod4 + b
-
-"urxvt -e weechat"
+"urxvt -name weechat -e weechat"
   Mod4 + c
+
+"urxvt -name bc -e bc"
+  XF86Calculator
+  
+"firefox"
+  Mod4 + b  
 
 ##################################
 # End of xbindkeys configuration #
