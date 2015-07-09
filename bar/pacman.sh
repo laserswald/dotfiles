@@ -1,7 +1,7 @@
 #!/bin/sh
 . ~/dotfiles/bar/base.sh
 . ~/dotfiles/bar/base.sh
-numupdates=$( pacman -Qu | wc -l )
+numupdates=$( checkupdates | wc -l )
 color=$yellow
 if [ $numupdates -eq 0 ]; then 
    color=$off
