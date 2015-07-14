@@ -13,9 +13,8 @@ get_subs(){
 
 #install dot file
 idf(){
-    if [[ ! -e ~/.$1 ]]; then 
+    if [[ ! -f ~/.$1 ]]; then 
         echo "installing $1 to ~/.$1"
-        rm ~/.$1
         ln -s $dfdir/$1 ~/.$1
     else
         echo "skipping install of $1 " 

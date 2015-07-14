@@ -1,0 +1,45 @@
+#Basic window management 
+
+super + shift + c 
+    killw $(pfw)
+
+super + shift + q
+    pkill swm
+
+super + o
+    fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
+
+super + {Left, Down, Up, Right}
+    wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+
+super + !button{1,3}
+    {wtp, wrs -a} $(wmp) {$(wattr whi $(pfw)),$(pfw) }; chwso -r $(pfw) 
+
+super + !button2
+    fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
+
+# Launch programs
+super + shift + ?
+    urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s' 
+
+super + Return
+    urxvt
+
+super + n
+    urxvt -name ncmpcpp -e ncmpcpp
+
+super + m
+    urxvt -name mutt -e mutt
+
+super + c
+    urxvt -name weechat -e weechat
+
+XF86Calculator
+    urxvt -name bc -e bc
+  
+super + b  
+    firefox
+
+super + f
+    urxvt -name ranger -e ranger
+
