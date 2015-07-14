@@ -61,6 +61,14 @@
 "urxvt -name ranger -e ranger"
   Mod4 + f
 
+"killw $(pfw)"
+  Mod4 + shift + c 
+
+"pkill swm"
+  Mod4 + shift + q
+
+"fsm $(wim $(pfw)) $(pfw)"
+  mod4 + o
 ##################################
 # End of xbindkeys configuration #
 ##################################

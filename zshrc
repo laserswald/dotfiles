@@ -49,11 +49,11 @@ ZSH_THEME="lasermini"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux fasd colored-man git-flow git-hubflow base16-dark)
+plugins=(git archlinux fasd colored-man git-flow git-hubflow)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin/home/ben/bin/home/ben/scripts/home/ben/.gem/ruby/2.1.0/bin:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ben/bin:/home/ben/scripts:/home/ben/.gem/ruby/2.1.0/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

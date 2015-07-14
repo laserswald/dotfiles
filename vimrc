@@ -109,7 +109,7 @@ set vb
 " Visual panels and looks"{{{
 set background=dark
 let base16colorspace=256
-colors base16-default
+colors jellybeans
 
 if has("gui_running")
   if has("gui_gtk2")
