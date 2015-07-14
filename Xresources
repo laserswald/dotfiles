@@ -1,8 +1,13 @@
-URxvt.depth: 32
-!#include "urxvt_solarized_theme"
-#include "urxvt/base16-default.dark.256.xresources"
-Rxvt.font: xft:Envy Code R:style=Regular:size=12
+! URxvt.depth: 32
+
+! X Colors!
+#include "dotfiles/urxvt/neon.theme"
+
+URxvt.font: -*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*, \
+            -*-terminesspowerline-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/dwb -x tabopen
+URxvt.url-select.launcher: /usr/bin/firefox
 URxvt.url-select.underline: true
+Urxvt.url-select.button:        1
+URxvt.boldFont:
