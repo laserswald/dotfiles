@@ -27,7 +27,7 @@ alias tmn="tmux new-session -s -A "
 alias pomo="sleep 25m && printf '\apomodoro done!\n'"
 
 # usage: ghclone laserswald todoc
-ghc(){
+ghcl(){
     git clone http://github.com/$1/$2.git
 }
 
