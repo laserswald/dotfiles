@@ -1,11 +1,11 @@
 #!/bin/bash
 
-. ~/dotfiles/bar/base.sh
+. ~/etc/bar/base.sh
 
-inbox=$(~/dotfiles/dzen/inbox.sh ~/mail/Inbox)
+inbox=$(~/etc/dzen/inbox.sh ~/mail/Inbox)
 if (( $inbox > 0 )); then
     current=$red
 else
     current=$off
 fi
-show_item $current "" "${inbox}"
+show_item_text $current "" "${inbox}"

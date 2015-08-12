@@ -1,4 +1,4 @@
-. ~/dotfiles/bar/base.sh
-d=$(date +'%a %b %d - %R ')
-show_item $blue "" "$d"
+. ~/etc/bar/base.sh
+d=$(date +'%R ')
+show_icon_text $blue "" "$d"
 

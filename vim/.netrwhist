@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/ben/code/c/cskel/util/tests'
-let g:netrw_dirhist_2='/home/ben/code/c/cskel/util'
-let g:netrw_dirhist_3='/home/ben/code/c/cskel'
-let g:netrw_dirhist_4='/home/ben'
-let g:netrw_dirhist_5='/home/ben/bin'
-let g:netrw_dirhist_6='/home/ben/.mutt'
-let g:netrw_dirhist_7='/home/ben/.mbsync'

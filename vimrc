@@ -1,11 +1,10 @@
 " My Vimrc for awesomeness.
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
-" vim: fdm=marker fdl=0 :
-filetype off
+" vim: fdm=marker fdl=99 :
 set nocompatible
-
 " Neovim setup
+filetype off
 if has('nvim')
     runtime! plugin/python_setup.vim
 endif
@@ -23,6 +22,7 @@ Plugin 'xolox/vim-misc'
 " Completion plugins. {{{2 
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
@@ -32,10 +32,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 "}}}
 " REPL plugins"{{{
 Plugin 'jpalardy/vim-slime'
+" Plugin 'epeli/slimux'
 "}}}
 " File opening and management plugins"{{{
 Plugin 'rking/ag.vim'
@@ -113,6 +115,7 @@ set background=dark
 let base16colorspace=256
 colors jellybeans
 
+let g:airline_powerline_fonts=0
 if has("gui_running")
   if has("gui_gtk2")
     set guifont="Source Code Pro for Powerline 8"
@@ -152,15 +155,14 @@ call unite#custom#source('buffer,file,file_rec', 'matchers', 'matcher_fuzzy')
 call unite#filters#sorter_default#use(['sorter_selecta'])
 
 nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Default Build stuff
+" Default Build stuff {{{
 nnoremap <leader>b      :MakeGreen<cr>
 nnoremap <leader>bf     :SCCompile<cr>
 nnoremap <leader>br     :MakeGreen("rebuild") <cr>
 nnoremap <leader>be     :MakeGreen("run") <cr>
 nnoremap <leader>r      :SCCompileRun<cr>
-
+"}}}
 " Git "{{{
 nnoremap <leader>gw     :Gwrite<cr>
 nnoremap <leader>gc     :Gcommit<cr>
@@ -170,15 +172,12 @@ nnoremap <leader>gd     :Gvdiff<cr>
 
 " Playback the current macro, go to the first letter of the next line
 nnoremap <leader>j      @qj^
-nnoremap <leader>J      @qk^ 
-
 " Edit snippets files.
 nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
 " Window manipulation
-
 " Unite commands.
-nnoremap <leader>bl     :Unite -buffer-name=buffers -no-split buffer<cr>
+nnoremap <leader>l     :Unite -buffer-name=buffers -no-split buffer<cr>
 
 "" Visual mode leader mappings.
 " Extract to another file
@@ -187,8 +186,8 @@ vnoremap <leader>x      "md:enew<cr>"mp
 "" Unified Movement"{{{
 nnoremap <leader>n      :bn<cr>
 nnoremap <leader>p      :bp<cr>
-nnoremap <leader>v      :Vex<cr>
-nnoremap <leader>s      :Sex<cr>
+nnoremap <leader>"      :Vex<cr>
+nnoremap <leader>%      :Sex<cr>
 nnoremap <leader>c      :new<cr>
 nnoremap <leader>x      :bd<cr>
 nnoremap <leader>W      <c-w>w
@@ -219,20 +218,18 @@ inoremap jk <esc>
 " Plugin settings."{{{
 " Vim Slime"{{{
 let g:slime_target = "tmux"
+xnoremap <leader>s <Plug>SlimeRegionSend
+nnoremap <leader>s :SlimeSend<cr>
 "}}}
 " Snippets, autocompletion"{{{
 let g:snips_author="Ben Davenport-Ray"
 let g:EclimCompletionMethod = 'omnifunc'
 
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_key_list_select_completion = ['<C-tab>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-s-tab>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-tab>'
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "}}}
 " Ctrl-P."{{{
 let g:ctrlp_map = '<c-p>'
@@ -248,12 +245,14 @@ source ~/.simplenoterc
 augroup all_group "{{{
     au! 
     " au vimenter,bufnewfile,bufreadpost * silent! call HardMode()
+    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 augroup end "}}}
+
 
 augroup eclim_group "{{{
     au!
-    au FileType python,java,c,c++ nnoremap <leader>F :ProjectTree<cr>
-augroup end "}}}
+    au FileType python,java,c,c++ nnoremap <localleader>f :ProjectTree<cr>
+augroup end
 
 augroup python_group "{{{
     " this one is which you're most likely to use?
@@ -274,11 +273,9 @@ augroup end "}}}
 
 augroup vim_group "{{{
     au!
+    au bufwrite $MYVIMRC source $MYVIMRC
     au filetype vim set fdm=marker
     au BufWrite $MYVIMRC source $MYVIMRC
 augroup end "}}}
-
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
 "}}}
 

@@ -11,14 +11,27 @@ get_subs(){
     git submodule update
 }
 
+vecho () {
+    test $verbose && echo $@
+}
+
 #install dot file
 idf(){
-    if [[ ! -f ~/.$1 ]]; then 
-        echo "installing $1 to ~/.$1"
-        ln -s $dfdir/$1 ~/.$1
+    if [[ -f ~/.$1 ]]; then 
+        if [[ $force ]]; then
+            vecho "removing $1 from ~"
+            rm ~/.$1
+        elif [[ $move ]]; then
+            vecho "Moving dotfile from ~ and placing it in dotfile directory."
+            mv ~/.$1 $dfdir/$1
+        else 
+            vecho "skipping install of $1 " 
+            return
+        fi
     else
-        echo "skipping install of $1 " 
+        vecho "installing $1 to ~/.$1"
     fi
+    ln -s $dfdir/$1 ~/.$1
 }
 
 is_in(){
@@ -34,13 +47,24 @@ install(){
     for file in *; do
         # If the file is in the "do not move" stuff then don't move it
         if is_in ${excludes[@]} $file; then
-            echo "Excluding $file .";
+            vecho "excluding $file .";
         else 
             idf $file
         fi
     done
     cd -
 }
+
+
+while getopts "fmv" flag; do 
+    case $flag in
+        v ) verbose=1; ;;
+        f ) force=1; ;;
+        m ) move=1 ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
 if [ -z $1 ]; then 
     install
     exit 0

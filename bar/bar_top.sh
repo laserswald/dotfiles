@@ -1,14 +1,18 @@
 #!/bin/sh
 while true; do 
-    buffer="%{S1}"
-    buffer="${buffer} $(~/dotfiles/bar/todo.sh)"
-#    buffer="${buffer} %{r} $(~/dotfiles/bar/mcstatus.sh)"
-    buffer="${buffer} %{r}$(~/dotfiles/bar/mpd.sh)"
-    buffer="${buffer} $(~/dotfiles/bar/time.sh)"
-    buffer="${buffer} %{S0}"
-    buffer="${buffer} %{r}$(~/dotfiles/bar/inbox.sh)"
-    buffer="${buffer} $(~/dotfiles/bar/pacman.sh)"
-    buffer="${buffer} $(~/dotfiles/bar/vol.sh)"
+    buffer=""
+
+    buffer="${buffer} $(~/etc/bar/inbox.sh)"
+    buffer="${buffer} $(~/etc/bar/batt.sh)"
+    buffer="${buffer} $(~/etc/bar/pacman.sh)"
+    buffer="${buffer} $(~/etc/bar/vol.sh)"
+#    buffer="${buffer} %{r} $(~/etc/bar/mcstatus.sh)"
+    buffer="${buffer} %{c}"
+    buffer="${buffer} $(~/etc/bar/wifi.sh)"
+    buffer="${buffer} %{r}"
+#    buffer="${buffer} $(~/etc/bar/mpd.sh)"
+    buffer="${buffer} $(~/etc/bar/todo.sh)"
+    buffer="${buffer} $(~/etc/bar/time.sh)"
     echo $buffer
     sleep 1
 done

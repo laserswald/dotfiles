@@ -1,5 +1,5 @@
 #!/bin/sh
-. ~/dotfiles/bar/base.sh
+. ~/etc/bar/base.sh
 np=$( mpc current --format="%artist% / %title%")
 color=$green
 if [[ -z $np ]]; then

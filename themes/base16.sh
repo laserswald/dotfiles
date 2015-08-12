@@ -18,10 +18,4 @@ blue="#7cafc2"
 magenta="#ba8baf"
 brown="#a16946"
 
-bg=$base00
-fg=$base07
-info=$cyan
-warn=$red
-alert=$magenta
-off=$base02
 

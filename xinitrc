@@ -33,21 +33,35 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 #}}}
 
-#Add stlarch font!
+# Add third party fonts!
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
 #Start some nice daemons. 
 sxhkd -c ~/.sxhkdrc &
-xbindkeys &
+syncthing --no-browser &
 mpd &
-start_tmuxen.sh & 
+# start_tmuxen.sh & 
 
-#Look and feel#{{{
-~/.screenlayout/dellaoc.sh &
+#### Look and feel  {{{
+
+# ~/.screenlayout/dellaoc.sh &
 xsetroot -cursor_name left_ptr
 compton -b -C &
-sleep 2 && feh --bg-tile --random  ~/img/wall/patterns_dark/* &
+
+## Wallpapers
+
+# Set a light green as the wallpaper
+# xsetroot -bg green -fg grey -mod 2 2
+
+# Set a random pattern as the wallpaper.
+sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
+
+# Stand alone tray!
+# ~/bin/stalonetray.sh &
+
+~/etc/start_bar.sh &
+
 #}}}
 
 # Listen for X events and do a flippy thing.
