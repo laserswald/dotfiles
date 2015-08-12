@@ -1,7 +1,7 @@
 ! URxvt.depth: 32
 
 ! X Colors!
-#include "dotfiles/urxvt/neon.theme"
+#include "/home/ben/dotfiles/urxvt/neon.theme"
 
 URxvt.font: -*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*, \
             -*-terminesspowerline-*-*-*-*-*-*-*-*-*-*-*-*

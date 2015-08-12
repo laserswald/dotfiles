@@ -39,6 +39,7 @@ xset fp rehash
 
 #Start some nice daemons. 
 sxhkd -c ~/.sxhkdrc &
+xbindkeys &
 mpd &
 start_tmuxen.sh & 
 
@@ -50,6 +51,6 @@ sleep 2 && feh --bg-tile --random  ~/img/wall/patterns_dark/* &
 #}}}
 
 # Listen for X events and do a flippy thing.
-backflip.sh &
+# backflip.sh &
 
-exec swm
+exec gnome-session

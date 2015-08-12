@@ -3,7 +3,7 @@
 # Make sure you have cloned this repo in your user directory.
 # If your user directory is 'user' then this repo should be "/home/user/dotfiles".
 
-dfdir="/home/$USER/dotfiles"
+dfdir="/home/$USER/etc"
 . $dfdir/install.cfg
 
 get_subs(){
