@@ -115,7 +115,7 @@ set background=dark
 let base16colorspace=256
 colors jellybeans
 
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 if has("gui_running")
   if has("gui_gtk2")
     set guifont="Source Code Pro for Powerline 8"
@@ -191,7 +191,7 @@ nnoremap <leader>%      :Sex<cr>
 nnoremap <leader>c      :new<cr>
 nnoremap <leader>x      :bd<cr>
 nnoremap <leader>W      <c-w>w
-nnoremap <leader>M      :copen<cr>
+nnoremap <leader>M      :cw<cr>
 nnoremap <leader>f      :e.<cr>
 nnoremap <leader>F      :Se.<cr>
 nnoremap <leader>t      :Unite -buffer-name=tags -no-split outline<cr>

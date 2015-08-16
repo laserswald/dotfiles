@@ -27,3 +27,5 @@ alias pomo="sleep 25m && printf '\apomodoro done!\n'"
 ghcl(){
     git clone http://github.com/$1/$2.git
 }
+alias tmux=tmux -2
+alias vim=nvim
