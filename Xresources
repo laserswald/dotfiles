@@ -2,7 +2,6 @@
 
 ! X Colors!
 #include "/home/ben/etc/urxvt/neon.theme"
-
 URxvt.font: -*-terminesspowerline-medium-r-*-*-12-*-*-*-*-*-*-*
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select

@@ -3,6 +3,7 @@
 """"""""""""""""""""""""""""""""""""""
 " vim: fdm=marker fdl=0 :
 set nocompatible
+" Neovim setup
 filetype off
 if has('nvim')
     runtime! plugin/python_setup.vim
@@ -115,10 +116,10 @@ set background=dark
 let base16colorspace=256
 colors noctu
 
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Inconsolata-g\ for\ Powerline\ 11
+    set guifont="Source Code Pro for Powerline 8"
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
@@ -191,7 +192,7 @@ nnoremap <leader>%      :Sex<cr>
 nnoremap <leader>c      :new<cr>
 nnoremap <leader>x      :bd<cr>
 nnoremap <leader>W      <c-w>w
-nnoremap <leader>M      :copen<cr>
+nnoremap <leader>M      :cw<cr>
 nnoremap <leader>f      :e.<cr>
 nnoremap <leader>F      :Se.<cr>
 nnoremap <leader>t      :Unite -buffer-name=tags -no-split outline<cr>
@@ -242,41 +243,40 @@ source ~/.simplenoterc
 "}}}
 "}}}
 " Auto commands."{{{
-augroup all_group
+augroup all_group "{{{
     au! 
     " au vimenter,bufnewfile,bufreadpost * silent! call HardMode()
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-augroup end
+augroup end "}}}
 
 
-augroup eclim_group
+augroup eclim_group "{{{
     au!
     au FileType python,java,c,c++ nnoremap <localleader>f :ProjectTree<cr>
 augroup end
 
-augroup python_group
+augroup python_group "{{{
     " this one is which you're most likely to use?
     au!
     au FileType python set omnifunc=pythoncomplete#Complete
     au FileType python compiler nose
-augroup end
+augroup end "}}}
 
-augroup c_cpp_group
+augroup c_cpp_group "{{{
     au!
     au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-augroup end
+augroup end "}}}
 
-augroup java_group
+augroup java_group "{{{
     au!
     au filetype java nnoremap <localleader>i :JavaImport<cr>
-augroup end
+augroup end "}}}
 
-augroup vim_group
+augroup vim_group "{{{
     au!
     au bufwrite $MYVIMRC source $MYVIMRC
     au filetype vim set fdm=marker
-augroup end
-
-
+    au BufWrite $MYVIMRC source $MYVIMRC
+augroup end "}}}
 "}}}
 

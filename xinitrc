@@ -65,6 +65,6 @@ sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
 #}}}
 
 # Listen for X events and do a flippy thing.
-backflip.sh &
+# backflip.sh &
 
 exec i3
