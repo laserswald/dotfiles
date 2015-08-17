@@ -1,7 +1,7 @@
 " My Vimrc for awesomeness.
 " Ben Davenport-Ray
 """"""""""""""""""""""""""""""""""""""
-" vim: fdm=marker fdl=99 :
+" vim: fdm=marker fdl=0 :
 set nocompatible
 filetype off
 if has('nvim')
@@ -31,6 +31,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'noahfrederick/vim-noctu'
 Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 "}}}
@@ -112,7 +113,7 @@ set vb
 " Visual panels and looks"{{{
 set background=dark
 let base16colorspace=256
-colors jellybeans
+colors noctu
 
 let g:airline_powerline_fonts=0
 if has("gui_running")

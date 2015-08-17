@@ -60,11 +60,11 @@ sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
 # Stand alone tray!
 # ~/bin/stalonetray.sh &
 
-~/etc/start_bar.sh &
+# ~/etc/start_bar.sh &
 
 #}}}
 
 # Listen for X events and do a flippy thing.
 backflip.sh &
 
-exec swm
+exec i3
