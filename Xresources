@@ -1,8 +1,8 @@
 !URxvt.depth: 32
 
 ! X Colors!
-#include "/home/ben/etc/urxvt/neon.theme"
-URxvt.font: -*-terminesspowerline-medium-r-*-*-12-*-*-*-*-*-*-*
+#include "/home/ben/etc/urxvt/plastic-toys.theme"
+URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.url-select.launcher: /usr/bin/firefox
