@@ -14,7 +14,7 @@ alias reload="source ~/.zshrc"
 # Ease of use aliases.
 alias ping="ping -c 3"
 alias ls="ls --color -xX"
-alias eclimd="/usr/share/eclipse/eclimd &"
+alias eclimd="/usr/lib/eclipse/eclimd &"
 
 # Tmux aliases
 alias tns="tmux new-session -s -A "
