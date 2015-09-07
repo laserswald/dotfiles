@@ -1,9 +1,9 @@
 #!/bin/sh
 . ~/etc/bar/base.sh
-np=$( mpc current --format="%artist% / %title%")
+np=$( mpc current --format="%artist% - %title%")
 color=$green
 if [[ -z $np ]]; then
     np="---"
-    color=$off
+    color=$black
 fi
-show_item $color "" "$np"
+show_icon_text $color "" "$np"

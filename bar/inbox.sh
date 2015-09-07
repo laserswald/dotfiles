@@ -2,10 +2,10 @@
 
 . ~/etc/bar/base.sh
 
-inbox=$(~/etc/dzen/inbox.sh ~/mail/Inbox)
+inbox=$(~/etc/dzen/inbox.sh ~/mail/inbox)
 if (( $inbox > 0 )); then
-    current=$red
+    current=$magenta
 else
-    current=$off
+    current=$black
 fi
-show_item_text $current "" "${inbox}"
+show_icon_text $current "" "${inbox}"
