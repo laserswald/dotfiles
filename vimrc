@@ -52,6 +52,7 @@ Plug 'rlipscombe/vim-scons'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'godlygeek/tabular'
 Plug 'wikitopian/hardmode'
+Plug 'christoomey/vim-tmux-navigator'
 "}}}
 " Building and compiling plugins"{{{
 Plug 'reinh/vim-makegreen'
