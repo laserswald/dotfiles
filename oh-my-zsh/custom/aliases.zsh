@@ -19,9 +19,10 @@ alias eclimd="/usr/lib/eclipse/eclimd &"
 # Tmux aliases
 alias tns="tmux new-session -s -A "
 
-
-## Make this a function. Wheeeee!
-alias pomo="sleep 25m && printf '\apomodoro done!\n'"
+egg(){
+    sleep $1 && ding
+}
+alias pomo="egg 10m && printf 'pomodoro done!\n'"
 
 # usage: ghclone laserswald todoc
 ghcl(){
