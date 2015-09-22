@@ -18,11 +18,22 @@ super + shift + {Left, Down, Up, Right}
 super + !button{1,3}
     {wtp, wrs -a} $(wmp) {$(wattr whi $(pfw)),$(pfw) }; chwso -r $(pfw) 
 
-super + !button2
+super + button2
     fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
 
 super + {j, k}
     focus.sh {next, prev}
+
+super + slash
+    switch_grid.sh
+
+# group management
+
+super + {1, 2, 3, 4, 5}
+    groups.sh -t {1, 2, 3, 4, 5}
+
+super + shift + {1, 2, 3, 4, 5}
+    groups.sh -s $(pfw) {1, 2, 3, 4, 5}
 
 # Launch programs
 super + shift + ?
@@ -49,5 +60,6 @@ super + b
 super + f
     urxvt -name ranger -e ranger
 
-super + : 
+super + shift + colon
     dmenu_run 
+
