@@ -136,7 +136,7 @@ bindsym $modkey+r mode "resize"
 
 # Autostart commands {{{
 exec --no-startup-id skype
-exec --no-startup-id "~/dotfiles/start_bar.sh"
+exec --no-startup-id "~/etc/start_bar.sh"
 # }}}
 # Looks and feels {{{
 font pango:SourceCodeProForPowerline 10

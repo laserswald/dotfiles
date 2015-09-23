@@ -14,31 +14,31 @@ source ~/etc/themes/neon.sh
 
 # Select a font. 
 
-# font="-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*"
- font="-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*"
-# font="-*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*"
-# font="-*-pixelcarnagemonott-*-*-*-*-*-*-*-*-*-*-*-*"
+font="-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*"
+#font="-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*"
+#font="-*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*"
+#font="-*-pixelcarnagemonott-*-*-*-*-*-*-*-*-*-*-*-*"
 
 symbolfont="-*-stlarch-*-*-*-*-*-*-*-*-*-*-*-*"
 
 # Some default colors for alerts and such.
 
 black=$color0
-grey=$color8
-red=$color1
-orange=$color9
-yellow=$color3
-green=$color2
-cyan=$color6
 blue=$color4
-magenta=$color5
 brown=$color11
+cyan=$color6
+green=$color2
+grey=$color8
+magenta=$color5
+orange=$color9
+red=$color1
 white=$color7
+yellow=$color3
 
+alert=$magenta
 bg=$black
 fg=$white
 info=$grey
-warn=$red
-alert=$magenta
-on=$green
 off=$orange
+on=$green
+warn=$red

@@ -29,3 +29,7 @@ ghcl(){
 }
 alias tmux=tmux -2
 #alias vim=nvim
+alias sctl="systemctl"
+alias sctll="systemctl list-units"
+alias nctl="netctl"
+alias xm="xrdb -merge ~/.Xresources"

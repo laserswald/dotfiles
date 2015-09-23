@@ -4,15 +4,21 @@ super + shift + c
     killw $(pfw)
 
 super + shift + q
-    pkill swm
+    logout.sh
 
 super + space
     fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
 
 super + {Left, Down, Up, Right}
-    wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+    wmv {-50 0, 0 50, 0 -50, 50 0} $(pfw)
 
 super + shift + {Left, Down, Up, Right}
+    wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+
+super + alt + {Left, Down, Up, Right}
+    wrs {-50 0, 0 50, 0 -50, 50 0} $(pfw)
+
+super + shift + alt + {Left, Down, Up, Right}
     wrs {-20 0, 0 20, 0 -20, 20 0} $(pfw)
 
 super + !button{1,3}
@@ -24,9 +30,18 @@ super + !button2
 super + {j, k}
     focus.sh {next, prev}
 
+super + t 
+    tile.sh
+
+super + slash
+    switch_grid.sh
+
+super + r
+    /bin/kill -USR1 sxhkd && popup "Hotkeys reloaded."
+
 # Launch programs
-super + shift + ?
-    urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s' 
+super + ?
+    urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s'; popup "triggered"
 
 super + Return
     urxvt
@@ -49,5 +64,8 @@ super + b
 super + f
     urxvt -name ranger -e ranger
 
-super + : 
-    dmenu_run 
+super + shift + ;
+    dmenu_run -p "run >"
+
+super + ctrl + k
+    urxvt -e vim .sxhkdrc
