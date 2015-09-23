@@ -6,4 +6,4 @@ if [[ -z $np ]]; then
     np="---"
     color=$black
 fi
-show_icon_text $color "" "$np"
+echo "%{A:mpc toggle:}$(show_icon_text $color "" "$np")%{A}"

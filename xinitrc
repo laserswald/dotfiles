@@ -52,10 +52,10 @@ compton -b -C &
 ## Wallpapers
 
 # Set a light green as the wallpaper
-# xsetroot -bg green -fg grey -mod 2 2
+xsetroot -bg green -fg grey -mod 2 2
 
 # Set a random pattern as the wallpaper.
-sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
+#sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
 
 # Stand alone tray!
 # ~/bin/stalonetray.sh &
@@ -66,4 +66,6 @@ sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
 
 # Listen for X events and do a flippy thing.
 # backflip.sh &
+backflip &
 exec swm
+
