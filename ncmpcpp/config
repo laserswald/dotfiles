@@ -176,7 +176,7 @@ visualizer_look = *▮
 ## Note: colors can be nested.
 ##
 #
-#song_list_format = {%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
+song_list_format = {%a $8>>$9 }{%t}|{$8%f$9}$R{$3(%l)$9}
 #
 #song_status_format = {{%a{ "%b"{ (%y)}} - }{%t}}|{%f}
 #
@@ -235,7 +235,7 @@ visualizer_look = *▮
 #
 ## Note: colors are not supported for below variable.
 ##
-#song_window_title_format = {%a - }{%t}|{%f}
+song_window_title_format = {%a - }{%t}|{%f}
 #
 ##### columns settings #####
 ##
@@ -295,11 +295,11 @@ visualizer_look = *▮
 ##
 ## Note: Possible display modes: classic, columns.
 ##
-playlist_display_mode = columns
+playlist_display_mode = classic
 #
-browser_display_mode = columns
+browser_display_mode = classic
 #
-search_engine_display_mode = columns
+search_engine_display_mode = classic
 #
 #playlist_editor_display_mode = classic
 #
@@ -319,7 +319,7 @@ search_engine_display_mode = columns
 ## Note: You can specify third character which will
 ## be used to build 'empty' part of progressbar.
 ##
-#progressbar_look = =>
+progressbar_look = ──
 #
 #progressbar_boldness = yes
 #
@@ -329,7 +329,7 @@ search_engine_display_mode = columns
 #
 ## Available values: classic, alternative.
 ##
-#user_interface = classic
+#user_interface = alternative
 #
 #data_fetching_delay = yes
 #
@@ -417,7 +417,7 @@ search_engine_display_mode = columns
 #
 #clock_display_seconds = no
 #
-#display_volume_level = yes
+display_volume_level = no
 #
 #display_bitrate = no
 #
@@ -464,7 +464,7 @@ search_engine_display_mode = columns
 #
 #search_engine_default_search_mode = 1
 #
-#external_editor = nano
+external_editor = vim
 #
 ## Note: set to yes if external editor is a console application.
 ##
@@ -484,17 +484,17 @@ search_engine_display_mode = columns
 #
 #state_flags_color = default
 #
-#main_window_color = yellow
+main_window_color = magenta
 #
 #color1 = white
 #
 #color2 = green
 #
-#main_window_highlight_color = yellow
+main_window_highlight_color = yellow
 #
-#progressbar_color = black
+progressbar_color = black
 #
-#progressbar_elapsed_color = green
+progressbar_elapsed_color = magenta
 #
 #statusbar_color = default
 #

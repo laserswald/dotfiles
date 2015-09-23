@@ -58,9 +58,7 @@ sleep 2 && feh --bg-fill ~/usr/img/wall/wallhaven-251602.jpg &
 
 # Stand alone tray!
 # ~/bin/stalonetray.sh &
-#}}}
-
-# Listen for X events and do a flippy thing.
+# }}}
 
 if [ $HOSTNAME == "fastball" ]; then 
     shoutout.sh &
