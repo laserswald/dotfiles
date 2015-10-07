@@ -106,6 +106,8 @@ set background=dark
 let base16colorspace=256
 colors noctu
 
+let g:airline_powerline_fonts=1
+
 if has("gui_running")
   if has("gui_gtk2")
     set guifont="Source Code Pro for Powerline 8"

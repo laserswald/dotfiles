@@ -33,39 +33,35 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 #}}}
 
-# Add third party fonts!
+# Add third party fonts!#{{{
 xset +fp /usr/share/fonts/local
 xset fp rehash
+#}}}
 
-#Start some nice daemons. 
+#Start some nice daemons. {{{
 sxhkd -c ~/.sxhkdrc &
 syncthing --no-browser &
 mpd &
-# start_tmuxen.sh & 
-
-#### Look and feel  {{{
-
-# ~/.screenlayout/dellaoc.sh &
-xsetroot -cursor_name left_ptr
-compton -b -C &
-
-## Wallpapers
-
-# Set a light green as the wallpaper
-xsetroot -bg green -fg grey -mod 2 2
-
-# Set a random pattern as the wallpaper.
-#sleep 2 && feh --bg-tile --random  ~/usr/img/ptrn/* &
-
-# Stand alone tray!
-# ~/bin/stalonetray.sh &
-
-~/etc/start_bar.sh &
-
 #}}}
 
-# Listen for X events and do a flippy thing.
-# backflip.sh &
-backflip &
-exec swm
+# Look and feel. {{{
 
+xsetroot -cursor_name left_ptr &
+#compton -b -C &
+
+## Wallpapers
+# Set a light blue as the wallpaper
+# sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
+# Set a random pattern as the wallpaper.
+sleep 2 && feh --bg-tile --random  ~/img/wall/ptrn/* &
+
+# shoutout.sh &
+
+#}}}
+sleep 2 && ~/etc/start_bar.sh &
+if [ $HOSTNAME == "fastball" ]; then 
+    exec backflip.sh
+elif [[ $HOSTNAME == "homebase" ]]; then 
+    ~/.screenlayout/dellaocnorm.sh &
+    exec swm
+fi

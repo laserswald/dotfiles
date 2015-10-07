@@ -29,4 +29,8 @@ ghcl(){
     git clone http://github.com/$1/$2.git
 }
 alias tmux=tmux -2
-alias vim=nvim
+#alias vim=nvim
+alias sctl="systemctl"
+alias sctll="systemctl list-units"
+alias nctl="netctl"
+alias xm="xrdb -merge ~/.Xresources"
