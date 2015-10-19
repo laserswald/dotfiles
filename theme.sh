@@ -14,7 +14,8 @@ source ~/etc/themes/neon.sh
 
 # Select a font. 
 
-font="-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*"
+font="-*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*"
+#font="-*-progsole-*-*-*-*-*-*-*-*-*-*-*-*"
 #font="-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*"
 #font="-*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*"
 #font="-*-pixelcarnagemonott-*-*-*-*-*-*-*-*-*-*-*-*"

@@ -17,3 +17,14 @@ function show_icon {
     #echo "%{B$maincolor} $icon %{B-} %{F$maincolor}$text%{F-}"
     echo "%{F$maincolor}$icon%{F-}"
 }
+
+function str_contains(){
+    str="$1"
+    sub="$2"
+    if test "${str#*$sub}" != "$str"; then
+        return 0
+    else
+        return 1
+    fi
+}
+

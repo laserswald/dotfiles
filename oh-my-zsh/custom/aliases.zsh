@@ -34,3 +34,8 @@ alias sctl="systemctl"
 alias sctll="systemctl list-units"
 alias nctl="netctl"
 alias xm="xrdb -merge ~/.Xresources"
+
+note(){
+    notebook=$1
+    vim ~/doc/notes/$notebook.md
+}
