@@ -34,3 +34,11 @@ alias sctl="systemctl"
 alias sctll="systemctl list-units"
 alias nctl="netctl"
 alias xm="xrdb -merge ~/.Xresources"
+
+note(){
+    cd ~/docs/notes
+    vim $1.md
+    cd -
+}
+
+alias nwall="feh --random --bg-fill ~/img/wall"

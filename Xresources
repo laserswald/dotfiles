@@ -2,7 +2,8 @@
 
 ! X Colors!
 #include "/home/ben/etc/urxvt/plastic-toys.theme"
-URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+!URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+URxvt.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.url-select.launcher: /usr/bin/firefox

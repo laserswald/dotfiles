@@ -39,6 +39,9 @@ super + slash
 super + r
     /bin/kill -USR1 sxhkd && popup "Hotkeys reloaded."
 
+super + shift + {h, j, k, l}
+    snap.sh {east, south, north, west}
+
 # Launch programs
 super + ?
     urxvt -name 'Xbindkeys Help' -e 'xbindkeys -s'; popup "triggered"
