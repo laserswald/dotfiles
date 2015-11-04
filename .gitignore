@@ -5,5 +5,5 @@
 **/*.hi
 xmonad/xmonad
 procmailrc
-vim/bundle
+vim/bundle/*
 vim/.netrwhist
