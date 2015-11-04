@@ -37,34 +37,20 @@ Plug 'noahfrederick/vim-noctu'
 Plug 'jpalardy/vim-slime'
 "}}}
 " File opening and management plugins"{{{
-Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-vinegar'
 "}}}
 " Filetype plugins"{{{
 Plug 'plasticboy/vim-markdown'
-Plug 'laserswald/vim-minunit'
 Plug 'rlipscombe/vim-scons'
 "}}}
 " Movement plugins"{{{
-Plug 'terryma/vim-multiple-cursors'
 Plug 'godlygeek/tabular'
-Plug 'wikitopian/hardmode'
 Plug 'christoomey/vim-tmux-navigator'
 "}}}
 " Building and compiling plugins"{{{
+Plug 'bling/vim-bufferline'
 Plug 'reinh/vim-makegreen'
-Plug 'xuhdev/SingleCompile'
-"}}}
-" Compiler settings."{{{
-Plug 'JalaiAmitahl/maven-compiler.vim'
-Plug 'vim-scripts/Scons-compiler-plugin'
-"}}}
-" Unite."{{{
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 "}}}
 call plug#end()
 " 1}}} "
