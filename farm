@@ -1,0 +1,66 @@
+#!/bin/sh
+# farm
+# Manage a symlink farm. 
+
+# 2015 Laserswald.
+
+usage() {
+cat << eof 
+usage: $(basename $0) -[dhu] [-t TARGET] FILE | DIRECTORY ...
+Use symlinks to store files in a target directory.
+
+    -d removes beginning dot from stored file names
+       (e.g. links .vimrc to target/vimrc)
+    
+    -h show this help
+
+    -t specify the target directory. By default, this is the current directory.
+
+    -u unstores the specified files or directories from the target directory,
+       moves originals to current directory.
+eof
+}
+
+bail() {
+    echo "$(basename $0): $1"
+    exit 1
+}
+
+# Set the default farm directory
+targetdir=$PWD
+
+while getopts "duht:i" flag; do 
+    case $flag in
+        d ) dotfile_mode=1 ;;
+        h ) usage && exit 0 ;;
+        t ) targetdir=$OPTARG ;;
+        u ) unstore=1 ;;
+        ? ) usage && exit 1 ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
+for filename in $@; do
+    targetname=$(basename $filename)
+
+    #if we are in dotfile mode remove the dot from the original name
+    test $dotfile_mode && targetname=$(echo $targetname | sed "s/^\.//")
+
+    if [ $unstore ]; then
+        # Bail if not a link
+        test ! -L $filename && bail "$filename is not a link."
+
+        rm $filename
+        mv $targetdir/$targetname $filename
+    else
+        # check if file is a file or directory
+        test -f $filename -o -d $filename -o -L $filename || bail "$filename is not a file or a directory."
+
+        #if it is a symlink already then skip it
+        # TODO: Check if the symlink goes to the correct farm
+        test -L $filename && continue
+
+        mv $filename $targetdir/$targetname
+        ln -s $targetdir/$targetname $filename
+    fi
+done
