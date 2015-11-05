@@ -4,33 +4,28 @@ set nocompatible
 " Neovim setup
 if has('nvim')
     runtime! plugin/python_setup.vim
+    set runtimepath+=/usr/share/vim/vimfiles
 endif
-set runtimepath+=/usr/share/vim/vimfiles
 " Plugins {{{1 
 call plug#begin("~/.vim/bundle")
 " Basic improvements"{{{
-Plug 'benekastah/neomake'
-Plug 'floobits/floobits-neovim'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-sensible'
-Plug 'Rykka/mathematic.vim'
 "}}}
 " Tagging plugins."{{{
-Plug 'majutsushi/tagbar'
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
 "}}}
 " Completion plugins. {{{2 
 Plug 'ervandew/supertab'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 " }}}2
 " Themes and eye candy."{{{
 Plug 'bling/vim-airline'
-Plug 'chriskempson/base16-vim'
+Plug 'bling/vim-bufferline'
 Plug 'nanotech/jellybeans.vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'noahfrederick/vim-noctu'
 "}}}
 " REPL plugins"{{{
@@ -39,9 +34,9 @@ Plug 'jpalardy/vim-slime'
 " File opening and management plugins"{{{
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
 "}}}
 " Filetype plugins"{{{
-Plug 'plasticboy/vim-markdown'
 Plug 'rlipscombe/vim-scons'
 "}}}
 " Movement plugins"{{{
@@ -49,8 +44,11 @@ Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-tmux-navigator'
 "}}}
 " Building and compiling plugins"{{{
-Plug 'bling/vim-bufferline'
 Plug 'reinh/vim-makegreen'
+"}}}
+" Compiler settings."{{{
+Plug 'JalaiAmitahl/maven-compiler.vim'
+Plug 'vim-scripts/Scons-compiler-plugin'
 "}}}
 call plug#end()
 " 1}}} "
@@ -90,10 +88,7 @@ set vb
 "}}}
 " Visual panels and looks"{{{
 set background=dark
-let base16colorspace=256
-colors noctu
-
-let g:airline_powerline_fonts=1
+colors arccos
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -129,19 +124,13 @@ inoremap <Right> <nop>
 noremap j gj
 noremap k gk
 
-"" Normal mode leader mappings.
-call unite#custom#source('buffer,file,file_rec', 'matchers', 'matcher_fuzzy')
-call unite#filters#sorter_default#use(['sorter_selecta'])
-
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Default Build stuff
 nnoremap <leader>b      :MakeGreen<cr>
-nnoremap <leader>bf     :SCCompile<cr>
 nnoremap <leader>br     :MakeGreen("rebuild") <cr>
 nnoremap <leader>be     :MakeGreen("run") <cr>
-nnoremap <leader>r      :SCCompileRun<cr>
 
 " Git "{{{
 nnoremap <leader>gw     :Gwrite<cr>
@@ -157,18 +146,13 @@ nnoremap <leader>J      @qk^
 " Edit snippets files.
 nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
-" Window manipulation
-
-" Unite commands.
-nnoremap <leader>bl     :Unite -buffer-name=buffers -no-split buffer<cr>
-
 "" Visual mode leader mappings.
 " Extract to another file
 vnoremap <leader>x      "md:enew<cr>"mp
 
 "" Unified Movement"{{{
-nnoremap <leader>n      :bn<cr>
-nnoremap <leader>p      :bp<cr>
+nnoremap <right>        :bn<cr>
+nnoremap <left>         :bp<cr>
 nnoremap <leader>v      :Vex<cr>
 nnoremap <leader>s      :Sex<cr>
 nnoremap <leader>c      :new<cr>
@@ -177,7 +161,6 @@ nnoremap <leader>W      <c-w>w
 nnoremap <leader>M      :copen<cr>
 nnoremap <leader>f      :e.<cr>
 nnoremap <leader>F      :Se.<cr>
-nnoremap <leader>T      :Unite -buffer-name=tags -no-split outline<cr>
 nnoremap <leader>t      :TagbarToggle<cr>
 nnoremap <leader>w      :w<cr>
 nnoremap <leader>o      :res <cr> :vertical res <cr>
@@ -195,8 +178,6 @@ nnoremap <leader>u viwUe
 " Force to use mappings
 noremap <Up> <nop>
 noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
 inoremap <esc> <nop>
 
 " Make jk escape to normal mode
@@ -205,6 +186,10 @@ vnoremap jk <esc>
 
 "}}}
 " Plugin settings."{{{
+
+" Netrw settings
+let g:netrw_banner=0
+
 " Vim Slime"{{{
 let g:slime_target = "tmux"
 "}}}
@@ -222,14 +207,8 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "}}}
-" Ctrl-P."{{{
-let g:ctrlp_map = '<c-p>'
-"}}}
 " Taglist {{{
 let Tlist_Use_Right_Window = 1
-"}}}
-" Simplenote."{{{
-source ~/.simplenoterc
 "}}}
 "}}}
 " Auto commands."{{{
@@ -261,10 +240,7 @@ augroup vim_group "{{{
     au filetype vim set fdm=marker
     au BufWrite $MYVIMRC source $MYVIMRC
 augroup end "}}}
-
 augroup markdown_group "{{{
     au!
 augroup end "}}}
-augroup vim_group "{{{
-
 "}}}
