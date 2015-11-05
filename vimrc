@@ -68,12 +68,13 @@ Plug 'Shougo/unite-outline'
 "}}}
 call plug#end()
 " 1}}} "
-"General settings. "{{{
+"General settings and options. "{{{
 syntax enable
 filetype plugin indent on
 set autoread
 set backspace=indent,eol,start
 set background=dark
+set colorcolumn=80
 set completeopt=menuone,menu,longest,preview
 set encoding=utf-8
 set expandtab
@@ -277,7 +278,6 @@ augroup end "}}}
 
 augroup markdown_group "{{{
     au!
-    au filetype markdown set keymap=mathematic
 augroup end "}}}
 augroup vim_group "{{{
 

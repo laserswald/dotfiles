@@ -3,7 +3,9 @@
 ! X Colors!
 #include "/home/ben/etc/urxvt/plastic-toys.theme"
 ! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
 URxvt.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
+! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.url-select.launcher: /usr/bin/firefox
