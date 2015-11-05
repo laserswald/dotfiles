@@ -24,11 +24,14 @@ super + shift + alt + {Left, Down, Up, Right}
 super + !button{1,3}
     {wtp, wrs -a} $(wmp) {$(wattr whi $(pfw)),$(pfw) }; chwso -r $(pfw) 
 
-super + !button2
+super + button2
     fullscreen_disp.sh $(current_disp.sh $(pfw)) $(pfw)
 
-super + {j, k}
+super + button{4,5}
     focus.sh {next, prev}
+
+super + {h,j,k,l}
+    closest.sh {left, down, up, right}
 
 super + t 
     tile.sh
@@ -41,6 +44,14 @@ super + r
 
 super + shift + {h, j, k, l}
     snap.sh {east, south, north, west}
+
+# group management
+
+super + {1, 2, 3, 4, 5}
+    groups.sh -t {1, 2, 3, 4, 5}
+
+super + shift + {1, 2, 3, 4, 5}
+    groups.sh -s $(pfw) {1, 2, 3, 4, 5}
 
 # Launch programs
 super + ?
@@ -62,12 +73,12 @@ XF86Calculator
     urxvt -name bc -e bc
   
 super + b  
-    firefox
+    uzbl-tabbed
 
 super + f
     urxvt -name ranger -e ranger
 
-super + shift + ;
+super + shift + colon
     dmenu_run -p "run >"
 
 super + ctrl + k
