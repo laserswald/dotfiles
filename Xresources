@@ -1,14 +1,14 @@
-!URxvt.depth: 32
 
-! X Colors!
-#include "/home/ben/etc/urxvt/plastic-toys.theme"
+#include "/home/ben/etc/themes/current.Xresources"
 ! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
 ! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
-URxvt.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
 ! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1
+
+
+URxvt.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt.boldFont:
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt.url-select.underline: true
-Urxvt.url-select.button:        1
-URxvt.boldFont:
+Urxvt.url-select.button:1
