@@ -13,7 +13,7 @@ alias reload="source ~/.zshrc"
 
 # Ease of use aliases.
 alias ping="ping -c 3"
-alias ls="ls --color -xX"
+alias ls="ls --color=auto -xX"
 alias eclimd="/usr/lib/eclipse/eclimd &"
 
 # Tmux aliases
