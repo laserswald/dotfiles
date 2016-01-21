@@ -62,3 +62,4 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+export XDG_CONFIG_HOME="/home/ben/.config"

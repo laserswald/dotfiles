@@ -39,7 +39,7 @@ xset fp rehash
 #}}}
 
 #Start some nice daemons. {{{
-sxhkd -c ~/.sxhkdrc &
+sxhkd &
 syncthing --no-browser &
 mpd &
 #}}}
@@ -53,7 +53,7 @@ xsetroot -cursor_name left_ptr &
 # Set a light blue as the wallpaper
 # sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
 # Set a random pattern as the wallpaper.
-sleep 2 && feh --bg-tile --random  ~/img/wall/ptrn/* &
+sleep 2 && feh --bg-fill --random  ~/img/wall/* &
 
 # shoutout.sh &
 
@@ -62,6 +62,7 @@ sleep 2 && ~/etc/start_bar.sh &
 if [ $HOSTNAME == "fastball" ]; then 
     exec backflip.sh
 elif [[ $HOSTNAME == "homebase" ]]; then 
-    ~/.screenlayout/dellaocnorm.sh &
-    exec swm
+    ~/.screenlayout/dellaoc.sh &
+    export XDG_CONFIG_HOME=~
+    exec bspwm
 fi
