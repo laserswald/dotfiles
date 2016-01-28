@@ -1,7 +1,9 @@
 # Ben's standard profile.
 
-export EDITOR="vim"
-export VISUAL="vim"
-export BROWSER="firefox"
+EDITOR=vim
+BROWSER=firefox
+PAGER="less -R"
 
-export XDG_CONFIG_HOME="$HOME/.config"
+XDG_CONFIG_HOME="$HOME/.config"
+
+export EDITOR VISUAL BROWSER XDG_CONFIG_HOME PAGER

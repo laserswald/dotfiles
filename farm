@@ -6,7 +6,7 @@
 
 usage() {
 cat << eof 
-usage: $(basename $0) -[dhu] [-t TARGET] FILE | DIRECTORY ...
+usage: $(basename $0) -[dhu] [-S STORAGE_DIR] FILE | DIRECTORY ...
 Use symlinks to store files in a target directory.
 
     -d removes beginning dot from stored file names
@@ -14,7 +14,9 @@ Use symlinks to store files in a target directory.
     
     -h show this help
 
-    -t specify the target directory. By default, this is the current directory.
+    -i installs links from target into current directory. 
+    
+    -s specify the storage directory. By default, this is the current directory.
 
     -u unstores the specified files or directories from the target directory,
        moves originals to current directory.
@@ -27,31 +29,66 @@ bail() {
 }
 
 # Set the default farm directory
-targetdir=$PWD
+storagedir=$PWD
 
-while getopts "duht:i" flag; do 
+while getopts "duhs:i" flag; do 
     case $flag in
         d ) dotfile_mode=1 ;;
         h ) usage && exit 0 ;;
-        t ) targetdir=$OPTARG ;;
+        i ) install_mode=1 ;;
+        s ) storagedir=$OPTARG ;;
         u ) unstore=1 ;;
         ? ) usage && exit 1 ;;
     esac
 done
 shift $(( OPTIND - 1 ))
 
-for filename in $@; do
-    targetname=$(basename $filename)
+function target_name {
+    local tname=$(basename $1)
+    test $dotfile_mode && tname=$(echo $1 | sed "s/^\.//")
+    echo tname
+}
 
-    #if we are in dotfile mode remove the dot from the original name
-    test $dotfile_mode && targetname=$(echo $targetname | sed "s/^\.//")
+function store_file {
+    local filename=$1
+    storagename=$(target_name $filename)
+    mv $filename $storagedir/$storagename
+    ln -s $storagedir/$storagename $filename
+}
+
+function unstore_file {
+    local filename=$1
+    storagename=$(target_name $filename)
+    rm $filename
+    mv $storagedir/$storagename $filename
+}
+
+# Taking the stored name of a file, links it to the current directory
+function install_file {
+    local storagename=$1
+    local filename=$storagename
+    test $dotfile_mode && filename=".$storagename"
+    ln -s $storagedir/$storagename $filename
+}
+
+if [[ -z $* ]]; then 
+    if [[ $install_mode ]]; then
+        for storedfile in $(ls $storagedir) ; do
+            install_file $storedfile 
+        done
+    else 
+        usage && exit 1
+    fi
+fi
+
+for filename in $*; do
 
     if [ $unstore ]; then
         # Bail if not a link
         test ! -L $filename && bail "$filename is not a link."
-
-        rm $filename
-        mv $targetdir/$targetname $filename
+        unstore_file $filename
+    elif [ $install_mode ]; then 
+        install_file $filename
     else
         # check if file is a file or directory
         test -f $filename -o -d $filename -o -L $filename || bail "$filename is not a file or a directory."
@@ -59,8 +96,6 @@ for filename in $@; do
         #if it is a symlink already then skip it
         # TODO: Check if the symlink goes to the correct farm
         test -L $filename && continue
-
-        mv $filename $targetdir/$targetname
-        ln -s $targetdir/$targetname $filename
+        store_file $filename
     fi
 done

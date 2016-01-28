@@ -63,6 +63,5 @@ if [ $HOSTNAME == "fastball" ]; then
     exec backflip.sh
 elif [[ $HOSTNAME == "homebase" ]]; then 
     ~/.screenlayout/dellaoc.sh &
-    export XDG_CONFIG_HOME=~
     exec bspwm
 fi
