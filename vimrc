@@ -1,4 +1,4 @@
-" Neovim config file. 
+" Neovim/Vim config file. 
 set nocompatible
 
 " Neovim setup
@@ -21,6 +21,7 @@ Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdcommenter'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
 " }}}2
 " Themes and eye candy."{{{
 Plug 'bling/vim-airline'
@@ -30,6 +31,7 @@ Plug 'noahfrederick/vim-noctu'
 "}}}
 " REPL plugins"{{{
 Plug 'jpalardy/vim-slime'
+Plug 'kovisoft/slimv'
 "}}}
 " File opening and management plugins"{{{
 Plug 'rking/ag.vim'
@@ -38,6 +40,7 @@ Plug 'tpope/vim-projectionist'
 "}}}
 " Filetype plugins"{{{
 Plug 'rlipscombe/vim-scons'
+Plug 'kien/rainbow_parentheses.vim'
 "}}}
 " Movement plugins"{{{
 Plug 'godlygeek/tabular'
@@ -84,7 +87,6 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set tags+=~/.vim/tags/cpp_tags
-set vb
 "}}}
 " Visual panels and looks"{{{
 set background=dark
@@ -238,9 +240,15 @@ augroup end "}}}
 augroup vim_group "{{{
     au!
     au filetype vim set fdm=marker
+    au filetype vim set foldlevel=0
     au BufWrite $MYVIMRC source $MYVIMRC
 augroup end "}}}
 augroup markdown_group "{{{
     au!
+augroup end "}}}
+augroup lisp_group "{{{
+    au!
+    au filetype lisp RainbowParenthesesToggle
+    au filetype lisp RainbowParenthesesLoadRound
 augroup end "}}}
 "}}}

@@ -42,3 +42,4 @@ note(){
 }
 
 alias nwall="feh --random --bg-fill ~/img/wall"
+
