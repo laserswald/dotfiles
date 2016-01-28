@@ -39,7 +39,7 @@ xset fp rehash
 #}}}
 
 #Start some nice daemons. {{{
-sxhkd -c ~/.sxhkdrc &
+sxhkd &
 syncthing --no-browser &
 mpd &
 #}}}
@@ -68,6 +68,6 @@ if [ $HOSTNAME == "fastball" ]; then
         exec bspwm -c "~/.config/bspwm/bspwmrc"
     fi
 elif [[ $HOSTNAME == "homebase" ]]; then 
-    ~/.screenlayout/dellaocnorm.sh &
-    exec swm
+    ~/.screenlayout/dellaoc.sh &
+    exec bspwm
 fi

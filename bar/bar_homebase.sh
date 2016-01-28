@@ -1,7 +1,7 @@
 #!/bin/sh
 while true; do 
     buffer=""
-    buffer="${buffer}%{S0}"
+    buffer="${buffer}%{S1}"
     #buffer="${buffer} $(~/etc/bar/inbox.sh)"
     #buffer="${buffer} $(~/etc/bar/batt.sh)"
     buffer="${buffer} $(~/etc/bar/browser.sh)"

@@ -4,5 +4,5 @@ function aa {
     source ~/.zshrc
 }
 function search {
-    w3m "https://duckduckgo.com/?q=$1"
+    w3m "https://duckduckgo.com/?q=$@"
 }
