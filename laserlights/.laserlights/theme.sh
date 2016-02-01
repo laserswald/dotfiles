@@ -1,5 +1,5 @@
 #!/bin/sh
-# theme.sh: A full platform theme loader.
+# Laserlights: A unix theme loader.
 # 
 # Copyright 2015 Ben Davenport-Ray
 #

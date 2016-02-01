@@ -23,7 +23,6 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
@@ -38,29 +37,48 @@ xset +fp /usr/share/fonts/local
 xset fp rehash
 #}}}
 
-#Start some nice daemons. {{{
-sxhkd &
-syncthing --no-browser &
-mpd &
-#}}}
+# Start some personal daemons.
+    
+    # Simple X Hotkey Daemon
+    sxhkd &
 
-# Look and feel. {{{
+    # Syncthing 
+    syncthing --no-browser &
 
-xsetroot -cursor_name left_ptr &
-stalonetray.sh &
-#compton -b -C &
+    # Music player
+    mpd &
 
-## Wallpapers
-# Set a light blue as the wallpaper
-sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
-# Set a random pattern as the wallpaper.
-# sleep 2 && nwall &
+    #
+    redshift &
 
-# shoutout.sh &
+# Appearance.
 
-#}}}
-sleep 2 && ~/etc/start_bar.sh &
+    # Set the cursor to the left arrow pointer.
+    xsetroot -cursor_name left_ptr &
+   
+    # Launch a system tray.
+    stalonetray.sh &
+
+    # Launch a compositor. 
+    #xcompmgr -c -f -C &
+    #compton -b -C &
+
+    ## Wallpapers
+
+        # Set a random pattern as the wallpaper.
+        #sleep 2 && feh --bg-fill --random  ~/img/ptrn/* &
+
+        # Set a light blue as the wallpaper
+        #sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
+
+        # Set a picture as the wallpaper.
+        sleep 2 && feh --bg-fill ~/img/wall/wallhaven-75118.png &
+
+    # Start a minimalist bar.
+    sleep 2 && ~/.lemonbar/start_bar.sh &
+
 if [ $HOSTNAME == "fastball" ]; then 
+    sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
     if [[ $OPENBOX ]]; then
         lxpanel &
         exec openbox-session
