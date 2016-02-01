@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-" Neovim/Vim config file. 
-=======
 " Ben's Vimrc.
 "
 " Some of this should be split up into different files. 
->>>>>>> f0ff72b8ee19da3f48ec851d89ddfa0e173379e5
 set nocompatible
 
 " Neovim setup
