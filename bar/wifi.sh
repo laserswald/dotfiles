@@ -1,5 +1,5 @@
 . ~/etc/bar/base.sh
-ssid=$(iw dev wlp3s0 link | grep SSID | cut -d' ' -f2)
+ssid=$(iw dev wls3 link | grep SSID | cut -d' ' -f2)
 
 full=""
 

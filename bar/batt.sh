@@ -1,7 +1,7 @@
 #!/bin/sh
 source ~/etc/bar/base.sh
-battnum=$(acpi | cut -d "," -f2 | sed -e "s/%//" | sed -e "s/ //")
 
+battnum=$(acpi | cut -d "," -f2 | sed -e "s/%//" | sed -e "s/ //")
 crit=10
 low=25
 med=50
@@ -13,7 +13,6 @@ medicon=""
 hiicon=""
 
 battcolor=$blue
-
 
 if [[ $battnum -le $crit ]]; then 
     icon=$criticon
@@ -28,5 +27,7 @@ else
     icon=$hiicon
 fi
 
- show_icon $battcolor "$icon $battnum"
+test $(acpi | grep -q Discharging) || icon=""
+
+show_icon $battcolor "$icon $battnum"
 

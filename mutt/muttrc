@@ -1,54 +1,52 @@
 source $HOME/.mutt/aliases
-source $HOME/.mutt/shiny.colors
+source $HOME/.mutt/laserswald.colors
 
-set sendmail="/usr/bin/msmtp"
-set realname="Ben Davenport-Ray"
-set from="ben.davenportray@gmail.com"
-set editor="vim"
+# paths
+set alias_file=$HOME/.mutt/aliases
+set folder=$HOME/mail/inbox
+set signature = $HOME/.mutt/sig
+
+# options
+set wait_key = no
 set mbox_type=Maildir
-set folder=$HOME/mail
-set spoolfile=+/Inbox 
-set header_cache=~/.cache/mutt
-set edit_headers=yes
-set postponed=+drafts
-set record=+sent
-set sort=reverse-threads
-set sort_aux=last-date-received
+set timeout=3
+set mail_check=0
+unset move
+set delete
+unset confirmappend
+set quit
+unset mark_old
+set beep_new
+set pipe_decode
 
-# View the emails in text-first order
-auto_view text/html
-alternative_order text/plain text/enriched text/html
+# keys
+bind index gg first-entry
+bind index G last-entry
+macro index o "<shell-escape>mbsync -qqa<enter>" "Sync email."
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
+bind pager k previous-line
+bind pager j next-line
+bind pager gg top
+bind pager G bottom
 
 bind attach <return> view-mailcap
 
-# sidebar
-set sidebar_visible = yes
-set sidebar_width=30
+set edit_headers=yes
+set editor="vim"
+set from="ben.davenportray@gmail.com"
+set header_cache=~/.cache/mutt
+set postponed=+drafts
+set record=+sent
+set realname="Ben Davenport-Ray"
+set sendmail="/usr/bin/msmtp"
+set sort=threads
+set spoolfile=+/
 
-# index and pager
-set pager_index_lines = 10
-set pager_context = 3
-set pager_stop
-set menu_scroll
+source $HOME/.mutt/boxes.muttrc
 
-# Pager key bindings
-bind pager k  previous-line
-bind pager j  next-line
-bind pager gg top
-bind pager G  bottom
+auto_view text/enriched
+alternative_order text/plain text/enriched text/html
 
-bind index,pager <down>  sidebar-next
-bind index,pager <up>  sidebar-prev
-bind index,pager <right>  sidebar-open
 
-#Massive number of mailboxes, for Gmail
-mailboxes ! =act =hold =archive 
-mailboxes =Sent =Drafts =Starred =Trash 
-mailboxes =Secular\ Student\ Alliance
-#Development
-mailboxes =Github =Github/.Neovim 
-
-mailboxes =School =School/.Coastal =School/.Kennesaw
-mailboxes =Social\ Networks =Social\ Networks/.Twitter
-mailboxes =Venturing
 

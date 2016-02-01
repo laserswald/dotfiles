@@ -36,6 +36,10 @@ alias nctl="netctl"
 alias xm="xrdb -merge ~/.Xresources"
 
 note(){
-    notebook=$1
-    vim ~/doc/notes/$notebook.md
+    cd ~/docs/notes
+    vim $1.md
+    cd -
 }
+
+alias nwall="feh --random --bg-fill ~/img/wall"
+

@@ -1,12 +1,14 @@
 
 #include "/home/ben/etc/themes/current.Xresources"
 ! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1
+
+
 URxvt.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt.boldFont:
-
-!URxvt.depth: 32
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.url-select.launcher: /usr/bin/firefox
 URxvt.url-select.underline: true
-Urxvt.url-select.button:        1
+Urxvt.url-select.button:1

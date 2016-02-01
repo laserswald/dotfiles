@@ -16,69 +16,80 @@ if version > 580
 endif
 let g:colors_name="arccos"
 
+" 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
+
 " Actual colours and styles.
-highlight Comment      term=NONE cterm=NONE ctermfg=6    ctermbg=NONE
+highlight Comment      term=none cterm=none ctermfg=darkgrey    ctermbg=none
 
 " Constant values.
-highlight Constant     term=NONE cterm=NONE ctermfg=12    ctermbg=NONE
-highlight String       term=NONE cterm=NONE ctermfg=9    ctermbg=NONE
-highlight Character    term=NONE cterm=NONE ctermfg=9    ctermbg=NONE
-highlight Number       term=NONE cterm=NONE ctermfg=9    ctermbg=NONE
-highlight Boolean      term=NONE cterm=NONE ctermfg=9    ctermbg=NONE
-highlight Float        term=NONE cterm=NONE ctermfg=9    ctermbg=NONE
+highlight Constant     term=none cterm=none ctermfg=1    ctermbg=none
+highlight String       term=none cterm=none ctermfg=1    ctermbg=none
+highlight Character    term=none cterm=none ctermfg=1    ctermbg=none
+highlight Number       term=none cterm=bold ctermfg=1    ctermbg=none
+highlight Boolean      term=none cterm=bold ctermfg=1    ctermbg=none
+highlight Float        term=none cterm=bold ctermfg=1    ctermbg=none
 
 " Variables and functions.
-highlight Identifier   term=NONE cterm=bold ctermfg=3    ctermbg=NONE
-highlight Function     term=NONE cterm=bold ctermfg=6    ctermbg=NONE
+highlight Identifier   term=none cterm=none ctermfg=3    ctermbg=none
+highlight Function     term=none cterm=bold ctermfg=3    ctermbg=none
 
 " Statement
-highlight Statement    term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Conditional  term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Repeat       term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Label        term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Operator     term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Keyword      term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight Exception    term=NONE cterm=bold ctermfg=2    ctermbg=NONE
+highlight Statement    term=none cterm=none ctermfg=2    ctermbg=none
+highlight Conditional  term=none cterm=none ctermfg=2    ctermbg=none
+highlight Repeat       term=none cterm=none ctermfg=2    ctermbg=none
+highlight Label        term=none cterm=bold ctermfg=2    ctermbg=none
+highlight Operator     term=none cterm=bold ctermfg=2    ctermbg=none
+highlight Keyword      term=none cterm=none ctermfg=2    ctermbg=none
+highlight Exception    term=none cterm=bold ctermfg=2    ctermbg=none
 
 " Macros and preprocessor stuff
-highlight PreProc      term=NONE cterm=NONE ctermfg=1    ctermbg=NONE
-highlight Include      term=NONE cterm=NONE ctermfg=1    ctermbg=NONE
-highlight Define      term=NONE cterm=NONE ctermfg=1    ctermbg=NONE
-highlight Macro      term=NONE cterm=NONE ctermfg=1    ctermbg=NONE
-highlight PreCondit      term=NONE cterm=NONE ctermfg=1    ctermbg=NONE
+highlight PreProc      term=none cterm=none ctermfg=5    ctermbg=none
+highlight Include      term=none cterm=none ctermfg=5    ctermbg=none
+highlight Define       term=none cterm=none ctermfg=5    ctermbg=none
+highlight Macro        term=none cterm=none ctermfg=5    ctermbg=none
+highlight PreCondit    term=none cterm=bold ctermfg=5    ctermbg=none
 
-highlight Type         term=NONE cterm=bold ctermfg=4    ctermbg=NONE
-highlight StorageClass term=NONE cterm=bold ctermfg=4    ctermbg=NONE
-highlight Structure term=NONE cterm=bold ctermfg=4    ctermbg=NONE
-highlight Typedef term=NONE cterm=bold ctermfg=4    ctermbg=NONE
+" Typing 
+highlight Type         term=none cterm=bold ctermfg=4    ctermbg=none
+highlight StorageClass term=none cterm=none ctermfg=4    ctermbg=none
+highlight Structure    term=none cterm=bold ctermfg=4    ctermbg=none
+highlight Typedef      term=none cterm=none ctermfg=4    ctermbg=none
 
-highlight ColorColumn  term=NONE cterm=NONE ctermfg=NONE ctermbg=3
-highlight Cursor       term=NONE cterm=bold ctermfg=3    ctermbg=NONE
-highlight CursorLine   term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE
-highlight DiffAdd      term=NONE cterm=bold ctermfg=2    ctermbg=NONE
-highlight DiffChange   term=NONE cterm=bold ctermfg=NONE ctermbg=NONE
-highlight DiffDelete   term=NONE cterm=bold ctermfg=7    ctermbg=1
-highlight DiffText     term=NONE cterm=bold ctermfg=7    ctermbg=4
-highlight Directory    term=NONE cterm=bold ctermfg=4    ctermbg=0
-highlight Error        term=NONE cterm=NONE ctermfg=0    ctermbg=1
-highlight ErrorMsg     term=NONE cterm=bold ctermfg=1    ctermbg=0
-highlight FoldColumn   term=NONE cterm=bold ctermfg=0    ctermbg=NONE
-highlight Folded       term=NONE cterm=bold ctermfg=0    ctermbg=NONE
-highlight IncSearch    term=NONE cterm=NONE ctermfg=0    ctermbg=5
-highlight NonText      term=NONE cterm=bold ctermfg=0    ctermbg=NONE
-highlight Normal       term=NONE cterm=NONE ctermfg=7    ctermbg=NONE
-highlight Pmenu        term=NONE cterm=NONE ctermfg=0    ctermbg=7
-highlight Search       term=NONE cterm=bold ctermfg=7    ctermbg=5
-highlight Special      term=NONE cterm=bold ctermfg=4    ctermbg=NONE
-highlight SpecialKey   term=NONE cterm=NONE ctermfg=0    ctermbg=NONE
-highlight StatusLine   term=NONE cterm=bold ctermfg=0    ctermbg=NONE
-" highlight StatusLineNC term=NONE cterm=bold ctermfg=0    ctermbg=NONE
-highlight TabLineSel   term=NONE cterm=bold ctermfg=7    ctermbg=NONE
-highlight Todo         term=NONE cterm=bold ctermfg=3    ctermbg=1
-highlight Underlined   term=underline cterm=underline ctermfg=NONE   ctermbg=NONE
-highlight VertSplit    term=NONE cterm=bold ctermfg=6    ctermbg=0
-highlight Visual       term=NONE cterm=bold ctermfg=0    ctermbg=7
-highlight WarningMsg   term=NONE cterm=bold ctermfg=3    ctermbg=NONE
+" Other symbols.
+highlight Special        term=none cterm=none ctermfg=6    ctermbg=none
+highlight SpecialChar    term=none cterm=bold ctermfg=1    ctermbg=none
+highlight Tag            term=none cterm=none ctermfg=6    ctermbg=none
+highlight Delimiter      term=none cterm=none ctermfg=6    ctermbg=none
+highlight Debug          term=none cterm=none ctermfg=6    ctermbg=none
+highlight SpecialComment term=none cterm=none ctermfg=6    ctermbg=none
+
+
+highlight ColorColumn  term=none cterm=none ctermfg=none ctermbg=3
+highlight Cursor       term=none cterm=none ctermfg=3    ctermbg=none
+highlight CursorLine   term=none cterm=none ctermfg=none ctermbg=none
+highlight DiffAdd      term=none cterm=none ctermfg=2    ctermbg=none
+highlight DiffChange   term=none cterm=none ctermfg=none ctermbg=none
+highlight DiffDelete   term=none cterm=none ctermfg=7    ctermbg=1
+highlight DiffText     term=none cterm=none ctermfg=7    ctermbg=4
+highlight Directory    term=none cterm=none ctermfg=4    ctermbg=0
+highlight Error        term=none cterm=none ctermfg=0    ctermbg=1
+highlight ErrorMsg     term=none cterm=none ctermfg=1    ctermbg=0
+highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
+highlight Folded       term=none cterm=none ctermfg=7    ctermbg=15
+highlight IncSearch    term=none cterm=none ctermfg=0    ctermbg=5
+highlight NonText      term=none cterm=none ctermfg=0    ctermbg=none
+highlight Normal       term=none cterm=none ctermfg=7    ctermbg=none
+highlight Pmenu        term=none cterm=none ctermfg=0    ctermbg=7
+highlight Search       term=none cterm=none ctermfg=7    ctermbg=5
+highlight SpecialKey   term=none cterm=none ctermfg=0    ctermbg=none
+highlight StatusLine   term=none cterm=none ctermfg=0    ctermbg=none
+" highlight StatusLineNC term=none cterm=bold ctermfg=0    ctermbg=none
+highlight TabLineSel   term=none cterm=none ctermfg=7    ctermbg=none
+highlight Todo         term=none cterm=none ctermfg=3    ctermbg=1
+highlight Underlined   term=underline cterm=underline ctermfg=none   ctermbg=none
+highlight VertSplit    term=none cterm=none ctermfg=6    ctermbg=0
+highlight Visual       term=none cterm=none ctermfg=0    ctermbg=7
+highlight WarningMsg   term=none cterm=none ctermfg=3    ctermbg=none
 
 " General highlighting group links.
 highlight! link diffAdded       DiffAdd
@@ -91,6 +102,7 @@ highlight! link MoreMsg         Normal
 highlight! link Question        DiffChange
 highlight! link TabLine         StatusLineNC
 highlight! link TabLineFill     StatusLineNC
+highlight! link VimHiGroup      VimGroup
 highlight! link VimHiGroup      VimGroup
 
 " Test the actual colorscheme
