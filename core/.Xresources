@@ -1,5 +1,5 @@
 
-#include "/home/ben/etc/themes/current.Xresources"
+#include "/home/ben/.laserlights/current.Xresources"
 ! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
 ! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
 ! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1

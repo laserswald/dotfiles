@@ -48,6 +48,9 @@ xset fp rehash
     # Music player
     mpd &
 
+    #
+    redshift &
+
 # Appearance.
 
     # Set the cursor to the left arrow pointer.
@@ -72,7 +75,7 @@ xset fp rehash
         sleep 2 && feh --bg-fill ~/img/wall/wallhaven-75118.png &
 
     # Start a minimalist bar.
-    sleep 2 && ~/bin/minbar.sh &
+    sleep 2 && ~/.lemonbar/start_bar.sh &
 
 if [ $HOSTNAME == "fastball" ]; then 
     sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
