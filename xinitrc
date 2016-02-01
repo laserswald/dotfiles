@@ -47,7 +47,7 @@ mpd &
 # Look and feel. {{{
 
 xsetroot -cursor_name left_ptr &
-stalonetray.sh
+stalonetray.sh &
 #compton -b -C &
 
 ## Wallpapers
@@ -65,7 +65,7 @@ if [ $HOSTNAME == "fastball" ]; then
         lxpanel &
         exec openbox-session
     else 
-        exec bspwm -c "~/.config/bspwm/bspwmrc"
+        exec bspwm
     fi
 elif [[ $HOSTNAME == "homebase" ]]; then 
     ~/.screenlayout/dellaoc.sh &
