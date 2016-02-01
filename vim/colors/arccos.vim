@@ -75,7 +75,7 @@ highlight Directory    term=none cterm=none ctermfg=4    ctermbg=0
 highlight Error        term=none cterm=none ctermfg=0    ctermbg=1
 highlight ErrorMsg     term=none cterm=none ctermfg=1    ctermbg=0
 highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
-highlight Folded       term=none cterm=none ctermfg=7    ctermbg=15
+highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
 highlight IncSearch    term=none cterm=none ctermfg=0    ctermbg=5
 highlight NonText      term=none cterm=none ctermfg=0    ctermbg=none
 highlight Normal       term=none cterm=none ctermfg=7    ctermbg=none
