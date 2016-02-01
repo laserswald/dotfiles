@@ -23,7 +23,6 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
@@ -47,18 +46,18 @@ mpd &
 # Look and feel. {{{
 
 xsetroot -cursor_name left_ptr &
+xcompmgr -c -f -C &
 #compton -b -C &
 
 ## Wallpapers
 # Set a light blue as the wallpaper
-# sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
+    # sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
+sleep 2 && feh --bg-fill ~/img/wall/wallhaven-75118.png &
 # Set a random pattern as the wallpaper.
-sleep 2 && feh --bg-fill --random  ~/img/wall/* &
-
-# shoutout.sh &
+#sleep 2 && feh --bg-fill --random  ~/img/wall/* &
 
 #}}}
-sleep 2 && ~/etc/start_bar.sh &
+sleep 2 && ~/bin/minbar.sh &
 if [ $HOSTNAME == "fastball" ]; then 
     exec backflip.sh
 elif [[ $HOSTNAME == "homebase" ]]; then 

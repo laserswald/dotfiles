@@ -12,59 +12,47 @@ endif
 " Plugins {{{1 
 call plug#begin("~/.vim/bundle")
 
-" Basic improvements
-" A basics plugin 
-Plug 'tpope/vim-sensible'
-Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-surround'
+    " Basic improvements
+    Plug 'tpope/vim-sensible'
+    Plug 'sjl/gundo.vim'
+    Plug 'tpope/vim-surround'
 
+    " Tagging plugins.
+    Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
-" Tagging plugins.
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
+    " Completion plugins.
+    Plug 'ervandew/supertab'
+    "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+    Plug 'Shougo/neocomplete.vim'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
+    " Themes and eye candy.
+    Plug 'bling/vim-airline'
+    Plug 'bling/vim-bufferline'
 
-" Completion plugins. {{{2 
-Plug 'ervandew/supertab'
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-Plug 'Shougo/neocomplete.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" }}}2
+    " REPL plugins
+    Plug 'jpalardy/vim-slime'
 
-" Themes and eye candy.
-Plug 'bling/vim-airline'
-Plug 'bling/vim-bufferline'
+    " File opening and management plugins
+    Plug 'rking/ag.vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-projectionist'
 
+    " Movement plugins
+    Plug 'godlygeek/tabular'
+    Plug 'christoomey/vim-tmux-navigator'
 
-" REPL plugins
-Plug 'jpalardy/vim-slime'
+    " Building and compiling plugins
+    Plug 'reinh/vim-makegreen'
+    Plug 'tpope/vim-dispatch'
 
-
-" File opening and management plugins
-Plug 'rking/ag.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-
-
-" Filetype plugins
-
-
-" Movement plugins
-Plug 'godlygeek/tabular'
-Plug 'christoomey/vim-tmux-navigator'
-
-
-" Building and compiling plugins
-Plug 'reinh/vim-makegreen'
-
-
-" Compiler settings.
-Plug 'JalaiAmitahl/maven-compiler.vim'
-Plug 'vim-scripts/Scons-compiler-plugin'
-
+    " Compiler settings.
+    Plug 'JalaiAmitahl/maven-compiler.vim'
+    Plug 'vim-scripts/Scons-compiler-plugin'
 
 call plug#end()
-" 1}}} "
+" 1}}}
 
 " Options
  
@@ -82,6 +70,7 @@ call plug#end()
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
         set visualbell
+        colors arccos
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -107,6 +96,17 @@ call plug#end()
         set guioptions=aegirLt
         set mouse=n
 
+        if has("gui_running")
+          if has("gui_gtk2")
+            set guifont="Source Code Pro for Powerline 8"
+          elseif has("gui_macvim")
+            set guifont=Menlo\ Regular:h14
+          elseif has("gui_win32")
+            set guifont=inconsolata:h12
+            cd ~
+          endif
+        endif
+
     " Files
         set encoding=utf-8
         set autoread
@@ -117,160 +117,154 @@ call plug#end()
         set equalalways
         set hidden
 
-" Visual panels and looks
-colors arccos
-
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont="Source Code Pro for Powerline 8"
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=inconsolata:h12
-    cd ~
-  endif
-endif
-
-
 " Abbreviations.
+    
     iabbrev ssig ---<cr>Ben Davenport-Ray<cr>ben.davenportray@gmail.com 
 
 " Mappings. 
 
-" General mapping settings.
-let mapleader = ','  " Perhaps the best map leader.
-let maplocalleader = '\'
+    " General mapping settings.
+    let mapleader = ','  " Perhaps the best map leader.
+    let maplocalleader = '\'
 
-" Make jk escape to normal mode
-inoremap jk <esc>
-vnoremap jk <esc>
+    " Make jk escape to normal mode
+    inoremap jk <esc>
+    vnoremap jk <esc>
 
-
-" Editing
-    
-    " Read and write files.
-    nnoremap <leader>c  :new<cr>
-    nnoremap <leader>w  :w<cr>
-
-    " Searching    
+    " Editing
         
-        " Remove highlights when searching
-        noremap <Space> :nohlsearch<cr>
-   
-    " Macros
-        
-        " Playback the current macro, go to the first letter of the next line
-        nnoremap <leader>j      @qj^
-        nnoremap <leader>J      @qk^ 
-        
-    " Shortcut functionality
-        
-        " Extract to another file
-        vnoremap <leader>x  "md:enew<cr>"mp
-    
-        "Capitalize the word at the cursor.
-        inoremap <c-u> <esc>viwUea
-        nnoremap <leader>u viwUe
+        " Read and write files.
+        nnoremap <leader>c  :new<cr>
+        nnoremap <leader>w  :w<cr>
 
-        " Sort the selected lines
-        vnoremap <leader>s :!sort
-
-" Movement
-
-    " Go by graphical lines instead of real ones
-    noremap j gj
-    noremap k gk
-
-    " Open Special Files
-
-        " Edit my Vimrc, and then load it.
-        nnoremap <leader>ev :e $MYVIMRC<cr>
-        nnoremap <leader>sv :source $MYVIMRC<cr>
-
-        " Edit snippets files.
-        nnoremap <leader>sn     :UltiSnipsEdit<cr>
-
-    " Buffer, Split and Tab Movement
-
-        " Buffers
-        nnoremap <right>    :bn<cr>
-        nnoremap <left>     :bp<cr>
-        nnoremap <up>       :bfirst<cr>
-        nnoremap <down>     :blast<cr>
-        
-        " Splits
-        noremap <c-j> <c-w>j
-        noremap <c-k> <c-w>k
-        noremap <c-l> <c-w>l
-        noremap <c-h> <c-w>h
-        nnoremap <leader>W  <c-w>w
-        nnoremap <leader>=  <c-w>=
-        nnoremap <leader>o  :res <cr> :vertical res <cr>
-        
-        " Tabs
-        nnoremap <home> :tabnext<cr>
-        nnoremap <end>  :tabprev<cr>
-
-        " Open Special Buffers
+        " Searching    
             
-            " Netrw bindings
-            nnoremap <leader>f  :Explore<cr>
-            nnoremap <leader>F  :Se.<cr>
-            nnoremap <leader>s  :Sex<cr>
-            nnoremap <leader>v  :Vex<cr>
+            " Remove highlights when searching
+            noremap <Space> :nohlsearch<cr>
+       
+        " Macros
             
-            " Open message window
-            nnoremap <leader>M  :copen<cr>
+            " Playback the current macro, go to the first letter of the next line
+            nnoremap <leader>j      @qj^
+            nnoremap <leader>J      @qk^ 
             
-            " Open a Tagbar window
-            nnoremap <leader>t  :TagbarToggle<cr>
+        " Shortcut functionality
+            
+            " Extract to another file
+            vnoremap <leader>x  "md:enew<cr>"mp
+        
+            "Capitalize the word at the cursor.
+            inoremap <c-u> <esc>viwUea
+            nnoremap <leader>u viwUe
 
-" External Tools
-    " Run Make
-    nnoremap <leader>b   :MakeGreen<cr>
-    nnoremap <leader>br  :MakeGreen("rebuild") <cr>
-    nnoremap <leader>be  :MakeGreen("run") <cr>
+            " Sort the selected lines
+            vnoremap <leader>s :!sort
 
-    " Git bindings
-    nnoremap <leader>gw  :Gwrite<cr>
-    nnoremap <leader>gc  :Gcommit<cr>
-    nnoremap <leader>gs  :Gstatus<cr>
-    nnoremap <leader>gd  :Gvdiff<cr>
+    " Movement
 
-" Plugin settings.
+        " Go by graphical lines instead of real ones
+        noremap j gj
+        noremap k gk
 
-    " Netrw
-    let g:netrw_banner=0
+        " Open Special Files
 
-    " Vim Slime
-    let g:slime_target = "tmux"
+            " Edit my Vimrc, and then load it.
+            nnoremap <leader>ev :e $MYVIMRC<cr>
+            nnoremap <leader>sv :source $MYVIMRC<cr>
 
-    " Snippets
-    let g:snips_author          = "Ben Davenport-Ray"
+            " Edit snippets files.
+            nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
-    " Eclim
-    let g:EclimCompletionMethod = 'omnifunc'
+        " Buffer, Split and Tab Movement
 
-    " Ultisnips
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+            " Buffers
+            nnoremap <right>    :bn<cr>
+            nnoremap <left>     :bp<cr>
+            nnoremap <up>       :bfirst<cr>
+            nnoremap <down>     :blast<cr>
+            
+            " Splits
+            noremap <c-j> <c-w>j
+            noremap <c-k> <c-w>k
+            noremap <c-l> <c-w>l
+            noremap <c-h> <c-w>h
+            nnoremap <leader>W  <c-w>w
+            nnoremap <leader>=  <c-w>=
+            nnoremap <leader>o  :res <cr> :vertical res <cr>
+            
+            " Tabs
+            nnoremap <home> :tabnext<cr>
+            nnoremap <end>  :tabprev<cr>
 
-    " EasyTags
-    let g:easytags_dynamic_files = 1
+            " Open Special Buffers
+                
+                " Netrw bindings
+                nnoremap <leader>f  :Explore<cr>
+                nnoremap <leader>F  :Se.<cr>
+                nnoremap <leader>s  :Sex<cr>
+                nnoremap <leader>v  :Vex<cr>
+                
+                " Open message window
+                nnoremap <leader>M  :copen<cr>
+                
+                " Open a Tagbar window
+                nnoremap <leader>t  :TagbarToggle<cr>
 
-    " Tabular
-    AddTabularPipeline! multiple_spaces / \{2,}/
-        \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-        \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
+    " External Tools
 
-    " Taglist 
-    let Tlist_Use_Right_Window = 1
+        " Run Make
+        nnoremap <leader>b   :MakeGreen<cr>
+        nnoremap <leader>br  :MakeGreen("rebuild") <cr>
+        nnoremap <leader>be  :MakeGreen("run") <cr>
 
-    " Neocomplete 
-    let g:neocomplete#enable_at_startup = 1
+        " Git bindings
+        nnoremap <leader>gw  :Gwrite<cr>
+        nnoremap <leader>gc  :Gcommit<cr>
+        nnoremap <leader>gs  :Gstatus<cr>
+        nnoremap <leader>gd  :Gvdiff<cr>
+
+    " Plugin settings.
+        " Airline
+        let g:airline_theme='dark'
+
+        " Dispatch
+
+        " EasyTags
+        let g:easytags_dynamic_files = 1
+        let g:easytags_async = 1
+
+        " Eclim
+        let g:EclimCompletionMethod = 'omnifunc'
+
+        " Fugitive
+        " Gundo
+        " MakeGreen
+        let g:makegreen_command = "Dispatch"
+        " Neocomplete 
+        let g:neocomplete#enable_at_startup = 1
+        " NerdCommenter
+        " Netrw
+        let g:netrw_banner=0
+        " Projectionist
+        " Silver Searcher
+        " Slime
+        let g:slime_target = "tmux"
+        " Snippets
+        " SuperTab
+        " Surround
+        " Tabular
+        :AddTabularPipeline multiple_spaces / \{2,}/
+            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
+            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
+        " Tagbar
+        " Ultisnips
+        let g:UltiSnipsExpandTrigger       = "<tab>"
+        let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+        let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+        " Vim-Tmux Navigator
 
 " Auto commands.
+
     " Every file
     augroup all_group 
         au! 
