@@ -60,7 +60,7 @@ xset fp rehash
     stalonetray.sh &
 
     # Launch a compositor. 
-    #xcompmgr -c -f -C &
+    xcompmgr -c -f -C &
     #compton -b -C &
 
     ## Wallpapers
@@ -75,7 +75,8 @@ xset fp rehash
         sleep 2 && feh --bg-fill ~/img/wall/wallhaven-75118.png &
 
     # Start a minimalist bar.
-    sleep 2 && ~/.lemonbar/start_bar.sh &
+    sleep 2 && ~/bin/minbar.sh &
+    sleep 2 && ~/bin/tray.sh &
 
 if [ $HOSTNAME == "fastball" ]; then 
     sleep 2 && xsetroot -bg blue -fg grey -mod 2 2 &
@@ -87,5 +88,5 @@ if [ $HOSTNAME == "fastball" ]; then
     fi
 elif [[ $HOSTNAME == "homebase" ]]; then 
     ~/.screenlayout/dellaoc.sh &
-    exec bspwm
+    exec ~/bin/backflip.sh
 fi

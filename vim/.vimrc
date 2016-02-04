@@ -12,12 +12,15 @@ endif
 " Plugins {{{1 
 call plug#begin("~/.vim/bundle")
 
-    " Basic improvements
+    " Core plugins
     Plug 'tpope/vim-sensible'
+    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
+    Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
+    Plug 'Shougo/unite.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
@@ -26,6 +29,7 @@ call plug#begin("~/.vim/bundle")
     Plug 'Shougo/neocomplete.vim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
     " Themes and eye candy.
     Plug 'bling/vim-airline'
@@ -46,6 +50,7 @@ call plug#begin("~/.vim/bundle")
     " Building and compiling plugins
     Plug 'reinh/vim-makegreen'
     Plug 'tpope/vim-dispatch'
+    Plug 'scrooloose/syntastic'
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
@@ -245,6 +250,8 @@ call plug#end()
         " NerdCommenter
         " Netrw
         let g:netrw_banner=0
+        " OmniSharp.
+
         " Projectionist
         " Silver Searcher
         " Slime
@@ -253,7 +260,7 @@ call plug#end()
         " SuperTab
         " Surround
         " Tabular
-        :AddTabularPipeline multiple_spaces / \{2,}/
+        AddTabularPipeline multiple_spaces / \{2,}/
             \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
             \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
@@ -291,6 +298,15 @@ call plug#end()
         au!
         au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
     augroup end 
+
+    " C# files
+    augroup cs_group
+        " this one is which you're most likely to use?
+        au FileType cs setlocal omnifunc=OmniSharp#Complete
+
+        au cursorhold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+        au bufwritepost *.cs call OmniSharp#AddToProject()
+    augroup end
 
     " Java files
     augroup java_group 
