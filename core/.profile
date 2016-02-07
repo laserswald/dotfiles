@@ -1,7 +1,7 @@
 # Ben's standard profile.
 
-EDITOR=vim
-VISUAL=vim
+EDITOR=nvim
+VISUAL=nvim
 BROWSER=firefox
 PAGER="less -R"
 
