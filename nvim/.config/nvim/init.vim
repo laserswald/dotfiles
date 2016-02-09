@@ -1,26 +1,26 @@
 " Ben's Vimrc.
 "
 " Some of this should be split up into different files. 
-set nocompatible
 
 " Neovim setup
 if has('nvim')
     runtime! plugin/python_setup.vim
     set runtimepath+=/usr/share/vim/vimfiles
+else
+    set nocompatible
 endif
 
 " Plugins {{{1 
-call plug#begin("~/.vim/bundle")
+call plug#begin("~/.config/nvim/bundle")
 
     " Core plugins
     Plug 'tpope/vim-sensible'
-    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
     Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
-    Plug 'Shougo/unite.vim' | Plug 'tsukkee/unite-tag'
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
@@ -157,15 +157,16 @@ call plug#end()
             nnoremap <leader>J      @qk^ 
             
         " Shortcut functionality
+            " Execute normal command over visual selection
+            nnoremap <leader>r  :'<,'>g/^/norm 
             
             " Extract to another file
             vnoremap <leader>x  "md:enew<cr>"mp
         
             "Capitalize the word at the cursor.
-            "inoremap <c-u> <esc>viwUea
+            inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
-            inoremap <leader>tc b~
             
             " Sort the selected lines
             vnoremap <leader>s :!sort<cr>
@@ -179,8 +180,8 @@ call plug#end()
         " Open Special Files
 
             " Edit my Vimrc, and then load it.
-            nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-            nnoremap <leader>sv :source $MYVIMRC<cr>
+            nnoremap <leader>ev :e ~/.config/nvim/init.vim<cr>
+            nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 
             " Edit snippets files.
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
@@ -193,11 +194,28 @@ call plug#end()
             nnoremap <up>       :bfirst<cr>
             nnoremap <down>     :blast<cr>
             
+            " Open Special Buffers
+            
+                " Netrw bindings
+                nnoremap <leader>F  :Se.<cr>
+                nnoremap <leader>s  :Sex<cr>
+                nnoremap <leader>v  :Vex<cr>
+                
+                " Open error window
+                nnoremap <leader>m  :cw<cr>
+                
+                " Open a tag in the current buffer
+                nnoremap <leader>t  :Unite tag/include -start-insert<cr>
+                nnoremap <leader>tb :Unite tag/include -vertical -directio<cr>
+               
+                " Fuzzy find a file.
+                nnoremap <leader>f  :Unite file_rec/neovim -start-insert<cr>
+
             " Splits
+            noremap <c-h> <c-w>h
             noremap <c-j> <c-w>j
             noremap <c-k> <c-w>k
             noremap <c-l> <c-w>l
-            noremap <c-h> <c-w>h
             nnoremap <leader>W  <c-w>w
             nnoremap <leader>=  <c-w>=
             nnoremap <leader>o  :res <cr> :vertical res <cr>
@@ -206,20 +224,7 @@ call plug#end()
             nnoremap <home> :tabnext<cr>
             nnoremap <end>  :tabprev<cr>
 
-            " Open Special Buffers
                 
-                " Netrw bindings
-                nnoremap <leader>f  :Explore<cr>
-                nnoremap <leader>F  :Se.<cr>
-                nnoremap <leader>s  :Sex<cr>
-                nnoremap <leader>v  :Vex<cr>
-                
-                " Open message window
-                nnoremap <leader>M  :copen<cr>
-                
-                " Open a Tagbar window
-                nnoremap <leader>t  :TagbarToggle<cr>
-
     " External Tools
 
         " Run Make
@@ -269,6 +274,7 @@ call plug#end()
             \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
             \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
+        " Unite
         " Ultisnips
         let g:UltiSnipsExpandTrigger       = "<tab>"
         let g:UltiSnipsJumpForwardTrigger  = "<tab>"
@@ -329,7 +335,6 @@ call plug#end()
     " Markdown formatted files
     augroup markdown_group 
         au!
-        "au filetype markdown vnoremap <localleader>o :
-        au filetype markdown vnoremap <localleader>u :normal! s/^/- /g<cr>
+        au filetype markdown set keymap=mathematic
     augroup end 
 

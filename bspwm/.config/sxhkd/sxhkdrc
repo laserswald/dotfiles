@@ -141,3 +141,8 @@ super + shift + c
 super + shift + q
     logout.sh
 
+# Personal shortcuts!
+#
+
+super + n
+    dmenu -p "Add to inbox: " <&- | xargs ~/bin/gtd q 

@@ -37,7 +37,7 @@ ZSH_THEME="lasermini"
 
 # Would you like to use another custom folder than $ZSH/custom?
 
-ZSH_CUSTOM=~/etc/zsh/.zsh
+ZSH_CUSTOM=~/.zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -58,7 +58,7 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-export EDITOR="vim"
+export EDITOR=nvim
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-export XDG_CONFIG_HOME="/home/ben/.config"
+

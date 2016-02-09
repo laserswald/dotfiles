@@ -7,8 +7,8 @@ alias td="t do"
 
 
 # Environment aliases.
-alias ea="vim ~/etc/oh-my-zsh/custom/aliases.zsh"
-alias ei3="vim ~/dotfiles/i3/config"
+alias ea="$EDITOR ~/etc/oh-my-zsh/custom/aliases.zsh"
+alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias reload="source ~/.zshrc"
 
 # Ease of use aliases.
@@ -18,6 +18,7 @@ alias eclimd="/usr/lib/eclipse/eclimd &"
 
 # Tmux aliases
 alias tns="tmux new-session -s -A "
+alias tm="tmux"
 
 egg(){
     sleep $1 && ding
@@ -35,11 +36,4 @@ alias sctll="systemctl list-units"
 alias nctl="netctl"
 alias xm="xrdb -merge ~/.Xresources"
 
-note(){
-    cd ~/docs/notes
-    vim $1.md
-    cd -
-}
-
 alias nwall="feh --random --bg-fill ~/img/wall"
-
