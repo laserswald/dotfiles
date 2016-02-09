@@ -1,0 +1,5 @@
+#!/bin/sh
+# Grab a color from the current colorscheme
+s=$(for scheme in $(ls -1 $HOME/.xrdb.d/colors); do grep -o $scheme $HOME/.xrdb.d/colorscheme; done)
+echo $(grep $1 ~/.xrdb.d/colors/$s | cut -d: -f2 | tr -d ' ')
+
