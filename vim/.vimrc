@@ -54,7 +54,10 @@ call plug#begin("~/.vim/bundle")
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
+
+    " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'freitass/todo.txt-vim'
 
 call plug#end()
 " 1}}}
@@ -162,8 +165,10 @@ call plug#end()
             inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
+            inoremap <leader>tc b~
+            
             " Sort the selected lines
-            vnoremap <leader>s :!sort
+            vnoremap <leader>s :!sort<cr>
 
     " Movement
 
