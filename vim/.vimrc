@@ -154,11 +154,11 @@ call plug#end()
             vnoremap <leader>x  "md:enew<cr>"mp
         
             "Capitalize the word at the cursor.
-            inoremap <c-u> <esc>viwUea
+            "inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
             " Sort the selected lines
-            vnoremap <leader>s :!sort
+            vnoremap <leader>s :!sort<cr>
 
     " Movement
 
@@ -169,7 +169,7 @@ call plug#end()
         " Open Special Files
 
             " Edit my Vimrc, and then load it.
-            nnoremap <leader>ev :e $MYVIMRC<cr>
+            nnoremap <leader>ev :vsplit $MYVIMRC<cr>
             nnoremap <leader>sv :source $MYVIMRC<cr>
 
             " Edit snippets files.
@@ -308,6 +308,7 @@ call plug#end()
     " Markdown formatted files
     augroup markdown_group 
         au!
-        au filetype markdown set keymap=mathematic
+        "au filetype markdown vnoremap <localleader>o :
+        au filetype markdown vnoremap <localleader>u :normal! s/^/- /g<cr>
     augroup end 
 

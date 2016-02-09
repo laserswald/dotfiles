@@ -40,7 +40,7 @@ xset fp rehash
 # Start some personal daemons.
     
     # Simple X Hotkey Daemon
-    sxhkd &
+    # sxhkd &
 
     # Syncthing 
     syncthing --no-browser &
@@ -83,6 +83,7 @@ if [ $HOSTNAME == "fastball" ]; then
         lxpanel &
         exec openbox-session
     else 
+        sxhkd & 
         exec bspwm
     fi
 elif [[ $HOSTNAME == "homebase" ]]; then 
