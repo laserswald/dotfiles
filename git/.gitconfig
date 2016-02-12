@@ -1,0 +1,7 @@
+[user]
+	email = ben.davenportray@gmail.com
+	name = Ben Davenport-Ray
+[push]
+	default = simple
+[core]
+	editor = nvim
