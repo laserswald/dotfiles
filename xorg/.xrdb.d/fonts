@@ -1,2 +1,2 @@
-.font: -*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
-.boldFont:
+urxvt.font:"-*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-"
+urxvt.boldFont:
