@@ -1,4 +1,4 @@
-" Ben's Vimrc.
+" Ben's Neovimrc.
 "
 " Some of this should be split up into different files. 
 
@@ -32,8 +32,9 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
     " Themes and eye candy.
-    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline'
     Plug 'bling/vim-bufferline'
+    Plug 'kien/rainbow_parentheses.vim'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
@@ -45,12 +46,15 @@ call plug#begin("~/.config/nvim/bundle")
 
     " Movement plugins
     Plug 'godlygeek/tabular'
-    Plug 'christoomey/vim-tmux-navigator'
 
-    " Building and compiling plugins
+    " broken in nvim
+    " Plug 'christoomey/vim-tmux-navigator'
+
+    " Filetype plugins.
     Plug 'reinh/vim-makegreen'
     Plug 'tpope/vim-dispatch'
     Plug 'scrooloose/syntastic'
+    Plug 'benekastah/neomake'
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
@@ -58,6 +62,8 @@ call plug#begin("~/.config/nvim/bundle")
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
     Plug 'freitass/todo.txt-vim'
+
+    "Plug 'vimoutliner/vimoutliner'
 
 call plug#end()
 " 1}}}
@@ -186,6 +192,9 @@ call plug#end()
             " Edit snippets files.
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
+            " Edit the current projection file
+            nnoremap <leader>p :
+
         " Buffer, Split and Tab Movement
 
             " Buffers
@@ -240,8 +249,10 @@ call plug#end()
 
     " Plugin settings.
         " Airline
-        let g:airline_theme='dark'
-
+        let g:airline_left_sep=''
+        let g:airline_right_sep=''
+        " Bufferline
+        let g:bufferline_echo = 0
         " Dispatch
 
         " EasyTags
@@ -263,6 +274,8 @@ call plug#end()
         " OmniSharp.
 
         " Projectionist
+        " Rainbow Parentheses
+        au VimEnter * RainbowParenthesesToggle
         " Silver Searcher
         " Slime
         let g:slime_target = "tmux"
@@ -270,9 +283,6 @@ call plug#end()
         " SuperTab
         " Surround
         " Tabular
-        AddTabularPipeline multiple_spaces / \{2,}/
-            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
         " Unite
         " Ultisnips
@@ -301,7 +311,7 @@ call plug#end()
         " this one is which you're most likely to use?
         au!
         au FileType python set omnifunc=pythoncomplete#Complete
-        au FileType python compiler nose
+        "au FileType python compiler nose
     augroup end 
 
     " C/C++ files
@@ -328,8 +338,8 @@ call plug#end()
     " VimL Files
     augroup vim_group 
         au!
-       "au filetype vim set fdm=marker
-       "au BufWrite $MYVIMRC source $MYVIMRC
+        "au filetype vim set fdm=marker
+        "au BufWrite $MYVIMRC source $MYVIMRC
     augroup end 
 
     " Markdown formatted files

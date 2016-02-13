@@ -50,7 +50,7 @@ highlight Macro        term=none cterm=none ctermfg=5    ctermbg=none
 highlight PreCondit    term=none cterm=bold ctermfg=5    ctermbg=none
 
 " Typing 
-highlight Type         term=none cterm=bold ctermfg=4    ctermbg=none
+highlight Type         term=none cterm=bold ctermfg=5    ctermbg=none
 highlight StorageClass term=none cterm=none ctermfg=4    ctermbg=none
 highlight Structure    term=none cterm=bold ctermfg=4    ctermbg=none
 highlight Typedef      term=none cterm=none ctermfg=4    ctermbg=none
@@ -82,8 +82,10 @@ highlight Normal       term=none cterm=none ctermfg=7    ctermbg=none
 highlight Pmenu        term=none cterm=none ctermfg=0    ctermbg=7
 highlight Search       term=none cterm=none ctermfg=7    ctermbg=5
 highlight SpecialKey   term=none cterm=none ctermfg=0    ctermbg=none
-highlight StatusLine   term=none cterm=none ctermfg=0    ctermbg=none
-" highlight StatusLineNC term=none cterm=bold ctermfg=0    ctermbg=none
+
+highlight StatusLine   term=none cterm=none ctermfg=0    ctermbg=4
+highlight StatusLineNC term=none cterm=bold ctermfg=7    ctermbg=0
+
 highlight TabLineSel   term=none cterm=none ctermfg=7    ctermbg=none
 highlight Todo         term=none cterm=none ctermfg=3    ctermbg=1
 highlight Underlined   term=underline cterm=underline ctermfg=none   ctermbg=none
@@ -95,7 +97,6 @@ highlight WarningMsg   term=none cterm=none ctermfg=3    ctermbg=none
 highlight! link diffAdded       DiffAdd
 highlight! link diffRemoved     DiffDelete
 highlight! link diffChanged     DiffChange
-highlight! link StatusLineNC    StatusLine
 highlight! link Title           Normal
 highlight! link LineNr          NonText
 highlight! link MoreMsg         Normal
