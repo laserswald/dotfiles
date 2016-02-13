@@ -1,5 +1,6 @@
 ! *.font:-*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
-! *.font:-*-pixelcarnage monospace-*-*-*-*-*-*-*-*-*-*-*-*
-*.font:-*-proggysquare-*-*-*-*-*-*-*-*-*-*-*-*
-*.boldFont:
+!urxvt.font:"-*-proggysquarett-*-*-*-*-*-*-*-*-*-*-*-*"
+!urxvt.font:"xft:ProggySquareTT"
+URxvt.boldFont:
 ! vim:ft=xdefaults
+URxvt.font: xft:proggysquarett:
