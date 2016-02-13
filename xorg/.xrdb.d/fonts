@@ -1,5 +1,3 @@
-! *.font:-*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
-! *.font:-*-pixelcarnage monospace-*-*-*-*-*-*-*-*-*-*-*-*
-*.font:-*-proggysquarett-*-*-*-*-*-*-*-*-*-*-*-*
-*.boldFont:
+URxvt.boldFont:
+URxvt.font: xft:proggysquarett:
 ! vim:ft=xdefaults
