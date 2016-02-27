@@ -1,3 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/ben/etc/xorg/.colors.d'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/ben/usr/src/vim/chameleon.vim/autoload'
+let g:netrw_dirhist_2='/home/ben/etc/nvim/.config/nvim/bundle'
+let g:netrw_dirhist_3='/home/ben/etc/nvim/.config/nvim/bundle/chameleon.vim'
+let g:netrw_dirhist_4='/home/ben/etc/nvim/.config/nvim/bundle/chameleon.vim/autoload'
+let g:netrw_dirhist_5='/home/ben/etc/nvim/.config/nvim/bundle/chameleon.vim/autoload/lightline'
+let g:netrw_dirhist_6='/home/ben/etc/nvim/.config/nvim/bundle/chameleon.vim/autoload/lightline/colorscheme'
+let g:netrw_dirhist_7='/'
+let g:netrw_dirhist_8='/home/ben/usr/src/c/todoc'
+let g:netrw_dirhist_9='/home/ben/usr/src/c/todoc/tests'

@@ -17,6 +17,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'tpope/vim-sensible'
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
     Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
@@ -26,15 +27,15 @@ call plug#begin("~/.config/nvim/bundle")
     " Completion plugins.
     Plug 'ervandew/supertab'
     "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-    Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/deoplete.nvim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
     " Themes and eye candy.
-    Plug 'vim-airline/vim-airline'
+    Plug 'itchyny/lightline.vim'
     Plug 'bling/vim-bufferline'
     Plug 'kien/rainbow_parentheses.vim'
+    Plug 'laserswald/chameleon.vim'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
@@ -50,14 +51,17 @@ call plug#begin("~/.config/nvim/bundle")
     " broken in nvim
     " Plug 'christoomey/vim-tmux-navigator'
 
-    " Filetype plugins.
+    " Building plugins
     Plug 'reinh/vim-makegreen'
     Plug 'tpope/vim-dispatch'
     Plug 'scrooloose/syntastic'
     Plug 'benekastah/neomake'
 
-    " Compiler settings.
-    Plug 'JalaiAmitahl/maven-compiler.vim'
+    " Debugging plugins.
+
+    " Filetype plugins.
+    Plug 'JalaiAmitahl/maven-compiler.vim', {'for': 'java'}
+    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild', 'for': 'cs'}
 
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
@@ -84,7 +88,7 @@ call plug#end()
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
         set visualbell
-        colors arccos
+        colors chameleon
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -248,9 +252,6 @@ call plug#end()
         nnoremap <leader>gd  :Gvdiff<cr>
 
     " Plugin settings.
-        " Airline
-        let g:airline_left_sep=''
-        let g:airline_right_sep=''
         " Bufferline
         let g:bufferline_echo = 0
         " Dispatch
@@ -264,6 +265,8 @@ call plug#end()
 
         " Fugitive
         " Gundo
+        " Lightline
+        let g:lightline = { 'colorscheme': 'chameleon' }
         " MakeGreen
         let g:makegreen_command = "Dispatch"
         " Neocomplete 
@@ -345,6 +348,10 @@ call plug#end()
     " Markdown formatted files
     augroup markdown_group 
         au!
-        au filetype markdown set keymap=mathematic
+        " TODO: look for ways to make this into a function
+        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
+        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
+        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
+        au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 

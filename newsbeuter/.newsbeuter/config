@@ -10,6 +10,6 @@ color listnormal_unread   magenta default
 
 download-path "~/snd/pods/%h/%n"
 max-downloads 2
-player mplayer
+player "mplayer"
 podcast-auto-enqueue yes
 notify-beep yes
