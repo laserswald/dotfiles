@@ -29,4 +29,4 @@ sh -c "~/.fehbg" &
 
 # sxhkd -c ~/bin/backflip.sxhkd &
 
-exec ~/bin/backflip.sh
+exec ~/bin/backflip
