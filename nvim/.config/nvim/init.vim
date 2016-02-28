@@ -57,6 +57,7 @@ call plug#begin("~/.config/nvim/bundle")
 
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'nelstrom/vim-markdown-folding'
     Plug 'freitass/todo.txt-vim'
 
 call plug#end()
@@ -144,6 +145,7 @@ call plug#end()
         " Read and write files.
         nnoremap <leader>c  :new<cr>
         nnoremap <leader>w  :w<cr>
+        nnoremap <leader>wq :bd<cr>
 
         " Searching    
             
@@ -255,6 +257,8 @@ call plug#end()
         " Gundo
         " MakeGreen
         let g:makegreen_command = "Dispatch"
+        " Markdown folding
+        let g:markdown_fold_style = "nested"
         " Neocomplete 
         let g:neocomplete#enable_at_startup = 1
         " NerdCommenter
@@ -333,6 +337,13 @@ call plug#end()
     augroup end 
 
     " Markdown formatted files
+    function! Markdown_makeHeader(number)
+        if a:number ==# 1
+            normal! yypVr=
+        else a:number ==# 2
+            normal! yypVr-
+        endif
+    endfunction
     augroup markdown_group 
         au!
         au filetype markdown set keymap=mathematic

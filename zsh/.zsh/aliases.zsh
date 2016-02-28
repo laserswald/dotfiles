@@ -36,4 +36,4 @@ alias sctll="systemctl list-units"
 alias nctl="netctl"
 alias xm="xrdb -merge ~/.Xresources"
 
-alias nwall="feh --random --bg-fill ~/img/wall"
+alias nwall="feh --random --bg-fill ~/usr/img/wall"
