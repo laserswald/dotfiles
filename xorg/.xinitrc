@@ -18,7 +18,7 @@ xsetroot -cursor_name left_ptr &
 compton &
 
 # Set up my background.
-feh --bg-fill ~/img/wall/wallhaven-75118.png &
+.fehbg &
 
 # Start a minimalist bar.
 minbar &
@@ -26,6 +26,4 @@ minbar &
 # Start a tray.
 tray &
 
-sxhkd -c ~/etc/backflip.sxhkd &
-
-exec backflip.sh
+exec backflip
