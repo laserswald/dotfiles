@@ -27,6 +27,4 @@ sh -c "~/.fehbg" &
 # Start a tray.
 # tray &
 
-# sxhkd -c ~/bin/backflip.sxhkd &
-
-exec ~/bin/backflip
+exec backflip
