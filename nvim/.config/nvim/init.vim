@@ -1,4 +1,4 @@
-" Ben's Vimrc.
+" Ben's Neovimrc.
 "
 " Some of this should be split up into different files. 
 
@@ -17,6 +17,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'tpope/vim-sensible'
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
     Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
@@ -26,14 +27,15 @@ call plug#begin("~/.config/nvim/bundle")
     " Completion plugins.
     Plug 'ervandew/supertab'
     "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-    Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/deoplete.nvim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
     " Themes and eye candy.
-    Plug 'bling/vim-airline'
+    Plug 'itchyny/lightline.vim'
     Plug 'bling/vim-bufferline'
+    Plug 'kien/rainbow_parentheses.vim'
+    Plug 'laserswald/chameleon.vim'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
@@ -45,20 +47,28 @@ call plug#begin("~/.config/nvim/bundle")
 
     " Movement plugins
     Plug 'godlygeek/tabular'
-    Plug 'christoomey/vim-tmux-navigator'
 
-    " Building and compiling plugins
+    " broken in nvim
+    " Plug 'christoomey/vim-tmux-navigator'
+
+    " Building plugins
     Plug 'reinh/vim-makegreen'
     Plug 'tpope/vim-dispatch'
     Plug 'scrooloose/syntastic'
+    Plug 'benekastah/neomake'
 
-    " Compiler settings.
-    Plug 'JalaiAmitahl/maven-compiler.vim'
+    " Debugging plugins.
+
+    " Filetype plugins.
+    Plug 'JalaiAmitahl/maven-compiler.vim', {'for': 'java'}
+    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild', 'for': 'cs'}
 
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
     Plug 'nelstrom/vim-markdown-folding'
     Plug 'freitass/todo.txt-vim'
+
+    "Plug 'vimoutliner/vimoutliner'
 
 call plug#end()
 " 1}}}
@@ -79,7 +89,7 @@ call plug#end()
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
         set visualbell
-        colors arccos
+        colors chameleon
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -188,6 +198,9 @@ call plug#end()
             " Edit snippets files.
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
+            " Edit the current projection file
+            nnoremap <leader>p :
+
         " Buffer, Split and Tab Movement
 
             " Buffers
@@ -241,9 +254,8 @@ call plug#end()
         nnoremap <leader>gd  :Gvdiff<cr>
 
     " Plugin settings.
-        " Airline
-        let g:airline_theme='dark'
-
+        " Bufferline
+        let g:bufferline_echo = 0
         " Dispatch
 
         " EasyTags
@@ -255,6 +267,8 @@ call plug#end()
 
         " Fugitive
         " Gundo
+        " Lightline
+        let g:lightline = { 'colorscheme': 'chameleon' }
         " MakeGreen
         let g:makegreen_command = "Dispatch"
         " Markdown folding
@@ -267,6 +281,8 @@ call plug#end()
         " OmniSharp.
 
         " Projectionist
+        " Rainbow Parentheses
+        au VimEnter * RainbowParenthesesToggle
         " Silver Searcher
         " Slime
         let g:slime_target = "tmux"
@@ -274,9 +290,6 @@ call plug#end()
         " SuperTab
         " Surround
         " Tabular
-        AddTabularPipeline multiple_spaces / \{2,}/
-            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
         " Unite
         " Ultisnips
@@ -305,7 +318,7 @@ call plug#end()
         " this one is which you're most likely to use?
         au!
         au FileType python set omnifunc=pythoncomplete#Complete
-        au FileType python compiler nose
+        "au FileType python compiler nose
     augroup end 
 
     " C/C++ files
@@ -332,8 +345,8 @@ call plug#end()
     " VimL Files
     augroup vim_group 
         au!
-       "au filetype vim set fdm=marker
-       "au BufWrite $MYVIMRC source $MYVIMRC
+        "au filetype vim set fdm=marker
+        "au BufWrite $MYVIMRC source $MYVIMRC
     augroup end 
 
     " Markdown formatted files
@@ -346,6 +359,10 @@ call plug#end()
     endfunction
     augroup markdown_group 
         au!
-        au filetype markdown set keymap=mathematic
+        " TODO: look for ways to make this into a function
+        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
+        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
+        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
+        au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 

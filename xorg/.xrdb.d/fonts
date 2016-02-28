@@ -1,6 +1,12 @@
-! *.font:-*-coding font tobi-*-*-*-*-*-*-*-*-*-*-*-*
-!urxvt.font:"-*-proggysquarett-*-*-*-*-*-*-*-*-*-*-*-*"
-!urxvt.font:"xft:ProggySquareTT"
 URxvt.boldFont:
+URxvt.font: xft:terminess powerline:size=9
+
+Xft.antialias: 1
+Xft.autohint: 0
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
 ! vim:ft=xdefaults
-URxvt.font: xft:proggysquarett:

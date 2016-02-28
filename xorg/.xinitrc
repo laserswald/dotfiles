@@ -8,6 +8,7 @@ xrdb -merge $HOME/.xrdb.d/main
 syncthing --no-browser &
 mpd &
 redshift &
+dunst &
 
 # Appearance.
 
@@ -18,12 +19,12 @@ xsetroot -cursor_name left_ptr &
 compton &
 
 # Set up my background.
-.fehbg &
+sh -c "~/.fehbg" &
 
 # Start a minimalist bar.
-minbar &
+~/bin/minbar.sh &
 
 # Start a tray.
-tray &
+# tray &
 
 exec backflip
