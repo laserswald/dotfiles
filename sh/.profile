@@ -1,14 +1,8 @@
-# Ben's standard profile.
+# Laserswald's standard profile.
 
-EDITOR=nvim
-VISUAL=nvim
-BROWSER=firefox
-PAGER="less -R"
-
-MAIL=~/var/mail
-
-XDG_CONFIG_HOME="$HOME/.config"
-
-export EDITOR VISUAL BROWSER XDG_CONFIG_HOME PAGER MAIL
-
-export GOPATH=~/usr/src/go
+# Load any files in my shell directory.
+if [[ -d ~/.sh.d ]]; then
+    for file in $(ls ~/.sh.d); do
+        source ~/.sh.d/$file
+    done
+fi
