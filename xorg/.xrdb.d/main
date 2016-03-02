@@ -1,0 +1,8 @@
+#include "/home/ben/.xrdb.d/colorscheme"
+#include "/home/ben/.xrdb.d/urxvt"
+#include "/home/ben/.xrdb.d/fonts"
+! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1
+
+

@@ -2,9 +2,9 @@ source $HOME/.mutt/aliases
 source $HOME/.mutt/laserswald.colors
 
 # paths
-set alias_file=$HOME/.mutt/aliases
-set folder=$HOME/mail/inbox
-set signature = $HOME/.mutt/sig
+set my_muttdir=$HOME/.mutt
+set alias_file=$my_muttdir/aliases
+set signature = $HOME/.sig
 
 # options
 set wait_key = no
@@ -34,7 +34,6 @@ bind attach <return> view-mailcap
 
 set edit_headers=yes
 set editor="vim"
-set from="ben.davenportray@gmail.com"
 set header_cache=~/.cache/mutt
 set postponed=+drafts
 set record=+sent
@@ -43,10 +42,12 @@ set sendmail="/usr/bin/msmtp"
 set sort=threads
 set spoolfile=+/
 
-source $HOME/.mutt/boxes.muttrc
-
 auto_view text/enriched
 alternative_order text/plain text/enriched text/html
 
-
+source $my_muttdir/bdrgmail.muttrc
+source $my_muttdir/ld11gmail.muttrc
+source $my_muttdir/ksu.muttrc
+source $my_muttdir/lsom.muttrc
+source $my_muttdir/lssom.muttrc
 

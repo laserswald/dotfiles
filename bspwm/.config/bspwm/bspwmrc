@@ -10,6 +10,5 @@ bspc config focus_by_distance    true
 bspc config history_aware_focus  true
 
 
-bspc monitor HDMI-0 -d 1 2 3 4 5
-bspc monitor DVI-I-1 -d 6 7 8 9 0
+bspc monitor -d main contact shells work chat play media other bg servers
 

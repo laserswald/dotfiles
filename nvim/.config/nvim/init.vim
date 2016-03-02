@@ -1,39 +1,41 @@
-" Ben's Vimrc.
+" Ben's Neovimrc.
 "
 " Some of this should be split up into different files. 
-set nocompatible
 
 " Neovim setup
 if has('nvim')
     runtime! plugin/python_setup.vim
     set runtimepath+=/usr/share/vim/vimfiles
+else
+    set nocompatible
 endif
 
 " Plugins {{{1 
-call plug#begin("~/.vim/bundle")
+call plug#begin("~/.config/nvim/bundle")
 
     " Core plugins
     Plug 'tpope/vim-sensible'
-    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
     Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
-    Plug 'Shougo/unite.vim' | Plug 'tsukkee/unite-tag'
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
     Plug 'ervandew/supertab'
     "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-    Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/deoplete.nvim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
     " Themes and eye candy.
-    Plug 'bling/vim-airline'
+    Plug 'itchyny/lightline.vim'
     Plug 'bling/vim-bufferline'
+    Plug 'kien/rainbow_parentheses.vim'
+    Plug 'laserswald/chameleon.vim'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
@@ -45,19 +47,28 @@ call plug#begin("~/.vim/bundle")
 
     " Movement plugins
     Plug 'godlygeek/tabular'
-    Plug 'christoomey/vim-tmux-navigator'
 
-    " Building and compiling plugins
+    " broken in nvim
+    " Plug 'christoomey/vim-tmux-navigator'
+
+    " Building plugins
     Plug 'reinh/vim-makegreen'
     Plug 'tpope/vim-dispatch'
     Plug 'scrooloose/syntastic'
+    Plug 'benekastah/neomake'
 
-    " Compiler settings.
-    Plug 'JalaiAmitahl/maven-compiler.vim'
+    " Debugging plugins.
+
+    " Filetype plugins.
+    Plug 'JalaiAmitahl/maven-compiler.vim', {'for': 'java'}
+    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild', 'for': 'cs'}
 
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'nelstrom/vim-markdown-folding'
     Plug 'freitass/todo.txt-vim'
+
+    "Plug 'vimoutliner/vimoutliner'
 
 call plug#end()
 " 1}}}
@@ -78,7 +89,7 @@ call plug#end()
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
         set visualbell
-        colors arccos
+        colors chameleon
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -144,6 +155,7 @@ call plug#end()
         " Read and write files.
         nnoremap <leader>c  :new<cr>
         nnoremap <leader>w  :w<cr>
+        nnoremap <leader>wq :bd<cr>
 
         " Searching    
             
@@ -157,15 +169,16 @@ call plug#end()
             nnoremap <leader>J      @qk^ 
             
         " Shortcut functionality
+            " Execute normal command over visual selection
+            nnoremap <leader>r  :'<,'>g/^/norm 
             
             " Extract to another file
             vnoremap <leader>x  "md:enew<cr>"mp
         
             "Capitalize the word at the cursor.
-            "inoremap <c-u> <esc>viwUea
+            inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
-            inoremap <leader>tc b~
             
             " Sort the selected lines
             vnoremap <leader>s :!sort<cr>
@@ -179,11 +192,14 @@ call plug#end()
         " Open Special Files
 
             " Edit my Vimrc, and then load it.
-            nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-            nnoremap <leader>sv :source $MYVIMRC<cr>
+            nnoremap <leader>ev :e ~/.config/nvim/init.vim<cr>
+            nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 
             " Edit snippets files.
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
+
+            " Edit the current projection file
+            nnoremap <leader>p :
 
         " Buffer, Split and Tab Movement
 
@@ -193,11 +209,28 @@ call plug#end()
             nnoremap <up>       :bfirst<cr>
             nnoremap <down>     :blast<cr>
             
+            " Open Special Buffers
+            
+                " Netrw bindings
+                nnoremap <leader>F  :Se.<cr>
+                nnoremap <leader>s  :Sex<cr>
+                nnoremap <leader>v  :Vex<cr>
+                
+                " Open error window
+                nnoremap <leader>m  :cw<cr>
+                
+                " Open a tag in the current buffer
+                nnoremap <leader>t  :Unite tag/include -start-insert<cr>
+                nnoremap <leader>tb :Unite tag/include -vertical -directio<cr>
+               
+                " Fuzzy find a file.
+                nnoremap <leader>f  :Unite file_rec/neovim -start-insert<cr>
+
             " Splits
+            noremap <c-h> <c-w>h
             noremap <c-j> <c-w>j
             noremap <c-k> <c-w>k
             noremap <c-l> <c-w>l
-            noremap <c-h> <c-w>h
             nnoremap <leader>W  <c-w>w
             nnoremap <leader>=  <c-w>=
             nnoremap <leader>o  :res <cr> :vertical res <cr>
@@ -206,20 +239,7 @@ call plug#end()
             nnoremap <home> :tabnext<cr>
             nnoremap <end>  :tabprev<cr>
 
-            " Open Special Buffers
                 
-                " Netrw bindings
-                nnoremap <leader>f  :Explore<cr>
-                nnoremap <leader>F  :Se.<cr>
-                nnoremap <leader>s  :Sex<cr>
-                nnoremap <leader>v  :Vex<cr>
-                
-                " Open message window
-                nnoremap <leader>M  :copen<cr>
-                
-                " Open a Tagbar window
-                nnoremap <leader>t  :TagbarToggle<cr>
-
     " External Tools
 
         " Run Make
@@ -234,9 +254,8 @@ call plug#end()
         nnoremap <leader>gd  :Gvdiff<cr>
 
     " Plugin settings.
-        " Airline
-        let g:airline_theme='dark'
-
+        " Bufferline
+        let g:bufferline_echo = 0
         " Dispatch
 
         " EasyTags
@@ -248,8 +267,12 @@ call plug#end()
 
         " Fugitive
         " Gundo
+        " Lightline
+        let g:lightline = { 'colorscheme': 'chameleon' }
         " MakeGreen
         let g:makegreen_command = "Dispatch"
+        " Markdown folding
+        let g:markdown_fold_style = "nested"
         " Neocomplete 
         let g:neocomplete#enable_at_startup = 1
         " NerdCommenter
@@ -258,6 +281,8 @@ call plug#end()
         " OmniSharp.
 
         " Projectionist
+        " Rainbow Parentheses
+        au VimEnter * RainbowParenthesesToggle
         " Silver Searcher
         " Slime
         let g:slime_target = "tmux"
@@ -265,10 +290,8 @@ call plug#end()
         " SuperTab
         " Surround
         " Tabular
-        AddTabularPipeline multiple_spaces / \{2,}/
-            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
+        " Unite
         " Ultisnips
         let g:UltiSnipsExpandTrigger       = "<tab>"
         let g:UltiSnipsJumpForwardTrigger  = "<tab>"
@@ -295,7 +318,7 @@ call plug#end()
         " this one is which you're most likely to use?
         au!
         au FileType python set omnifunc=pythoncomplete#Complete
-        au FileType python compiler nose
+        "au FileType python compiler nose
     augroup end 
 
     " C/C++ files
@@ -322,14 +345,24 @@ call plug#end()
     " VimL Files
     augroup vim_group 
         au!
-       "au filetype vim set fdm=marker
-       "au BufWrite $MYVIMRC source $MYVIMRC
+        "au filetype vim set fdm=marker
+        "au BufWrite $MYVIMRC source $MYVIMRC
     augroup end 
 
     " Markdown formatted files
+    function! Markdown_makeHeader(number)
+        if a:number ==# 1
+            normal! yypVr=
+        else a:number ==# 2
+            normal! yypVr-
+        endif
+    endfunction
     augroup markdown_group 
         au!
-        "au filetype markdown vnoremap <localleader>o :
-        au filetype markdown vnoremap <localleader>u :normal! s/^/- /g<cr>
+        " TODO: look for ways to make this into a function
+        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
+        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
+        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
+        au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 

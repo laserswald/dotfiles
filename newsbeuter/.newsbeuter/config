@@ -1,0 +1,15 @@
+auto-reload yes
+browser "uzbl-browser %u"
+cleanup-on-quit yes
+
+color info black cyan
+color listfocus  cyan default   bold
+color listfocus_unread    magenta default  bold
+color listnormal cyan default
+color listnormal_unread   magenta default
+
+download-path "~/snd/pods/%h/%n"
+max-downloads 2
+player "mplayer"
+podcast-auto-enqueue yes
+notify-beep yes

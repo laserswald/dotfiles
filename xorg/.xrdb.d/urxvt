@@ -1,0 +1,5 @@
+URxvt.scrollBar: false
+URxvt.perl-ext: default,url-select
+URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.underline: true
+Urxvt.url-select.button:1
