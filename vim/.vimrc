@@ -1,8 +1,7 @@
-" Ben's Vimrc.
+" Ben's (Neo)Vimrc.
 "vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
 " Some of this should be split up into different files. 
-set nocompatible
 
 " Environment
 function! WINDOWS()
@@ -16,15 +15,19 @@ endfunction
 if NVIM()
     runtime! plugin/python_setup.vim
     set runtimepath+=/usr/share/vim/vimfiles
+    let g:plug_bundle = "~/.config/nvim/bundle"
+else
+    set nocompatible
+    let g:plug_bundle = "~/.vim/bundle"
 endif
 
 " Windows setup.
 if WINDOWS()
-    
+    let g:plug_bundle = "~/vimfiles/bundle"
 endif
 
 " Plugins {{{1 
-call plug#begin("~/.vim/bundle")
+call plug#begin(g:plug_bundle)
 
     " Basic improvements
     Plug 'tpope/vim-sensible'
@@ -32,25 +35,36 @@ call plug#begin("~/.vim/bundle")
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
+    Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
     Plug 'ervandew/supertab'
     Plug 'mattn/emmet-vim'
-    Plug 'Shougo/neocomplete.vim'
+    if NVIM()
+        Plug 'Shougo/deoplete.nvim'
+    else 
+        Plug 'Shougo/neocomplete.vim'
+    endif
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-    " Themes and eye candy.
-    Plug 'bling/vim-airline'
+    " Eye Candy
+    Plug 'itchyny/lightline.vim'
     Plug 'bling/vim-bufferline'
+    Plug 'kien/rainbow_parentheses.vim'
+
+    " Themes
+    Plug 'laserswald/chameleon.vim'
     Plug 'AlessandroYorba/Alduin'
     Plug 'nanotech/jellybeans.vim'
     Plug 'noahfrederick/vim-noctu'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
+
     " Databases, motherfucker.
     Plug 'vim-scripts/dbext.vim'
 
@@ -61,15 +75,28 @@ call plug#begin("~/.vim/bundle")
 
     " Movement plugins
     Plug 'godlygeek/tabular'
-    Plug 'christoomey/vim-tmux-navigator'
+    if ! NVIM()
+        Plug 'christoomey/vim-tmux-navigator'
+    endif
 
     " Building and compiling plugins
     Plug 'reinh/vim-makegreen'
-    Plug 'tpope/vim-dispatch'
+    if NVIM()
+        Plug 'benekastah/neomake'
+    else
+        Plug 'tpope/vim-dispatch'
+    endif
+    Plug 'scrooloose/syntastic'
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
     Plug 'vim-scripts/Scons-compiler-plugin'
+
+    " Syntax highlighting plugins.
+    Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'nelstrom/vim-markdown-folding'
+    Plug 'freitass/todo.txt-vim'
+
 
 call plug#end()
 " 1}}}
@@ -115,14 +142,14 @@ call plug#end()
         if has("gui_running")
             set guioptions=aegirLt
             set mouse=n
-            colors alduin
+            colors jellybeans
             if has("gui_gtk2")
                 set guifont="Source Code Pro for Powerline 8"
             elseif has("gui_macvim")
                 set guifont=Menlo\ Regular:h14
             elseif has("gui_win32")
                 set guifont=inconsolata:h12
-                colors alduin
+                colors jellybeans
                 cd ~
             endif
         endif
@@ -284,9 +311,6 @@ call plug#end()
         " SuperTab
         " Surround
         " Tabular
-        :AddTabularPipeline multiple_spaces / \{2,}/
-            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
         " Ultisnips
         let g:UltiSnipsExpandTrigger       = "<tab>"
