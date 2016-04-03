@@ -10,4 +10,4 @@ export PAGER="less -R"
 export VISUAL=$EDITOR
 export XDG_CONFIG_HOME="$HOME/.config"
 
-export PATH+=":~/bin"
+export PATH="$PATH:~/bin"
