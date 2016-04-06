@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Load any files in my shell directory.
+for file in ~/.sh.d/* ; do
+    source $file
+done
