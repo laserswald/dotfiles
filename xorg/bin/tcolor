@@ -15,11 +15,10 @@ else
         cyan) cn="color6"   ;; brcyan) cn="color15"   ;;
         white) cn="color7"  ;; brwhite) cn="color16"  ;;
     esac
-
 fi
 
 # Find the colorscheme that's up now
 scheme=$(for scheme in $(ls -1 $HOME/.xrdb.d/colors); do grep -o $scheme $HOME/.xrdb.d/colorscheme; done)
 
-echo $(grep "$cn:" ~/.xrdb.d/colors/$scheme | cut -d: -f2 | tr -d ' ')
+echo $(xrdb -query | grep "$cn:" | cut -d: -f2 | tr -d ' ')
 
