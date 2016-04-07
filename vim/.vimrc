@@ -15,19 +15,19 @@ endfunction
 if NVIM()
     runtime! plugin/python_setup.vim
     set runtimepath+=/usr/share/vim/vimfiles
-    let g:plug_bundle = "~/.config/nvim/bundle"
+    let g:vimdir = "~/.config/nvim"
 else
     set nocompatible
-    let g:plug_bundle = "~/.vim/bundle"
+    let g:vimdir = "~/.vim"
 endif
 
 " Windows setup.
 if WINDOWS()
-    let g:plug_bundle = "~/vimfiles/bundle"
+    let g:vimdir = "~/vimfiles"
 endif
 
 " Plugins {{{1 
-call plug#begin(g:plug_bundle)
+call plug#begin(g:vimdir . "/bundle")
 
     " Basic improvements
     Plug 'tpope/vim-sensible'
@@ -65,7 +65,7 @@ call plug#begin(g:plug_bundle)
     " REPL plugins
     Plug 'jpalardy/vim-slime'
 
-    " Databases, motherfucker.
+    " Databases.
     Plug 'vim-scripts/dbext.vim'
 
     " File opening and management plugins
@@ -227,6 +227,12 @@ call plug#end()
             " Edit the current projection file
             nnoremap <leader>p :
 
+            function! GetFiletypeFile()
+                return g:vimdir . '/filetype/' . &filetype . '.vim'
+            endfunction
+
+            nnoremap <leader>eft :execute "e " . GetFiletypeFile()<cr>
+
         " Buffer, Split and Tab Movement
 
             " Buffers
@@ -342,6 +348,7 @@ call plug#end()
         let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
         " Vim-Tmux Navigator
 
+
 " Auto commands.
 
     " Every file
@@ -408,6 +415,7 @@ call plug#end()
             execute "normal!" . a:number . "I#"
         endif
     endfunction
+
     augroup markdown_group 
         au!
         " TODO: look for ways to make this into a function
@@ -417,5 +425,11 @@ call plug#end()
         au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 
+    augroup php_group
+        " this one is which you're most likely to use?
+        autocmd!
+        autocmd filetype php setlocal noexpandtab 
+
+    augroup end
 
 

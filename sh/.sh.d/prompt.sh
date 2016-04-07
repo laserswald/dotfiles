@@ -10,12 +10,15 @@ normal=`tput sgr0`
 
 # Git branch
 function gb {
-    branch=$(git branch 2>/dev/null | grep \* | tr -d '*')
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     echo "${fmagenta}${branch}${normal}"
 }
 
+function wd {
+}
+
 # Default
-PS1="${fgreen}$(id -nu)${normal} at ${fblue}$(hostname)${normal} \$(pwd | sed s:$HOME:~:g)\$(gb)>${normal} "
+#PS1="${fgreen}$(id -nu)${normal} at ${fblue}$(hostname)${normal} \$(pwd | sed s:$HOME:~:g)\$(gb)>${normal} "
 
 # Micro
-#PS1="\${PWD} ${fgreen}:${normal} "
+PS1="\$(pwd | sed s:$HOME:~:g) ${fgreen}:${normal} "
