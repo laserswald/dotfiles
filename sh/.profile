@@ -1,14 +1,8 @@
-# Ben's standard profile.
+# Laserswald's standard profile.
 
-EDITOR=nvim
-VISUAL=nvim
-BROWSER=firefox
-PAGER="less -R"
+export ENV=$HOME/.shrc
 
-MAIL=~/var/mail
+# Say something funny.
+fortune
+echo ' '
 
-XDG_CONFIG_HOME="$HOME/.config"
-
-export EDITOR VISUAL BROWSER XDG_CONFIG_HOME PAGER MAIL
-
-export GOPATH=~/usr/src/go

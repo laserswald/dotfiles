@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Load any files in my shell directory.
+for file in ~/.sh.d/* ; do
+    . $file
+done
+
+# Override defaults with locals.
+source $HOME/.shrc.local
+

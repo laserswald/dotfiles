@@ -1,42 +1,72 @@
-" Ben's Vimrc.
+" Ben's (Neo)Vimrc.
+"vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
 " Some of this should be split up into different files. 
-set nocompatible
+
+" Environment
+function! WINDOWS()
+    return (has("win32") || has("win64")) 
+endfunction
+function! NVIM()
+    return has('nvim')
+endfunction
 
 " Neovim setup
-if has('nvim')
+if NVIM()
     runtime! plugin/python_setup.vim
     set runtimepath+=/usr/share/vim/vimfiles
+    let g:vimdir = "~/.config/nvim"
+else
+    set nocompatible
+    let g:vimdir = "~/.vim"
+endif
+
+" Windows setup.
+if WINDOWS()
+    let g:vimdir = "~/vimfiles"
 endif
 
 " Plugins {{{1 
-call plug#begin("~/.vim/bundle")
+call plug#begin(g:vimdir . "/bundle")
 
-    " Core plugins
+    " Basic improvements
     Plug 'tpope/vim-sensible'
-    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-repeat'
     Plug 'Shougo/unite.vim'
 
     " Tagging plugins.
-    Plug 'Shougo/unite.vim' | Plug 'tsukkee/unite-tag'
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
     Plug 'ervandew/supertab'
-    "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-    Plug 'Shougo/neocomplete.vim'
-    Plug 'scrooloose/nerdcommenter'
+    Plug 'mattn/emmet-vim'
+    if NVIM()
+        Plug 'Shougo/deoplete.nvim'
+    else 
+        Plug 'Shougo/neocomplete.vim'
+    endif
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    Plug 'OmniSharp/omnisharp-vim', { 'do': 'cd server; xbuild' }
 
-    " Themes and eye candy.
-    Plug 'bling/vim-airline'
+    " Eye Candy
+    Plug 'itchyny/lightline.vim'
     Plug 'bling/vim-bufferline'
+    Plug 'kien/rainbow_parentheses.vim'
+
+    " Themes
+    Plug 'laserswald/chameleon.vim'
+    Plug 'AlessandroYorba/Alduin'
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'noahfrederick/vim-noctu'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
+
+    " Databases.
+    Plug 'vim-scripts/dbext.vim'
 
     " File opening and management plugins
     Plug 'rking/ag.vim'
@@ -45,19 +75,28 @@ call plug#begin("~/.vim/bundle")
 
     " Movement plugins
     Plug 'godlygeek/tabular'
-    Plug 'christoomey/vim-tmux-navigator'
+    if ! NVIM()
+        Plug 'christoomey/vim-tmux-navigator'
+    endif
 
     " Building and compiling plugins
     Plug 'reinh/vim-makegreen'
-    Plug 'tpope/vim-dispatch'
+    if NVIM()
+        Plug 'benekastah/neomake'
+    else
+        Plug 'tpope/vim-dispatch'
+    endif
     Plug 'scrooloose/syntastic'
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
+    Plug 'vim-scripts/Scons-compiler-plugin'
 
     " Syntax highlighting plugins.
     Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'nelstrom/vim-markdown-folding'
     Plug 'freitass/todo.txt-vim'
+
 
 call plug#end()
 " 1}}}
@@ -69,7 +108,6 @@ call plug#end()
         filetype plugin indent on
     
     " Appearance (ch 2)
-        set background=dark
         set laststatus=2
         set linebreak
         set matchtime=5    " Length of time in 10ths of a second to show matching parens
@@ -77,8 +115,8 @@ call plug#end()
         set numberwidth=3  " Width of line number section
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
-        set visualbell
-        colors arccos
+        set visualbell     " Blink the screen instead of dinging
+        colors chameleon   " My own personal colorscheme
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -101,18 +139,19 @@ call plug#end()
         set foldmethod=marker
 
     " GUI and Mouse
-        set guioptions=aegirLt
-        set mouse=n
-
         if has("gui_running")
-          if has("gui_gtk2")
-            set guifont="Source Code Pro for Powerline 8"
-          elseif has("gui_macvim")
-            set guifont=Menlo\ Regular:h14
-          elseif has("gui_win32")
-            set guifont=inconsolata:h12
-            cd ~
-          endif
+            set guioptions=aegirLt
+            set mouse=n
+            colors jellybeans
+            if has("gui_gtk2")
+                set guifont="Source Code Pro for Powerline 8"
+            elseif has("gui_macvim")
+                set guifont=Menlo\ Regular:h14
+            elseif has("gui_win32")
+                set guifont=inconsolata:h12
+                colors jellybeans
+                cd ~
+            endif
         endif
 
     " Files
@@ -157,16 +196,16 @@ call plug#end()
             nnoremap <leader>J      @qk^ 
             
         " Shortcut functionality
+            " Execute normal command over visual selection
+            nnoremap <leader>r  :'<,'>g/^/norm 
             
             " Extract to another file
             vnoremap <leader>x  "md:enew<cr>"mp
         
             "Capitalize the word at the cursor.
-            "inoremap <c-u> <esc>viwUea
+            inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
-            inoremap <leader>tc b~
-            
             " Sort the selected lines
             vnoremap <leader>s :!sort<cr>
 
@@ -179,11 +218,20 @@ call plug#end()
         " Open Special Files
 
             " Edit my Vimrc, and then load it.
-            nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+            nnoremap <leader>ev :e $MYVIMRC<cr>
             nnoremap <leader>sv :source $MYVIMRC<cr>
 
             " Edit snippets files.
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
+
+            " Edit the current projection file
+            nnoremap <leader>p :
+
+            function! GetFiletypeFile()
+                return g:vimdir . '/filetype/' . &filetype . '.vim'
+            endfunction
+
+            nnoremap <leader>eft :execute "e " . GetFiletypeFile()<cr>
 
         " Buffer, Split and Tab Movement
 
@@ -193,6 +241,23 @@ call plug#end()
             nnoremap <up>       :bfirst<cr>
             nnoremap <down>     :blast<cr>
             
+            " Open Special Buffers
+            
+                " Netrw bindings
+                nnoremap <leader>F  :Se.<cr>
+                nnoremap <leader>s  :Sex<cr>
+                nnoremap <leader>v  :Vex<cr>
+                
+                " Open error window
+                nnoremap <leader>m  :cw<cr>
+                
+                " Open a tag in the current buffer
+                nnoremap <leader>t  :Unite tag/include -start-insert<cr>
+                nnoremap <leader>tb :Unite tag/include -vertical -directio<cr>
+               
+                " Fuzzy find a file.
+                nnoremap <leader>f  :Unite file_rec/neovim -start-insert<cr>
+
             " Splits
             noremap <c-j> <c-w>j
             noremap <c-k> <c-w>k
@@ -224,6 +289,7 @@ call plug#end()
 
         " Run Make
         nnoremap <leader>b   :MakeGreen<cr>
+        nnoremap <leader>B   :Dispatch<cr>
         nnoremap <leader>br  :MakeGreen("rebuild") <cr>
         nnoremap <leader>be  :MakeGreen("run") <cr>
 
@@ -234,12 +300,14 @@ call plug#end()
         nnoremap <leader>gd  :Gvdiff<cr>
 
     " Plugin settings.
-        " Airline
-        let g:airline_theme='dark'
-
+        " Bufferline
+        let g:bufferline_echo = 0
         " Dispatch
 
         " EasyTags
+        if WINDOWS() 
+            let g:easytags_cmd = 'C:\Users\Ben\bin\ctags58\ctags.exe'
+        endif
         let g:easytags_dynamic_files = 1
         let g:easytags_async = 1
 
@@ -247,33 +315,39 @@ call plug#end()
         let g:EclimCompletionMethod = 'omnifunc'
 
         " Fugitive
+
         " Gundo
+        " Lightline
+        let g:lightline = { 'colorscheme': 'chameleon' }
         " MakeGreen
         let g:makegreen_command = "Dispatch"
+        " Markdown folding
+        let g:markdown_fold_style = "nested"
         " Neocomplete 
         let g:neocomplete#enable_at_startup = 1
-        " NerdCommenter
+
         " Netrw
         let g:netrw_banner=0
-        " OmniSharp.
 
         " Projectionist
+        " Rainbow Parentheses
+        au VimEnter * RainbowParenthesesToggle
         " Silver Searcher
+        "
         " Slime
         let g:slime_target = "tmux"
+
         " Snippets
         " SuperTab
         " Surround
         " Tabular
-        AddTabularPipeline multiple_spaces / \{2,}/
-            \ map(a:lines, "substitute(v:val, ' \{2,}', '  ', 'g')")
-            \   | tabular#TabularizeStrings(a:lines, '  ', 'l0')
         " Tagbar
         " Ultisnips
         let g:UltiSnipsExpandTrigger       = "<tab>"
         let g:UltiSnipsJumpForwardTrigger  = "<tab>"
         let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
         " Vim-Tmux Navigator
+
 
 " Auto commands.
 
@@ -298,8 +372,12 @@ call plug#end()
         au FileType python compiler nose
     augroup end 
 
-    " C/C++ files
-    augroup c_cpp_group 
+    augroup c_group
+        " this one is which you're most likely to use?
+    augroup end
+
+    " C++ files
+    augroup cpp_group 
         au!
         au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
     augroup end 
@@ -324,12 +402,34 @@ call plug#end()
         au!
        "au filetype vim set fdm=marker
        "au BufWrite $MYVIMRC source $MYVIMRC
+        au filetype vim nnoremap <localleader>b :source %<cr>
     augroup end 
 
     " Markdown formatted files
+    function! Markdown_makeHeader(number)
+        if a:number ==# 1
+            normal! yypVr=
+        else if a:number ==# 2
+            normal! yypVr-
+        else 
+            execute "normal!" . a:number . "I#"
+        endif
+    endfunction
+
     augroup markdown_group 
         au!
-        "au filetype markdown vnoremap <localleader>o :
-        au filetype markdown vnoremap <localleader>u :normal! s/^/- /g<cr>
+        " TODO: look for ways to make this into a function
+        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
+        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
+        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
+        au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
+
+    augroup php_group
+        " this one is which you're most likely to use?
+        autocmd!
+        autocmd filetype php setlocal noexpandtab 
+
+    augroup end
+
 
