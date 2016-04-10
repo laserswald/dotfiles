@@ -11,4 +11,4 @@ export VISUAL=$EDITOR
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="$PATH:$HOME/bin"
-export HISTFILE="$HOME/.sh.d/history"
+export HISTFILE="$HOME/.shhistory"
