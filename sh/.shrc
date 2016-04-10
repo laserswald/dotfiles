@@ -6,5 +6,7 @@ for file in ~/.sh.d/* ; do
 done
 
 # Override defaults with locals.
-source $HOME/.shrc.local
+if [[ -e $HOME/.shrc.local ]]; then
+    source $HOME/.shrc.local
+fi
 
