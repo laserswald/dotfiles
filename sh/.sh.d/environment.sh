@@ -3,7 +3,7 @@
 # My default apps and environment variables.
 
 export BROWSER=firefox
-export EDITOR=nvim
+export EDITOR=vim
 export GOPATH=~/usr/src/go
 export MAIL=~/var/mail
 export PAGER="less -R"
