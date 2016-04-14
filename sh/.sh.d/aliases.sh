@@ -15,10 +15,11 @@
     alias ping="ping -c 3"
 
     # Tmux
-    alias tm="tmux"
-    alias tns="tmux new-session -s -A "
+alias tmux="tmux -2"
+alias tm="tmux"
+alias tns="tmux new-session -s -A "
 
-    alias nctl="netctl"
+alias nctl="netctl"
 
 alias ea="$EDITOR ~/.sh.d/aliases.sh"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
@@ -36,3 +37,4 @@ alias sctll="systemctl list-units"
 alias wall="~/.fehbg"
 alias xm="xrdb -merge ~/.xrdb.d/main"
 alias eclimd="/usr/lib/eclipse/eclimd &"
+alias e=$EDITOR

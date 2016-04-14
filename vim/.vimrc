@@ -97,6 +97,9 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'nelstrom/vim-markdown-folding'
     Plug 'freitass/todo.txt-vim'
 
+    " Debugging
+    Plug 'joonty/vdebug'
+
 
 call plug#end()
 " 1}}}
