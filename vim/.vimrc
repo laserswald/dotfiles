@@ -36,6 +36,7 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
     Plug 'Shougo/unite.vim'
+    Plug 'jacquesbh/vim-showmarks'
 
     " Tagging plugins.
     Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
@@ -81,26 +82,35 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Building and compiling plugins
     Plug 'reinh/vim-makegreen'
+    Plug 'scrooloose/syntastic'
     if NVIM()
         Plug 'benekastah/neomake'
     else
         Plug 'tpope/vim-dispatch'
     endif
-    Plug 'scrooloose/syntastic'
 
     " Compiler settings.
     Plug 'JalaiAmitahl/maven-compiler.vim'
     Plug 'vim-scripts/Scons-compiler-plugin'
 
-    " Syntax highlighting plugins.
-    Plug 'vim-scripts/Scons-compiler-plugin'
-    Plug 'nelstrom/vim-markdown-folding'
-    Plug 'freitass/todo.txt-vim'
-
     " Debugging
     Plug 'joonty/vdebug'
 
+    " Filetype specific plugins
+        " Markdown
+        Plug 'nelstrom/vim-markdown-folding'
 
+        " Todo.txt
+        Plug 'freitass/todo.txt-vim'
+
+        " C
+        Plug 'vim-scripts/cscope.vim'
+        
+        " PHP
+        Plug 'StanAngeloff/php.vim', {'for' : 'php'}
+        Plug 'wdalmut/vim-phpunit', {'for' : 'php'}
+        Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
+        Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 call plug#end()
 " 1}}}
 
