@@ -1,5 +1,5 @@
 URxvt.boldFont:
-URxvt.font: xft:terminess powerline:size=9
+URxvt.font: xft:clean:size=9
 
 Xft.antialias: 1
 Xft.autohint: 0

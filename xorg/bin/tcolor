@@ -15,7 +15,6 @@ else
         cyan) cn="color6"   ;; brcyan) cn="color15"   ;;
         white) cn="color7"  ;; brwhite) cn="color16"  ;;
     esac
-
 fi
 
 # Find the colorscheme that's up now

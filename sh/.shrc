@@ -2,5 +2,11 @@
 
 # Load any files in my shell directory.
 for file in ~/.sh.d/* ; do
-    source $file
+    . $file
 done
+
+# Override defaults with locals.
+if [[ -e $HOME/.shrc.local ]]; then
+    source $HOME/.shrc.local
+fi
+

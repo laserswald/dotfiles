@@ -27,4 +27,4 @@ sh -c "~/.fehbg" &
 # Start a tray.
 # tray &
 
-exec openbox-session
+exec ~/bin/backflip

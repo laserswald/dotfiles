@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/ben/dev01/barebones/interfaces'
+let g:netrw_dirhist_2='/home/ben/dev01/barebones'
+let g:netrw_dirhist_3='/home/ben/dev01'
+let g:netrw_dirhist_4='/home/ben/dev01/barebones/interfaces'
+let g:netrw_dirhist_5='/home/ben/dev01/barebones'
+let g:netrw_dirhist_6='/home/ben/dev01/barebones/controllers'
+let g:netrw_dirhist_7='/home/ben/dev01/barebones/controllers/charts'
+let g:netrw_dirhist_8='/home/ben'
+let g:netrw_dirhist_9='/home/ben/bin'
