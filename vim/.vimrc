@@ -438,6 +438,15 @@ call plug#end()
         au filetype markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 
+    function! PHP_DebugIncludes()
+        " Find each instance of an include 
+        cursor(1, 1)
+        let match = 0
+        while l:match = search("require", 'W') > 0
+        endwhile
+       " Insert a comment
+    endfunction
+
     augroup php_group
         " this one is which you're most likely to use?
         autocmd!

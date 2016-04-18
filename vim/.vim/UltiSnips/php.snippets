@@ -7,3 +7,14 @@ snippet doc "Create a documentation block."
  * @return $3
  */
 endsnippet
+
+snippet fun "function" b
+
+function $1 (${2:\$args}){
+	${3: echo "$1 not implemented yet.";}
+}
+endsnippet
+
+snippet vd "var_dump" b
+var_dump($1);
+endsnippet
