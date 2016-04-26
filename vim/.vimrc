@@ -61,6 +61,7 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'laserswald/chameleon.vim'
     Plug 'AlessandroYorba/Alduin'
     Plug 'nanotech/jellybeans.vim'
+    Plug 'altercation/vim-colors-solarized'
     Plug 'noahfrederick/vim-noctu'
 
     " REPL plugins
@@ -130,6 +131,8 @@ call plug#end()
         set wrap           " Line wrapping
         set visualbell     " Blink the screen instead of dinging
         colors chameleon   " My own personal colorscheme
+        colors solarized   " My own personal colorscheme
+        set background=light
 
     " Editing
         set completeopt=menuone,menu,longest,preview
@@ -155,7 +158,7 @@ call plug#end()
         if has("gui_running")
             set guioptions=aegirLt
             set mouse=n
-            colors jellybeans
+            colors solarized
             if has("gui_gtk2")
                 set guifont="Source Code Pro for Powerline 8"
             elseif has("gui_macvim")
