@@ -131,7 +131,6 @@ call plug#end()
         set wrap           " Line wrapping
         set visualbell     " Blink the screen instead of dinging
         colors chameleon   " My own personal colorscheme
-        colors solarized   " My own personal colorscheme
         set background=light
 
     " Editing
