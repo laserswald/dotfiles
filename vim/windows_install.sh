@@ -1,4 +1,4 @@
 rm ~/_vimrc
-ln ./.vimrc ~/_vimrc 
+cp ./.vimrc ~/_vimrc 
 rm -rf ~/vimfiles
-ln -s ./.vim ~/vimfiles
+cp -r ./.vim ~/vimfiles

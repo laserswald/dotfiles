@@ -1,1 +1,1 @@
-let g:netrw_bookmarklist= ['/home/ben/dev01/barebones/interfaces/']
+let g:netrw_bookmarklist= ['/home/ben/dev01/barebones/interfaces/', 'C:/Users/Ben/Documents/bookstore/Bookstore/Bookstore']
