@@ -35,11 +35,10 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
-    Plug 'Shougo/unite.vim'
     Plug 'jacquesbh/vim-showmarks'
 
     " Tagging plugins.
-    Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
+    Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
@@ -63,6 +62,7 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'nanotech/jellybeans.vim'
     Plug 'altercation/vim-colors-solarized'
     Plug 'noahfrederick/vim-noctu'
+    Plug 'chriskempson/base16-vim'
 
     " REPL plugins
     Plug 'jpalardy/vim-slime'
@@ -105,13 +105,17 @@ call plug#begin(g:vimdir . "/bundle")
         Plug 'freitass/todo.txt-vim'
 
         " C
-        Plug 'vim-scripts/cscope.vim'
+        Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
+
+        " C#
+        Plug 'OmniSharp/omnisharp-vim'
         
         " PHP
         Plug 'StanAngeloff/php.vim', {'for' : 'php'}
         Plug 'wdalmut/vim-phpunit', {'for' : 'php'}
         Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+
 call plug#end()
 " 1}}}
 
@@ -157,14 +161,14 @@ call plug#end()
         if has("gui_running")
             set guioptions=aegirLt
             set mouse=n
-            colors solarized
+            set background=dark
+            colors base16-default
             if has("gui_gtk2")
                 set guifont="Source Code Pro for Powerline 8"
             elseif has("gui_macvim")
                 set guifont=Menlo\ Regular:h14
             elseif has("gui_win32")
                 set guifont=inconsolata:h12
-                colors jellybeans
                 cd ~
             endif
         endif
@@ -223,8 +227,6 @@ call plug#end()
             inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
-            " Sort the selected lines
-            vnoremap <leader>s :!sort<cr>
 
     " Movement
 
@@ -233,22 +235,25 @@ call plug#end()
         noremap k gk
 
         " Open Special Files
-
+            
+            " Special remap trick to allow consistent 'sub-mappings'
+            nnoremap [edit] <nop>
+            nmap <leader>e [edit]
+            
             " Edit my Vimrc, and then load it.
-            nnoremap <leader>ev :e $MYVIMRC<cr>
-            nnoremap <leader>sv :source $MYVIMRC<cr>
+            nnoremap [edit]v :e $MYVIMRC<cr>
 
             " Edit snippets files.
-            nnoremap <leader>sn     :UltiSnipsEdit<cr>
+            nnoremap [edit]sn     :UltiSnipsEdit<cr>
 
             " Edit the current projection file
-            " nnoremap <leader>p :
+            " nnoremap [edit]p :
 
             function! GetFiletypeFile()
                 return g:vimdir . '/filetype/' . &filetype . '.vim'
             endfunction
 
-            nnoremap <leader>eft :execute "e " . GetFiletypeFile()<cr>
+            nnoremap [edit]ft :execute "e " . GetFiletypeFile()<cr>
 
         " Buffer, Split and Tab Movement
 
@@ -261,28 +266,43 @@ call plug#end()
             " Open Special Buffers
             
                 " Netrw bindings
-                nnoremap <leader>F  :Se.<cr>
+                nnoremap <leader>F  :Explore<cr>
                 nnoremap <leader>s  :Sex<cr>
                 nnoremap <leader>v  :Vex<cr>
                 
-                " Open error window
+                " Open message windows
                 nnoremap <leader>m  :cw<cr>
+                nnoremap <leader>M  :copen<cr>
+                nnoremap <leader>L  :lopen<cr>
                 
                 " Open a tag in the current buffer
                 nnoremap <leader>t  :Unite tag/include -start-insert<cr>
-                nnoremap <leader>tb :Unite tag/include -vertical -direction=r<cr>
+                nnoremap <leader>tb :Unite tag/include -vertical<cr>
+                " Open a Tagbar window
+                nnoremap <leader>T  :TagbarToggle<cr>
                
                 " Fuzzy find a file.
-                nnoremap <leader>f  :Unite file_rec/neovim -start-insert<cr>
+                if NVIM()
+                    nnoremap <leader>f  :<c-u>Unite file_rec/neovim -start-insert<cr>
+                else
+                    nnoremap <leader>f  :Unite -start-insert file/async<cr>
+                endif
 
-            " Splits
+            " Window management
+            "
+            nnoremap [window] <nop>
+            nmap <leader>w [window]
+
             noremap <c-j> <c-w>j
             noremap <c-k> <c-w>k
             noremap <c-l> <c-w>l
             noremap <c-h> <c-w>h
-            nnoremap <leader>W  <c-w>w
-            nnoremap <leader>=  <c-w>=
-            nnoremap <leader>o  :res | :vertical res <cr>
+            nnoremap [window]   :w<cr>
+            nnoremap [window]W  <c-w>w
+            nnoremap [window]=  <c-w>=
+            nnoremap [window]o  :res <cr> :vertical res <cr>
+            nnoremap <leader>S  :split<cr>
+            nnoremap <leader>V  :vsplit<cr>
             
             " Tabs
             nnoremap <home> :tabnext<cr>
@@ -301,11 +321,20 @@ call plug#end()
                 
                 " Open a Tagbar window
                 " nnoremap <leader>t  :TagbarToggle<cr>
+            " Other stuff
+
+            " What should I do now?
+            nnoremap <leader>? :lvim TODO ./* <cr>
+
+            " Re align the whole file
+            nnoremap <leader>= ggVG=
 
     " External Tools
 
-        " Run Make
-        nnoremap <leader>b   :MakeGreen<cr>
+        " Build
+        nnoremap [build] <nop>
+        nmap <leader>b [build]
+        nnoremap [build]   :MakeGreen<cr>
         nnoremap <leader>B   :Dispatch<cr>
         nnoremap <leader>br  :MakeGreen("rebuild") <cr>
         nnoremap <leader>be  :MakeGreen("run") <cr>
@@ -315,6 +344,10 @@ call plug#end()
         nnoremap <leader>gc  :Gcommit<cr>
         nnoremap <leader>gs  :Gstatus<cr>
         nnoremap <leader>gd  :Gvdiff<cr>
+
+        " Sort the selected lines
+        vnoremap <leader>s :!sort<cr>
+        nnoremap <leader>pi :PlugInstall<cr>
 
     " Plugin settings.
         " Bufferline
@@ -363,9 +396,9 @@ call plug#end()
         let g:UltiSnipsExpandTrigger       = "<tab>"
         let g:UltiSnipsJumpForwardTrigger  = "<tab>"
         let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
+    
         " Unite
-        
+        call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
         " Vim-Tmux Navigator
 
@@ -394,7 +427,6 @@ call plug#end()
     augroup end 
 
     augroup c_group
-        " this one is which you're most likely to use?
     augroup end
 
     " C++ files
@@ -405,11 +437,17 @@ call plug#end()
 
     " C# files
     augroup cs_group
-        " this one is which you're most likely to use?
+        au!
         au FileType cs setlocal omnifunc=OmniSharp#Complete
+        au FileType cs nnoremap <leader>b :OmniSharpBuildAsync<cr>
+        au FileType cs nnoremap <localleader>i :OmniSharpFixUsings<cr>
+        au FileType cs nnoremap <c-]> :OmniSharpGotoDefinition<cr>
+        au FileType cs nnoremap <localleader>t :OmniSharpFindSymbol<cr>
 
         au cursorhold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
         au bufwritepost *.cs call OmniSharp#AddToProject()
+        au BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
     augroup end
 
     " Java files

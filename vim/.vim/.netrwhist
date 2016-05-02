@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary/barebones/interfaces'
-let g:netrw_dirhist_2='/cbs_volume1/interface_testing/grits/archives'

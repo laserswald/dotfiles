@@ -1,0 +1,2 @@
+
+nnoremap <C-]> :OmniSharpGotoDefinition<cr>

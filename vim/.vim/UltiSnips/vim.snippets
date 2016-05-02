@@ -1,3 +1,8 @@
 snippet nmap "Normal mode mapping" b
 nnoremap <leader>$1   $2
 endsnippet
+
+snippet mp "mapping prefix" b
+nnoremap [$1] <nop>
+nmap <leader>$2 [$1]
+endsnippet
