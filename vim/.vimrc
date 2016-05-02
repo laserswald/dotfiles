@@ -193,6 +193,8 @@ call plug#end()
     inoremap jk <esc>
     vnoremap jk <esc>
 
+    " Hierarchical mappings!
+
     " Editing
         
         " Read and write files.
@@ -240,7 +242,7 @@ call plug#end()
             nnoremap <leader>sn     :UltiSnipsEdit<cr>
 
             " Edit the current projection file
-            nnoremap <leader>p :
+            " nnoremap <leader>p :
 
             function! GetFiletypeFile()
                 return g:vimdir . '/filetype/' . &filetype . '.vim'
@@ -268,7 +270,7 @@ call plug#end()
                 
                 " Open a tag in the current buffer
                 nnoremap <leader>t  :Unite tag/include -start-insert<cr>
-                nnoremap <leader>tb :Unite tag/include -vertical -directio<cr>
+                nnoremap <leader>tb :Unite tag/include -vertical -direction=r<cr>
                
                 " Fuzzy find a file.
                 nnoremap <leader>f  :Unite file_rec/neovim -start-insert<cr>
@@ -280,7 +282,7 @@ call plug#end()
             noremap <c-h> <c-w>h
             nnoremap <leader>W  <c-w>w
             nnoremap <leader>=  <c-w>=
-            nnoremap <leader>o  :res <cr> :vertical res <cr>
+            nnoremap <leader>o  :res | :vertical res <cr>
             
             " Tabs
             nnoremap <home> :tabnext<cr>
@@ -298,7 +300,7 @@ call plug#end()
                 nnoremap <leader>M  :copen<cr>
                 
                 " Open a Tagbar window
-                nnoremap <leader>t  :TagbarToggle<cr>
+                " nnoremap <leader>t  :TagbarToggle<cr>
 
     " External Tools
 
@@ -361,6 +363,10 @@ call plug#end()
         let g:UltiSnipsExpandTrigger       = "<tab>"
         let g:UltiSnipsJumpForwardTrigger  = "<tab>"
         let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+        " Unite
+        
+
         " Vim-Tmux Navigator
 
 
@@ -409,15 +415,15 @@ call plug#end()
     " Java files
     augroup java_group 
         au!
-        au filetype java nnoremap <localleader>i :JavaImport<cr>
+        au FileType java nnoremap <localleader>i :JavaImport<cr>
     augroup end 
     
     " VimL Files
     augroup vim_group 
         au!
-       "au filetype vim set fdm=marker
+       "au FileType vim set fdm=marker
        "au BufWrite $MYVIMRC source $MYVIMRC
-        au filetype vim nnoremap <localleader>b :source %<cr>
+        au FileType vim nnoremap <localleader>b :source %<cr>
     augroup end 
 
     " Markdown formatted files
@@ -434,12 +440,13 @@ call plug#end()
     augroup markdown_group 
         au!
         " TODO: look for ways to make this into a function
-        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
-        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
-        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
-        au filetype markdown nmap <localleader>b :normal! yss* <cr>
+        au FileType markdown vnoremap <localleader>l :normal! I- <cr>
+        au FileType markdown vnoremap <localleader>n :normal! I1. <cr>
+        au FileType markdown nnoremap <localleader>> :normal! I# <cr>
+        au FileType markdown nmap <localleader>b :normal! yss* <cr>
     augroup end 
 
+    " PHP files
     function! PHP_DebugIncludes()
         " Find each instance of an include 
         cursor(1, 1)
@@ -452,8 +459,7 @@ call plug#end()
     augroup php_group
         " this one is which you're most likely to use?
         autocmd!
-        autocmd filetype php setlocal noexpandtab 
-
+        autocmd FileType php setlocal noexpandtab 
     augroup end
 
 
