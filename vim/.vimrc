@@ -277,7 +277,6 @@ call plug#end()
                 nnoremap <leader>?  :lvimgrep TODO ./* <cr>
                 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
                 " TODO
-                
                 " Open a tag in the current buffer
                 nnoremap <leader>t  :Unite tag/include -start-insert<cr>
                 nnoremap <leader>tb :Unite tag/include -vertical<cr>
@@ -288,7 +287,11 @@ call plug#end()
                 if NVIM()
                     nnoremap <leader>f  :<c-u>Unite file_rec/neovim -start-insert<cr>
                 else
-                    nnoremap <leader>f  :Unite -start-insert file/async<cr>
+                    if WINDOWS()
+                        nnoremap <leader>f  :Unite -start-insert file/async<cr>
+                    else
+                        nnoremap <leader>f  :Unite -start-insert file_rec/async<cr>
+                    endif
                 endif
 
             " Window management
@@ -311,19 +314,6 @@ call plug#end()
             nnoremap <home> :tabnext<cr>
             nnoremap <end>  :tabprev<cr>
 
-            " Open Special Buffers
-                
-                " Netrw bindings
-                nnoremap <leader>f  :Explore<cr>
-                nnoremap <leader>F  :Se.<cr>
-                nnoremap <leader>s  :Sex<cr>
-                nnoremap <leader>v  :Vex<cr>
-                
-                " Open message window
-                nnoremap <leader>M  :copen<cr>
-                
-                " Open a Tagbar window
-                " nnoremap <leader>t  :TagbarToggle<cr>
             " Other stuff
 
                 " Re align the whole file
@@ -403,18 +393,34 @@ call plug#end()
         call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
         " Vim-Tmux Navigator
+        " VDebug
+        let g:vdebug_options= {
+                    \    "port" : 9501,
+                    \    "server" : '',
+                    \    "timeout" : 20,
+                    \    "on_close" : 'detach',
+                    \    "break_on_open" : 1,
+                    \    "ide_key" : '',
+                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary' : '/home/bdavenportray/branches/primary'},
+                    \    "debug_window_level" : 0,
+                    \    "debug_file_level" : 0,
+                    \    "debug_file" : "",
+                    \    "watch_window_style" : 'expanded',
+                    \    "marker_default" : '⬦',
+                    \    "marker_closed_tree" : '▸',
+                    \    "marker_open_tree" : '▾'
+                    \}
+
 
 
 " Auto commands.
 
 " Every file
-augroup allgroup
+augroup autocommands
     au! 
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+    " Oh my god, a templating thing. 
+	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir. 'templates/' . expand("<afile>:e")
 augroup end 
 
-" Oh my god, a templating thing. 
-augroup templates
-	autocmd!
-	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir. 'templates/' . expand("<afile>:e")
-augroup END
+
