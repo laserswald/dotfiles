@@ -30,12 +30,12 @@ endif
 call plug#begin(g:vimdir . "/bundle")
 
     " Basic improvements
-    Plug 'tpope/vim-sensible'
     Plug 'sjl/gundo.vim'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
     Plug 'jacquesbh/vim-showmarks'
+    Plug 'tpope/vim-eunuch' 
 
     " Tagging plugins.
     Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
@@ -43,7 +43,6 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Completion plugins.
     Plug 'ervandew/supertab'
-    Plug 'mattn/emmet-vim'
     if NVIM()
         Plug 'Shougo/deoplete.nvim'
     else 
@@ -53,7 +52,7 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Eye Candy
     Plug 'itchyny/lightline.vim'
-    Plug 'bling/vim-bufferline'
+    " Plug 'bling/vim-bufferline'
     Plug 'kien/rainbow_parentheses.vim'
 
     " Themes
@@ -99,7 +98,7 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Filetype specific plugins
         " Markdown
-        Plug 'nelstrom/vim-markdown-folding'
+        Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
 
         " Todo.txt
         Plug 'freitass/todo.txt-vim'
@@ -108,13 +107,15 @@ call plug#begin(g:vimdir . "/bundle")
         Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
 
         " C#
-        Plug 'OmniSharp/omnisharp-vim'
+        Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
         
         " PHP
         Plug 'StanAngeloff/php.vim', {'for' : 'php'}
         Plug 'wdalmut/vim-phpunit', {'for' : 'php'}
         Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+    
+        Plug 'mattn/emmet-vim', {'for': 'html'}
 
 call plug#end()
 " 1}}}
@@ -197,6 +198,8 @@ call plug#end()
     inoremap jk <esc>
     vnoremap jk <esc>
 
+    " Hierarchical mappings!
+
     " Editing
         
         " Read and write files.
@@ -225,7 +228,6 @@ call plug#end()
             inoremap <c-u> <esc>viwUea
             nnoremap <leader>u viwUe
 
-
     " Movement
 
         " Go by graphical lines instead of real ones
@@ -245,10 +247,10 @@ call plug#end()
             nnoremap [edit]sn     :UltiSnipsEdit<cr>
 
             " Edit the current projection file
-            nnoremap [edit]p :
+            nnoremap [edit]p <nop>
 
             function! GetFiletypeFile()
-                return g:vimdir . '/filetype/' . &filetype . '.vim'
+                return g:vimdir . '/ftplugin/' . &filetype . '.vim'
             endfunction
 
             nnoremap [edit]ft :execute "e " . GetFiletypeFile()<cr>
@@ -268,11 +270,13 @@ call plug#end()
                 nnoremap <leader>s  :Sex<cr>
                 nnoremap <leader>v  :Vex<cr>
                 
-                " Open message windows
-                nnoremap <leader>m  :cw<cr>
-                nnoremap <leader>M  :copen<cr>
-                nnoremap <leader>L  :lopen<cr>
-                
+                " Open message and location windows
+                nnoremap <leader>m  :copen<cr>
+                nnoremap <leader>M  :cwindow<cr>
+                nnoremap <leader>L  :lwindow<cr>
+                nnoremap <leader>?  :lvimgrep TODO ./* <cr>
+                nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
+                " TODO
                 " Open a tag in the current buffer
                 nnoremap <leader>t  :Unite tag/include -start-insert<cr>
                 nnoremap <leader>tb :Unite tag/include -vertical<cr>
@@ -283,7 +287,11 @@ call plug#end()
                 if NVIM()
                     nnoremap <leader>f  :<c-u>Unite file_rec/neovim -start-insert<cr>
                 else
-                    nnoremap <leader>f  :Unite -start-insert file/async<cr>
+                    if WINDOWS()
+                        nnoremap <leader>f  :Unite -start-insert file/async<cr>
+                    else
+                        nnoremap <leader>f  :Unite -start-insert file_rec/async<cr>
+                    endif
                 endif
 
             " Window management
@@ -308,11 +316,8 @@ call plug#end()
 
             " Other stuff
 
-            " What should I do now?
-            nnoremap <leader>? :lvim TODO ./* <cr>
-
-            " Re align the whole file
-            nnoremap <leader>= ggVG=
+                " Re align the whole file
+                nnoremap <leader>= ggVG=
 
     " External Tools
 
@@ -321,14 +326,16 @@ call plug#end()
         nmap <leader>b [build]
         nnoremap [build]   :MakeGreen<cr>
         nnoremap <leader>B   :Dispatch<cr>
-        nnoremap <leader>br  :MakeGreen("rebuild") <cr>
-        nnoremap <leader>be  :MakeGreen("run") <cr>
+        nnoremap [build]r  :MakeGreen("rebuild") <cr>
+        nnoremap [build]e  :MakeGreen("run") <cr>
 
         " Git bindings
-        nnoremap <leader>gw  :Gwrite<cr>
-        nnoremap <leader>gc  :Gcommit<cr>
-        nnoremap <leader>gs  :Gstatus<cr>
-        nnoremap <leader>gd  :Gvdiff<cr>
+        nnoremap [git] <nop>
+        nmap <leader>g [git]
+        nnoremap [git]w  :Gwrite<cr>
+        nnoremap [git]c  :Gcommit<cr>
+        nnoremap [git]s  :Gstatus<cr>
+        nnoremap [git]d  :Gvdiff<cr>
 
         " Sort the selected lines
         vnoremap <leader>s :!sort<cr>
@@ -386,103 +393,34 @@ call plug#end()
         call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
         " Vim-Tmux Navigator
+        " VDebug
+        let g:vdebug_options= {
+                    \    "port" : 9501,
+                    \    "server" : '',
+                    \    "timeout" : 20,
+                    \    "on_close" : 'detach',
+                    \    "break_on_open" : 1,
+                    \    "ide_key" : '',
+                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary' : '/home/bdavenportray/branches/primary'},
+                    \    "debug_window_level" : 0,
+                    \    "debug_file_level" : 0,
+                    \    "debug_file" : "",
+                    \    "watch_window_style" : 'expanded',
+                    \    "marker_default" : '⬦',
+                    \    "marker_closed_tree" : '▸',
+                    \    "marker_open_tree" : '▾'
+                    \}
+
 
 
 " Auto commands.
 
-    " Every file
-    augroup all_group 
-        au! 
-        " au vimenter,bufnewfile,bufreadpost * silent! call HardMode()
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    augroup end 
-     
-    "Eclipse compatible files 
-    augroup eclim_group 
-        au!
-        au FileType python,java,c,c++ nnoremap <localleader>F :ProjectTree<cr>
-    augroup end 
-    
-    " Python files
-    augroup python_group 
-        " this one is which you're most likely to use?
-        au!
-        au FileType python set omnifunc=pythoncomplete#Complete
-        au FileType python compiler nose
-    augroup end 
-
-    augroup c_group
-    augroup end
-
-    " C++ files
-    augroup cpp_group 
-        au!
-        au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-    augroup end 
-
-    " C# files
-    augroup cs_group
-        au!
-        au FileType cs setlocal omnifunc=OmniSharp#Complete
-        au FileType cs nnoremap <leader>b :OmniSharpBuildAsync<cr>
-        au FileType cs nnoremap <localleader>i :OmniSharpFixUsings<cr>
-        au FileType cs nnoremap <c-]> :OmniSharpGotoDefinition<cr>
-        au FileType cs nnoremap <localleader>t :OmniSharpFindSymbol<cr>
-
-        au cursorhold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-        au bufwritepost *.cs call OmniSharp#AddToProject()
-        au BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
-
-    augroup end
-
-    " Java files
-    augroup java_group 
-        au!
-        au filetype java nnoremap <localleader>i :JavaImport<cr>
-    augroup end 
-    
-    " VimL Files
-    augroup vim_group 
-        au!
-       "au filetype vim set fdm=marker
-       "au BufWrite $MYVIMRC source $MYVIMRC
-        au filetype vim nnoremap <localleader>b :source %<cr>
-    augroup end 
-
-    " Markdown formatted files
-    function! Markdown_makeHeader(number)
-        if a:number ==# 1
-            normal! yypVr=
-        else if a:number ==# 2
-            normal! yypVr-
-        else 
-            execute "normal!" . a:number . "I#"
-        endif
-    endfunction
-
-    augroup markdown_group 
-        au!
-        " TODO: look for ways to make this into a function
-        au filetype markdown vnoremap <localleader>l :normal! I- <cr>
-        au filetype markdown vnoremap <localleader>n :normal! I1. <cr>
-        au filetype markdown nnoremap <localleader>> :normal! I# <cr>
-        au filetype markdown nmap <localleader>b :normal! yss* <cr>
-    augroup end 
-
-    function! PHP_DebugIncludes()
-        " Find each instance of an include 
-        cursor(1, 1)
-        let match = 0
-        while l:match = search("require", 'W') > 0
-        endwhile
-       " Insert a comment
-    endfunction
-
-    augroup php_group
-        " this one is which you're most likely to use?
-        autocmd!
-        autocmd filetype php setlocal noexpandtab 
-
-    augroup end
+" Every file
+augroup autocommands
+    au! 
+    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+    " Oh my god, a templating thing. 
+	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir. 'templates/' . expand("<afile>:e")
+augroup end 
 
 

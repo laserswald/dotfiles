@@ -13,49 +13,49 @@
 ! --- standard colors ---
 
 ! black
-*color0: #2a2a2a
+*color0: #202020
 
 ! bright_black
-*color8: #474747
+*color8: #424242
 
 ! red
-*color1: #b57c7a
+*color1: #8d1c2b
 
 ! bright_red
-*color9: #dcc1c0
+*color9: #dc4f62
 
 ! green
-*color2: #7ab57c
+*color2: #2b8d1c
 
 ! bright_green
-*color10: #c0dcc1
+*color10: #62dc4f
 
 ! yellow
-*color3: #b3b57a
+*color3: #8d7e1c
 
 ! bright_yellow
-*color11: #dbdcc0
+*color11: #dcc94f
 
 ! blue
-*color4: #7c7ab5
+*color4: #1c2b8d
 
 ! bright_blue
-*color12: #c1c0dc
+*color12: #4f62dc
 
 ! magenta
-*color5: #b57ab3
+*color5: #7e1c8d
 
 ! bright_magenta
-*color13: #dcc0db
+*color13: #c94fdc
 
 ! cyan
-*color6: #7ab3b5
+*color6: #1c8d7e
 
 ! bright_cyan
-*color14: #c0dbdc
+*color14: #4fdcc9
 
 ! white
-*color7: #dddddd
+*color7: #e2e2e2
 
 ! bright_white
 *color15: #ffffff
