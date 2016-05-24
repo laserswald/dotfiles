@@ -38,15 +38,15 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'tpope/vim-eunuch' 
 
     " Tagging plugins.
-    Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
-    Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
+    " Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
+    " Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
     Plug 'ervandew/supertab'
     if NVIM()
         Plug 'Shougo/deoplete.nvim'
     else 
-        Plug 'Shougo/neocomplete.vim'
+        "Plug 'Shougo/neocomplete.vim'
     endif
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
@@ -57,31 +57,30 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Themes
     Plug 'laserswald/chameleon.vim'
-    Plug 'AlessandroYorba/Alduin'
-    Plug 'nanotech/jellybeans.vim'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'noahfrederick/vim-noctu'
-    Plug 'chriskempson/base16-vim'
+    " Plug 'AlessandroYorba/Alduin'
+    " Plug 'nanotech/jellybeans.vim'
+    " Plug 'altercation/vim-colors-solarized'
+    " Plug 'noahfrederick/vim-noctu'
+    " Plug 'chriskempson/base16-vim'
 
     " REPL plugins
-    Plug 'jpalardy/vim-slime'
+    " Plug 'jpalardy/vim-slime'
 
     " Databases.
-    Plug 'vim-scripts/dbext.vim'
+    " Plug 'vim-scripts/dbext.vim'
 
     " File opening and management plugins
-    Plug 'rking/ag.vim'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-projectionist'
 
     " Movement plugins
     Plug 'godlygeek/tabular'
     if ! NVIM()
-        Plug 'christoomey/vim-tmux-navigator'
+        " Plug 'christoomey/vim-tmux-navigator'
     endif
 
     " Building and compiling plugins
-    Plug 'reinh/vim-makegreen'
+    " Plug 'reinh/vim-makegreen'
     Plug 'scrooloose/syntastic'
     if NVIM()
         Plug 'benekastah/neomake'
@@ -90,8 +89,7 @@ call plug#begin(g:vimdir . "/bundle")
     endif
 
     " Compiler settings.
-    Plug 'JalaiAmitahl/maven-compiler.vim'
-    Plug 'vim-scripts/Scons-compiler-plugin'
+    Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
     " Debugging
     Plug 'joonty/vdebug'
@@ -99,6 +97,7 @@ call plug#begin(g:vimdir . "/bundle")
     " Filetype specific plugins
         " Markdown
         Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
+        Plug 'mattn/emmet-vim', {'for': 'html'}
 
         " Todo.txt
         Plug 'freitass/todo.txt-vim'
@@ -111,11 +110,9 @@ call plug#begin(g:vimdir . "/bundle")
         
         " PHP
         Plug 'StanAngeloff/php.vim', {'for' : 'php'}
-        Plug 'wdalmut/vim-phpunit', {'for' : 'php'}
         Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
     
-        Plug 'mattn/emmet-vim', {'for': 'html'}
 
 call plug#end()
 " 1}}}
@@ -135,7 +132,6 @@ call plug#end()
         set relativenumber " Relative numbers to the current line
         set wrap           " Line wrapping
         set visualbell     " Blink the screen instead of dinging
-        colors chameleon   " My own personal colorscheme
         set background=light
 
     " Editing
@@ -230,30 +226,9 @@ call plug#end()
 
     " Movement
 
-        " Go by graphical lines instead of real ones
-        noremap j gj
-        noremap k gk
 
         " Open Special Files
             
-            " Special remap trick to allow consistent 'sub-mappings'
-            nnoremap [edit] <nop>
-            nmap <leader>e [edit]
-            
-            " Edit my Vimrc, and then load it.
-            nnoremap [edit]v :e $MYVIMRC<cr>
-
-            " Edit snippets files.
-            nnoremap [edit]sn     :UltiSnipsEdit<cr>
-
-            " Edit the current projection file
-            nnoremap [edit]p <nop>
-
-            function! GetFiletypeFile()
-                return g:vimdir . '/ftplugin/' . &filetype . '.vim'
-            endfunction
-
-            nnoremap [edit]ft :execute "e " . GetFiletypeFile()<cr>
 
         " Buffer, Split and Tab Movement
 
@@ -262,6 +237,9 @@ call plug#end()
             nnoremap <left>     :bp<cr>
             nnoremap <up>       :bfirst<cr>
             nnoremap <down>     :blast<cr>
+
+            " Jetpack engage.
+            nnoremap gb         :ls<cr>:buffer<space>
             
             " Open Special Buffers
             
@@ -278,7 +256,9 @@ call plug#end()
                 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
                 " TODO
                 " Open a tag in the current buffer
-                nnoremap <leader>t  :Unite tag/include -start-insert<cr>
+                " nnoremap <leader>t  :Unite tag/include -start-insert<cr>
+                nnoremap <leader>t  :tag<space>
+
                 nnoremap <leader>tb :Unite tag/include -vertical<cr>
                 " Open a Tagbar window
                 nnoremap <leader>T  :TagbarToggle<cr>
@@ -381,6 +361,10 @@ call plug#end()
 
         " Snippets
         " SuperTab
+        let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+
+
+
         " Surround
         " Tabular
         " Tagbar
@@ -400,8 +384,8 @@ call plug#end()
                     \    "timeout" : 20,
                     \    "on_close" : 'detach',
                     \    "break_on_open" : 1,
-                    \    "ide_key" : '',
-                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary' : '/home/bdavenportray/branches/primary'},
+                    \    "ide_key" : 'bdavenportray',
+                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/' : '/home/bdavenportray/branches/'},
                     \    "debug_window_level" : 0,
                     \    "debug_file_level" : 0,
                     \    "debug_file" : "",

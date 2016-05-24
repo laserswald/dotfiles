@@ -1,3 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary/barebones/controllers/patients'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/bdavenportray/.vim'
+let g:netrw_dirhist_2='/home/bdavenportray/.vim/plugin'
+let g:netrw_dirhist_3='/home/bdavenportray/etc'
+let g:netrw_dirhist_4='/home/bdavenportray/etc/vim'
+let g:netrw_dirhist_5='/home/bdavenportray/etc/vim/.vim'
+let g:netrw_dirhist_6='/home/bdavenportray/etc/vim/.vim/plugin'
+let g:netrw_dirhist_7='/home/bdavenportray'
+let g:netrw_dirhist_8='/home/bdavenportray/.vim'
+let g:netrw_dirhist_9='/home/bdavenportray/.vim/plugin'
