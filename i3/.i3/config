@@ -30,6 +30,7 @@ bindsym $modkey+Shift+c kill
 
 # start dmenu (a program launcher)
 bindsym $modkey+p exec dmenu_run
+bindsym $modkey+Return exec urxvt
 
 # change focus
 bindsym $modkey+$left focus left
@@ -135,13 +136,11 @@ bindsym $modkey+r mode "resize"
 # }}}
 
 # Autostart commands {{{
-exec --no-startup-id skype
-exec --no-startup-id "~/etc/start_bar.sh"
 # }}}
 # Looks and feels {{{
 font pango:SourceCodeProForPowerline 10
 for_window [class="^.*"] border pixel 2
-gaps inner 5
+# gaps inner 5
 # }}}
 
 # Move specific apps to different workspaces
