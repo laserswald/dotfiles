@@ -133,10 +133,11 @@ call plug#end()
         set wrap           " Line wrapping
         set visualbell     " Blink the screen instead of dinging
         colors chameleon
-        set background=light
+        set background=dark
 
     " Editing
-        set completeopt=menuone,menu,longest,preview
+        set completeopt=menuone,menu,longest
+        " Yes, backspace should delete anything. Duh.
         set backspace=indent,eol,start
         set expandtab
         set shiftwidth=4
@@ -146,6 +147,7 @@ call plug#end()
     " Searching
         set ignorecase
         set smartcase
+        " Incremental search (and replace autocompletion)
         set incsearch
         set hlsearch
         set tags=./tags,~/.vim/tags/cpp_tags
@@ -194,7 +196,10 @@ call plug#end()
     " Make jk escape to normal mode
     inoremap jk <esc>
     vnoremap jk <esc>
-
+    
+    " Reload configuration
+    nnoremap <leader>rc :runtime! plugin/**/*.vim<cr>
+    
     " Hierarchical mappings!
 
     " Editing
@@ -216,7 +221,7 @@ call plug#end()
             
         " Shortcut functionality
             " Execute normal command over visual selection
-            nnoremap <leader>r  :'<,'>g/^/norm 
+            vnoremap <leader>n  :'<,'>g/^/norm 
             
             " Extract to another file
             vnoremap <leader>x  "md:enew<cr>"mp
@@ -245,7 +250,7 @@ call plug#end()
             " Open Special Buffers
             
                 " Netrw bindings
-                nnoremap <leader>F  :Explore<cr>
+                nnoremap <leader>F  :Explore .<cr>
                 nnoremap <leader>s  :Sex<cr>
                 nnoremap <leader>v  :Vex<cr>
                 
@@ -405,7 +410,7 @@ augroup autocommands
     au! 
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
     " Oh my god, a templating thing. 
-	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir. 'templates/' . expand("<afile>:e")
+	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir . 'templates/' . expand("<afile>:e")
 augroup end 
 
 
