@@ -401,7 +401,7 @@ call plug#end()
                     \    "on_close" : 'detach',
                     \    "break_on_open" : 1,
                     \    "ide_key" : '',
-                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray/primary' : '/home/bdavenportray/branches/primary'},
+                    \    "path_maps" : {'/cbs_volume1/www/azaleahealth.com/branches/bdavenportray' : '/home/ben/branch'},
                     \    "debug_window_level" : 0,
                     \    "debug_file_level" : 0,
                     \    "debug_file" : "",
