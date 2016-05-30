@@ -36,6 +36,7 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'tpope/vim-repeat'
     Plug 'jacquesbh/vim-showmarks'
     Plug 'tpope/vim-eunuch' 
+    Plug 'justinmk/vim-dirvish'
 
     " Tagging plugins.
     " Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
@@ -220,33 +221,6 @@ call plug#end()
             nnoremap <leader>J      @qk^ 
             
         " Shortcut functionality
-            " Execute normal command over visual selection
-            vnoremap <leader>n  :'<,'>g/^/norm 
-            
-            " Extract to another file
-            vnoremap <leader>x  "md:enew<cr>"mp
-        
-            "Capitalize the word at the cursor.
-            inoremap <c-u> <esc>viwUea
-            nnoremap <leader>u viwUe
-
-    " Movement
-
-
-        " Open Special Files
-            
-
-        " Buffer, Split and Tab Movement
-
-            " Buffers
-            nnoremap <right>    :bn<cr>
-            nnoremap <left>     :bp<cr>
-            nnoremap <up>       :bfirst<cr>
-            nnoremap <down>     :blast<cr>
-
-            " Jetpack engage.
-            nnoremap gb         :ls<cr>:buffer<space>
-            
             " Open Special Buffers
             
                 " Netrw bindings
@@ -280,22 +254,6 @@ call plug#end()
                     endif
                 endif
 
-            " Window management
-            "
-            nnoremap [window] <nop>
-            nmap <leader>w [window]
-
-            noremap <c-j> <c-w>j
-            noremap <c-k> <c-w>k
-            noremap <c-l> <c-w>l
-            noremap <c-h> <c-w>h
-            nnoremap [window]   :w<cr>
-            nnoremap [window]W  <c-w>w
-            nnoremap [window]=  <c-w>=
-            nnoremap [window]o  :res <cr> :vertical res <cr>
-            nnoremap <leader>S  :split<cr>
-            nnoremap <leader>V  :vsplit<cr>
-            
             " Tabs
             nnoremap <home> :tabnext<cr>
             nnoremap <end>  :tabprev<cr>
@@ -307,21 +265,6 @@ call plug#end()
 
     " External Tools
 
-        " Build
-        nnoremap [build] <nop>
-        nmap <leader>b [build]
-        nnoremap [build]   :MakeGreen<cr>
-        nnoremap <leader>B   :Dispatch<cr>
-        nnoremap [build]r  :MakeGreen("rebuild") <cr>
-        nnoremap [build]e  :MakeGreen("run") <cr>
-
-        " Git bindings
-        nnoremap [git] <nop>
-        nmap <leader>g [git]
-        nnoremap [git]w  :Gwrite<cr>
-        nnoremap [git]c  :Gcommit<cr>
-        nnoremap [git]s  :Gstatus<cr>
-        nnoremap [git]d  :Gvdiff<cr>
 
         " Sort the selected lines
         vnoremap <leader>s :!sort<cr>
