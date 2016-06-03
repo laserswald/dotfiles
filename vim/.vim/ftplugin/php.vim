@@ -1,10 +1,8 @@
-
 setlocal noexpandtab 
 " Run unit tests.
 nnoremap <buffer> <localleader>b :!php %<cr>
 nnoremap <buffer> <localleader>l :!php -l %<cr>
-unmap <buffer> <leader>b
-nnoremap <buffer> <leader>b 
+nnoremap <buffer> <localleader>t :!vendor/bin/phpunit %<cr>
 
 function! PHP_DebugIncludes()
     " Find each instance of an include 
@@ -19,4 +17,4 @@ function! PHP_DebugIncludes()
     endwhile
 endfunction
 
-
+call Automark("__construct", 'c')

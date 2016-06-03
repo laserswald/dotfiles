@@ -39,7 +39,7 @@ call plug#begin(g:vimdir . "/bundle")
 
     " Tagging plugins.
     " Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
-    " Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
+    Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
     Plug 'ervandew/supertab'
@@ -71,6 +71,7 @@ call plug#begin(g:vimdir . "/bundle")
 
     " File opening and management plugins
     Plug 'tpope/vim-fugitive'
+    Plug 'justinmk/vim-dirvish' 
     Plug 'tpope/vim-projectionist'
 
     " Movement plugins
@@ -112,6 +113,8 @@ call plug#begin(g:vimdir . "/bundle")
         Plug 'StanAngeloff/php.vim', {'for' : 'php'}
         Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+        "" this is small enough to be loaded every time
+        Plug 'afternoon/vim-phpunit'
     
 
 call plug#end()
@@ -178,6 +181,8 @@ call plug#end()
         set autoread
         set autowrite
         set noautochdir
+        " Swap files are annoying.
+        set noswapfile
 
     " Splits and buffers
         set equalalways
@@ -198,7 +203,8 @@ call plug#end()
     vnoremap jk <esc>
     
     " Reload configuration
-    nnoremap <leader>rc :runtime! plugin/**/*.vim<cr>
+    nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
+    nnoremap <leader>pi :PlugInstall<cr>
     
     " Hierarchical mappings!
 
@@ -206,7 +212,6 @@ call plug#end()
         
         " Read and write files.
         nnoremap <leader>c  :new<cr>
-        nnoremap <leader>w  :w<cr>
 
         " Searching    
             
@@ -221,7 +226,7 @@ call plug#end()
             
         " Shortcut functionality
             " Execute normal command over visual selection
-            vnoremap <leader>n  :'<,'>g/^/norm 
+            xnoremap <leader>n  :normal!<space>
             
             " Extract to another file
             vnoremap <leader>x  "md:enew<cr>"mp
@@ -238,94 +243,16 @@ call plug#end()
 
         " Buffer, Split and Tab Movement
 
-            " Buffers
-            nnoremap <right>    :bn<cr>
-            nnoremap <left>     :bp<cr>
-            nnoremap <up>       :bfirst<cr>
-            nnoremap <down>     :blast<cr>
-
             " Jetpack engage.
             nnoremap gb         :ls<cr>:buffer<space>
             
-            " Open Special Buffers
-            
-                " Netrw bindings
-                nnoremap <leader>F  :Explore .<cr>
-                nnoremap <leader>s  :Sex<cr>
-                nnoremap <leader>v  :Vex<cr>
-                
                 " Open message and location windows
                 nnoremap <leader>m  :copen<cr>
                 nnoremap <leader>M  :cwindow<cr>
                 nnoremap <leader>L  :lwindow<cr>
-                nnoremap <leader>?  :lvimgrep TODO ./* <cr>
-                nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
                 " TODO
-                " Open a tag in the current buffer
-                " nnoremap <leader>t  :Unite tag/include -start-insert<cr>
-                nnoremap <leader>t  :tag<space>
-
-                nnoremap <leader>tb :Unite tag/include -vertical<cr>
-                " Open a Tagbar window
-                nnoremap <leader>T  :TagbarToggle<cr>
-               
-                " Fuzzy find a file.
-                if NVIM()
-                    nnoremap <leader>f  :<c-u>Unite file_rec/neovim -start-insert<cr>
-                else
-                    if WINDOWS()
-                        nnoremap <leader>f  :Unite -start-insert file/async<cr>
-                    else
-                        nnoremap <leader>f  :Unite -start-insert file_rec/async<cr>
-                    endif
-                endif
-
-            " Window management
-            "
-            nnoremap [window] <nop>
-            nmap <leader>w [window]
-
-            noremap <c-j> <c-w>j
-            noremap <c-k> <c-w>k
-            noremap <c-l> <c-w>l
-            noremap <c-h> <c-w>h
-            nnoremap [window]   :w<cr>
-            nnoremap [window]W  <c-w>w
-            nnoremap [window]=  <c-w>=
-            nnoremap [window]o  :res <cr> :vertical res <cr>
-            nnoremap <leader>S  :split<cr>
-            nnoremap <leader>V  :vsplit<cr>
-            
-            " Tabs
-            nnoremap <home> :tabnext<cr>
-            nnoremap <end>  :tabprev<cr>
-
-            " Other stuff
-
-                " Re-align the whole file
-                nnoremap <leader>= ggVG=
 
     " External Tools
-
-        " Build
-        nnoremap [build] <nop>
-        nmap <leader>b [build]
-        nnoremap [build]   :MakeGreen<cr>
-        nnoremap <leader>B   :Dispatch<cr>
-        nnoremap [build]r  :MakeGreen("rebuild") <cr>
-        nnoremap [build]e  :MakeGreen("run") <cr>
-
-        " Git bindings
-        nnoremap [git] <nop>
-        nmap <leader>g [git]
-        nnoremap [git]w  :Gwrite<cr>
-        nnoremap [git]c  :Gcommit<cr>
-        nnoremap [git]s  :Gstatus<cr>
-        nnoremap [git]d  :Gvdiff<cr>
-
-        " Sort the selected lines
-        vnoremap <leader>s :!sort<cr>
-        nnoremap <leader>pi :PlugInstall<cr>
 
     " Plugin settings.
         " Bufferline
