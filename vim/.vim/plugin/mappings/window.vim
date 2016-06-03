@@ -20,6 +20,10 @@ nnoremap [window]=  <c-w>=
 " Focus (make really big) this window.
 nnoremap [window]f  :resize <cr> :vertical resize <cr>
 
+" Open message and location windows
+nnoremap <leader>m  :copen<cr>
+nnoremap <leader>M  :cwindow<cr>
+nnoremap <leader>L  :lwindow<cr>
 
 " Splitting
 nnoremap <leader>S  :split<cr>

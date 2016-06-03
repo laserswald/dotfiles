@@ -1,4 +1,3 @@
-
 " Git bindings
 nnoremap [git] <nop>
 nmap <leader>g [git]

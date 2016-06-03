@@ -1,4 +1,3 @@
-
 " File browsers
 nnoremap <leader>F  :Dirvish<cr>
 nnoremap <leader>s  :split<cr>:Dirvish<cr>

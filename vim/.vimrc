@@ -36,9 +36,10 @@ call plug#begin(g:vimdir . "/bundle")
     Plug 'tpope/vim-repeat'
     Plug 'jacquesbh/vim-showmarks'
     Plug 'tpope/vim-eunuch' 
+    Plug 'justinmk/vim-dirvish'
 
     " Tagging plugins.
-    " Plug 'Shougo/vimproc.vim', {'do': 'mingw32-make.exe'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
+    Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
     Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
 
     " Completion plugins.
@@ -81,6 +82,7 @@ call plug#begin(g:vimdir . "/bundle")
     endif
 
     " Building and compiling plugins
+    " TODO: Switch to my fork
     " Plug 'reinh/vim-makegreen'
     Plug 'scrooloose/syntastic'
     if NVIM()
@@ -113,9 +115,6 @@ call plug#begin(g:vimdir . "/bundle")
         Plug 'StanAngeloff/php.vim', {'for' : 'php'}
         Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
         Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
-        "" this is small enough to be loaded every time
-        Plug 'afternoon/vim-phpunit'
-    
 
 call plug#end()
 " 1}}}
@@ -206,54 +205,6 @@ call plug#end()
     nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
     nnoremap <leader>pi :PlugInstall<cr>
     
-    " Hierarchical mappings!
-
-    " Editing
-        
-        " Read and write files.
-        nnoremap <leader>c  :new<cr>
-
-        " Searching    
-            
-            " Remove highlights when searching
-            noremap <Space> :nohlsearch<cr>
-       
-        " Macros
-            
-            " Playback the current macro, go to the first letter of the next line
-            nnoremap <leader>j      @qj^
-            nnoremap <leader>J      @qk^ 
-            
-        " Shortcut functionality
-            " Execute normal command over visual selection
-            xnoremap <leader>n  :normal!<space>
-            
-            " Extract to another file
-            vnoremap <leader>x  "md:enew<cr>"mp
-        
-            "Capitalize the word at the cursor.
-            inoremap <c-u> <esc>viwUea
-            nnoremap <leader>u viwUe
-
-    " Movement
-
-
-        " Open Special Files
-            
-
-        " Buffer, Split and Tab Movement
-
-            " Jetpack engage.
-            nnoremap gb         :ls<cr>:buffer<space>
-            
-                " Open message and location windows
-                nnoremap <leader>m  :copen<cr>
-                nnoremap <leader>M  :cwindow<cr>
-                nnoremap <leader>L  :lwindow<cr>
-                " TODO
-
-    " External Tools
-
     " Plugin settings.
         " Bufferline
         let g:bufferline_echo = 0

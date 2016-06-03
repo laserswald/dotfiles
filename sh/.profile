@@ -4,5 +4,7 @@ export ENV=$HOME/.shrc
 
 # Say something funny.
 fortune
-echo ' '
+
+# Link ~/tmp to a temp directory.
+mkdir /tmp/ben
 

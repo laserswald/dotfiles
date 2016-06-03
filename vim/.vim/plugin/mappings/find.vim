@@ -1,3 +1,5 @@
+" Open a file.
+
 nnoremap <leader>?  :lvimgrep TODO ./* <cr>
 " Find a word in the current project
 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
@@ -20,4 +22,6 @@ else
     endif
 endif
 
+" Remove highlights when searching
+noremap <Space> :nohlsearch<cr>
 
