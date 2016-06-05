@@ -9,7 +9,6 @@ snippet doc "Create a documentation block."
 endsnippet
 
 snippet fun "function" b
-
 function $1 (${2:\$args}){
 	${3: echo "$1 not implemented yet.";}
 }
@@ -17,4 +16,16 @@ endsnippet
 
 snippet vd "var_dump" b
 var_dump($1);
+endsnippet
+
+snippet ec "Echo a string" b
+echo "$1\n";
+endsnippet
+
+snippet bk "Set a breakpoint" b
+xdebug_break();
+endsnippet
+
+snippet testc "Test case class" b
+
 endsnippet
