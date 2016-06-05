@@ -8,3 +8,5 @@ fortune
 # Link ~/tmp to a temp directory.
 mkdir /tmp/ben
 
+#set up dir colors
+export LS_COLORS=$(dircolors -b ~/.dircolors)

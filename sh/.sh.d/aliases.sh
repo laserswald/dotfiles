@@ -38,3 +38,4 @@ alias wall="~/.fehbg"
 alias xm="xrdb -merge ~/.xrdb.d/main"
 alias eclimd="/usr/lib/eclipse/eclimd &"
 alias e=$EDITOR
+alias p9="drawterm -c gibson.gnot.club -a gibson.gnot.club -u lazr"
