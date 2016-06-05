@@ -272,8 +272,10 @@ call plug#end()
                 nnoremap <leader>m  :copen<cr>
                 nnoremap <leader>M  :cwindow<cr>
                 nnoremap <leader>L  :lwindow<cr>
+
+                " Put gas in the jetpack
+                nnoremap gb  :ls<cr>:buffer<space>
                 nnoremap <leader>?  :lvimgrep TODO ./* <cr>
-                nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
                 " TODO
                 
                 " Open a tag in the current buffer

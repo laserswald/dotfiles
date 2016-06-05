@@ -16,7 +16,7 @@ dunst &
 xsetroot -cursor_name left_ptr &
 
 # Launch a compositor. 
-compton &
+compton -fCc &
 
 # Set up my background.
 sh -c "~/.fehbg" &
