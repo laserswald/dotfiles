@@ -1,5 +1,5 @@
 URxvt.boldFont:
-URxvt.font: xft:tamzen:size=9
+URxvt.font: xft:terminus:size=9
 
 Xft.antialias: 1
 Xft.autohint: 0
