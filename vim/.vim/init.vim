@@ -1,5 +1,5 @@
 " Ben's (Neo)Vimrc.
-"vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=5 foldmethod=marker spell:
 "
 " Some of this should be split up into different files. 
 
@@ -26,22 +26,25 @@ if WINDOWS()
     let g:vimdir = "~/vimfiles"
 endif
 
-" Plugins {{{1 
+" Plugins {{{
 call plug#begin(g:vimdir . "/bundle")
 
-" Basic improvements
+" Basic improvements"{{{
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
+Plug 'takac/vim-hardtime'
+"}}}
 
-" Tagging plugins.
+" Tagging plugins.{{{
 Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
+"}}}
 
-" Completion plugins.
+" Completion plugins."{{{
 Plug 'ervandew/supertab'
 if NVIM()
     Plug 'Shougo/deoplete.nvim'
@@ -49,26 +52,31 @@ else
     "Plug 'Shougo/neocomplete.vim'
 endif
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"}}}
 
-" Eye Candy
+" Eye Candy {{{
 Plug 'itchyny/lightline.vim'
-:Plug 'bling/vim-bufferline'
+Plug 'bling/vim-bufferline'
 Plug 'kien/rainbow_parentheses.vim'
+"}}}
 
-" Themes
+" Themes"{{{
 Plug 'laserswald/chameleon.vim'
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'nanotech/jellybeans.vim'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'noahfrederick/vim-noctu'
+Plug 'AlessandroYorba/Alduin'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'noahfrederick/vim-noctu'
 Plug 'chriskempson/base16-vim'
 Plug 'fxn/vim-monochrome'
+"}}}
 
-" REPL plugins
-" Plug 'jpalardy/vim-slime'
+" REPL plugins"{{{
+Plug 'jpalardy/vim-slime'
+"}}}
 
-" Databases.
-" Plug 'vim-scripts/dbext.vim'
+" Databases."{{{
+Plug 'vim-scripts/dbext.vim'
+"}}}
 
 " File opening and management plugins
 Plug 'tpope/vim-fugitive'
@@ -97,25 +105,33 @@ Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 " Debugging
 Plug 'joonty/vdebug'
 
-" Filetype specific plugins
-" Markdown
-Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
-Plug 'mattn/emmet-vim', {'for': 'html'}
+" Filetype specific plugins"{{{
 
-" Todo.txt
-Plug 'freitass/todo.txt-vim'
+    " Markdown"{{{
+    Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
+    Plug 'mattn/emmet-vim', {'for': 'html'}
+    "}}}
 
-" C
-Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
+    " Todo.txt {{{
+    Plug 'freitass/todo.txt-vim'
+    " }}}
 
-" C#
-Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
+    " C {{{
+    Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
+    "}}}
 
-" PHP
-Plug 'StanAngeloff/php.vim', {'for' : 'php'}
-Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+    " C# {{{
+    Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
+    "}}}
 
+    " PHP {{{
+    Plug 'StanAngeloff/php.vim', {'for' : 'php'}
+    Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
+    Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+    "}}}
+
+"}}}
+"
 call plug#end()
 " 1}}}
 
@@ -129,8 +145,6 @@ filetype plugin indent on
 set equalalways
 set hidden
 
-" Mappings. 
-
 " General mapping settings.
 let mapleader = ','  " Perhaps the best map leader.
 let maplocalleader = '\'
@@ -143,11 +157,27 @@ vnoremap jk <esc>
 nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 
+" My own custom functions."{{{
 function! SwitchColors()
     if &background == "dark"
-        set background="light"
+        exec "set background=light"
     else
-        set background="dark"
+        exec "set background=dark"
     endif
+    exec "colorscheme ".g:colors_name
 endfunction
+command! SwitchColors call SwitchColors()
 
+function! TitleCase()
+    let l:words = split(getline('.'), '\W')
+    let l:chg = ""
+    for word in l:words
+        " Get the first letter
+        let l:head = toupper(strpart(word, 0, 1))
+        let l:tail = strpart(word, 1)
+        let l:chg .= l:head . l:tail . " "
+    endfor
+    call setline('.', l:chg)
+endfunction
+command! TitleCase call TitleCase()
+"}}}

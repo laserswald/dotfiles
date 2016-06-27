@@ -10,6 +10,8 @@ mpd &
 redshift &
 dunst &
 
+xcape -e "Control_L=Escape"
+
 # Appearance.
 
 # Set the cursor to the left arrow pointer.
