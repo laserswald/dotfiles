@@ -1,5 +1,5 @@
 source $HOME/.mutt/aliases
-source $HOME/.mutt/laserswald.colors
+source $HOME/.mutt/laserlight.colors
 
 # paths
 set my_muttdir=$HOME/.mutt

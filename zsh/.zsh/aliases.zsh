@@ -1,6 +1,7 @@
 # My massive alias file. Viewer beware.
 alias ea="$EDITOR ~/.zsh/aliases.zsh"
 alias eclimd="/usr/lib/eclipse/eclimd &"
+alias ef="$EDITOR ~/.zsh/functions.zsh"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ls="ls --color=auto -xX"
 alias nctl="netctl"
@@ -20,3 +21,5 @@ alias tm="tmux"
 alias tns="tmux new-session -s -A "
 alias wall="~/.fehbg"
 alias xm="xrdb -merge ~/.xrdb.d/main"
+alias ekb="$EDITOR ~/bin/backflip.sxhkd"
+alias zreload="source ~/.zshrc"
