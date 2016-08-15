@@ -36,6 +36,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
+Plug 'airblade/vim-gitgutter'
+Plug 'thanthese/Tortoise-Typing'
 
 " Tagging plugins.
 Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
@@ -78,7 +80,7 @@ Plug 'tpope/vim-projectionist'
 " Movement plugins
 Plug 'godlygeek/tabular'
 if ! NVIM()
-    " Plug 'christoomey/vim-tmux-navigator'
+    Plug 'christoomey/vim-tmux-navigator'
 endif
 
 " Building and compiling plugins
@@ -115,6 +117,7 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 Plug 'StanAngeloff/php.vim', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 
 call plug#end()
 " 1}}}

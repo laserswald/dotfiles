@@ -3,3 +3,5 @@
 for file in ~/.sh.d/modules/*.sh ; do
     source $file
 done
+
+gd (){ cd $1; ls }
