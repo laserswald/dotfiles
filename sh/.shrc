@@ -2,7 +2,7 @@
 
 # Load any files in my shell directory.
 for file in ~/.sh.d/* ; do
-    . $file
+    source $file
 done
 
 # Override defaults with locals.

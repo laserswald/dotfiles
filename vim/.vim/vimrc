@@ -54,7 +54,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " Eye Candy
 Plug 'itchyny/lightline.vim'
-:Plug 'bling/vim-bufferline'
+Plug 'bling/vim-bufferline'
 Plug 'kien/rainbow_parentheses.vim'
 
 " Themes
@@ -62,7 +62,7 @@ Plug 'laserswald/chameleon.vim'
 " Plug 'AlessandroYorba/Alduin'
 " Plug 'nanotech/jellybeans.vim'
 " Plug 'altercation/vim-colors-solarized'
-" Plug 'noahfrederick/vim-noctu'
+Plug 'noahfrederick/vim-noctu'
 Plug 'chriskempson/base16-vim'
 Plug 'fxn/vim-monochrome'
 
@@ -82,6 +82,7 @@ Plug 'godlygeek/tabular'
 if ! NVIM()
     Plug 'christoomey/vim-tmux-navigator'
 endif
+Plug 'chrisbra/NrrwRgn'
 
 " Building and compiling plugins
 " TODO: Switch to my fork
@@ -118,6 +119,9 @@ Plug 'StanAngeloff/php.vim', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 Plug 'afternoon/vim-phpunit', {'for' : 'php'}
+
+" CSV
+Plug 'chrisbra/csv.vim'
 
 call plug#end()
 " 1}}}
