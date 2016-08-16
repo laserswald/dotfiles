@@ -18,9 +18,10 @@ else
     if WINDOWS()
         nnoremap <leader>f  :Unite -start-insert file/async<cr>
     else
-        nnoremap <leader>f  :Unite -start-insert file_rec/async<cr>
+        nnoremap <leader>f  :find ./**/**<left>
     endif
 endif
+
 
 " Remove highlights when searching
 noremap <Space> :nohlsearch<cr>

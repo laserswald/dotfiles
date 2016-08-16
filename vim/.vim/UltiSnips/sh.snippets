@@ -5,3 +5,9 @@ done
 shift $(( OPTIND - 1 ))
 endsnippet
 
+
+snippet fore "For each item in collection" b
+for $1 in $2; do 
+	$0
+done
+endsnippet
