@@ -57,10 +57,10 @@ Plug 'kien/rainbow_parentheses.vim'
 
 " Themes
 Plug 'laserswald/chameleon.vim'
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'nanotech/jellybeans.vim'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'noahfrederick/vim-noctu'
+ Plug 'AlessandroYorba/Alduin'
+ Plug 'nanotech/jellybeans.vim'
+ Plug 'altercation/vim-colors-solarized'
+ Plug 'noahfrederick/vim-noctu'
 Plug 'chriskempson/base16-vim'
 Plug 'fxn/vim-monochrome'
 
@@ -144,10 +144,10 @@ nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 
 function! SwitchColors()
-    if &background == "dark"
-        set background="light"
+    if &background == dark
+        set background=light
     else
-        set background="dark"
+        set background=dark
     endif
 endfunction
-
+set background=dark

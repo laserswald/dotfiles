@@ -4,15 +4,13 @@ let g:lightline = {
             \ 'active' : {
             \    'left': [
             \        ['mode', 'paste'], 
-            \        ['fugitive', 'readonly', 'buffers'],
-            \        ['filename', 'modified']
+            \        ['fugitive', 'readonly', 'filename', 'modified'],
+            \        ['buffers']
             \    ]
             \ },
-            \ 'component' : {
-            \   'buffers': "%{bufferline#get_status_string()}",
-            \ },
             \ 'component_function' : {
-            \   'fugitive': 'LightlineFugitive'
+            \   'fugitive': "LightlineFugitive",
+            \   'buffers': "LightlineBufferlineUnfocused"
             \ }
             \ }
 
@@ -20,3 +18,11 @@ function! LightlineFugitive()
     return exists('*fugitive#head') ? fugitive#head()  : '' 
 endfunction
 
+function! LightlineBufferlineUnfocused()
+    if exists('*bufferline#get_status_string')
+        let st=g:bufferline#refresh_status()
+        return g:bufferline_status_info.before . g:bufferline_status_info.after
+    else
+        return ''
+    endif
+endfunction

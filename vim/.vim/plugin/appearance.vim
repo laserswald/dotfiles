@@ -9,5 +9,5 @@ set relativenumber " Relative numbers to the current line
 set wrap           " Line wrapping
 set visualbell     " Blink the screen instead of dinging
 colors chameleon
-set background=light
+set background=dark
 
