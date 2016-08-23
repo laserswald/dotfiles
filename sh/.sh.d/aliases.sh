@@ -26,10 +26,11 @@ alias la="ls -a"
 alias p=pushd
 alias o=popd
 
-# Tmux
+# Tmux/DVTM
 alias tmux="tmux -2"
 alias tm="tmux"
 alias tns="tmux new-session -s -A "
+alias dvtm="dvtm -m "
 
 # Looks
 alias rwall="feh --random --bg-fill ~/usr/img/wall"

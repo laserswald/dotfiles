@@ -67,7 +67,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'fxn/vim-monochrome'
 
 " REPL plugins
-" Plug 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime'
 
 " Databases.
 " Plug 'vim-scripts/dbext.vim'
@@ -122,6 +122,9 @@ Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 
 " CSV
 Plug 'chrisbra/csv.vim'
+
+" Org Mode
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 " 1}}}
