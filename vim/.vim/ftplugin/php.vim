@@ -17,4 +17,4 @@ function! PHP_DebugIncludes()
     endwhile
 endfunction
 
-call Automark("__construct", 'c')
+" call Automark("__construct", 'c')

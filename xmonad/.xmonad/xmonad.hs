@@ -37,8 +37,8 @@ myFont = "terminesspowerline:size=10"
 
 -- Statusbars.
 -----------------------------------------------------------------------
-myLeftBar = "~/dotfiles/dzen/left.sh"
-myRightBar = "~/dotfiles/dzen/right.sh"
+--myLeftBar = "~/dotfiles/dzen/left.sh"
+--myRightBar = "~/dotfiles/dzen/right.sh"
 
 -- Startup programs.
 -----------------------------------------------------------------------
@@ -88,7 +88,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
     , ((modm,               xK_semicolon ), spawn dmenuCustom)
-    , ((modm .|. shiftMask, xK_semicolon ), spawn "gmrun")
+    , ((modm .|. shiftMask, xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_c     ), kill)
     , ((modm,               xK_space ), sendMessage NextLayout)
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
@@ -155,12 +155,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 -- Main.
 -----------------------------------------------------------------------
 main = do
-    dzenleftbar <- spawnPipe myLeftBar
-    dzenrightbar <- spawnPipe myRightBar 
+    -- dzenleftbar <- spawnPipe myLeftBar
+    -- dzenrightbar <- spawnPipe myRightBar 
     xmonad $ defaultConfig{
         manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook =  avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed  )
-        , logHook = myLogHook dzenleftbar
+        -- , logHook = myLogHook dzenleftbar
         , terminal = myTerminal
         , borderWidth = 1
         , modMask = mod4Mask

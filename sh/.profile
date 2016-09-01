@@ -1,4 +1,4 @@
-# Laserswald's standard profile.
+# Laserswald's standard profile. This is loaded only once.
 
 EDITOR=vim
 VISUAL=$EDITOR
@@ -9,13 +9,14 @@ PAGER="less -R"
 fortune
 
 # Link ~/tmp to a temp directory.
-if [ ! -d /tmp/ben ]; then 
-	mkdir /tmp/ben
-fi
-
-export EDITOR VISUAL BROWSER XDG_CONFIG_HOME PAGER MAIL
-
 export ENV="$HOME/.shrc"
+
+if [[ ! -e /tmp/$USER ]]; then
+    mkdir /tmp/$USER
+fi
+if [[ ! -L ~/tmp ]]; then
+    ln -s /tmp/$USER ~/tmp
+fi
 
 #set up dir colors
 export LS_COLORS=$(dircolors -b ~/.dircolors)

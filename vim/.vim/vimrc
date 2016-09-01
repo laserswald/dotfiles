@@ -36,6 +36,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
+Plug 'airblade/vim-gitgutter'
+Plug 'thanthese/Tortoise-Typing'
 
 " Tagging plugins.
 Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
@@ -57,15 +59,15 @@ Plug 'kien/rainbow_parentheses.vim'
 
 " Themes
 Plug 'laserswald/chameleon.vim'
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'nanotech/jellybeans.vim'
-" Plug 'altercation/vim-colors-solarized'
+Plug 'AlessandroYorba/Alduin'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
 Plug 'noahfrederick/vim-noctu'
 Plug 'chriskempson/base16-vim'
 Plug 'fxn/vim-monochrome'
 
 " REPL plugins
-" Plug 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime'
 
 " Databases.
 " Plug 'vim-scripts/dbext.vim'
@@ -78,7 +80,7 @@ Plug 'tpope/vim-projectionist'
 " Movement plugins
 Plug 'godlygeek/tabular'
 if ! NVIM()
-    " Plug 'christoomey/vim-tmux-navigator'
+    Plug 'christoomey/vim-tmux-navigator'
 endif
 Plug 'chrisbra/NrrwRgn'
 
@@ -116,9 +118,13 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 Plug 'StanAngeloff/php.vim', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 
 " CSV
 Plug 'chrisbra/csv.vim'
+
+" Org Mode
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 " 1}}}
@@ -148,10 +154,10 @@ nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 
 function! SwitchColors()
-    if &background == "dark"
-        set background="light"
+    if &background == dark
+        set background=light
     else
-        set background="dark"
+        set background=dark
     endif
 endfunction
-
+set background=dark

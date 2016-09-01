@@ -91,6 +91,9 @@ else
     Plug 'tpope/vim-dispatch'
 endif
 
+
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do' './install --all'}
+
 " Compiler settings.
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
