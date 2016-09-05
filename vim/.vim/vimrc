@@ -36,7 +36,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
-Plug 'takac/vim-hardtime'
+" Plug 'takac/vim-hardtime'
 "}}}
 
 " Tagging plugins.{{{
@@ -107,13 +107,11 @@ Plug 'joonty/vdebug'
 
 " Filetype specific plugins"{{{
 
-    " Markdown"{{{
+    " Organization {{{
     Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
     Plug 'mattn/emmet-vim', {'for': 'html'}
-    "}}}
-
-    " Todo.txt {{{
     Plug 'freitass/todo.txt-vim'
+    Plug 'jceb/vim-orgmode'
     " }}}
 
     " C {{{
@@ -180,4 +178,12 @@ function! TitleCase()
     call setline('.', l:chg)
 endfunction
 command! TitleCase call TitleCase()
+
+function! SplitLine(pattern)
+    " Split the current line by the pattern
+    let l:words = split(getline('.'), a:pattern)
+    " Append the strings as new lines
+    call append(getline('.'), l:words)
+endfunction
 "}}}
+

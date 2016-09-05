@@ -22,8 +22,9 @@ set pipe_decode
 # keys
 bind index gg first-entry
 bind index G last-entry
-macro index o "<shell-escape>mbsync -qqa<enter>" "Sync email."
-macro index a "<limit>all\n" "show all messages (undo limit)"
+macro index o "<shell-escape>dtach -n /tmp/ben/mbsyncdtach mbsync -qqa<enter>" "Sync email."
+macro index zM "<limit>all\n" "show all messages (undo limit)"
+bind index <space> tag-entry 
 
 bind pager k previous-line
 bind pager j next-line
@@ -33,21 +34,20 @@ bind pager G bottom
 bind attach <return> view-mailcap
 
 set edit_headers=yes
-set editor="vim"
 set header_cache=~/.cache/mutt
 set postponed=+drafts
 set record=+sent
 set realname="Ben Davenport-Ray"
 set sendmail="/usr/bin/msmtp"
-set sort=threads
+set sort=reverse-threads
 set spoolfile=+/
 
 auto_view text/enriched
 alternative_order text/plain text/enriched text/html
 
 source $my_muttdir/bdrgmail.muttrc
-source $my_muttdir/ld11gmail.muttrc
-source $my_muttdir/ksu.muttrc
-source $my_muttdir/lsom.muttrc
-source $my_muttdir/lssom.muttrc
+# source $my_muttdir/ld11gmail.muttrc
+# source $my_muttdir/ksu.muttrc
+# source $my_muttdir/lsom.muttrc
+# source $my_muttdir/lssom.muttrc
 

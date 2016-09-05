@@ -18,13 +18,17 @@ xcape -e "Control_L=Escape"
 xsetroot -cursor_name left_ptr &
 
 # Launch a compositor. 
-compton -fCc &
+# compton -fCc &
 
 # Set up my background.
-sh -c "~/.fehbg" &
+# sh -c "~/.fehbg" &
+~/bin/termbg -c red
+
 
 # Start a minimalist bar.
-~/bin/minbar.sh &
+minbar &
+
+~/.screenlayout/dellnormleft.sh
 
 # Start a tray.
 # tray &

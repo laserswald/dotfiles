@@ -62,3 +62,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+source ~/.shrc
+
+
