@@ -65,3 +65,5 @@ alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 source ~/.shrc
 
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

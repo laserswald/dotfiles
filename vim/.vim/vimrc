@@ -36,12 +36,16 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
-" Plug 'takac/vim-hardtime'
+Plug 'takac/vim-hardtime'
 "}}}
 
 " Tagging plugins.{{{
 Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags' | Plug 'majutsushi/tagbar'
+if NVIM()
+    Plug 'fntlnz/atags.vim'
+else
+    Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
+endif
 "}}}
 
 " Completion plugins."{{{
@@ -49,7 +53,7 @@ Plug 'ervandew/supertab'
 if NVIM()
     Plug 'Shougo/deoplete.nvim'
 else 
-    "Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/neocomplete.vim'
 endif
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "}}}
@@ -92,12 +96,15 @@ endif
 " Building and compiling plugins
 " TODO: Switch to my fork
 " Plug 'reinh/vim-makegreen'
-Plug 'scrooloose/syntastic'
 if NVIM()
     Plug 'benekastah/neomake'
 else
     Plug 'tpope/vim-dispatch'
+    Plug 'scrooloose/syntastic'
 endif
+
+
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 
 " Compiler settings.
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
@@ -139,10 +146,6 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
-" Splits and buffers
-set equalalways
-set hidden
-
 " General mapping settings.
 let mapleader = ','  " Perhaps the best map leader.
 let maplocalleader = '\'
@@ -151,9 +154,6 @@ let maplocalleader = '\'
 inoremap jk <esc>
 vnoremap jk <esc>
 
-" Reload configuration
-nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
-nnoremap <leader>pi :PlugInstall<cr>
 
 " My own custom functions."{{{
 function! SwitchColors()

@@ -8,6 +8,6 @@ set numberwidth=3  " Width of line number section
 set relativenumber " Relative numbers to the current line
 set wrap           " Line wrapping
 set visualbell     " Blink the screen instead of dinging
-set background=dark
 colors chameleon
+set background=dark
 

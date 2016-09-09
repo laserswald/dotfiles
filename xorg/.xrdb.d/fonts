@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+URxvt.boldFont:
+>>>>>>> c7ce53d38bebcc2595b695802cfd521c2f7f6c37
 URxvt.font: xft:tamzen:size=9
 
 Xft.antialias: 1

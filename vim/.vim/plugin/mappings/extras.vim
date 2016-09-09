@@ -14,3 +14,6 @@ nnoremap <leader>u viwUe
 " Jetpack engage.
 nnoremap gb         :ls<cr>:buffer<space>
 
+" Reload configuration
+nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
+nnoremap <leader>pi :PlugInstall<cr>

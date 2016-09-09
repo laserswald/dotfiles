@@ -1,21 +1,30 @@
 alias c=cd
+alias df="e ~/etc"
 alias ds=dirs
-alias p=pushd
-alias o=popd
-alias ea="$EDITOR ~/.sh.d/aliases.sh"
+alias dvtm="dvtm -m "
+alias ea="e ~/.sh.d/aliases.sh"
 alias eclimd="/usr/lib/eclipse/eclimd &"
+alias edit=$EDITOR
 alias e=$EDITOR
-alias ei3="$EDITOR ~/dotfiles/i3/config"
+alias ei3="$EDITOR ~/etc/i3/.i3/config"
+# Aliases
+alias exm="$EDITOR ~/etc/xmonad/.xmonad/xmonad.hs"
+alias h='history'
+alias j='jobs -l'
 alias la="ls -a"
-alias ls="ls --color=auto -xX"
 alias ll="ls -l"
 alias l=ls
+alias ls="ls --color=auto -xX"
 alias nctl="netctl"
+alias o=popd
 alias p9="drawterm -c gibson.gnot.club -a gibson.gnot.club -u lazr"
 alias ping="ping -c 3"
 alias pomo="sleep 10m && notify-send 'Pomodoro done!'"
+alias p=pushd
+alias randw=rwall
 alias refresh="sudo pacman -Syy"
-alias reload="source ~/.shrc"
+alias reload="source ~/.profile"
+alias rl=reload
 alias rwall="feh --random --bg-fill ~/usr/img/wall"
 alias sctll="systemctl list-units"
 alias sctl="systemctl"
