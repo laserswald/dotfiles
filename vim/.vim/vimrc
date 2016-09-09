@@ -126,6 +126,9 @@ Plug 'chrisbra/csv.vim'
 " Org Mode
 Plug 'jceb/vim-orgmode'
 
+" Golang
+Plug 'fatih/vim-go'
+
 call plug#end()
 " 1}}}
 
@@ -142,16 +145,13 @@ set hidden
 " Mappings. 
 
 " General mapping settings.
-let mapleader = ','  " Perhaps the best map leader.
+let mapleader = ' '  " Perhaps the best map leader.
 let maplocalleader = '\'
 
 " Make jk escape to normal mode
 inoremap jk <esc>
 vnoremap jk <esc>
 
-" Reload configuration
-nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
-nnoremap <leader>pi :PlugInstall<cr>
 
 function! SwitchColors()
     if &background == dark

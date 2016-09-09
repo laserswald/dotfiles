@@ -1,3 +1,4 @@
+
 " Sort the selected lines
 vnoremap <leader>s :!sort<cr>
 

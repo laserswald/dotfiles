@@ -1,27 +1,30 @@
-" Open a file.
+" Getting around with defaults and Unite.
+" 
+nnoremap [unite] <nop>
+nmap <leader><Space> [unite]
 
+" Find a little bit of anything. Can be slow.
+nnoremap [unite] :Unite -start-insert file_rec buffer tag tab<cr>
+nnoremap [unite]t :Unite tag/file -start-insert<cr>
+nnoremap [unite]/ :Unite line -start-insert<cr>
+nnoremap [unite]f :Unite -start-insert file/async<cr>
+nnoremap [unite]b :Unite buffer -start-insert<cr>
+
+" Open A file.  
 nnoremap <leader>?  :lvimgrep TODO ./* <cr>
+
 " Find a word in the current project
 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
 
-" Search for a tag in the current project
-nnoremap <leader>t  :tag<space>
-
-nnoremap <leader>tb :Unite tag/include -vertical<cr>
 " Open a Tagbar window
-nnoremap <leader>T  :TagbarToggle<cr>
+nnoremap <leader>t :Unite tag/include -vertical<cr>
 
-" Fuzzy find a file.
-if NVIM()
-    nnoremap <leader>f  :<c-u>Unite file_rec/neovim -start-insert<cr>
-else
-    if WINDOWS()
-        nnoremap <leader>f  :Unite -start-insert file/async<cr>
-    else
-        nnoremap <leader>f  :find ./**/**<left>
-    endif
-endif
+nnoremap [file] <nop>
+nmap <leader>f [file]
 
+nnoremap [file] :w<cr>
+nnoremap [file]r :echom "This file isn't runnable. Derp."<cr>
+nnoremap [file]s     :UltiSnipsEdit<cr>
 
 " Remove highlights when searching
 noremap <Space> :nohlsearch<cr>

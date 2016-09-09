@@ -57,3 +57,4 @@ alias j='jobs -l'
 alias h='history'
 alias reload="source ~/.profile"
 alias rl=reload
+

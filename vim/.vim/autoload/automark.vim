@@ -1,4 +1,4 @@
-function! Automark(regex, character)
+function! automark#Mark(regex, character)
     call cursor(1, 1)
     " Get the first result of the regex 
     let line = search(a:regex, 'cWn')

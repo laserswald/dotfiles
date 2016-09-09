@@ -4,4 +4,11 @@ for file in ~/.sh.d/modules/*.sh ; do
     source $file
 done
 
-gd (){ cd $1; ls }
+gd () { 
+    cd $1
+    ls
+}
+
+search () {
+    w3m "duckduckgo.com/?q=$1"
+}

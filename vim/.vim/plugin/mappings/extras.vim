@@ -11,6 +11,4 @@ vnoremap <leader>x  "md:enew<cr>"mp
 inoremap <c-u> <esc>viwUea
 nnoremap <leader>u viwUe
 
-" Jetpack engage.
-nnoremap gb         :ls<cr>:buffer<space>
 

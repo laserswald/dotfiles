@@ -9,11 +9,9 @@ noremap <a-k> <c-w>k
 noremap <a-l> <c-w>l
 noremap <a-h> <c-w>h
 
-" Write. Eh, shoot me.
-nnoremap [window]   :w<cr> 
+" Default action: switch between last windows.
+nnoremap [window]   <c-w>w
 
-" Switch windows.
-nnoremap [window]W  <c-w>w
 " Equalize windows.
 nnoremap [window]=  <c-w>=
 
@@ -21,12 +19,12 @@ nnoremap [window]=  <c-w>=
 nnoremap [window]f  :resize <cr> :vertical resize <cr>
 
 " Open message and location windows
-nnoremap <leader>m  :copen<cr>
-nnoremap <leader>M  :cwindow<cr>
-nnoremap <leader>L  :lwindow<cr>
+nnoremap [window]m  :copen<cr>
+nnoremap [window]M  :cwindow<cr>
+nnoremap [window]L  :lwindow<cr>
 
 " Splitting
-nnoremap <leader>S  :split<cr>
-nnoremap <leader>V  :vsplit<cr>
+nnoremap [window]s  :split<cr>
+nnoremap [window]v  :vsplit<cr>
 
 

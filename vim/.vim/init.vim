@@ -92,7 +92,7 @@ else
 endif
 
 
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do' './install --all'}
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 
 " Compiler settings.
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
@@ -118,6 +118,8 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 Plug 'StanAngeloff/php.vim', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+
+
 
 call plug#end()
 " 1}}}

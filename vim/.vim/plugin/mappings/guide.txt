@@ -1,0 +1,30 @@
+Mappings
+
+In general, I would like my mappings to work kind of like Spacemacs.
+
+Most common operation is just <space><key>. 
+Then the most common is <space><key><key>. 
+
+
+b: buffer (de
+    n:
+c: control
+f: file
+    r: run
+g: git (default: commit)
+p: project
+    b: build
+t: tags
+u: unite
+v: settings and toggles
+    w: toggle showing whitespace
+    b: toggle background color
+    e: edit vimrc
+    r: reload vimrc and all plugins
+    i: install plugins
+    u: upgrade plugins
+w: window (default: switch to last window)
+    f: focus
+    =: equalize
+    s: split
+    v: split vertically 

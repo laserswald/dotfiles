@@ -2,4 +2,4 @@
 noremap j gj
 noremap k gk
 " go to the project head
-noremap _ 
+noremap _ :CD<cr>
