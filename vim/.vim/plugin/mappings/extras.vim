@@ -12,3 +12,6 @@ inoremap <c-u> <esc>viwUea
 nnoremap <leader>u viwUe
 
 
+" Reload configuration
+nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
+nnoremap <leader>pi :PlugInstall<cr>
