@@ -30,13 +30,13 @@ endif
 call plug#begin(g:vimdir . "/bundle")
 
 " Basic improvements"{{{
-Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
-Plug 'takac/vim-hardtime'
+Plug 'dbakker/vim-projectroot'
+Plug 'moll/vim-bbye'
+Plug 'justinmk/vim-sneak'
 "}}}
 
 " Tagging plugins.{{{
@@ -60,26 +60,24 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " Eye Candy {{{
 Plug 'itchyny/lightline.vim'
-Plug 'bling/vim-bufferline'
 Plug 'kien/rainbow_parentheses.vim'
 "}}}
 
 " Themes"{{{
 Plug 'laserswald/chameleon.vim'
-Plug 'AlessandroYorba/Alduin'
-Plug 'nanotech/jellybeans.vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'noahfrederick/vim-noctu'
 Plug 'chriskempson/base16-vim'
-Plug 'fxn/vim-monochrome'
 "}}}
 
 " REPL plugins"{{{
-Plug 'jpalardy/vim-slime'
+if NVIM()
+    Plug 'hkupty/iron.nvim'
+else
+    Plug 'jpalardy/vim-slime'
+endif
 "}}}
 
 " Databases."{{{
-Plug 'vim-scripts/dbext.vim'
+Plug 'vim-scripts/dbext.vim', {'for': 'sql'}
 "}}}
 
 " File opening and management plugins
@@ -89,8 +87,9 @@ Plug 'tpope/vim-projectionist'
 
 " Movement plugins
 Plug 'godlygeek/tabular'
-if ! NVIM()
-    " Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
+if NVIM()
+    nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 endif
 
 " Building and compiling plugins
@@ -103,27 +102,19 @@ else
     Plug 'scrooloose/syntastic'
 endif
 
-
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-
 " Compiler settings.
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
 " Debugging
-Plug 'joonty/vdebug'
+Plug 'joonty/vdebug', {'for': 'php'}
 
 " Filetype specific plugins"{{{
 
     " Organization {{{
     Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
     Plug 'mattn/emmet-vim', {'for': 'html'}
-    Plug 'freitass/todo.txt-vim'
     Plug 'jceb/vim-orgmode'
     " }}}
-
-    " C {{{
-    Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
-    "}}}
 
     " C# {{{
     Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
@@ -136,7 +127,7 @@ Plug 'joonty/vdebug'
     "}}}
 
 " Golang
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 
 "}}}
 "

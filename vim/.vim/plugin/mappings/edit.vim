@@ -1,11 +1,8 @@
+""" edit.vim
 
-" Edit snippets files.
-nnoremap <leader>n      :e ~/notes.txt<cr>
+" Edit a local notes file.
+nnoremap <leader>en      :e ~/notes.txt<cr>
 
-" Edit the current projection file
+" Edit the UltiSnips local snippets for the current file type.
+nnoremap <leader>esn     :UltiSnipsEdit<cr>
 
-function! GetFiletypeFile()
-    return g:vimdir . '/ftplugin/' . &filetype . '.vim'
-endfunction
-
-nnoremap [edit]ft :execute "e " . GetFiletypeFile()<cr>

@@ -1,11 +1,8 @@
-""" Project specific bindings.
+""" project.vim
 
-" Build
-nnoremap [project] <nop>
-nmap <leader>p [project]
+" Execute this project (run make, etc)
+nnoremap <leader>p :Dispatch<cr>  
 
-" Default binding: build project
-nnoremap [project] :Dispatch<cr>  
+" Edit this project's Projectionist file.
+nnoremap <leader>pe :e ./.projections.json<cr>
 
-" e: edit projections
-nnoremap [project]e :e ./.projections.json<cr>

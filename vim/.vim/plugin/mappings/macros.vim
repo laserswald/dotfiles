@@ -1,5 +1,8 @@
+""" macros.vim
 
-" Playback the current macro, go to the first letter of the next line
-nnoremap <leader>j      @qj^
-nnoremap <leader>J      @qk^ 
+" Execute the last macro and go to the beginning of the next line.
+nnoremap <leader>j      @@j^
+
+" Execute the last macro and go to the beginning of the previous line.
+nnoremap <leader>J      @@k^ 
 

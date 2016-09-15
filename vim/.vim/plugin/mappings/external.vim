@@ -1,6 +1,8 @@
+""" external.vim
 
-" Sort the selected lines
+" Sort the current visual selection.
 vnoremap <leader>s :!sort<cr>
 
-" Sort the whole file
+" Sort the entire file.
 nnoremap <localleader>s :!sort<cr>
+

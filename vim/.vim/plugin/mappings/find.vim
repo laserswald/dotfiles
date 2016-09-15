@@ -1,31 +1,32 @@
-" Getting around with defaults and Unite.
-" 
-nnoremap [unite] <nop>
-nmap <leader><Space> [unite]
+""" find.vim
 
-" Find a little bit of anything. Can be slow.
-nnoremap [unite] :Unite -start-insert file_rec buffer tag tab<cr>
-nnoremap [unite]t :Unite tag/file -start-insert<cr>
-nnoremap [unite]/ :Unite line -start-insert<cr>
-nnoremap [unite]f :Unite -start-insert file/async<cr>
-nnoremap [unite]b :Unite buffer -start-insert<cr>
+" Turn off search highlighting.
+noremap <Space> :nohlsearch<cr>
 
-" Open A file.  
+" Fuzzy find any buffer, file, tag or tab.
+nnoremap <leader><Space> :Unite -start-insert file_rec buffer tag tab<cr>
+
+" Fuzzy find a buffer.
+nnoremap <leader><Space>b :Unite buffer -start-insert<cr>
+
+" Fuzzy find a file.
+nnoremap <leader><Space>f :Unite -start-insert file/async<cr>
+
+" Fuzzy find a tag in this file.
+nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
+
+" Find any TODO items in this entire project.
 nnoremap <leader>?  :lvimgrep TODO ./* <cr>
 
-" Find a word in the current project
+" Write the file.
+nnoremap <leader>f :w<cr>
+
+" Run this file.
+nnoremap <leader>fr :echom "This file isn't runnable. Derp."<cr>
+
+" Find the current word in any file in this project.
 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
 
-" Open a Tagbar window
+" Open a browsable tag buffer.
 nnoremap <leader>t :Unite tag/include -vertical<cr>
-
-nnoremap [file] <nop>
-nmap <leader>f [file]
-
-nnoremap [file] :w<cr>
-nnoremap [file]r :echom "This file isn't runnable. Derp."<cr>
-nnoremap [file]s     :UltiSnipsEdit<cr>
-
-" Remove highlights when searching
-noremap <Space> :nohlsearch<cr>
 

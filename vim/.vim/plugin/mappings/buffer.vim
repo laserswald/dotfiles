@@ -1,10 +1,11 @@
-" Buffer settings
+""" buffer.vim
 
-nnoremap [buffer] <nop>
-nmap <leader>b [buffer]
+" Use Unite's quick-buffer matcher to switch buffers.
+nnoremap <leader>b  :Unite buffer -quick-match<cr>
 
-nnoremap [buffer]n :bn<cr>
-nnoremap [buffer]p :bn<cr>
+" Go to the next buffer.
+nnoremap <leader>bn :bn<cr>
 
-" Jetpack engage.
-nnoremap [buffer]  :Unite buffer -quick-match<cr>
+" Go to the previous buffer.
+nnoremap <leader>bp :bp<cr>
+

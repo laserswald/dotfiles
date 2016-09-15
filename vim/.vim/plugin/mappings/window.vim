@@ -1,30 +1,31 @@
-" Window management
-"
-nnoremap [window] <nop>
-nmap <leader>w [window]
+""" window.vim
 
-" Move around easier
+" Make moving around a lot easier.
 noremap <a-j> <c-w>j
 noremap <a-k> <c-w>k
 noremap <a-l> <c-w>l
 noremap <a-h> <c-w>h
 
-" Default action: switch between last windows.
-nnoremap [window]   <c-w>w
+" Go to the previous window.
+nnoremap <leader>w   <c-w>w
 
-" Equalize windows.
-nnoremap [window]=  <c-w>=
+" Equalize the windows.
+nnoremap <leader>w=  <c-w>=
 
-" Focus (make really big) this window.
-nnoremap [window]f  :resize <cr> :vertical resize <cr>
+" Show the location list.
+nnoremap <leader>wL  :lwindow<cr>
 
-" Open message and location windows
-nnoremap [window]m  :copen<cr>
-nnoremap [window]M  :cwindow<cr>
-nnoremap [window]L  :lwindow<cr>
+" Show the error list.
+nnoremap <leader>wM  :cwindow<cr>
 
-" Splitting
-nnoremap [window]s  :split<cr>
-nnoremap [window]v  :vsplit<cr>
+" Focus only one window. 
+nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
 
+" Show the error list if there are any errors.
+nnoremap <leader>wm  :copen<cr>
 
+" Split this window in half vertically
+nnoremap <leader>ws  :split<cr>
+
+" Split this window in half horizontally.
+nnoremap <leader>wv  :vsplit<cr>

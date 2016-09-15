@@ -1,17 +1,17 @@
-" Re-align the whole file
+""" extras.vim
+
+" Turn the current word to all-caps.
+inoremap <c-u> <esc>viwUea
+
+" Realign the entire file.
 nnoremap <leader>= ggVG=
 
-" Execute normal command over visual selection
-vnoremap <leader>n  :'<,'>g/^/norm 
-
-" Extract to another file
-vnoremap <leader>x  "md:enew<cr>"mp
-
-"Capitalize the word at the cursor.
-inoremap <c-u> <esc>viwUea
+" Uppercase this word.
 nnoremap <leader>u viwUe
 
+" Execute a normal command over the entire selection.
+vnoremap <leader>n  :g/^/norm 
 
-" Reload configuration
-nnoremap <leader>rc :source $MYVIMRC<cr>:runtime! plugin/**/*.vim<cr>
-nnoremap <leader>pi :PlugInstall<cr>
+" Extract the current selection to a new buffer.
+vnoremap <leader>x  "md:enew<cr>"mp
+

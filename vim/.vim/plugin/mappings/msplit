@@ -1,0 +1,11 @@
+#!/bin/sh
+
+awk '
+$0 ~ /"""/ {
+    close(fn)
+    fn = $2
+}
+{
+    print > fn
+}
+' all.vim.cmb

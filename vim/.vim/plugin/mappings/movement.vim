@@ -1,5 +1,7 @@
-" Go by graphical lines instead of real ones
+""" movement.vim
+
+" Instead of moving line-wise, move graphical line wise.
 noremap j gj
 noremap k gk
-" go to the project head
-noremap _ :CD<cr>
+
+
