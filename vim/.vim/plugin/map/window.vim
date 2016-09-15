@@ -24,7 +24,7 @@ nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
 " Show the error list if there are any errors.
 nnoremap <leader>wm  :copen<cr>
 
-" Split this window in half vertically
+" Split this window in half vertically.
 nnoremap <leader>ws  :split<cr>
 
 " Split this window in half horizontally.
