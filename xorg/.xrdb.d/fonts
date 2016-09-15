@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-=======
-URxvt.boldFont:
->>>>>>> c7ce53d38bebcc2595b695802cfd521c2f7f6c37
-URxvt.font: xft:tamzen:size=9
+URxvt.font: xft:fixed:size=9, xft:powerline:size=9, xft:fixed
 
 Xft.antialias: 1
 Xft.autohint: 0
