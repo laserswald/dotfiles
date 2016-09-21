@@ -3,6 +3,8 @@
 " Use Unite's quick-buffer matcher to switch buffers.
 nnoremap <leader>b  :Unite buffer -quick-match<cr>
 
+nnoremap gb :ls<cr>:buffer<space>
+
 " Go to the next buffer.
 nnoremap <leader>bn :bn<cr>
 
