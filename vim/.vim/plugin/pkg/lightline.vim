@@ -1,4 +1,5 @@
 " Lightline
+let g:loaded_lightline = 1
 let g:lightline = { 
             \ 'colorscheme': 'chameleon',
             \ 'active' : {

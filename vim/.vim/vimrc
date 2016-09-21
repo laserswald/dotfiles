@@ -1,4 +1,3 @@
-" Ben's (Neo)Vimrc.
 "vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=5 foldmethod=marker spell:
 "
 " Some of this should be split up into different files. 
@@ -28,123 +27,12 @@ endif
 
 " Plugins {{{
 call plug#begin(g:vimdir . "/bundle")
-
-" Basic improvements"{{{
-Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'jacquesbh/vim-showmarks'
-Plug 'tpope/vim-eunuch' 
-Plug 'takac/vim-hardtime'
-Plug 'sheerun/vim-polyglot'
- 
+execute "source ".g:vimdir."/plugs.vim"
 if NVIM()
-    Plug 'laserswald/iron.nvim'
-endif
-"}}}
-
-" Tagging plugins.{{{
-Plug 'Shougo/vimproc.vim', {'do': 'make'} | Plug 'Shougo/unite.vim' | Plug 'Shougo/neoinclude.vim' | Plug 'tsukkee/unite-tag'
-if NVIM()
-    Plug 'fntlnz/atags.vim'
-else
-    Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
-endif
-"}}}
-
-" Completion plugins."{{{
-Plug 'ervandew/supertab'
-if NVIM()
-    Plug 'Shougo/deoplete.nvim'
+    execute "source ".g:vimdir."/nplugs.vim"
 else 
-    Plug 'Shougo/neocomplete.vim'
+    execute "source ".g:vimdir."/oplugs.vim"
 endif
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"}}}
-
-" Eye Candy {{{
-Plug 'itchyny/lightline.vim'
-Plug 'bling/vim-bufferline'
-Plug 'kien/rainbow_parentheses.vim'
-"}}}
-
-" Themes"{{{
-Plug 'laserswald/chameleon.vim'
-Plug 'AlessandroYorba/Alduin'
-Plug 'nanotech/jellybeans.vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'noahfrederick/vim-noctu'
-Plug 'chriskempson/base16-vim'
-Plug 'fxn/vim-monochrome'
-"}}}
-
-" REPL plugins"{{{
-Plug 'jpalardy/vim-slime'
-"}}}
-
-" Databases."{{{
-Plug 'vim-scripts/dbext.vim'
-"}}}
-
-" File opening and management plugins
-Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-dirvish' 
-Plug 'tpope/vim-projectionist'
-
-" Movement plugins
-Plug 'godlygeek/tabular'
-if ! NVIM()
-    " Plug 'christoomey/vim-tmux-navigator'
-endif
-
-" Building and compiling plugins
-" TODO: Switch to my fork
-" Plug 'reinh/vim-makegreen'
-if NVIM()
-    Plug 'benekastah/neomake'
-else
-    Plug 'tpope/vim-dispatch'
-    Plug 'scrooloose/syntastic'
-endif
-
-
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-
-" Compiler settings.
-Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
-
-" Debugging
-Plug 'joonty/vdebug'
-
-" Filetype specific plugins"{{{
-
-    " Organization {{{
-    Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
-    Plug 'mattn/emmet-vim', {'for': 'html'}
-    Plug 'freitass/todo.txt-vim'
-    Plug 'jceb/vim-orgmode'
-    " }}}
-
-    " C {{{
-    Plug 'vim-scripts/cscope.vim', {'for' : 'c'}
-    "}}}
-
-    " C# {{{
-    Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
-    "}}}
-
-    " PHP {{{
-    Plug 'StanAngeloff/php.vim', {'for' : 'php'}
-    Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-    Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
-    "}}}
-
-" Golang
-Plug 'fatih/vim-go'
-
-"}}}
-"
 call plug#end()
 " 1}}}
 
@@ -193,6 +81,7 @@ function! SplitLine(pattern)
     " Append the strings as new lines
     call append(getline('.'), l:words)
 endfunction
+command! -nargs=1 SplitLine call SplitLine(<args>)
 "}}}
    
 

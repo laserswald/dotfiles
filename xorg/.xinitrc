@@ -10,6 +10,7 @@ mpd &
 redshift &
 dunst &
 
+setxkbmap -option ctrl:nocaps
 xcape -e "Control_L=Escape"
 
 # Appearance.
@@ -20,9 +21,9 @@ xsetroot -cursor_name left_ptr &
 # Launch a compositor. 
 # compton -fCc &
 
-# Set up my background.
-# sh -c "~/.fehbg" &
-~/bin/termbg -c red
+# Set up my background. 
+sh -c "~/.fehbg" &
+# ~/bin/termbg -c red
 
 
 # Start a minimalist bar.
