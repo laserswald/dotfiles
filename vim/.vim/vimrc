@@ -37,6 +37,11 @@ Plug 'tpope/vim-repeat'
 Plug 'jacquesbh/vim-showmarks'
 Plug 'tpope/vim-eunuch' 
 Plug 'takac/vim-hardtime'
+Plug 'sheerun/vim-polyglot'
+ 
+if NVIM()
+    Plug 'laserswald/iron.nvim'
+endif
 "}}}
 
 " Tagging plugins.{{{
@@ -189,4 +194,5 @@ function! SplitLine(pattern)
     call append(getline('.'), l:words)
 endfunction
 "}}}
+   
 

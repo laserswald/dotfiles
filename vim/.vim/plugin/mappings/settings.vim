@@ -1,5 +1,6 @@
 nnoremap [settings] <nop>
 nmap <leader>v [settings]
+
 nnoremap [settings]  :e $MYVIMRC<cr>
 nnoremap [settings]w :set list!<cr>
 " Reload configuration
