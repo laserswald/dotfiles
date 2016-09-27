@@ -25,7 +25,7 @@ nnoremap <leader>f :w<cr>
 nnoremap <leader>fr :echom "This file isn't runnable. Derp."<cr>
 
 " Find the current word in any file in this project.
-nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
+nnoremap <leader>sw :grep <cword> . <cr>
 
 " Open a browsable tag buffer.
 nnoremap <leader>t :Unite tag/include -vertical<cr>
