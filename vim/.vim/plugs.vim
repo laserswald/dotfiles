@@ -6,8 +6,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch' 
 Plug 'justinmk/vim-sneak'
-Plug 'dbakker/vim-projectroot'
 Plug 'moll/vim-bbye'
+Plug 'takac/vim-hardtime'
+Plug 'sheerun/vim-polyglot'
+Plug 'tommcdo/vim-exchange'
 "}}}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -19,14 +21,12 @@ Plug 'tsukkee/unite-tag'
 " }}}
 
 " Eye Candy {{{
-Plug 'itchyny/lightline.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'laserswald/chameleon.vim'
 Plug 'chriskempson/base16-vim'
 "}}}
 
 " Databases."{{{
-Plug 'vim-scripts/dbext.vim', {'for': 'sql'}
 "}}}
 
 " File opening and management plugins {{{
@@ -42,10 +42,11 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
+
 " Compiler settings.
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
-" Debugging
+" DebugginCC
 Plug 'joonty/vdebug', {'for': 'php'}
 
 " Filetype specific plugins"{{{

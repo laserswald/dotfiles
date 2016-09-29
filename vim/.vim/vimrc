@@ -83,4 +83,5 @@ function! SplitLine(pattern)
 endfunction
 command! -nargs=1 SplitLine call SplitLine(<args>)
 "}}}
+   
 

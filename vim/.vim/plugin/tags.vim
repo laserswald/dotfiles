@@ -4,3 +4,5 @@ set tags=./tags
 
 " Show some more information about a tag
 set showfulltag
+
+

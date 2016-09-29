@@ -35,3 +35,4 @@ minbar &
 # tray &
 
 exec ~/bin/backflip
+#exec gnome-session
