@@ -10,6 +10,7 @@ Plug 'dbakker/vim-projectroot'
 Plug 'moll/vim-bbye'
 "}}}
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Fuzzy Find tools {{{
 Plug 'Shougo/vimproc.vim', {'do': 'make'} 
 Plug 'Shougo/unite.vim' 
@@ -67,6 +68,5 @@ Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 
 " Golang
 Plug 'fatih/vim-go', {'for': 'go'}
-
 "}}}
-"
+
