@@ -5,9 +5,9 @@ nnoremap <leader>?  :lvimgrep TODO ./* <cr>
 nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
 
 " Search for a tag in the current project
-nnoremap <leader>t  :tag<space>
+nnoremap <leader>t  :<c-u>Unite -start-insert tag<cr>
 
-nnoremap <leader>tb :Unite tag/include -vertical<cr>
+nnoremap <leader>tb :<c-u>Unite tag/include -vertical<cr>
 " Open a Tagbar window
 nnoremap <leader>T  :TagbarToggle<cr>
 
@@ -22,6 +22,10 @@ else
     endif
 endif
 
+
+nnoremap <leader><Space> :<c-u>Unite -start-insert file_rec/async tag buffer tab<cr>
+nnoremap gb :<c-u>Unite -quick-match buffer<cr>
+nnoremap <leader><Space>f :<c-u>Unite -start-insert file_rec/async<cr>
 
 " Remove highlights when searching
 noremap <Space> :nohlsearch<cr>

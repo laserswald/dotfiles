@@ -123,6 +123,11 @@ Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 " CSV
 Plug 'chrisbra/csv.vim'
 
+Plug 'pangloss/vim-javascript'
+
+Plug 'jceb/vim-orgmode'
+Plug 'wincent/command-t'
+
 call plug#end()
 " 1}}}
 
@@ -157,4 +162,5 @@ function! SwitchColors()
         set background="dark"
     endif
 endfunction
+
 

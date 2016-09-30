@@ -10,4 +10,5 @@ set wrap           " Line wrapping
 set visualbell     " Blink the screen instead of dinging
 colors chameleon
 set background=light
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
 
