@@ -1,9 +1,9 @@
-URxvt.boldFont:
-URxvt.font: xft:terminus:size=9
+/* URxvt.font: xft:Fira Mono:pixelsize=14:antialias=true */
+URxvt.font: xft:Tamzen:pixelsize=14 
 
 Xft.antialias: 1
 Xft.autohint: 0
-Xft.dpi: 96
+Xft.dpi: 88
 Xft.hinting: 1
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault

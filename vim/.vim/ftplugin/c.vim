@@ -1,5 +1,4 @@
 " Valuable C defaults and settings
 "
-setlocal cscopetag
-call Automark("main", "m")
-call Automark("include", "i")
+call automark#Mark("main", "m")
+call automark#Mark("include", "i")

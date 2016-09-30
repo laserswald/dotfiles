@@ -10,21 +10,29 @@ mpd &
 redshift &
 dunst &
 
+setxkbmap -option ctrl:nocaps
+xcape -e "Control_L=Escape"
+
 # Appearance.
 
 # Set the cursor to the left arrow pointer.
 xsetroot -cursor_name left_ptr &
 
 # Launch a compositor. 
-compton -fCc &
+# compton -fCc &
 
-# Set up my background.
+# Set up my background. 
 sh -c "~/.fehbg" &
+# ~/bin/termbg -c red
+
 
 # Start a minimalist bar.
-~/bin/minbar.sh &
+minbar &
+
+~/.screenlayout/dellnormleft.sh
 
 # Start a tray.
 # tray &
 
 exec ~/bin/backflip
+#exec gnome-session

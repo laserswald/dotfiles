@@ -1,7 +1,7 @@
 " GUI and Mouse
+set mouse=a 
 if has("gui_running")
     set guioptions=aegirLt
-    set mouse=n
     set background=dark
     colors base16-default
     if has("gui_gtk2")
