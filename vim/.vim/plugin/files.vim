@@ -6,3 +6,4 @@ set noautochdir
 " Swap files are annoying.
 set noswapfile
 
+set path+=**

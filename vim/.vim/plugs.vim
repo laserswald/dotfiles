@@ -10,9 +10,11 @@ Plug 'moll/vim-bbye'
 Plug 'takac/vim-hardtime'
 Plug 'sheerun/vim-polyglot'
 Plug 'tommcdo/vim-exchange'
+Plug 'AndrewRadev/linediff.vim'
 "}}}
 
 " Fuzzy Find tools {{{
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/vimproc.vim', {'do': 'make'} 
 Plug 'Shougo/unite.vim' 
 Plug 'Shougo/neoinclude.vim' 
@@ -61,12 +63,10 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 "}}}
 
 " PHP {{{
-Plug 'StanAngeloff/php.vim', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 "}}}
+Plug 'pangloss/vim-javascript'
 
-" Golang
-Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
 "
