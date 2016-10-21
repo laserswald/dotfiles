@@ -13,6 +13,8 @@ Plug 'tommcdo/vim-exchange'
 Plug 'AndrewRadev/linediff.vim'
 "}}}
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
 " Fuzzy Find tools {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/vimproc.vim', {'do': 'make'} 
@@ -69,4 +71,3 @@ Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 Plug 'pangloss/vim-javascript'
 
 "}}}
-"
