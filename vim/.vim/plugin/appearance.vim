@@ -25,7 +25,7 @@ set wrap
 set visualbell     
 
 colors chameleon
-set background=light
+set background=dark
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
 
 function! InsertStatusColor(mode)
