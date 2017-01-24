@@ -4,11 +4,11 @@ Plug 'tpope/vim-repeat'
 " Extra motions and actions {{{
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch' 
+Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'moll/vim-bbye'
 Plug 'takac/vim-hardtime'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'tommcdo/vim-exchange'
 Plug 'AndrewRadev/linediff.vim'
 "}}}
@@ -17,15 +17,16 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Fuzzy Find tools {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'Shougo/vimproc.vim', {'do': 'make'} 
-Plug 'Shougo/unite.vim' 
-Plug 'Shougo/neoinclude.vim' 
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neoinclude.vim'
 Plug 'tsukkee/unite-tag'
 " }}}
 
 " Eye Candy {{{
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'laserswald/chameleon.vim'
+Plug 'fxn/vim-monochrome'
 Plug 'chriskempson/base16-vim'
 "}}}
 
@@ -34,9 +35,10 @@ Plug 'chriskempson/base16-vim'
 
 " File opening and management plugins {{{
 Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-dirvish' 
+Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-projectionist'
 "}}}
+
 " Movement plugins {{{
 Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-tmux-navigator'
@@ -52,6 +54,8 @@ Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 " DebugginCC
 Plug 'joonty/vdebug', {'for': 'php'}
 
+Plug 'gcmt/taboo.vim'
+
 " Filetype specific plugins"{{{
 
 " Organization {{{
@@ -66,8 +70,10 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 
 " PHP {{{
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
+Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
+Plug 'laserswald/php.vim', {'for' : 'php'}
 "}}}
 Plug 'pangloss/vim-javascript'
+Plug 'chrisbra/csv.vim'
 
 "}}}

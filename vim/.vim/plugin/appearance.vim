@@ -1,32 +1,32 @@
 " Appearance.
 
-" Always show the status bar. 
+" Always show the status bar.
 set laststatus=2
 
 " Break lines at a good place, not in the middle of a word
 set linebreak
 
 " Length of time in 10ths of a second to show matching parens
-set matchtime=5    
+set matchtime=5
 
 " Line numbers.
-set number         
+set number
 
 " Width of line number section
-set numberwidth=3  
+set numberwidth=3
 
 " Relative numbers to the current line
-set relativenumber 
+set relativenumber
 
 " Line wrapping
-set wrap           
+set wrap
 
 " Blink the screen instead of dinging
-set visualbell     
+set visualbell
 
 colors chameleon
 set background=dark
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+set listchars=eol:¬,tab:>·,trail:-,extends:>,precedes:<
 
 function! InsertStatusColor(mode)
     if a:mode == 'i'
@@ -38,19 +38,23 @@ function! InsertStatusColor(mode)
     elseif a:mode == 'n'
         hi StatusLine ctermbg=4
         hi User1 ctermbg=4
-    else 
+    else
         hi StatusLine ctermbg=6
         hi User1 ctermbg=6
-    endif  
+    endif
 endfunction
 
 augroup STATUSCOLOR
     autocmd InsertEnter,InsertChange * call InsertStatusColor(v:insertmode)
-    autocmd InsertLeave *  call InsertStatusColor('n')
+    autocmd InsertLeave * call InsertStatusColor('n')
 augroup end
 
 hi User1 cterm=bold ctermfg=7 ctermbg=4
+" git stuff
+hi User2 cterm=bold ctermfg=3 ctermbg=4
 " Filename
-set statusline=%{expand('%:h')}/%1*%t%*
+set statusline=%.50{expand('%:h')}/%1*%t%*
 " Git repo
-set statusline+=\ %{fugitive#head()}%*
+set statusline+=\ %2*%{fugitive#head()}%*
+
+set statusline+=\ %=[%l\ :\ %c]

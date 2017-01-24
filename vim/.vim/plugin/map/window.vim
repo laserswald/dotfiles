@@ -1,10 +1,10 @@
 """ window.vim
 
 " Make moving around a lot easier.
-noremap <a-j> <c-w>j
-noremap <a-k> <c-w>k
-noremap <a-l> <c-w>l
-noremap <a-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
 
 " Go to the previous window.
 nnoremap <leader>w   <c-w>w
@@ -18,7 +18,7 @@ nnoremap <leader>wL  :lwindow<cr>
 " Show the error list.
 nnoremap <leader>wM  :cwindow<cr>
 
-" Focus only one window. 
+" Focus only one window.
 nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
 
 " Show the error list if there are any errors.

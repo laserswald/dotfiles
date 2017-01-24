@@ -9,4 +9,4 @@ fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
 # Micro
-PS1="${fblue}$(hostname)${normal} \$(pwd | sed s:$HOME:~:g) ${fgreen}:${normal} "
+PS1="${fblue}$(hostname)${normal} \$(pwd | sed 's:$HOME:~:g') ${fgreen}:${normal} "

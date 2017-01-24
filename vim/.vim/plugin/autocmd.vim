@@ -11,4 +11,6 @@ augroup autocommands
     endif
 
     au bufread,BufNewFile *.txt set filetype=notes.txt
-augroup end 
+
+    au BufWritePre * silent! %s/\s\+$//e
+augroup end
