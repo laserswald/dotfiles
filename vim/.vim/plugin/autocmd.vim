@@ -9,4 +9,8 @@ augroup autocommands
     if NVIM()
         autocmd BufWritePost * Neomake
     endif
-augroup end 
+
+    au bufread,BufNewFile *.txt set filetype=notes.txt
+
+    au BufWritePre * silent! %s/\s\+$//e
+augroup end

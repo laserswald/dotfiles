@@ -1,3 +1,5 @@
+source ~/.sh.d/environment.sh
+
 alias c=cd
 alias df="e ~/etc"
 alias ds=dirs
