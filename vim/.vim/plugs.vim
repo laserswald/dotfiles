@@ -69,4 +69,3 @@ Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 " Golang
 Plug 'fatih/vim-go', {'for': 'go'}
 "}}}
-"
