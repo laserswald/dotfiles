@@ -26,6 +26,10 @@ nnoremap <leader>wm  :copen<cr>
 
 " Split this window in half vertically.
 nnoremap <leader>ws  :split<cr>
+nnoremap <leader>wj  :split<cr><c-w>j
+nnoremap <leader>wj  :split<cr><c-w>k
 
 " Split this window in half horizontally.
 nnoremap <leader>wv  :vsplit<cr>
+nnoremap <leader>wh  :vsplit<cr><c-w>h
+nnoremap <leader>wl  :vsplit<cr><c-w>l
