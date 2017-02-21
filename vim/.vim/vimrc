@@ -1,10 +1,10 @@
 "vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=5 foldmethod=marker spell:
 "
-" Some of this should be split up into different files. 
+" Some of this should be split up into different files.
 
 " Environment
 function! WINDOWS()
-    return (has("win32") || has("win64")) 
+    return (has("win32") || has("win64"))
 endfunction
 function! NVIM()
     return has('nvim')
@@ -30,7 +30,7 @@ call plug#begin(g:vimdir . "/bundle")
 execute "source ".g:vimdir."/plugs.vim"
 if NVIM()
     execute "source ".g:vimdir."/nplugs.vim"
-else 
+else
     execute "source ".g:vimdir."/oplugs.vim"
 endif
 call plug#end()
@@ -49,7 +49,6 @@ let maplocalleader = '\'
 " Make jk escape to normal mode
 inoremap jk <esc>
 vnoremap jk <esc>
-
 
 " My own custom functions."{{{
 function! SwitchColors()
@@ -82,7 +81,9 @@ function! SplitLine(pattern)
     call append(getline('.'), l:words)
 endfunction
 command! -nargs=1 SplitLine call SplitLine(<args>)
+
+command! -nargs=0 XFontSel :read! xfontsel -print
+
 "}}}
-   
 
 
