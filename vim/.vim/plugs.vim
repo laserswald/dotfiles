@@ -69,5 +69,7 @@ Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'rayburgemeestre/phpfolding.vim', {'for' : 'php'}
 "}}}
 Plug 'pangloss/vim-javascript'
+Plug 'chrisbra/csv.vim'
 
+" Plug 'davidoc/taskpaper.vim'
 "}}}

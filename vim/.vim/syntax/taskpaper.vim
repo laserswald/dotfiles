@@ -13,6 +13,6 @@ syn match taskpaperDone '^\s*-.*@done.*$'
 hi def link taskpaperSection Function
 hi def link taskpaperTask Keyword
 hi def link taskpaperDone Comment
-hi def link taskpaperTag Variable
+hi def link taskpaperTag String
 
 let b:current_syntax = "taskpaper"
