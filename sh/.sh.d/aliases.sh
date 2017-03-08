@@ -21,7 +21,6 @@ alias o=popd
 alias p9="drawterm -c gibson.gnot.club -a gibson.gnot.club -u lazr"
 alias p=pushd
 alias ping="ping -c 3"
-alias pomo="sleep 10m && notify-send 'Pomodoro done!'"
 alias randw=rwall
 alias refresh="sudo pacman -Syy"
 alias reload="source ~/.profile"
