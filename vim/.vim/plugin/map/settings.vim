@@ -1,7 +1,12 @@
 """ settings.vim
 
 " Edit my (n)vim configuration file.
-nnoremap <leader>v  :e $MYVIMRC<cr>
+function! OpenSettingsTab()
+    execute ":tabnew"
+    execute ":tabnext"
+    execute ":e $MYVIMRC"
+endfunction
+nnoremap <leader>v :call OpenSettingsTab()<cr>
 
 " Toggle showing whitespace as characters.
 nnoremap <leader>vw :set list!<cr>
@@ -10,12 +15,12 @@ nnoremap <leader>vw :set list!<cr>
 function! ReloadAll()
     source $MYVIMRC
     runtime! plugin/**/*.vim
-    execute ":PlugInstall" 
+    execute ":PlugInstall"
     execute ":quit"
-    execute ":PlugUpdate" 
+    execute ":PlugUpdate"
     execute ":quit"
 endfunction
-nnoremap <leader>vr :call ReloadAll()<cr> 
+nnoremap <leader>vr :call ReloadAll()<cr>
 
 " Edit the vim configuration for this filetype.
 function! GetFiletypeFile()
@@ -24,10 +29,10 @@ endfunction
 nnoremap <leader>vf :execute "e " . GetFiletypeFile()<cr>
 
 function! EditMapping(...)
-    call setloclist(0, [], ' ', "EditMapping") 
+    call setloclist(0, [], ' ', "EditMapping")
     if 0 == len(a:000)
         execute ":silent lgrep! 'let mapleader' " . g:vimdir . "/plugin/**/*.vim " . $MYVIMRC
-    else 
+    else
         for mapname in a:000
             execute ":silent lgrepa! 'map <leader>".mapname."' ".g:vimdir."/plugin/**/*.vim ".$MYVIMRC
         endfor
