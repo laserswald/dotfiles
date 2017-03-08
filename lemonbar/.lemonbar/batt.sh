@@ -1,5 +1,5 @@
 #!/bin/sh
-source ~/etc/bar/base.sh
+source ~/.lemonbar/base.sh
 
 battnum=$(acpi | cut -d "," -f2 | sed -e "s/%//" | sed -e "s/ //")
 crit=10
@@ -12,22 +12,22 @@ lowicon=""
 medicon=""
 hiicon=""
 
-battcolor=$blue
+battcolor=$(tcolor blue)
 
 if [[ $battnum -le $crit ]]; then 
     icon=$criticon
-    battcolor=$red
+    battcolor=$(tcolor red)
 elif [[ $battnum -le $low ]]; then
     icon=$lowicon
-    battcolor=$yellow
+    battcolor=$(tcolor yellow)
 elif [[ $battnum -le $med ]]; then
     icon=$medicon
-    battcolor=$green
+    battcolor=$(tcolor green)
 else
     icon=$hiicon
 fi
 
-test $(acpi | grep -q Discharging) || icon=""
+$(acpi | grep -q Charging) && icon=""
 
-show_icon $battcolor "$icon $battnum"
+show_icon $battcolor "$icon $battnum%"
 

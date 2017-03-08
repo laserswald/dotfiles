@@ -1,4 +1,4 @@
-. ~/etc/bar/base.sh
+. ~/.lemonbar/base.sh
 d=$(date +'%R ')
-show_icon_text $blue "" "$d"
+show_icon_text $(tcolor blue) "" "$d"
 
