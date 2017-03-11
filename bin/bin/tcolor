@@ -1,0 +1,22 @@
+#!/bin/sh
+# Grab a color from the current colorscheme
+
+# Get a color name
+if $(echo $1 | grep -q "color[0-9]\{1,2\}"); then 
+    cn=$1
+else
+    case $1 in
+        black) cn="color0"  ;; brblack) cn="color8"  ;;
+        red) cn="color1"    ;; brred) cn="color9"    ;;
+        green) cn="color2"  ;; brgreen) cn="color10"  ;;
+        yellow) cn="color3" ;; bryellow) cn="color11" ;;
+        blue) cn="color4"   ;; brblue) cn="color12"   ;;
+        purple) cn="color5" ;; brpurple) cn="color13" ;;
+        cyan) cn="color6"   ;; brcyan) cn="color14"   ;;
+        white) cn="color7"  ;; brwhite) cn="color15"  ;;
+        foreground) cn="foreground"  ;; background) cn="background"  ;;
+    esac
+fi
+
+echo $(xrdb -query | grep "*.${cn}:" | cut -d: -f2 | tr -d ' ')
+
