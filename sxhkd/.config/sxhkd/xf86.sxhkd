@@ -1,0 +1,9 @@
+XF86AudioRaiseVolume
+    audioctl up
+
+XF86AudioLowerVolume
+    audioctl down
+
+XF86AudioMute
+    audioctl mute
+

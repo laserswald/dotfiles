@@ -1,6 +1,7 @@
  -1
 
- 
+
+
 
 
 super + Return 
@@ -49,43 +50,53 @@ super + shift + f
 ~button3
     rcm
 
+XF86AudioRaiseVolume
+    audioctl up
 
-super + shift + c 
-    KILL_WINDOW
+XF86AudioLowerVolume
+    audioctl down
+
+XF86AudioMute
+    audioctl mute
+
+
+
+super + shift + c
+    killw $(pfw); wtf $(lsw | head -1)
 
 super + button2
-    FULLSCREEN
+    fsd $(ind $(pfw)) $(pfw)
 
 super + space
-    FULLSCREEN
+    fsd $(ind $(pfw)) $(pfw)
 
 super + {Left, Down, Up, Right}
-    MOVE
+    wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
 
 super + shift + {Left, Down, Up, Right}
-    MOVE_FAST
+    wmv {-50 0, 0 50, 0 -50, 50 0} $(pfw)
 
 super + alt + {Left, Down, Up, Right}
-    RESIZE
+    wrs {-20 0, 0 20, 0 -20, 20 0} $(pfw)
 
 super + shift + alt + {Left, Down, Up, Right}
-    RESIZE_FAST
+    wrs {-50 0, 0 50, 0 -50, 50 0} $(pfw)
 
 super + button4
-    NEXT_WINDOW
+    focus next
 
 super + button5
-    PREVIOUS_WINDOW
+    focus prev
 
-super + j 
-    NEXT_WINDOW
+super + j
+    focus next
 
 super + k
-    PREVIOUS_WINDOW
+    focus prev
 
 super + shift + {h,j,k,l}
-    SNAP_ORTHO
+    snap {left, down, up, right}
 
 super + shift + {y,u,n,m}
-    SNAP_DIAG
+    snap {tl, tr, bl, br}
 

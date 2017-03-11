@@ -1,12 +1,13 @@
 divert -1
 define(`INCLUDE_CMDS', `include(WM`_cmds.m4')')
-divert 
+divert
 
 INCLUDE_CMDS
 include(`defaults.sxhkd')
 include(`launch.sxhkd')
+include(`xf86.sxhkd')
 
-super + shift + c 
+super + shift + c
     KILL_WINDOW
 
 super + button2
@@ -33,7 +34,7 @@ super + button4
 super + button5
     PREVIOUS_WINDOW
 
-super + j 
+super + j
     NEXT_WINDOW
 
 super + k
