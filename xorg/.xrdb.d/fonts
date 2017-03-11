@@ -1,12 +1,5 @@
-/* URxvt.font: xft:Fira Mono:pixelsize=14:antialias=true */
-URxvt.font: xft:Tamzen:pixelsize=14 
+/* URxvt.font: xft:Fira Mono:pixelsize=14 */
+URxvt.font: xft:artwiz lemon:pixelsize=10
 
-Xft.antialias: 1
-Xft.autohint: 0
-Xft.dpi: 88
-Xft.hinting: 1
-Xft.hintstyle: hintfull
-Xft.lcdfilter: lcddefault
-Xft.rgba: rgb
 
 ! vim:ft=xdefaults
