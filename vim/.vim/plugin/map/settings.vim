@@ -2,9 +2,9 @@
 
 " Edit my (n)vim configuration file.
 function! OpenSettingsTab()
-    execute ":tabnew"
-    execute ":tabnext"
+    execute ":TabooOpen Vimrc"
     execute ":e $MYVIMRC"
+    execute ":vsplit ~/.vim"
 endfunction
 nnoremap <leader>v :call OpenSettingsTab()<cr>
 

@@ -28,6 +28,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'laserswald/chameleon.vim'
 Plug 'fxn/vim-monochrome'
 Plug 'chriskempson/base16-vim'
+" Plug 'tpope/vim-flagship'
 "}}}
 
 " Databases."{{{
