@@ -1,4 +1,7 @@
--- laserdude's xmonad.hs file.
+-- xmonad.hs
+
+-- Xmonad configuration file 
+-- (c) 2017 Laserswald
 
 -- Management hooks.
 ----------------------------------------------------------------------- 
@@ -22,6 +25,8 @@ import qualified XMonad.StackSet as W
 -- Prompts
 import XMonad.Prompt
 import XMonad.Prompt.Shell
+
+-- Personal configs
 
 -- Color theme.
 
@@ -85,8 +90,8 @@ dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 -- Key Bindings.
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ 
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
+    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm,             xK_KP_Enter), spawn $ XMonad.terminal conf)
     , ((modm,               xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -100,7 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_j     ), windows W.focusDown)
     , ((modm,               xK_k     ), windows W.focusUp  )
     , ((modm,               xK_m     ), windows W.focusMaster  )
-    , ((modm,               xK_Return), windows W.swapMaster)
+    --, ((modm,               xK_Return), windows W.swapMaster)
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
     , ((modm,               xK_h     ), sendMessage Shrink)
@@ -133,8 +138,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
    ]
     ++
  
-    --
-    -- mod-[1..9], Switch to workspace N
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N

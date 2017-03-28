@@ -1,5 +1,5 @@
 #!/bin/sh
-. ~/etc/bar/base.sh
+. ~/.lemonbar/base.sh
 
 mpd_play_pause () {
 
@@ -12,9 +12,9 @@ mpd_play_pause () {
 }
 
 np=$( mpc current --format="%artist% - %title%")
-color=$green
+color=$(tcolor green)
 if [[ -z $np ]]; then
     np="---"
-    color=$black
+    color=$(tcolor black)
 fi
-echo "$(mpd_play_pause)%{B$black}%{F$color}$np %{F-}%{B-}"
+echo "$(mpd_play_pause)%{B$(tcolor background)}%{F$color}$np %{F-}%{B-}"

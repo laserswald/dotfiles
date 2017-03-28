@@ -1,11 +1,11 @@
-"                        ▗     
+"                        ▗
 " ▝▀▖▙▀▖▞▀▖▞▀▖▞▀▖▞▀▘  ▌ ▌▄ ▛▚▀▖
 " ▞▀▌▌  ▌ ▖▌ ▖▌ ▌▝▀▖▗▖▐▐ ▐ ▌▐ ▌
 " ▝▀▘▘  ▝▀ ▝▀ ▝▀ ▀▀ ▝▘ ▘ ▀▘▘▝ ▘
 " =====================================
 "
 " A 16 colors scheme that use your terminal colors
-" Inspired by 
+" Inspired by
 
 set background=dark
 if version > 580
@@ -49,7 +49,7 @@ highlight Define       term=none cterm=none ctermfg=5    ctermbg=none
 highlight Macro        term=none cterm=none ctermfg=5    ctermbg=none
 highlight PreCondit    term=none cterm=bold ctermfg=5    ctermbg=none
 
-" Typing 
+" Typing
 highlight Type         term=none cterm=bold ctermfg=4    ctermbg=none
 highlight StorageClass term=none cterm=none ctermfg=4    ctermbg=none
 highlight Structure    term=none cterm=bold ctermfg=4    ctermbg=none

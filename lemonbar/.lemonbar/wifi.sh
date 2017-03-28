@@ -1,10 +1,10 @@
-. ~/etc/bar/base.sh
-ssid=$(iw dev wls3 link | grep SSID | cut -d' ' -f2)
+. ~/.lemonbar/base.sh
+ssid=$(iw dev wlo1 link | grep SSID | cut -d' ' -f2)
 
 full=""
 
 if [[ ! $ssid ]]; then
     ssid="---" 
 fi
-show_icon_text $grey $full $ssid
+show_icon_text $(tcolor brblack) $full "%{A:urxvt -e 'sudo wifi-menu':}$ssid"
 

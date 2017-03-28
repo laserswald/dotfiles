@@ -1,4 +1,4 @@
-. ~/etc/bar/base.sh
+. ~/.lemonbar/base.sh
 ports=(25565 80 21025)
 portservnames=(mc http sb)
 for (( i = 0; i < 3; i++ )); do

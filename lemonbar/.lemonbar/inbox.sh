@@ -1,11 +1,11 @@
 #!/bin/bash
 
-. ~/etc/bar/base.sh
+. ~/.lemonbar/base.sh
 
 inbox=$(~/etc/dzen/inbox.sh ~/mail/inbox)
 if (( $inbox > 0 )); then
-    current=$magenta
+    current=$(tcolor magenta)
 else
-    current=$black
+    current=$(tcolor black)
 fi
 show_icon_text $current "" "${inbox}"

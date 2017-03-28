@@ -1,8 +1,8 @@
 #!/bin/sh
-. ~/etc/bar/base.sh
+. ~/.lemonbar/base.sh
 numupdates=$( checkupdates | wc -l )
-color=$yellow
+color=$(tcolor yellow)
 if [ $numupdates -eq 0 ]; then 
-   color=$grey
+    color=$(tcolor grey)
 fi
 show_icon_text $color "" $numupdates
