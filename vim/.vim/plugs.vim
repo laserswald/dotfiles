@@ -11,6 +11,7 @@ Plug 'takac/vim-hardtime'
 " Plug 'sheerun/vim-polyglot'
 Plug 'tommcdo/vim-exchange'
 Plug 'AndrewRadev/linediff.vim'
+
 "}}}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -43,6 +44,7 @@ Plug 'tpope/vim-projectionist'
 " Movement plugins {{{
 Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
 
 " Completion plugins."{{{
 Plug 'SirVer/ultisnips'

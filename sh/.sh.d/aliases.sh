@@ -5,6 +5,7 @@ alias df="e ~/etc"
 alias ds=dirs
 alias dvtm="dvtm -m "
 alias e=$EDITOR
+alias emacs="emacs -nw"
 alias ea="e ~/.sh.d/aliases.sh"
 alias eclimd="/usr/lib/eclipse/eclimd &"
 alias edit=$EDITOR

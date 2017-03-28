@@ -1,4 +1,4 @@
-" Plain text with tagging. 
+" Plain text with tagging.
 
 function! TagRegex(name)
     return ""
@@ -10,7 +10,7 @@ function! ToggleTag(name)
     if match(l:ln, "@".a:name) != -1
         " remove it
         let l:ln = substitute(l:ln, " @".a:name, "", "")
-    else 
+    else
         " add it to the end
         let l:ln .= " @".a:name
     endif
@@ -18,7 +18,7 @@ function! ToggleTag(name)
     call setline(".", l:ln)
 endfunction
 
-command! ToggleTag 
+command! ToggleTag
 
 function! ToggleSelection(name)
 
