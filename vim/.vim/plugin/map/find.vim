@@ -10,7 +10,7 @@ nnoremap <leader><Space> :Unite -start-insert file_rec buffer tag tab<cr>
 nnoremap <leader><Space>b :Unite buffer -start-insert<cr>
 
 " Fuzzy find a file.
-nnoremap <leader><Space>f :Unite -start-insert file/async<cr>
+nnoremap <leader><Space>f :Unite -start-insert file_rec/async<cr>
 
 " Fuzzy find a tag in this file.
 nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
