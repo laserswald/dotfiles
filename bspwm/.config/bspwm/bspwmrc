@@ -9,6 +9,4 @@ bspc config gapless_monocle      true
 bspc config focus_by_distance    true
 bspc config history_aware_focus  true
 
-
 bspc monitor -d main contact shells work chat play media other bg servers
-

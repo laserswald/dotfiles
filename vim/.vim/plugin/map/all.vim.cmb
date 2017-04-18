@@ -1,0 +1,172 @@
+""" buffer.vim
+
+" Use Unite's quick-buffer matcher to switch buffers.
+nnoremap <leader>b  :Unite buffer -quick-match<cr>
+
+" Go to the next buffer.
+nnoremap <leader>bn :bn<cr>
+
+" Go to the previous buffer.
+nnoremap <leader>bp :bp<cr>
+
+""" edit.vim
+
+" Edit a local notes file.
+nnoremap <leader>en      :e ~/notes.txt<cr>
+
+" Edit the UltiSnips local snippets for the current file type.
+nnoremap <leader>esn     :UltiSnipsEdit<cr>
+
+""" external.vim
+
+" Sort the current visual selection.
+vnoremap <leader>s :!sort<cr>
+
+" Sort the entire file.
+nnoremap <localleader>s :!sort<cr>
+
+""" extras.vim
+
+" Turn the current word to all-caps.
+inoremap <c-u> <esc>viwUea
+
+" Realign the entire file.
+nnoremap <leader>= ggVG=
+
+" Uppercase this word.
+nnoremap <leader>u viwUe
+
+" Execute a normal command over the entire selection.
+vnoremap <leader>n  :g/^/norm
+
+" Extract the current selection to a new buffer.
+vnoremap <leader>x  "md:enew<cr>"mp
+
+""" find.vim
+
+" Turn off search highlighting.
+noremap <Space> :nohlsearch<cr>
+
+" Fuzzy find any buffer, file, tag or tab.
+nnoremap <leader><Space> :Unite -start-insert file_rec buffer tag tab<cr>
+
+" Fuzzy find a buffer.
+nnoremap <leader><Space>b :Unite buffer -start-insert<cr>
+
+" Fuzzy find a file.
+nnoremap <leader><Space>f :Unite -start-insert file/async<cr>
+
+" Fuzzy find a tag in this file.
+nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
+
+" Find any TODO items in this entire project.
+nnoremap <leader>?  :lvimgrep TODO ./* <cr>
+
+" Write the file.
+nnoremap <leader>f :w<cr>
+
+" Run this file.
+nnoremap <leader>fr :echom "This file isn't runnable. Derp."<cr>
+
+" Find the current word in any file in this project.
+nnoremap <leader>lw :lvimgrep <cword> ./* <cr>
+
+" Open a browsable tag buffer.
+nnoremap <leader>t :Unite tag/include -vertical<cr>
+
+""" git.vim
+
+" Write this file and add it to the Git index.
+nnoremap <leader>gw  :Gwrite<cr>
+
+" Commit this repository.
+nnoremap <leader>gc  :Gcommit<cr>
+
+" Show the status of this repository.
+nnoremap <leader>gs  :Gstatus<cr>
+
+" Show the differences between the committed file and the current file.
+nnoremap <leader>gd  :Gvdiff<cr>
+
+" Push any changes to the default remote repository.
+nnoremap <leader>gp  :Gpush<cr>
+
+""" macros.vim
+
+" Execute the last macro and go to the beginning of the next line.
+nnoremap <leader>j      @@j^
+
+" Execute the last macro and go to the beginning of the previous line.
+nnoremap <leader>J      @@k^
+
+""" movement.vim
+
+" Instead of moving line-wise, move graphical line wise.
+noremap j gj
+noremap k gk
+
+
+""" project.vim
+
+" Execute this project (run make, etc)
+nnoremap <leader>p :Dispatch<cr>
+
+" Edit this project's Projectionist file.
+nnoremap <leader>pe :e ./.projections.json<cr>
+
+""" settings.vim
+
+" Edit my (n)vim configuration file.
+nnoremap <leader>v  :e $MYVIMRC<cr>
+
+" Toggle showing whitespace as characters.
+nnoremap <leader>vw :set list!<cr>
+
+" Reload my entire Vim configuration.
+function! ReloadAll()
+    source $MYVIMRC
+    runtime! plugin/**/*.vim
+    execute ":PlugInstall"
+    execute ":quit"
+    execute ":PlugUpdate"
+    execute ":quit"
+endfunction
+nnoremap <leader>vr call ReloadAll()<cr>
+
+" Edit the vim configuration for this filetype.
+function! GetFiletypeFile()
+    return g:vimdir . '/ftplugin/' . &filetype . '.vim'
+endfunction
+nnoremap <leader>vf :execute "e " . GetFiletypeFile()<cr>
+
+""" window.vim
+
+" Make moving around a lot easier.
+noremap <a-j> <c-w>j
+noremap <a-k> <c-w>k
+noremap <a-l> <c-w>l
+noremap <a-h> <c-w>h
+
+" Go to the previous window.
+nnoremap <leader>w   <c-w>w
+
+" Equalize the windows.
+nnoremap <leader>w=  <c-w>=
+
+" Show the location list.
+nnoremap <leader>wL  :lwindow<cr>
+
+" Show the error list.
+nnoremap <leader>wM  :cwindow<cr>
+
+" Focus only one window.
+nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
+
+" Show the error list if there are any errors.
+nnoremap <leader>wm  :copen<cr>
+
+" Split this window in half vertically
+nnoremap <leader>ws  :split<cr>
+
+" Split this window in half horizontally.
+nnoremap <leader>wv  :vsplit<cr>

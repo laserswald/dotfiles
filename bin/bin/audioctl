@@ -1,0 +1,34 @@
+#!/bin/sh
+# Control audio.
+
+COMMAND=$1
+
+showvolume () {
+    notify-send -h int:value:$(amixer get Master | grep "%" | head -1 | cut -d' ' -f7 | tr -d "[%]") "Volume:"
+}
+
+showmute () {
+    output="$(amixer get Master)"
+    if echo "$output" | grep -q "\[on\]"; then
+        notify-send -i "/usr/share/icons/Adwaita/16x16/status/audio-volume-medium-symbolic.symbolic.png" "Volume:" "Unmuted"
+    else
+        notify-send "Volume:" "Muted"
+    fi
+}
+
+case $COMMAND in
+    up )
+        amixer set Master 10%+
+        showvolume
+        ;;
+    down )
+        amixer set Master 10%-
+        showvolume
+        ;;
+    mute)
+        amixer set Master toggle
+        showmute
+        ;;
+esac
+
+

@@ -1,8 +1,12 @@
-# Laserswald's standard profile.
-
-export ENV=$HOME/.shrc
+# Laserswald's standard profile. This is loaded only once.
 
 # Say something funny.
-fortune
-echo ' '
+command -v fortune >/dev/null 2>&1 && fortune
 
+export ENV="$HOME/.shrc"
+
+#set up dir colors
+d=.dircolors
+test -r $d && eval "$(dircolors $d)"
+
+source $ENV

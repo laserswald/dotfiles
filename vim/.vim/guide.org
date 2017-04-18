@@ -1,0 +1,30 @@
+** space: unite
+*** t: tags in file
+*** /: lines in file
+*** f: files
+*** b: buffers
+** b: buffer (default: quick buffer switch)
+*** n: next buffer
+*** p: previous buffer
+*** d: run a command over every buffer
+** f: file (default: write file)
+***  r: run
+** p: project
+*** b: build
+*** e: edit
+** t: tags
+** v: settings and toggle
+*** w: toggle showing whitespac
+*** b: toggle background colo
+*** e: edit vimrc
+*** r: reload vimrc and all plugin
+*** i: install plugin
+*** u: upgrade plugins
+** w: window (default: switch to last window)
+*** f: focus
+*** =: equalize
+*** s: split
+*** v: split vertically 
+*** m: open compilation message window
+*** M: force open compilation window
+*** L: force open location window

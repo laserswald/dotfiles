@@ -1,0 +1,89 @@
+"vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={{{,}}} foldlevel=5 foldmethod=marker spell:
+"
+" Some of this should be split up into different files.
+
+" Environment
+function! WINDOWS()
+    return (has("win32") || has("win64"))
+endfunction
+function! NVIM()
+    return has('nvim')
+endfunction
+
+" Neovim setup
+if NVIM()
+    runtime! plugin/python_setup.vim
+    set runtimepath+=/usr/share/vim/vimfiles
+    let g:vimdir = "~/.config/nvim"
+else
+    set nocompatible
+    let g:vimdir = "~/.vim"
+endif
+
+" Windows setup.
+if WINDOWS()
+    let g:vimdir = "~/vimfiles"
+endif
+
+" Plugins {{{
+call plug#begin(g:vimdir . "/bundle")
+execute "source ".g:vimdir."/plugs.vim"
+if NVIM()
+    execute "source ".g:vimdir."/nplugs.vim"
+else
+    execute "source ".g:vimdir."/oplugs.vim"
+endif
+call plug#end()
+" 1}}}
+
+" Options
+
+" Essentials. This should be moved to some 'core.vim' thing
+syntax enable
+filetype plugin indent on
+
+" General mapping settings.
+let mapleader = ' '  " Perhaps the best map leader.
+let maplocalleader = '\'
+
+" Make jk escape to normal mode
+inoremap jk <esc>
+vnoremap jk <esc>
+
+" My own custom functions."{{{
+function! SwitchColors()
+    if &background == "dark"
+        exec "set background=light"
+    else
+        exec "set background=dark"
+    endif
+    exec "colorscheme ".g:colors_name
+endfunction
+command! SwitchColors call SwitchColors()
+
+function! TitleCase()
+    let l:words = split(getline('.'), '\W')
+    let l:chg = ""
+    for word in l:words
+        " Get the first letter
+        let l:head = toupper(strpart(word, 0, 1))
+        let l:tail = strpart(word, 1)
+        let l:chg .= l:head . l:tail . " "
+    endfor
+    call setline('.', l:chg)
+endfunction
+command! TitleCase call TitleCase()
+
+function! SplitLine(pattern)
+    " Split the current line by the pattern
+    let l:words = split(getline('.'), a:pattern)
+    " Append the strings as new lines
+    call append(getline('.'), l:words)
+endfunction
+command! -nargs=1 SplitLine call SplitLine(<args>)
+
+command! -nargs=0 XFontSel :read! xfontsel -print
+
+"}}}
+
+

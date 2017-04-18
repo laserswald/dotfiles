@@ -1,0 +1,26 @@
+#!/bin/sh
+
+cmd=$1
+projname=$2
+
+ORG_DIR="$HOME/org"
+
+case $cmd in
+    new)
+        mkdir "$ORG_DIR/projects/$2"
+        touch "$ORG_DIR/projects/$2/notes.txt"
+        touch "$ORG_DIR/projects/$2/todo.txt"
+        ;;
+    enable|open)
+        ln -s "$ORG_DIR/projects/$2" "$ORG_DIR/current"
+        ;;
+    disable|close)
+        rm -f "$ORG_DIR/current/$2"
+        ;;
+    archive)
+        tar -czf "$ORG_DIR/archive/$2_$(date +"%Y_%m_%d").tar.gz" "$ORG_DIR/projects/$2"
+        rm -r "$ORG_DIR/projects/$2"
+        ;;
+    ?)
+        ;;
+esac

@@ -1,0 +1,75 @@
+- Get the new things from KSUWeb @graphics
+- Do the lighting lab @graphics
+
+Lighting:
+    Very complex process. 
+    It bounces, refracts and is ubiquitous
+    *VERY HARD TO RENDER EFFECTIVELY*
+
+    Approximations:
+        "if it looks good, it IS good"
+    
+    Two components:
+        Source properties:
+            Color, Shape, Direction
+        Object properties:
+            Material, Geometry, Absorption
+
+    Reflections can reflect foreverrrrr
+    but we can't do that..
+    
+    Directional light:
+        (a point far away) 
+        only the direction matters, not the position.
+        intensity = acos(Normal * Light)
+
+    Components:
+        Diffusion:
+            the way light falls off an object
+
+        Specular:
+            Shininess 
+
+        Ambient:
+            Light simulating global illumination
+
+        Emitted:
+            glowy
+    
+    final color is composed of may things:
+        base object color
+        light color
+        textures     
+
+    Light source directions:
+        Omni-directional from point
+        directional angle 
+        directional parallel rays 
+
+    Lighting vectors:
+        l = incoming light vector
+        n = normal of the plane/vertex
+        r = reflection vector
+        v = viewpoint
+
+    Diffusion:
+        Contribution that a light has on the surface, regardless of viewing direction.
+        Diffuse surfaces could bounce in any direction.
+
+        Lambertian reflectance: 
+            diffuse = n . l * c_d * l_d
+
+    Blinn-Phong Reflection:
+        h = v + l
+
+        final_color = (n . h)^s * c_s * l_s
+        S is the shininess factor: bigger it is, the smaller the reflected shine is 
+    
+    Ambience and Emission:
+        Just add the vectors together
+
+    Final color: 
+        add the diffuse, specular, ambient and emit
+        for multiple lights, calculate them seperately and then sum them
+
+

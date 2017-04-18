@@ -43,7 +43,7 @@ ZSH_CUSTOM=~/.zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux ant fasd git-flow github tmux)
+plugins=(archlinux)
 
 # User configuration
 
@@ -62,3 +62,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+source ~/.shrc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
