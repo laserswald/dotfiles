@@ -1,5 +1,5 @@
 # Library for building bar interfaces. 
-. ~/etc/theme.sh
+. ~/.lemonbar/theme.sh
 
 function show_icon_text {
     maincolor=$1

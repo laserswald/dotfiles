@@ -14,6 +14,7 @@ else
         purple) cn="color5" ;; brpurple) cn="color13" ;;
         cyan) cn="color6"   ;; brcyan) cn="color14"   ;;
         white) cn="color7"  ;; brwhite) cn="color15"  ;;
+        foreground) cn="foreground"  ;; background) cn="background"  ;;
     esac
 fi
 

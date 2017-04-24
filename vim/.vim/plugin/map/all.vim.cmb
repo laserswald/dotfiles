@@ -37,7 +37,7 @@ nnoremap <leader>= ggVG=
 nnoremap <leader>u viwUe
 
 " Execute a normal command over the entire selection.
-vnoremap <leader>n  :g/^/norm 
+vnoremap <leader>n  :g/^/norm
 
 " Extract the current selection to a new buffer.
 vnoremap <leader>x  "md:enew<cr>"mp
@@ -97,7 +97,7 @@ nnoremap <leader>gp  :Gpush<cr>
 nnoremap <leader>j      @@j^
 
 " Execute the last macro and go to the beginning of the previous line.
-nnoremap <leader>J      @@k^ 
+nnoremap <leader>J      @@k^
 
 """ movement.vim
 
@@ -109,7 +109,7 @@ noremap k gk
 """ project.vim
 
 " Execute this project (run make, etc)
-nnoremap <leader>p :Dispatch<cr>  
+nnoremap <leader>p :Dispatch<cr>
 
 " Edit this project's Projectionist file.
 nnoremap <leader>pe :e ./.projections.json<cr>
@@ -126,12 +126,12 @@ nnoremap <leader>vw :set list!<cr>
 function! ReloadAll()
     source $MYVIMRC
     runtime! plugin/**/*.vim
-    execute ":PlugInstall" 
+    execute ":PlugInstall"
     execute ":quit"
-    execute ":PlugUpdate" 
+    execute ":PlugUpdate"
     execute ":quit"
 endfunction
-nnoremap <leader>vr call ReloadAll()<cr> 
+nnoremap <leader>vr call ReloadAll()<cr>
 
 " Edit the vim configuration for this filetype.
 function! GetFiletypeFile()
@@ -159,7 +159,7 @@ nnoremap <leader>wL  :lwindow<cr>
 " Show the error list.
 nnoremap <leader>wM  :cwindow<cr>
 
-" Focus only one window. 
+" Focus only one window.
 nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
 
 " Show the error list if there are any errors.

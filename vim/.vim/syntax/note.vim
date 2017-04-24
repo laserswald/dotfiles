@@ -1,13 +1,18 @@
 " Vim syntax file
 "
-syn match notetxtTag '@\i*'
-syn match notetxtSection '\s*.*:\s*$' contains=notetxtTag
-syn match notetxtTask '^\s*-.*$' contains=notetxtTag
-syn match notetxtDone '^\s*-.*@done.*$' 
+if exists("b:current_syntax")
+    finish
+endif 
 
-let b:current_syntax = "note.txt"
+syn match taskpaperTag '@\i+'
+syn match taskpaperSection '\s*.*:\s*$' contains=taskpaperTag
+syn match taskpaperTask '^\s*-.*$' contains=taskpaperTag
+syn match taskpaperDone '^\s*-.*@done.*$' 
 
-hi def link notetxtSection Function
-hi def link notetxtTask Keyword
-hi def link notetxtDone Comment
-hi def link notetxtTag Variable
+
+hi def link taskpaperSection Function
+hi def link taskpaperTask Keyword
+hi def link taskpaperDone Comment
+hi def link taskpaperTag Variable
+
+let b:current_syntax = "taskpaper"

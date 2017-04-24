@@ -3,13 +3,20 @@ Laserswald's Dotfiles
 
 You need GNU Stow in order to install these. Just put these in a subdirectory of ~, go into that directory and execute
 
-    stow [packages]
+    ./install [package]
 
 for any package you want.
 
+The packages you probably want include
+
+- *core* : Basic home directory structure and environment setup.
+- *sh* : Core shell script directory; compatible with any POSIX shell.
+- *vim* or *emacs* : Editors.
+- *xorg* : X configuration.
+
 Special thanks goes to:
     arcetera for his ideas on how to structure my files.
-    z3bra and dcat for being general badasses and making wmutils. 
+    z3bra and dcat for being general badasses and making wmutils.
 
 License:
-I really don't give a fuck.
+I really don't give a fuck, but it would be nice if you credit me.
