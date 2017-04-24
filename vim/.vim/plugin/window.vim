@@ -1,3 +1,3 @@
 " Splits and buffers
-set equalalways
+set noequalalways
 set hidden
