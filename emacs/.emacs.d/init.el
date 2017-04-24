@@ -2,16 +2,13 @@
 (add-to-list 'package-archives '("melpa" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
-(require 'evil-escape)
-(setq-default evil-escape-key-sequence "jk")
-
 (require 'evil-leader)
 (global-evil-leader-mode)
-(evil-leader/set-leader ",")
+(evil-leader/set-leader " ")
 (evil-leader/set-key
   "w" 'save-buffer
-  "v" 'split-window-horizontally
-  "s" 'split-window-vertically)
+  "wv" 'split-window-horizontally
+  "ws" 'split-window-vertically)
 
 (evil-leader/set-key-for-mode 'emacs-lisp-mode "b" 'eval-buffer)
 
@@ -26,5 +23,10 @@
 (define-key evil-normal-state-map (kbd "-") '(lambda () (interactive) (find-file ".")))
 
 (tool-bar-mode -1)
-(menu-bar-mode -1)(setq inhibit-startup-message t)
+(menu-bar-mode -1)
+(setq inhibit-startup-message t)
 (evil-mode 1)
+
+(require 'evil-escape)
+(setq-default evil-escape-key-sequence "jk")
+(evil-escape-mode)
