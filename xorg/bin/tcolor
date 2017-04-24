@@ -2,7 +2,7 @@
 # Grab a color from the current colorscheme
 
 # Get a color name
-if $(echo $1 | grep -q "color[0-9]\{1,2\}"); then 
+if $(echo $1 | grep -q "color[0-9]\{1,2\}"); then
     cn=$1
 else
     case $1 in
