@@ -24,4 +24,6 @@ hi PHPPrivate cterm=bold ctermfg=Black
 hi PHPProtected cterm=bold ctermfg=Cyan
 
 
-call automark#Mark("class", 'c')
+setlocal iskeyword+=$
+
+let g:neomake_enabled_makers = ["phpunit"]

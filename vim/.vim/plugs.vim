@@ -1,5 +1,6 @@
 
 Plug 'tpope/vim-repeat'
+Plug 'tpope/tpope-vim-abolish'
 
 " Extra motions and actions {{{
 Plug 'tpope/vim-surround'
@@ -19,7 +20,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Fuzzy Find tools {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'tsukkee/unite-tag'
 " }}}
@@ -29,6 +30,8 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'laserswald/chameleon.vim'
 Plug 'fxn/vim-monochrome'
 Plug 'chriskempson/base16-vim'
+Plug 'inkarkat/SyntaxAttr.vim'
+Plug 'jaxbot/semantic-highlight.vim'
 " Plug 'tpope/vim-flagship'
 "}}}
 
@@ -44,7 +47,6 @@ Plug 'tpope/vim-projectionist'
 " Movement plugins {{{
 Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
 
 " Completion plugins."{{{
 Plug 'SirVer/ultisnips'
@@ -64,7 +66,7 @@ Plug 'gcmt/taboo.vim'
 
 " Organization {{{
 Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
-Plug 'mattn/emmet-vim', {'for': 'html'}
+Plug 'mattn/emmet-vim'
 Plug 'jceb/vim-orgmode'
 " }}}
 
@@ -82,6 +84,7 @@ Plug 'joonty/vdebug', {'for': 'php'}
 
 Plug 'pangloss/vim-javascript'
 Plug 'chrisbra/csv.vim'
+Plug 'jwalton512/vim-blade'
 
 " Plug 'davidoc/taskpaper.vim'
 "}}}

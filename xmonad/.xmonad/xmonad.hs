@@ -1,10 +1,10 @@
 -- xmonad.hs
 
--- Xmonad configuration file 
+-- Xmonad configuration file
 -- (c) 2017 Laserswald
 
 -- Management hooks.
------------------------------------------------------------------------ 
+-----------------------------------------------------------------------
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -19,7 +19,7 @@ import System.Exit
 import XMonad.Layout.Tabbed
 
 -- Other.
-import qualified Data.Map as M 
+import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 -- Prompts
@@ -27,15 +27,16 @@ import XMonad.Prompt
 import XMonad.Prompt.Shell
 
 -- Personal configs
+import Lazr.Colors
 
 -- Color theme.
 
 -- Useful functions.
------------------------------------------------------------------------ 
-spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'" 
+-----------------------------------------------------------------------
+spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' '" ++ desc ++ "'"
 
 -- Settings.
------------------------------------------------------------------------ 
+-----------------------------------------------------------------------
 myTerminal = "urxvt"
 myWorkspaces = ["main", "net", "support", "graph", "comm", "fun", "servers", "other", "background"]
 myFont = "terminesspowerline:size=10"
@@ -53,7 +54,7 @@ myStartupHook = do
    spawnOnce "nitrogen --restore"
 
 -- Management hooks.
------------------------------------------------------------------------ 
+-----------------------------------------------------------------------
 myManageHook = composeAll
     [ className =? "Gimp" --> doFloat
     , className =? "Vncviewer" --> doFloat
@@ -78,18 +79,18 @@ xbmPath = "/home/ben/dotfiles/dzen/icons/"
 dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
 
 myLayout :: String -> String
-myLayout n  
+myLayout n
     | n == "Full" = dzenIcon "fullscr.xbm"
     | n == "Tall" = dzenIcon "tall.xbm"
-    | n == "Mirror Tall" = dzenIcon "mirrortall.xbm" 
-    | n == "Tabbed Simplest" = dzenIcon "tabs.xbm" 
-    | otherwise = n 
+    | n == "Mirror Tall" = dzenIcon "mirrortall.xbm"
+    | n == "Tabbed Simplest" = dzenIcon "tabs.xbm"
+    | otherwise = n
 
 dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 
 -- Key Bindings.
 -----------------------------------------------------------------------
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $ 
+myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm,             xK_KP_Enter), spawn $ XMonad.terminal conf)
     , ((modm,               xK_semicolon ), spawn dmenuCustom)
@@ -115,9 +116,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- Exit xmonad.
     , ((modm              , xK_q     ), spawnAndNotify "xmonad --recompile; xmonad --restart" "Xmonad" "Recompiled.")  -- Restart xmonad
-    
+
     -- Applications.
-    , ((modm              , xK_b     ), spawn "firefox")          
+    , ((modm              , xK_b     ), spawn "firefox")
     , ((modm .|. shiftMask, xK_b     ), spawn "dwb")
     , ((modm              , xK_f     ), spawn "urxvt -e ranger")
     , ((modm .|. shiftMask, xK_f     ), spawn "pcmanfm")
@@ -127,8 +128,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Prompts.
     --TODO: Looks like we need a better XPconfig
     , ((modm .|. shiftMask, xK_slash), shellPrompt defaultXPConfig)
-    
-    
+
+
 
 
     -- Media Bar
@@ -137,7 +138,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0                 , 0x1008ff12), spawn "amixer set Master toggle")  -- Volmute
    ]
     ++
- 
+
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
@@ -146,7 +147,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
     ++
- 
+
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
@@ -157,9 +158,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- Main.
 -----------------------------------------------------------------------
+main :: IO ()
 main = do
     -- dzenleftbar <- spawnPipe myLeftBar
-    -- dzenrightbar <- spawnPipe myRightBar 
+    focusedColor <- getColor "green"
+    normalColor <- getColor "brblack"
     xmonad $ defaultConfig{
         manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook =  avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed  )
@@ -172,6 +175,6 @@ main = do
         , handleEventHook = fullscreenEventHook
         , startupHook = myStartupHook
         , normalBorderColor = "#002b36"
-        , focusedBorderColor = "#839496"
+        , focusedBorderColor = focusedColor
         }
 
