@@ -55,10 +55,11 @@ Plug 'ervandew/supertab'
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
 " DebugginCC
-Plug 'joonty/vdebug', {'for': 'php'}
 
 Plug 'gcmt/taboo.vim'
 
+
+"}}}
 " Filetype specific plugins"{{{
 
 " Organization {{{
@@ -75,7 +76,10 @@ Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
 Plug 'laserswald/php.vim', {'for' : 'php'}
+Plug 'afternoon/vim-phpunit', {'for' : 'php'}
+Plug 'joonty/vdebug', {'for': 'php'}
 "}}}
+
 Plug 'pangloss/vim-javascript'
 Plug 'chrisbra/csv.vim'
 

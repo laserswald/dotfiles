@@ -14,22 +14,25 @@ let g:colors_name="mono"
 " bold white
 highlight Statement    term=none cterm=bold ctermfg=15  ctermbg=none
 " bright white
-highlight Function   term=none cterm=bold ctermfg=15    ctermbg=none
+highlight Function   term=none cterm=none ctermfg=15    ctermbg=none
+" white
+highlight Identifier   term=none cterm=none ctermfg=7    ctermbg=none
+highlight Operator      term=none cterm=none ctermfg=7    ctermbg=none
+
 " bold color
 highlight Type term=none cterm=bold ctermfg=4 ctermbg=none
 " bright color
 highlight Special term=none cterm=none ctermfg=12    ctermbg=none
 " color
-highlight Constant     term=none cterm=none ctermfg=4    ctermbg=none
-" white
-highlight Identifier   term=none cterm=none ctermfg=7    ctermbg=none
-highlight Operator      term=none cterm=none ctermfg=7    ctermbg=none
+
 " foreground
+
 " bold grey
-highlight StorageClass term=none cterm=bold ctermfg=8    ctermbg=none
+highlight Constant     term=none cterm=none ctermfg=7    ctermbg=none
 " grey
-highlight Comment      term=none cterm=none ctermfg=8    ctermbg=none
+highlight Comment      term=none cterm=bold ctermfg=0    ctermbg=none
 " black
+highlight StorageClass term=none cterm=none ctermfg=0    ctermbg=none
 
 highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
 highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
