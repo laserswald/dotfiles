@@ -77,6 +77,7 @@ Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
 Plug 'laserswald/php.vim', {'for' : 'php'}
 "}}}
 Plug 'pangloss/vim-javascript'
+Plug 'arrufat/vala.vim'
 Plug 'chrisbra/csv.vim'
 
 " Plug 'davidoc/taskpaper.vim'

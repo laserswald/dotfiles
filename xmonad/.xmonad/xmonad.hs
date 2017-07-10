@@ -24,7 +24,7 @@ import XMonad.Prompt
 import XMonad.Prompt.Shell
 
 -- My own custom tools and functions
-import Lazr.Colors as L
+import Lazr.Colors as Colors
 
 -- Color theme.
 
@@ -156,7 +156,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 main = do
     -- brblack <- L.getColor "green"
     -- cyan <- L.getColor "blue"
-    -- blue <- L.getColor "blue"
+    blue <- Colors.getColor "blue"
     -- let focused = L.rstrip blue
     -- dzenleftbar <- spawnPipe myLeftBar
     -- dzenrightbar <- spawnPipe myRightBar
@@ -171,7 +171,7 @@ main = do
         , keys = myKeys
         , handleEventHook = fullscreenEventHook
         -- , startupHook = myStartupHook
-        -- , normalBorderColor = "#00f"
-        -- , focusedBorderColor = L.rstrip cyan
+        , normalBorderColor = "#00f"
+        , focusedBorderColor = blue
         }
 

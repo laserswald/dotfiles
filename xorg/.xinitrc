@@ -2,10 +2,9 @@
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
-xrdb -merge "$HOME/.xrdb.d/main"
+xrdb -load "$HOME/.xrdb.d/main"
 
 # Daemons.
-syncthing --no-browser &
 mpd &
 redshift &
 dunst &
@@ -27,14 +26,12 @@ xsetroot -cursor_name left_ptr &
 
 
 # Start a minimalist bar.
-minbar &
+# minbar &
 
 ~/.screenlayout/dellnormleft.sh &
 
 # Start a tray.
 # tray &
 
-#exec ~/bin/backflip
-#export XDG_CURREENT_DESKTOP=GNOME-Classic:GNOME
-#export GNOME_SHELL_SESSION_MODE=classic
-exec xmonad
+exec openbox-session
+

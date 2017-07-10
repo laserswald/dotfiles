@@ -12,9 +12,8 @@ let g:colors_name="mono"
 "" In order of 'importance'
 
 " bold white
-highlight Statement    term=none cterm=bold ctermfg=15  ctermbg=none
+highlight Comment   term=none cterm=bold ctermfg=15  ctermbg=none
 " bright white
-highlight Function   term=none cterm=bold ctermfg=15    ctermbg=none
 " bold color
 highlight Type term=none cterm=bold ctermfg=4 ctermbg=none
 " bright color
@@ -22,13 +21,14 @@ highlight Special term=none cterm=none ctermfg=12    ctermbg=none
 " color
 highlight Constant     term=none cterm=none ctermfg=4    ctermbg=none
 " white
+highlight Function   term=none cterm=none ctermfg=7    ctermbg=none
 highlight Identifier   term=none cterm=none ctermfg=7    ctermbg=none
 highlight Operator      term=none cterm=none ctermfg=7    ctermbg=none
 " foreground
 " bold grey
 highlight StorageClass term=none cterm=bold ctermfg=8    ctermbg=none
 " grey
-highlight Comment      term=none cterm=none ctermfg=8    ctermbg=none
+highlight Statement term=none cterm=none ctermfg=8    ctermbg=none
 " black
 
 highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
