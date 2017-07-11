@@ -20,4 +20,7 @@ export MAIL=~/var/mail
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="$PATH:$HOME/bin"
-export HISTFILE="$HOME/.shhistory"
+
+# export HISTFILE="$HOME/.shhistory"
+
+export WM="xmonad"

@@ -9,5 +9,9 @@ skel (){
 }
 
 cskel () {
-    cp -r "$2" "$SKELDIR/$1" 
+    cp -r "$2" "$SKELDIR/$1"
+}
+
+lsskel () {
+    ls "$SKELDIR"
 }

@@ -1,8 +1,4 @@
 #!/bin/sh
-
-export WM=${1:-xmonad}
-
+echo "Starting from xinitrc" > .xsession.log
 . "$HOME/.xsession"
 
-
-exec $WM

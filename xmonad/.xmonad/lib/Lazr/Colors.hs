@@ -6,7 +6,6 @@ import Control.Monad
 import Data.Char
 import System.Environment
 import System.IO
-import System.Process
 import XMonad.Util.Run
 
 rstrip = reverse . dropWhile isSpace . reverse

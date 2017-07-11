@@ -1,35 +1,36 @@
 -- xmonad.hs
-
 -- Xmonad configuration file
 -- (c) 2017 Laserswald
 
--- Management hooks.
------------------------------------------------------------------------
+import System.Exit
+import System.IO
+import System.Environment
+import System.Directory
+import System.Posix.Files
+import System.Posix.IO
+
+import Control.Monad (void)
+
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.SpawnOnce
-import XMonad.Actions.CycleWS
-import System.IO
-import System.Exit
 import XMonad.Layout.Tabbed
+import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.SpawnOnce
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
 -- Other.
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
--- Prompts
-import XMonad.Prompt
-import XMonad.Prompt.Shell
-
 -- Personal configs
 import Lazr.Colors
-
--- Color theme.
+import Lazr.Bar
 
 -- Useful functions.
 -----------------------------------------------------------------------
@@ -38,20 +39,13 @@ spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' 
 -- Settings.
 -----------------------------------------------------------------------
 myTerminal = "urxvt"
-myWorkspaces = ["main", "net", "support", "graph", "comm", "fun", "servers", "other", "background"]
+myWorkspaces = ["!", "@", "#", "$", "%", "^", "&", "*", "("]
 myFont = "terminesspowerline:size=10"
 
 -- Statusbars.
 -----------------------------------------------------------------------
 --myLeftBar = "~/dotfiles/dzen/left.sh"
 --myRightBar = "~/dotfiles/dzen/right.sh"
-
--- Startup programs.
------------------------------------------------------------------------
-myStartupHook = do
-   spawnOnce "twmnd &"
-   spawnOnce "~/.screenlayout/dellaoc.sh"
-   spawnOnce "nitrogen --restore"
 
 -- Management hooks.
 -----------------------------------------------------------------------
@@ -63,28 +57,6 @@ myManageHook = composeAll
     , className =? "irssi" --> doShift "chat"
     ]
 
--- Log hook settings..
------------------------------------------------------------------------
-myLogHook proc = dynamicLogWithPP $ defaultPP
-    { ppOutput = hPutStrLn proc
-    , ppTitle = dzenColor "#d8d8d8" "" . shorten 50
-    , ppCurrent = dzenColor "#e8e8e8" ""
-    , ppVisible = dzenColor "#b8b8b8" ""
-    , ppUrgent = dzenColor "#d33682" ""
-    , ppHidden = dzenColor "#585858" ""
-    , ppLayout = myLayout
-    }
-
-xbmPath = "/home/ben/dotfiles/dzen/icons/"
-dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
-
-myLayout :: String -> String
-myLayout n
-    | n == "Full" = dzenIcon "fullscr.xbm"
-    | n == "Tall" = dzenIcon "tall.xbm"
-    | n == "Mirror Tall" = dzenIcon "mirrortall.xbm"
-    | n == "Tabbed Simplest" = dzenIcon "tabs.xbm"
-    | otherwise = n
 
 dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 
@@ -160,21 +132,22 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 -----------------------------------------------------------------------
 main :: IO ()
 main = do
-    -- dzenleftbar <- spawnPipe myLeftBar
+    fifo         <- makePipe
+    trace $ "Fifo is " ++ show fifo
     focusedColor <- getColor "green"
-    normalColor <- getColor "brblack"
-    xmonad $ defaultConfig{
-        manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
-        , layoutHook =  avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed  )
-        -- , logHook = myLogHook dzenleftbar
-        , terminal = myTerminal
-        , borderWidth = 1
-        , modMask = mod4Mask
-        , workspaces = myWorkspaces
-        , keys = myKeys
-        , handleEventHook = fullscreenEventHook
-        , startupHook = myStartupHook
-        , normalBorderColor = "#002b36"
+    normalColor  <- getColor "brblack"
+    xmonad $ defaultConfig
+        { borderWidth        = 1
         , focusedBorderColor = focusedColor
+        , handleEventHook    = fullscreenEventHook <+> docksEventHook
+        , keys               = myKeys
+        , layoutHook         = avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed)
+        , logHook            = universalLogHook fifo
+        , manageHook         = manageDocks <+> myManageHook <+> manageHook defaultConfig
+        , modMask            = mod4Mask
+        , normalBorderColor  = normalColor
+        , startupHook        = docksStartupHook
+        , terminal           = myTerminal
+        , workspaces         = myWorkspaces
         }
 
