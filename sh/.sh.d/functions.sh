@@ -7,8 +7,8 @@ search () {
     w3m "duckduckgo.com/?q=$1"
 }
 
-godir (){ 
+godir (){
     cd "$1" || exit
-    ls 
+    ls
 }
 

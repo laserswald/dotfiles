@@ -1,5 +1,5 @@
 #!/bin/sh
-while true; do 
+while true; do
     buffer=""
 
     # buffer="${buffer} $(~/.lemonbar/inbox.sh)"
@@ -7,10 +7,8 @@ while true; do
     # buffer="${buffer} $(~/.lemonbar/pacman.sh)"
     # buffer="${buffer} $(~/.lemonbar/vol.sh)"
 #    buffer="${buffer} %{r} $(~/.lemonbar/mcstatus.sh)"
-    buffer="${buffer} %{c}"
     buffer="${buffer} $(~/.lemonbar/wifi.sh)"
     buffer="${buffer} $(~/.lemonbar/group.sh)"
-    buffer="${buffer} %{r}"
 #    buffer="${buffer} $(~/.lemonbar/mpd.sh)"
     # buffer="${buffer} $(~/.lemonbar/todo.sh)"
     buffer="${buffer} $(~/.lemonbar/time.sh)"

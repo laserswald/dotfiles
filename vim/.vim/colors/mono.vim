@@ -7,25 +7,58 @@ if version > 580
 endif
 let g:colors_name="mono"
 
-" 0:black 1:red 2:green 3:yellow 4:blue 5:purple 6:cyan 7:white
+" Transform the similar and contrast colors
+" Similar is the shade closely matching the background
+" Contrast is the opposite
+" bright of either is the easier shade to see
 
-"" In order of 'importance'
+" Light backgrounds
+let s:similar = 15
+let s:bsimilar = 7
+let s:contrast = 0
+let s:bcontrast = 8
 
-highlight Normal term=none cterm=none ctermbg=0
+if &background ==# "dark"
+    let s:similar = 0
+    let s:bsimilar = 8
+    let s:contrast = 7
+    let s:bcontrast = 15
+
+endif
+
+function! s:ApplyStyle(type, ...)
+    let str = "highlight ".a:type
+    for o in a:000
+        let str = str." ".o
+    endfor
+    exec str
+endfunc
+
+" highlight Normal term=none cterm=none ctermbg=0
 
 " bold white
-highlight Statement    term=none cterm=bold ctermfg=7  ctermbg=none
+call s:ApplyStyle("Statement", "ctermfg=".s:bcontrast, "cterm=bold")
+
 " bright white
-highlight Function   term=none cterm=none ctermfg=15    ctermbg=none
+call s:ApplyStyle("Function", "ctermfg=".s:bcontrast, "cterm=none")
+call s:ApplyStyle("Constant", "ctermfg=".s:bcontrast, "cterm=none")
+call s:ApplyStyle("String", "ctermfg=".s:bcontrast, "cterm=none")
+call s:ApplyStyle("Character", "ctermfg=".s:bcontrast, "cterm=none")
+call s:ApplyStyle("SpecialChar", "ctermfg=".s:bcontrast, "cterm=none")
+
 " white
-highlight Identifier   term=none cterm=none ctermfg=7    ctermbg=none
-highlight Operator      term=none cterm=none ctermfg=7    ctermbg=none
+call s:ApplyStyle("Identifier", "ctermfg=".s:contrast, "cterm=none")
+call s:ApplyStyle("Operator", "ctermfg=".s:contrast, "cterm=none")
 
 " bold color
-highlight Type term=none cterm=bold ctermfg=4 ctermbg=none
+highlight Type         term=none cterm=bold ctermfg=4 ctermbg=none
+
 " bright color
-highlight Special      term=none cterm=bold ctermfg=0    ctermbg=none
+highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
+highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
+
 " color
+<<<<<<< HEAD
 highlight Constant     term=none cterm=none ctermfg=4    ctermbg=none
 " white
 highlight Function   term=none cterm=none ctermfg=7    ctermbg=none
@@ -40,39 +73,38 @@ highlight Comment      term=none cterm=none ctermfg=8    ctermbg=none
 highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
 highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
 
-highlight IncSearch       term=none cterm=bold ctermfg=8    ctermbg=0
-highlight Search       term=none cterm=none ctermfg=8    ctermbg=0
+" Display
+call s:ApplyStyle("ColorColumn", "ctermbg=3")
+call s:ApplyStyle("CursorLine", "ctermbg=".s:similar)
+call s:ApplyStyle("Directory", "ctermfg=".s:contrast, "cterm=bold")
+call s:ApplyStyle("Error", "ctermfg=".s:similar, "ctermbg=1")
+call s:ApplyStyle("ErrorMsg", "ctermfg=1", "ctermbg=".s:similar)
+call s:ApplyStyle("FoldColumn", "ctermfg=1")
+call s:ApplyStyle("Folded", "ctermfg=".s:bsimilar, "ctermbg=".s:bcontrast)
+
+" Searching
+call s:ApplyStyle("Search", "ctermfg=".s:similar, "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("IncSearch", "ctermfg=3", "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("NonText", "ctermfg=".s:similar, "cterm=none")
+call s:ApplyStyle("Visual", "ctermbg=".s:bsimilar, "cterm=none")
+
+" Popup menu
+call s:ApplyStyle("Pmenu", "ctermfg=".s:contrast, "ctermbg=".s:bsimilar)
+call s:ApplyStyle("PmenuSel", "ctermfg=".s:bsimilar, "ctermbg=".s:contrast, "cterm=none")
+call s:ApplyStyle("PmenuSbar", "ctermfg=".s:similar, "cterm=none")
+call s:ApplyStyle("PmenuThumb", "ctermfg=".s:similar, "cterm=none")
+
+" Borders around the splits
+call s:ApplyStyle("StatusLine", "ctermfg=".s:similar, "ctermbg=".s:contrast, "cterm=none")
+call s:ApplyStyle("StatusLineNC", "ctermfg=".s:contrast, "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("VertSplit", "ctermfg=".s:contrast, "ctermbg=".s:bsimilar, "cterm=none")
 
 " Other symbols.
-highlight ColorColumn  term=none cterm=none ctermfg=none ctermbg=3
-highlight Cursor       term=none cterm=none ctermfg=3    ctermbg=none
-highlight CursorLine   term=none cterm=none ctermfg=none ctermbg=none
-highlight DiffAdd      term=none cterm=none ctermfg=2    ctermbg=none
-highlight DiffChange   term=none cterm=none ctermfg=none ctermbg=none
-highlight DiffDelete   term=none cterm=none ctermfg=7    ctermbg=1
-highlight DiffText     term=none cterm=none ctermfg=7    ctermbg=4
-highlight Directory    term=none cterm=none ctermfg=4    ctermbg=0
-highlight Error        term=none cterm=none ctermfg=0    ctermbg=1
-highlight ErrorMsg     term=none cterm=none ctermfg=1    ctermbg=0
-
-highlight NonText      term=none cterm=none ctermfg=0    ctermbg=none
-highlight Normal       term=none cterm=none ctermfg=7    ctermbg=none
-highlight Pmenu        term=none cterm=none ctermfg=0    ctermbg=7
-highlight SpecialKey   term=none cterm=none ctermfg=0    ctermbg=none
-highlight StatusLine   term=none cterm=none ctermfg=0    ctermbg=none
-" highlight StatusLineNC term=none cterm=bold ctermfg=0    ctermbg=none
-highlight TabLineSel   term=none cterm=none ctermfg=7    ctermbg=none
-highlight Todo         term=none cterm=none ctermfg=3    ctermbg=1
-highlight Underlined   term=underline cterm=underline ctermfg=none   ctermbg=none
-highlight VertSplit    term=none cterm=none ctermfg=6    ctermbg=0
-highlight Visual       term=none cterm=none ctermfg=0    ctermbg=7
-highlight WarningMsg   term=none cterm=none ctermfg=3    ctermbg=none
 
 " General highlighting group links.
 highlight! link diffAdded       DiffAdd
 highlight! link diffRemoved     DiffDelete
 highlight! link diffChanged     DiffChange
-highlight! link StatusLineNC    StatusLine
 highlight! link Title           Normal
 highlight! link LineNr          NonText
 highlight! link MoreMsg         Normal

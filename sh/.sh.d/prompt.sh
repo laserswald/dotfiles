@@ -8,5 +8,13 @@ fcyan=`tput setaf 6`
 fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
+prompt_dir () {
+    pwd | sed 's:$HOME:~:g'
+}
+
+prompt_git () {
+    :
+}
+
 # Micro
-PS1="${fblue}$(hostname)${normal} \$(pwd | sed 's:$HOME:~:g') ${fgreen}:${normal} "
+PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "

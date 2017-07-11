@@ -1,3 +1,9 @@
 [user]
 	name = Ben Davenport-Ray
 	email = ben.davenportray@gmail.com
+[mergetool]
+	vimdiff = true
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[merge]
+	tool = vimdiff

@@ -1,52 +1,70 @@
 (require 'package)
 
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/")
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-             )
+(setq package-archives
+      '(("melpa" . "http://melpa.milkbox.net/packages/")
+	("gnu" . "https://elpa.gnu.org/packages")))
 (package-initialize)
 
 ;;;
-(defun require-package (pkg)
-  (setq-default highlight-tabs t)
-  "Installs a package."
-  (unless (package-installed-p pkg)
-    (unless (assoc pkg package-archive-contents)
-      (package-refresh-contents))
-    (package-install pkg)))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(require-package 'use-package)
+(use-package php-mode
+  :ensure t)
 
-(require-package 'evil-leader)
+(use-package magit
+  :ensure t)
 
-(require 'evil-leader)
-(global-evil-leader-mode)
-(evil-leader/set-leader " ")
-(evil-leader/set-key
-  "w" 'save-buffer
-  "wv" 'split-window-horizontally
-  "ws" 'split-window-vertically)
+;;; Evil configuration!
+(use-package evil
+  :ensure t
+  :config
 
-(evil-leader/set-key-for-mode 'emacs-lisp-mode "b" 'eval-buffer)
+  ;; Sane window movement. Basically the same as my Vim config, tbh
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
-(require 'evil)
+  (define-key evil-normal-state-map "gb"
+    '(lambda ()
+       (interactive)
+       (list-buffers)))
 
-(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+  (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
+  (define-key evil-normal-state-map (kbd "-")
+    '(lambda ()
+       (interactive)
+       (find-file ".")))
 
-(define-key evil-normal-state-map (kbd "-") '(lambda () (interactive) (find-file ".")))
-(define-key evil-normal-state-map (kbd "-") '(lambda () (interactive) (find-file ".")))
+  ;; I neeeeed my jk
+  (use-package evil-escape
+    :ensure t
+    :config
+    (setq-default evil-escape-key-sequence "jk")
+    (evil-escape-mode))
+
+  (evil-mode 1))
+
+(use-package general
+  :ensure t
+  :config
+  (setq general-default-keymaps 'evil-normal-state-map)
+  (setq general-default-prefix "SPC")
+
+  ;; Window manipulation
+  (general-define-key :infix "w"
+		      "j" 'split-window-vertically
+		      "l" 'split-window-horizontally))
+
+(use-package monochrome-theme
+  :ensure t)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq inhibit-startup-message t)
-(evil-mode 1)
 
-(require-package 'evil-escape)
-(require 'evil-escape)
-(setq-default evil-escape-key-sequence "jk")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -60,7 +78,7 @@
     ("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(package-selected-packages
    (quote
-    (xresources-theme spacemacs-theme evil-leader evil-escape goto-last-change evil))))
+    (magit php-mode monochrome-theme general xresources-theme spacemacs-theme evil-leader evil-escape goto-last-change evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
