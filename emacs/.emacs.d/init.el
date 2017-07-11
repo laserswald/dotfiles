@@ -10,9 +10,11 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package php-mode :ensure t)
+(use-package php-mode
+  :ensure t)
 
-(use-package magit :ensure t)
+(use-package magit
+  :ensure t)
 
 ;;; Evil configuration!
 (use-package evil
