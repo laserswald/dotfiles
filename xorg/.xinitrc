@@ -1,4 +1,5 @@
 #!/bin/sh
+<<<<<<< HEAD
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
@@ -35,3 +36,12 @@ xsetroot -cursor_name left_ptr &
 
 exec openbox-session
 
+=======
+
+export WM=${1:-xmonad}
+
+. "$HOME/.xsession"
+
+
+exec $WM
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b

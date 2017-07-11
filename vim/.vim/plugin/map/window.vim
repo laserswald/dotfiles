@@ -18,7 +18,7 @@ nnoremap <leader>wL  :lwindow<cr>
 " Show the error list.
 nnoremap <leader>wM  :cwindow<cr>
 
-" Focus only one window.
+" Focus or unfocus this window.
 nnoremap <leader>wf  :resize <cr> :vertical resize <cr>
 
 " Show the error list if there are any errors.

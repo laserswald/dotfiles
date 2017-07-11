@@ -1,3 +1,5 @@
 " Python settings
 setlocal omnifunc=pythoncomplete#Complete
-compiler nose
+
+" Execute this python file
+nnoremap <localleader>b :!python3 %<cr>

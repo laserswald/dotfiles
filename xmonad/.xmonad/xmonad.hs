@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 -- laserdude's xmonad.hs file.
+=======
+-- xmonad.hs
+
+-- Xmonad configuration file
+-- (c) 2017 Laserswald
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b
 
 -- Management hooks.
 -----------------------------------------------------------------------
@@ -84,8 +91,13 @@ dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 -- Key Bindings.
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+<<<<<<< HEAD
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
+=======
+    [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm,             xK_KP_Enter), spawn $ XMonad.terminal conf)
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b
     , ((modm,               xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -132,8 +144,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
    ]
     ++
 
+<<<<<<< HEAD
     --
     -- mod-[1..9], Switch to workspace N
+=======
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
@@ -153,16 +168,18 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- Main.
 -----------------------------------------------------------------------
+main :: IO ()
 main = do
     -- brblack <- L.getColor "green"
     -- cyan <- L.getColor "blue"
     blue <- Colors.getColor "blue"
     -- let focused = L.rstrip blue
     -- dzenleftbar <- spawnPipe myLeftBar
-    -- dzenrightbar <- spawnPipe myRightBar
-    xmonad $ def {
-        manageHook = manageDocks <+> myManageHook <+> manageHook def
-        , layoutHook =  avoidStruts $ (layoutHook def ||| simpleTabbed  )
+    focusedColor <- getColor "green"
+    normalColor <- getColor "brblack"
+    xmonad $ defaultConfig{
+        manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
+        , layoutHook =  avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed  )
         -- , logHook = myLogHook dzenleftbar
         , terminal = myTerminal
         , borderWidth = 1
@@ -170,7 +187,7 @@ main = do
         , workspaces = myWorkspaces
         , keys = myKeys
         , handleEventHook = fullscreenEventHook
-        -- , startupHook = myStartupHook
+        , startupHook = myStartupHook
         , normalBorderColor = "#00f"
         , focusedBorderColor = blue
         }
