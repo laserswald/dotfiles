@@ -2,34 +2,6 @@
 ""
 "" Shortcuts in order to find items.
 
-" Turn off search highlighting.
-noremap <Space> :nohlsearch<cr>
-
-" Fuzzy find any buffer, file, tag or tab.
-nnoremap <leader><Space> :Denite -start-insert file_rec<cr>
-
-" Find a buffer.
-if exists("g:loaded_denite")
-    nnoremap <leader><Space>b :Unite buffer -start-insert<cr>
-else
-    nnoremap <leader><Space>b :buffer
-endif
-
-" Find a file.
-if exists("g:loaded_denite")
-    nnoremap <leader><Space>f :Denite file/async<cr>
-elseif exists("g:loaded_unite")
-    nnoremap <leader><Space>f :Unite -start-insert file_rec/async<cr>
-else
-    nnoremap <leader><Space>f :find **/*
-endif
-
-" Fuzzy find a tag in this file.
-if exists("g:loaded_unite")
-    nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
-else
-    nnoremap <leader><Space>t :tag
-endif
 
 " Find any TODO items in this entire project.
 nnoremap <leader>?  :grep -R TODO .<cr>
@@ -37,11 +9,11 @@ nnoremap <leader>?  :grep -R TODO .<cr>
 " Find the current word in any file in this project. (Reverse of C-])
 nnoremap <leader>]  :silent! lgrep -R <cword> . <cr>
 
-" Open a browsable tag buffer.
-nnoremap <leader>t :Unite tag/include -vertical<cr>
-
 " Write the file.
 nnoremap <leader>f :w<cr>
 
 " Run this file.
 nnoremap <leader>fr :echom "This file isn't runnable. Derp."<cr>
+
+" Turn off search highlighting.
+noremap <Space> :nohlsearch<cr>

@@ -1,10 +1,11 @@
 """ buffer.vim
 
-if exists("g:lazr_config_micro")
-    nnoremap gb :ls<cr>:buffer<space>
+if exists("g:loaded_unite")
+    nnoremap gb :Unite buffer -direction=botright -start-insert<cr>
+elseif exists("g:loaded_denite")
+    nnoremap gb :Denite buffer<cr>
 else
-    " Use Unite's quick-buffer matcher to switch buffers.
-    nnoremap gb :Unite buffer -direction=dynamicbottom -quick-match<cr>
+    nnoremap gb :ls<cr>:buffer<space><tab>
 endif
 
 " Go to the next buffer.
