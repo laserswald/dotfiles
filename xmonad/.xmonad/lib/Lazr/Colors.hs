@@ -1,14 +1,16 @@
 module Lazr.Colors (
+    rstrip,
     getColor
 ) where
 
-import Control.Monad
-import Data.Char
 import System.Environment
 import System.IO
 import System.Process
+import Data.Char (isSpace)
+import Control.Monad
 import XMonad.Util.Run
 
+rstrip :: String -> String
 rstrip = reverse . dropWhile isSpace . reverse
 
 getColor :: String -> IO String

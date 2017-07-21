@@ -50,6 +50,11 @@ plugins=(archlinux)
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# Universal shell environment
+source ~/.shrc
+
+unset PS2 PS2 PS3 PS4
+
 source $ZSH/oh-my-zsh.sh
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -58,10 +63,9 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
+
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
-source ~/.shrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

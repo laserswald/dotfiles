@@ -1,4 +1,4 @@
-# Library for building bar interfaces. 
+# Library for building bar interfaces.
 . ~/.lemonbar/theme.sh
 
 function show_icon_text {
@@ -7,7 +7,7 @@ function show_icon_text {
     text=$3
 
     #echo "%{B$maincolor} $icon %{B-} %{F$maincolor}$text%{F-}"
-    echo "%{B$maincolor} $icon $text %{B-}"
+    echo "%{F$maincolor} $icon $text %{F-}"
 }
 
 function show_icon {

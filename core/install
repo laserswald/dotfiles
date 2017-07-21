@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Basic path system
+PATHS="bin:.bin.d:src:var:doc:org:desk:img:lib:pkg:vid"
+IFS=:; for p in $PATHS; do
+    mkdir -p "$HOME/$p"
+done

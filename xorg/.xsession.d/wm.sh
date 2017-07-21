@@ -18,6 +18,7 @@ wm_bg() {
 wm_composite(){
     ## Launch a compositor.
     # compton -fCc &
+    :
 }
 
 wm_keybinds(){
@@ -27,11 +28,19 @@ wm_keybinds(){
 wm_tray(){
     ## Start a tray.
     # tray &
+    :
 }
 
+## Set up the bar
+
 wm_bar(){
-    ## Start a minimalist bar.
-    # minbar &
+    echo "Setting up bar fifo"
+    export PANEL_FIFO="/home/lazr/tmp/panel-fifo"
+    test -e $PANEL_FIFO && rm $PANEL_FIFO
+    mkfifo $PANEL_FIFO
+
+    echo "Starting bar"
+    $HOME/.lemonbar/start_bar.sh &
 }
 
 case $WM in
@@ -48,6 +57,7 @@ case $WM in
     xmonad)
         wm_notify
         wm_bg
+        wm_bar
         ;;
     bspwm)
         wm_notify
@@ -55,6 +65,10 @@ case $WM in
         wm_keybinds
         ;;
     i3)
+        wm_notify
+        wm_bg
+        ;;
+    openbox-session)
         wm_notify
         wm_bg
         ;;

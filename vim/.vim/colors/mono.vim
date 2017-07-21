@@ -55,18 +55,25 @@ highlight Type         term=none cterm=bold ctermfg=4 ctermbg=none
 
 " bright color
 highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
-highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
 
 " color
 
+" bright color
+highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
 
+" color
+highlight Constant     term=none cterm=none ctermfg=4    ctermbg=none
+" foreground
 " bold grey
 call s:ApplyStyle("Comment", "ctermfg=".s:similar, "cterm=bold")
 
 " grey
 
 " black
-highlight StorageClass term=none cterm=none ctermfg=0    ctermbg=none
+highlight StorageClass term=none cterm=bold ctermfg=8    ctermbg=none
+highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
+highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
+highlight Comment      term=none cterm=none ctermfg=8    ctermbg=none
 
 " Display
 call s:ApplyStyle("ColorColumn", "ctermbg=3")
