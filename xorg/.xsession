@@ -8,7 +8,7 @@ exec 2>&1
 
 echo "Starting X Session"
 
-WM="xmonad"
+WM="i3"
 
 # Source any shell scripts in a dir, for maximum flexibility
 if [ -d "$HOME/.xsession.d" ]; then

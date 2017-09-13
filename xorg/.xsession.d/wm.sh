@@ -43,6 +43,11 @@ wm_bar(){
     $HOME/.lemonbar/start_bar.sh &
 }
 
+wm_polybar(){
+    polybar lazr &
+}
+
+
 case $WM in
     nitro)
         wm_notify
@@ -67,6 +72,7 @@ case $WM in
     i3)
         wm_notify
         wm_bg
+        wm_polybar
         ;;
     openbox-session)
         wm_notify

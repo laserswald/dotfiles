@@ -1,9 +1,10 @@
 """ buffer.vim
 
-" Use Unite's quick-buffer matcher to switch buffers.
-nnoremap <leader>b  :Unite buffer -quick-match<cr>
+" nnoremap gb :ls<cr>:buffer<space>
 
-nnoremap gb :ls<cr>:buffer<space>
+" Use Unite's quick-buffer matcher to switch buffers.
+nnoremap gb  :Denite buffer -quick-match<cr>
+
 
 " Go to the next buffer.
 nnoremap <leader>bn :bn<cr>

@@ -31,6 +31,7 @@ import qualified XMonad.StackSet as W
 -- Personal configs
 import Lazr.Colors
 import Lazr.Bar
+import Lazr.Settings
 
 -- Useful functions.
 -----------------------------------------------------------------------
@@ -38,7 +39,6 @@ spawnAndNotify app title desc = spawn $ app ++ "; notify-send '" ++ title ++ "' 
 
 -- Settings.
 -----------------------------------------------------------------------
-myTerminal = "urxvt"
 myWorkspaces = ["!", "@", "#", "$", "%", "^", "&", "*", "("]
 myFont = "terminesspowerline:size=10"
 
@@ -136,10 +136,11 @@ main = do
     trace $ "Fifo is " ++ show fifo
     focusedColor <- getColor "green"
     normalColor  <- getColor "brblack"
-    xmonad $ defaultConfig
+    myTerminal <- getTerminal
+    xmonad $ ewmh defaultConfig
         { borderWidth        = 1
         , focusedBorderColor = focusedColor
-        , handleEventHook    = fullscreenEventHook <+> docksEventHook
+        , handleEventHook    = fullscreenEventHook <+> docksEventHook <+> handleEventHook def
         , keys               = myKeys
         , layoutHook         = avoidStruts $ (layoutHook defaultConfig ||| simpleTabbed)
         , logHook            = universalLogHook fifo
