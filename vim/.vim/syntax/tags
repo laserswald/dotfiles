@@ -1,0 +1,5 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+b:current_syntax	/home/ben/etc/vim/.vim/syntax/taskpaper.vim	/^let b:current_syntax = "taskpaper"$/;"	v	language:Vim
+g:task_paper_styles	/home/ben/etc/vim/.vim/syntax/taskpaper.vim	/^    let g:task_paper_styles = {'FAIL': 'guibg=Red guifg=White'}$/;"	v	language:Vim
+HiLink	/home/ben/etc/vim/.vim/syntax/taskpaper.vim	/^  command! -nargs=+ HiLink hi def link <args>$/;"	c	language:Vim
+HiLink	/home/ben/etc/vim/.vim/syntax/taskpaper.vim	/^  command! -nargs=+ HiLink hi link <args>$/;"	c	language:Vim

@@ -28,6 +28,10 @@ import XMonad.Prompt.Shell
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
+-- Prompts
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+
 -- Personal configs
 import Lazr.Colors
 import Lazr.Bar
@@ -47,6 +51,12 @@ myFont = "terminesspowerline:size=10"
 --myLeftBar = "~/dotfiles/dzen/left.sh"
 --myRightBar = "~/dotfiles/dzen/right.sh"
 
+<<<<<<< HEAD
+-- Startup programs.
+-----------------------------------------------------------------------
+
+=======
+>>>>>>> cbc7bf997c2af4ef98cdaec03b376a2ab2937bf7
 -- Management hooks.
 -----------------------------------------------------------------------
 myManageHook = composeAll
@@ -57,14 +67,44 @@ myManageHook = composeAll
     , className =? "irssi" --> doShift "chat"
     ]
 
+<<<<<<< HEAD
+-- Log hook settings..
+-----------------------------------------------------------------------
+myLogHook proc = dynamicLogWithPP $ def
+    { ppOutput = hPutStrLn proc
+    , ppTitle = dzenColor "#d8d8d8" "" . shorten 50
+    , ppCurrent = dzenColor "#e8e8e8" ""
+    , ppVisible = dzenColor "#b8b8b8" ""
+    , ppUrgent = dzenColor "#d33682" ""
+    , ppHidden = dzenColor "#585858" ""
+    , ppLayout = myLayout
+    }
+
+xbmPath = "/home/ben/dotfiles/dzen/icons/"
+dzenIcon path = "^i(" ++ xbmPath ++ path ++ ")"
+
+myLayout :: String -> String
+myLayout n
+    | n == "Full" = dzenIcon "fullscr.xbm"
+    | n == "Tall" = dzenIcon "tall.xbm"
+    | n == "Mirror Tall" = dzenIcon "mirrortall.xbm"
+    | n == "Tabbed Simplest" = dzenIcon "tabs.xbm"
+    | otherwise = n
+=======
+>>>>>>> cbc7bf997c2af4ef98cdaec03b376a2ab2937bf7
 
 dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 
 -- Key Bindings.
 -----------------------------------------------------------------------
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+<<<<<<< HEAD
+    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm .|. shiftMask, xK_KP_Enter), spawn $ XMonad.terminal conf)
+=======
     [ ((modm,               xK_Return), spawn $ XMonad.terminal conf)
     , ((modm,             xK_KP_Enter), spawn $ XMonad.terminal conf)
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b
     , ((modm,               xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_semicolon ), spawn dmenuCustom)
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -78,7 +118,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_j     ), windows W.focusDown)
     , ((modm,               xK_k     ), windows W.focusUp  )
     , ((modm,               xK_m     ), windows W.focusMaster  )
-    --, ((modm,               xK_Return), windows W.swapMaster)
+    , ((modm,               xK_Return), windows W.swapMaster)
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
     , ((modm,               xK_h     ), sendMessage Shrink)
@@ -99,7 +139,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Prompts.
     --TODO: Looks like we need a better XPconfig
-    , ((modm .|. shiftMask, xK_slash), shellPrompt defaultXPConfig)
+    , ((modm .|. shiftMask, xK_slash), shellPrompt def)
 
 
 
@@ -111,6 +151,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
    ]
     ++
 
+<<<<<<< HEAD
+    --
+    -- mod-[1..9], Switch to workspace N
+=======
+>>>>>>> 4925f7d367d55a7d40da35fde599fb512071e81b
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N

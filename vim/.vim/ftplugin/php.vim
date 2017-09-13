@@ -1,5 +1,4 @@
 setlocal noexpandtab
-
 " Run unit tests.
 nnoremap <buffer> <localleader>b :!php %<cr>
 nnoremap <buffer> <localleader>l :!php -l %<cr>
@@ -15,6 +14,15 @@ function! PHP_DebugIncludes()
         call append('echo "Requiring a file:'.reqfile.'"')
     endwhile
 endfunction
+
+syntax keyword PHPPublic public
+syntax keyword PHPPrivate private
+syntax keyword PHPProtected protected
+
+hi PHPPublic cterm=bold ctermfg=White
+hi PHPPrivate cterm=bold ctermfg=Black
+hi PHPProtected cterm=bold ctermfg=Cyan
+
 
 setlocal iskeyword+=$
 

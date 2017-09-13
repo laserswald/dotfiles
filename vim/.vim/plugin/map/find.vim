@@ -17,14 +17,15 @@ endif
 
 " Find a file.
 if exists("g:loaded_denite")
-    nnoremap <leader><Space>f :Unite -start-insert file/async<cr>
+    nnoremap <leader><Space>f :Denite file/async<cr>
+elseif exists("g:loaded_unite")
+    nnoremap <leader><Space>f :Unite -start-insert file_rec/async<cr>
 else
     nnoremap <leader><Space>f :find **/*
 endif
 
-
 " Fuzzy find a tag in this file.
-if exists("g:loaded_denite")
+if exists("g:loaded_unite")
     nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
 else
     nnoremap <leader><Space>t :tag
