@@ -8,18 +8,18 @@ endif
 
 " Fuzzy find anything. Mapping is SPC SPC
 if exists("g:loaded_denite")
-    nnoremap <leader><Space> :Denite file_rec buffer tag<cr>
+    nnoremap <leader><Space> :Denite file_rec buffer tag --no-split<cr>
 elseif exists("g:loaded_unite")
-    nnoremap <leader><Space> :Unite file_rec buffer tag -start-insert<cr>
+    nnoremap <leader><Space> :Unite file_rec buffer tag -start-insert -no-split<cr>
 else
     echom "Fuzzy find anything isn't supported without Unite or Denite."
 endif
 
 " Find a file.
 if exists("g:loaded_denite")
-    nnoremap <leader><Space>f :Denite file/async<cr>
+    nnoremap <leader><Space>f :Denite file/async -no-split<cr>
 elseif exists("g:loaded_unite")
-    nnoremap <leader><Space>f :Unite -start-insert file_rec/async<cr>
+    nnoremap <leader><Space>f :Unite -start-insert file_rec/async -no-split<cr>
 else
     nnoremap <leader><Space>f :find **/*
 endif
@@ -28,7 +28,7 @@ endif
 if exists("g:loaded_denite")
     nnoremap <leader><Space>t :Denite tag<cr>
 elseif exists("g:loaded_unite")
-    nnoremap <leader><Space>t :Unite tag/file -start-insert<cr>
+    nnoremap <leader><Space>t :Unite tag/include -start-insert<cr>
 else
     nnoremap <leader><Space>t :tag<space><tab>
 endif

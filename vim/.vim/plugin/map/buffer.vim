@@ -1,11 +1,12 @@
 """ buffer.vim
 
+" Use Unite's quick-buffer matcher to switch buffers.
 if exists("g:loaded_unite")
-    nnoremap gb :Unite buffer -direction=botright -start-insert<cr>
+    nnoremap gb :Unite buffer -direction=dynamicbottom -quick-match<cr>
 elseif exists("g:loaded_denite")
     nnoremap gb :Denite buffer<cr>
 else
-    nnoremap gb :ls<cr>:buffer<space><tab>
+    nnoremap gb :ls<cr>:buffer<space>
 endif
 
 " Go to the next buffer.
