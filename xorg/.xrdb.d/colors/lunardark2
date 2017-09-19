@@ -1,11 +1,11 @@
 ! Lunar Dark 2 - kinda like the colors you would see in a spacecraft.
 ! special
 *.foreground:   #e3e3e3
-*.background:   #2f2f2f
+*.background:   #151515
 *.cursorColor:  #e3e3e3
 
 ! black
-*.color0:       #151515
+*.color0:       #2f2f2f
 *.color8:       #505050
 
 ! red
