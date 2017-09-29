@@ -39,7 +39,7 @@ endfunc
 call s:ApplyStyle("Type", "ctermfg=white", "cterm=bold")
 call s:ApplyStyle("Function", "ctermfg=white", "cterm=bold")
 
-call s:ApplyStyle("Statement", "ctermfg=".s:similar, "cterm=bold")
+call s:ApplyStyle("Statement", "ctermfg=".s:contrast, "cterm=bold")
 call s:ApplyStyle("Constant", "ctermfg=".s:bcontrast, "cterm=none")
 call s:ApplyStyle("SpecialChar", "ctermfg=".s:bcontrast, "cterm=none")
 
