@@ -28,3 +28,9 @@ colors simple
 set background=dark
 set listchars=eol:¬,tab:>·,trail:-,extends:>,precedes:<
 
+" Git highlight group
+hi User1 ctermfg=yellow ctermbg=7
+hi User2 ctermfg=darkred ctermbg=7
+set statusline=%<%t
+set statusline+=\ %2*%M%*
+set statusline+=\ %1*%{fugitive#head()}%*

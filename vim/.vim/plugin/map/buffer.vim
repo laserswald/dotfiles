@@ -1,10 +1,16 @@
 """ buffer.vim
 
-if exists("g:lazr_config_micro")
-    nnoremap gb :ls<cr>:buffer<space>
-else
+" nnoremap gb :ls<cr>:buffer<space>
+
+" Use Unite's quick-buffer matcher to switch buffers.
+
+if exists("g:loaded_denite")
+    nnoremap gb :Denite buffer -quick-match<cr>
+elseif xists("g:loaded_unite")
     " Use Unite's quick-buffer matcher to switch buffers.
     nnoremap gb :Unite buffer -direction=dynamicbottom -quick-match<cr>
+else
+    nnoremap gb :ls<cr>:buffer<space>
 endif
 
 " Go to the next buffer.

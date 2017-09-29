@@ -8,7 +8,9 @@ exec 2>&1
 
 echo "Starting X Session"
 
-WM="backflip"
+# WM="backflip"
+# WM="i3"
+WM="openbox-session"
 
 # Source any shell scripts in a dir, for maximum flexibility
 if [ -d "$HOME/.xsession.d" ]; then

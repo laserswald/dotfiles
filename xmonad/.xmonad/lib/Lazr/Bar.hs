@@ -18,6 +18,11 @@ makePipe = do
     fd <- openFd (fromMaybe "/home/lazr/tmp/panel-fifo" name) WriteOnly Nothing defaultFileFlags
     fdToHandle fd
 
+pipeOutput :: Handle -> String -> IO ()
+pipeOutput handle output = do
+    trace $ "xmonad: Pipe output: " ++ output
+    hPutStrLn handle output
+
 universalLogHook handle =
     dynamicLogWithPP $ def
         { ppCurrent = lemonbarColor "#0aa"
@@ -25,7 +30,7 @@ universalLogHook handle =
         , ppUrgent  = lemonbarColor "#aa0"
         , ppVisible  = lemonbarColor "#aaa"
         -- , ppOutput  = \s -> void $ fdWrite fd (s ++ "\n")
-        , ppOutput  = hPutStrLn handle
+        , ppOutput  = pipeOutput handle
         }
 
 lemonbarColor color string = "%{F" ++ color ++ "}" ++ string ++ "%{F-}"

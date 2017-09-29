@@ -19,6 +19,8 @@ export GOPATH=~/usr/src/go
 export MAIL=~/var/mail
 export XDG_CONFIG_HOME="$HOME/.config"
 
+export TERMINAL=st
+
 export PATH="$PATH:$HOME/bin"
 
 # export HISTFILE="$HOME/.shhistory"
