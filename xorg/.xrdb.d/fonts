@@ -2,6 +2,7 @@
 /* URxvt.font: xft:artwiz lemon:pixelsize=10 */
 /* URxvt.font: xft:Tamzen:pixelsize=11 */
 URxvt.font: xft:Fira Mono:pixelsize=10
+URxvt.boldFont: xft:Fira Mono:pixelsize=10
 
 
 ! vim:ft=xdefaults
