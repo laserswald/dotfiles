@@ -15,8 +15,6 @@ Plug 'AndrewRadev/linediff.vim'
 
 "}}}
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
 " Fuzzy Find tools {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/denite.nvim'
@@ -67,6 +65,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
 Plug 'mattn/emmet-vim'
 Plug 'jceb/vim-orgmode'
+Plug 'LnL7/vim-nix'
 " }}}
 
 " C# {{{
@@ -88,3 +87,4 @@ Plug 'jwalton512/vim-blade'
 
 " Plug 'davidoc/taskpaper.vim'
 "}}}
+Plug 'zah/nim.vim'
