@@ -1,9 +1,18 @@
-nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
-
-" Neovim plugins {{{
-Plug 'floobits/floobits-neovim'
-Plug 'fntlnz/atags.vim', {'do': ':UpdateRemotePlugins'}
-Plug 'hkupty/iron.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'neomake/neomake', {'do': ':UpdateRemotePlugins'}
+" Completion engine
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-" }}}
+
+" REPL support
+Plug 'hkupty/iron.nvim', {'do': ':UpdateRemotePlugins'}
+
+" Asynchronous builds and linting
+Plug 'neomake/neomake', {'do': ':UpdateRemotePlugins'}
+
+" tag files
+Plug 'fntlnz/atags.vim', {'do': ':UpdateRemotePlugins'}
+
+" Global search
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+
+" Neovim exclusive
+Plug 'floobits/floobits-neovim'
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
