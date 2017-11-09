@@ -1,7 +1,7 @@
 # Personal template directory.
 export SKELDIR="$HOME/skel"
 
-[[ ! -d "$SKELDIR" ]] && mkdir "$SKELDIR"
+[ ! -d "$SKELDIR" ] && mkdir "$SKELDIR"
 
 # make a skeleton.
 skel (){

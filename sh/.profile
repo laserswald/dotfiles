@@ -9,4 +9,4 @@ export ENV="$HOME/.shrc"
 d=.dircolors
 test -r $d && eval "$(dircolors $d)"
 
-source $ENV
+. "$ENV"
