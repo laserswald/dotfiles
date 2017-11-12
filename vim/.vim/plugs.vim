@@ -39,7 +39,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 
 " File opening and management plugins {{{
 Plug 'tpope/vim-fugitive'
-Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
 "}}}
 
@@ -64,6 +64,7 @@ Plug 'gcmt/taboo.vim'
 " Filetype specific plugins"{{{
 
 " Organization {{{
+Plug 'plasticboy/vim-markdown'
 Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
 Plug 'mattn/emmet-vim'
 Plug 'jceb/vim-orgmode'

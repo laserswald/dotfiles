@@ -66,8 +66,8 @@ call s:ApplyStyle("FoldColumn", "ctermfg=1")
 call s:ApplyStyle("Folded", "ctermfg=".s:bsimilar, "ctermbg=".s:bcontrast)
 
 " Searching
-call s:ApplyStyle("Search", "ctermfg=".s:similar, "ctermbg=".s:bsimilar, "cterm=none")
-call s:ApplyStyle("IncSearch", "ctermfg=3", "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("Search", "ctermfg=darkgreen", "ctermbg=none", "cterm=none")
+call s:ApplyStyle("IncSearch", "ctermfg=green", "ctermbg=none", "cterm=none")
 call s:ApplyStyle("NonText", "ctermfg=".s:similar, "cterm=none")
 call s:ApplyStyle("Visual", "ctermbg=".s:bsimilar, "cterm=none")
 

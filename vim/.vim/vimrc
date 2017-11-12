@@ -50,6 +50,10 @@ let maplocalleader = '\'
 inoremap jk <esc>
 vnoremap jk <esc>
 
+if NVIM()
+    tnoremap <esc> <C-\><C-n>
+endif
+
 " My own custom functions."{{{
 function! SwitchColors()
     if &background == "dark"
