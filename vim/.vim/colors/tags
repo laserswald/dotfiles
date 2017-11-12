@@ -1,2 +1,11 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
-g:colors_name	/home/ben/etc/vim/.vim/colors/mono.vim	/^let g:colors_name="mono"$/;"	v	language:Vim
+ApplyStyle	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^function! s:ApplyStyle(type, ...)$/;"	f	language:Vim
+g:colors_name	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^let g:colors_name="mono"$/;"	v	language:Vim
+s:bcontrast	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^    let s:bcontrast = 15$/;"	v	language:Vim
+s:bcontrast	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^let s:bcontrast = 8$/;"	v	language:Vim
+s:bsimilar	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^    let s:bsimilar = 8$/;"	v	language:Vim
+s:bsimilar	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^let s:bsimilar = 7$/;"	v	language:Vim
+s:contrast	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^    let s:contrast = 7$/;"	v	language:Vim
+s:contrast	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^let s:contrast = 0$/;"	v	language:Vim
+s:similar	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^    let s:similar = 0$/;"	v	language:Vim
+s:similar	/home/bdavenportray/etc/vim/.vim/colors/mono.vim	/^let s:similar = 15$/;"	v	language:Vim

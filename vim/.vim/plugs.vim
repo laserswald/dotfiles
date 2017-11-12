@@ -1,21 +1,12 @@
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
 
-Plug 'tpope/vim-repeat'
-Plug 'tpope/tpope-vim-abolish'
-
-" Extra motions and actions {{{
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'justinmk/vim-sneak'
+" Buffer and window management
+Plug 'gcmt/taboo.vim'
+Plug 'justinmk/vim-dirvish'
 Plug 'moll/vim-bbye'
-Plug 'takac/vim-hardtime'
-" Plug 'sheerun/vim-polyglot'
-Plug 'tommcdo/vim-exchange'
-Plug 'AndrewRadev/linediff.vim'
-
-"}}}
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Fuzzy Find tools {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -37,55 +28,63 @@ Plug 'jaxbot/semantic-highlight.vim'
 " Databases."{{{
 "}}}
 
-" File opening and management plugins {{{
+" External environment integration
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
-"}}}
 
-" Movement plugins {{{
-Plug 'godlygeek/tabular'
-Plug 'christoomey/vim-tmux-navigator'
-
-" Completion plugins."{{{
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
-
-" Compiler settings.
+" Language support
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
 " DebugginCC
 
 Plug 'gcmt/taboo.vim'
 
-
 "}}}
+
 " Filetype specific plugins"{{{
 
-" Organization {{{
-Plug 'plasticboy/vim-markdown'
-Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
-Plug 'mattn/emmet-vim'
-Plug 'jceb/vim-orgmode'
-" }}}
-
-" C# {{{
-Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
-"}}}
-
-" PHP {{{
-Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
-Plug 'laserswald/php.vim', {'for' : 'php'}
 Plug 'afternoon/vim-phpunit', {'for' : 'php'}
-Plug 'joonty/vdebug', {'for': 'php'}
-"}}}
-
-Plug 'pangloss/vim-javascript'
 Plug 'arrufat/vala.vim'
 Plug 'chrisbra/csv.vim'
+Plug 'jceb/vim-orgmode'
+Plug 'joonty/vdebug', {'for': 'php'}
 Plug 'jwalton512/vim-blade'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'laserswald/php.vim', {'for' : 'php'}
+Plug 'LnL7/vim-nix'
+Plug 'mattn/emmet-vim'
+Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
+Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
+Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
+Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
+Plug 'zah/nim.vim'
 
 " Plug 'davidoc/taskpaper.vim'
 "}}}
+
+" Themes
+Plug 'jaxbot/semantic-highlight.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'fxn/vim-monochrome'
+Plug 'inkarkat/SyntaxAttr.vim'
+Plug 'laserswald/chameleon.vim'
+
+" Text manipulation
+Plug 'tpope/vim-commentary'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/tpope-vim-abolish'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'godlygeek/tabular'
+
+" Extra completion sources
+Plug 'Shougo/neoinclude.vim'
+
+" Skill improvement
+Plug 'takac/vim-hardtime'

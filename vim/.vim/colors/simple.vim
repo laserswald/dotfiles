@@ -53,8 +53,8 @@ call s:ApplyStyle("Comment", "ctermfg=".s:similar, "cterm=none")
 " grey
 
 " black
-highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
-highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
+call s:ApplyStyle("FoldColumn", "ctermfg=1")
+call s:ApplyStyle("Folded", "ctermfg=".s:bcontrast, "ctermbg=".s:bsimilar, "cterm=none")
 
 " Display
 call s:ApplyStyle("ColorColumn", "ctermbg=3")
@@ -62,8 +62,6 @@ call s:ApplyStyle("CursorLine", "ctermbg=".s:similar)
 call s:ApplyStyle("Directory", "ctermfg=".s:contrast, "cterm=bold")
 call s:ApplyStyle("Error", "ctermfg=".s:similar, "ctermbg=1")
 call s:ApplyStyle("ErrorMsg", "ctermfg=1", "ctermbg=".s:similar)
-call s:ApplyStyle("FoldColumn", "ctermfg=1")
-call s:ApplyStyle("Folded", "ctermfg=".s:bsimilar, "ctermbg=".s:bcontrast)
 
 " Searching
 call s:ApplyStyle("Search", "ctermfg=darkgreen", "ctermbg=none", "cterm=none")

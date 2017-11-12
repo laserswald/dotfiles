@@ -1,2 +1,2 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
-<BS>	/home/ben/etc/vim/.vim/nplugs.vim	/^nnoremap <silent> <BS> :TmuxNavigateLeft<cr>$/;"	m	language:Vim
+<BS>	/home/bdavenportray/etc/vim/.vim/nplugs.vim	/^nnoremap <silent> <BS> :TmuxNavigateLeft<cr>$/;"	m	language:Vim

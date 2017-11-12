@@ -1,4 +1,3 @@
-set background=dark
 if version > 580
     highlight clear
     if exists("g:syntax_on")
@@ -34,46 +33,30 @@ function! s:ApplyStyle(type, ...)
     exec str
 endfunc
 
-" highlight Normal term=none cterm=none ctermbg=0
+call s:ApplyStyle("Comment", "ctermfg=".s:similar, "cterm=italic")
 
-" bold white
+call s:ApplyStyle("Constant", "ctermfg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("String", "cterm=underline")
+" call s:ApplyStyle("Character", "ctermfg=".s:bcontrast, "cterm=none")
+
+call s:ApplyStyle("Identifier", "ctermfg=".s:contrast, "cterm=italic")
+" call s:ApplyStyle("Function", "ctermfg=".s:bcontrast, "cterm=none")
+
 call s:ApplyStyle("Statement", "ctermfg=".s:bcontrast, "cterm=bold")
+" call s:ApplyStyle("Operator", "ctermfg=".s:contrast, "cterm=none")
 
-" bright white
-call s:ApplyStyle("Function", "ctermfg=".s:bcontrast, "cterm=none")
-call s:ApplyStyle("Constant", "ctermfg=".s:bcontrast, "cterm=none")
-call s:ApplyStyle("String", "ctermfg=".s:bcontrast, "cterm=none")
-call s:ApplyStyle("Character", "ctermfg=".s:bcontrast, "cterm=none")
+call s:ApplyStyle("PreProc", "ctermfg=".s:similar, "cterm=bold")
+
+call s:ApplyStyle("Type", "ctermfg=".s:bcontrast, "cterm=italic")
+call s:ApplyStyle("StorageClass", "ctermfg=".s:bsimilar, "cterm=italic")
+call s:ApplyStyle("Structure", "ctermfg=".s:bsimilar, "cterm=bold")
+call s:ApplyStyle("Typedef", "ctermfg=".s:bsimilar, "cterm=italic")
+
+call s:ApplyStyle("Special", "ctermfg=".s:bcontrast, "cterm=none")
 call s:ApplyStyle("SpecialChar", "ctermfg=".s:bcontrast, "cterm=none")
 
-" white
-call s:ApplyStyle("Identifier", "ctermfg=".s:contrast, "cterm=none")
-call s:ApplyStyle("Operator", "ctermfg=".s:contrast, "cterm=none")
-
-" bold color
-highlight Type         term=none cterm=bold ctermfg=4 ctermbg=none
-
-" bright color
-highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
-
-" color
-
-" bright color
-highlight Special      term=none cterm=bold ctermfg=12    ctermbg=none
-
-" color
-highlight Constant     term=none cterm=none ctermfg=4    ctermbg=none
-" foreground
-" bold grey
-call s:ApplyStyle("Comment", "ctermfg=".s:similar, "cterm=bold")
-
-" grey
-
-" black
-highlight StorageClass term=none cterm=bold ctermfg=8    ctermbg=none
 highlight FoldColumn   term=none cterm=none ctermfg=0    ctermbg=none
 highlight Folded       term=none cterm=none ctermfg=15   ctermbg=1
-highlight Comment      term=none cterm=none ctermfg=8    ctermbg=none
 
 " Display
 call s:ApplyStyle("ColorColumn", "ctermbg=3")

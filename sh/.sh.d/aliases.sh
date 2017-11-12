@@ -1,8 +1,9 @@
-source ~/.sh.d/environment.sh
+. ~/.sh.d/environment.sh
 
 alias c=cd
 alias df="e ~/etc"
 alias ds=dirs
+alias dmenu_run="dmenu_run -fn $FONT -sb $(tcolor green)"
 alias dvtm="dvtm -m "
 alias e=$EDITOR
 alias ea="e ~/.sh.d/aliases.sh"
@@ -23,7 +24,7 @@ alias p=pushd
 alias ping="ping -c 3"
 alias randw=rwall
 alias refresh="sudo pacman -Syy"
-alias reload="source ~/.profile"
+alias reload=". ~/.profile"
 alias rl=reload
 alias rwall="feh --random --bg-fill ~/usr/img/wall"
 alias sctl="systemctl"

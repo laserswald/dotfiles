@@ -1,4 +1,3 @@
-
 ## Variable settings. # {{{
 set $ws1 1 term
 set $ws2 2 net
@@ -12,10 +11,10 @@ set $ws9 9 beta
 set $ws10 10 omega
 
 # Vim keybindings. Because having it different is silly.
-set $up j
-set $down h
-set $left g
-set $right k
+set $left h
+set $down j
+set $up k
+set $right l
 
 set $modkey Mod4
 # }}}
@@ -29,8 +28,8 @@ floating_modifier $modkey
 bindsym $modkey+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym $modkey+p exec dmenu_run
-bindsym $modkey+Return exec urxvt
+bindsym $modkey+space exec dmenu_run -p "run >" -fn 'fixed:pixelsize=10' -nf "$(tcolor foreground)" -nb "$(tcolor background)" -sf "$(tcolor green)" -sb "`tcolor background`"
+bindsym $modkey+Return exec $TERMINAL
 
 # change focus
 bindsym $modkey+$left focus left
@@ -45,10 +44,10 @@ bindsym $modkey+Shift+$up move up
 bindsym $modkey+Shift+$right move right
 
 # split in horizontal orientation
-bindsym $modkey+b split h
+bindsym $modkey+equals split h
 
 # split in vertical orientation
-bindsym $modkey+v split v
+bindsym $modkey+| split v
 
 # enter fullscreen mode for the focused container
 bindsym $modkey+o fullscreen
@@ -62,7 +61,7 @@ bindsym $modkey+e layout toggle split
 bindsym $modkey+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $modkey+space focus mode_toggle
+bindsym $modkey+v focus mode_toggle
 
 # focus the parent container
 bindsym $modkey+a focus parent
@@ -79,27 +78,27 @@ bindsym $modkey+Shift+minus move scratchpad
 bindsym $modkey+minus scratchpad show
 
 # switch to workspace
-bindsym $modkey+1 workspace number $ws1 
-bindsym $modkey+2 workspace number $ws2 
-bindsym $modkey+3 workspace number $ws3 
-bindsym $modkey+4 workspace number $ws4 
-bindsym $modkey+5 workspace number $ws5 
-bindsym $modkey+6 workspace number $ws6 
-bindsym $modkey+7 workspace number $ws7 
-bindsym $modkey+8 workspace number $ws8 
-bindsym $modkey+9 workspace number $ws9 
+bindsym $modkey+1 workspace number $ws1
+bindsym $modkey+2 workspace number $ws2
+bindsym $modkey+3 workspace number $ws3
+bindsym $modkey+4 workspace number $ws4
+bindsym $modkey+5 workspace number $ws5
+bindsym $modkey+6 workspace number $ws6
+bindsym $modkey+7 workspace number $ws7
+bindsym $modkey+8 workspace number $ws8
+bindsym $modkey+9 workspace number $ws9
 bindsym $modkey+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym $modkey+Shift+1 move container to workspace number $ws1 
-bindsym $modkey+Shift+2 move container to workspace number $ws2 
-bindsym $modkey+Shift+3 move container to workspace number $ws3 
-bindsym $modkey+Shift+4 move container to workspace number $ws4 
-bindsym $modkey+Shift+5 move container to workspace number $ws5 
-bindsym $modkey+Shift+6 move container to workspace number $ws6 
-bindsym $modkey+Shift+7 move container to workspace number $ws7 
-bindsym $modkey+Shift+8 move container to workspace number $ws8 
-bindsym $modkey+Shift+9 move container to workspace number $ws9 
+bindsym $modkey+Shift+1 move container to workspace number $ws1
+bindsym $modkey+Shift+2 move container to workspace number $ws2
+bindsym $modkey+Shift+3 move container to workspace number $ws3
+bindsym $modkey+Shift+4 move container to workspace number $ws4
+bindsym $modkey+Shift+5 move container to workspace number $ws5
+bindsym $modkey+Shift+6 move container to workspace number $ws6
+bindsym $modkey+Shift+7 move container to workspace number $ws7
+bindsym $modkey+Shift+8 move container to workspace number $ws8
+bindsym $modkey+Shift+9 move container to workspace number $ws9
 bindsym $modkey+Shift+0 move container to workspace number $ws10
 # reload the configuration file
 bindsym $modkey+Shift+x reload
@@ -108,7 +107,9 @@ bindsym $modkey+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $modkey+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # }}}
+
 # resize window (you can also use the mouse for that) {{{
+bindsym $modkey+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -132,16 +133,14 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $modkey+r mode "resize"
 # }}}
 
-# Autostart commands {{{
-# }}}
 # Looks and feels {{{
 font pango:SourceCodeProForPowerline 10
 for_window [class="^.*"] border pixel 2
+for_window [class="Polybar"] border none
 # gaps inner 5
 # }}}
 
 # Move specific apps to different workspaces
-for_window [class="^URxvt$" instance="^scratchpad$"] move scratchpad
+for_window [class="^scratchpad$"] move scratchpad

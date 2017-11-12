@@ -10,6 +10,8 @@ set incsearch
 " Highlight what I searched for.
 set hlsearch
 
+set inccommand=split
+
 if executable("ag")
     set grepprg=ag\ --vimgrep
     set grepformat=%f:%l:%c:%m
