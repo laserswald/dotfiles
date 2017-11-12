@@ -1,17 +1,17 @@
 # Personal template directory.
-export SKELDIR="$HOME/skel"
+export SKEL_PATH=${SKEL_PATH:-"$XDG_TEMPLATES_DIR"}
 
-[[ ! -d "$SKELDIR" ]] && mkdir "$SKELDIR"
+[[ ! -d "$SKEL_PATH" ]] && mkdir "$SKEL_PATH"
 
 # make a skeleton.
 skel (){
-    cp -r $SKELDIR/$1 $2
+    cp -r "$SKEL_PATH/$1" "$2"
 }
 
 cskel () {
-    cp -r "$2" "$SKELDIR/$1"
+    cp -r "$2" "$SKEL_PATH/$1"
 }
 
 lsskel () {
-    ls "$SKELDIR"
+    ls "$SKEL_PATH"
 }

@@ -18,3 +18,9 @@ prompt_git () {
 
 # Micro
 PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "
+
+if [ "$TERM" = "dumb" ]
+then
+    PS1='$ '
+fi
+export PS1
