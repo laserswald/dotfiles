@@ -27,6 +27,7 @@ set visualbell
 colors chameleon
 set background=dark
 set listchars=eol:¬,tab:>·,trail:-,extends:>,precedes:<
+set colorcolumn=80
 
 " Git highlight group
 hi User1 ctermfg=yellow ctermbg=7

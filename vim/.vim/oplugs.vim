@@ -9,9 +9,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'scrooloose/syntastic'
 
 " Tag files
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
 
 " Global search
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/unite.vim'
-Plug 'tsukkee/unite-tag'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'

@@ -2,6 +2,8 @@
 "
 " Some of this should be split up into different files.
 
+let g:lazr_use_plugins=1
+
 " Environment
 function! WINDOWS()
     return (has("win32") || has("win64"))
@@ -26,14 +28,16 @@ if WINDOWS()
 endif
 
 " Plugins {{{
-call plug#begin(g:vimdir . "/bundle")
-execute "source ".g:vimdir."/plugs.vim"
-if NVIM()
-    execute "source ".g:vimdir."/nplugs.vim"
-else
-    execute "source ".g:vimdir."/oplugs.vim"
+if g:lazr_use_plugins ==# 1
+	call plug#begin(g:vimdir . "/bundle")
+	execute "source ".g:vimdir."/plugs.vim"
+	if NVIM()
+	    execute "source ".g:vimdir."/nplugs.vim"
+	else
+	    execute "source ".g:vimdir."/oplugs.vim"
+	endif
+	call plug#end()
 endif
-call plug#end()
 " 1}}}
 
 " Options

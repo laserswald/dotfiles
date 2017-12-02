@@ -1,31 +1,33 @@
 . ~/.sh.d/environment.sh
 
 alias c=cd
-alias df="e ~/etc"
 alias ds=dirs
 alias dmenu_run="dmenu_run -fn $FONT -sb $(tcolor green)"
 alias dvtm="dvtm -m "
-alias e=$EDITOR
-alias ea="e ~/.sh.d/aliases.sh"
-alias eclimd="/usr/lib/eclipse/eclimd &"
-alias edit=$EDITOR
-alias ei3="$EDITOR ~/etc/i3/.i3/config"
-alias exm="$EDITOR ~/etc/xmonad/.xmonad/xmonad.hs"
+alias p=pushd
+alias o=popd
 alias h='history'
 alias j='jobs -l'
 alias l=ls
 alias la="ls -a"
 alias ll="ls -l"
 alias ls="ls --color=auto -xX"
+alias reload=". ~/.profile"
+alias rl=reload
+
+alias e="$EDITOR"
+alias df="e ~/etc"
+alias ea="e ~/.sh.d/aliases.sh"
+
+alias eclimd="/usr/lib/eclipse/eclimd &"
+alias edit="$EDITOR"
+alias ei3="$EDITOR ~/etc/i3/.i3/config"
+alias exm="$EDITOR ~/etc/xmonad/.xmonad/xmonad.hs"
 alias nctl="netctl"
-alias o=popd
 alias p9="drawterm -c gibson.gnot.club -a gibson.gnot.club -u lazr"
-alias p=pushd
 alias ping="ping -c 3"
 alias randw=rwall
 alias refresh="sudo pacman -Syy"
-alias reload=". ~/.profile"
-alias rl=reload
 alias rwall="feh --random --bg-fill ~/usr/img/wall"
 alias sctl="systemctl"
 alias sctll="systemctl list-units"

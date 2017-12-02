@@ -5,7 +5,7 @@ Plug 'honza/vim-snippets'
 
 " Buffer and window management
 Plug 'gcmt/taboo.vim'
-Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-vinegar'
 Plug 'moll/vim-bbye'
 
 " Fuzzy Find tools {{{
@@ -33,6 +33,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
 
@@ -63,6 +64,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
+Plug 'jwalton512/vim-blade', {'for': 'php'}
 Plug 'zah/nim.vim'
 
 " Plug 'davidoc/taskpaper.vim'
