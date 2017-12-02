@@ -15,9 +15,7 @@ function! ReloadAll()
     source $MYVIMRC
     runtime! plugin/**/*.vim
     execute ":PlugInstall"
-    execute ":quit"
     execute ":PlugUpdate"
-    execute ":quit"
 endfunction
 nnoremap <leader>vr :call ReloadAll()<cr>
 

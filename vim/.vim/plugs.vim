@@ -5,13 +5,14 @@ Plug 'honza/vim-snippets'
 
 " Buffer and window management
 Plug 'gcmt/taboo.vim'
-Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-vinegar'
 Plug 'moll/vim-bbye'
 
 " External environment integration
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-projectionist'
 
 " Language support
@@ -28,7 +29,7 @@ Plug 'laserswald/php.vim', {'for' : 'php'}
 Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
-Plug 'jwalton512/vim-blade'
+Plug 'jwalton512/vim-blade', {'for': 'php'}
 
 " Themes
 Plug 'jaxbot/semantic-highlight.vim'

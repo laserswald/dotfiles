@@ -1,11 +1,11 @@
 " VDebug
 let g:vdebug_options= {
-            \    "port" : 98001,
-            \    "server" : '',
+            \    "port" : 9501,
+            \    "server" : "localhost",
             \    "timeout" : 20,
             \    "on_close" : 'detach',
             \    "break_on_open" : 1,
-            \    "ide_key" : 'portal',
+            \    "ide_key" : "bdavenportray",
             \    "debug_window_level" : 0,
             \    "debug_file_level" : 0,
             \    "debug_file" : "",
