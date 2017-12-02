@@ -8,6 +8,7 @@ augroup autocommands
 	autocmd BufNewFile *.* silent! exe '0r ' . g:vimdir . 'templates/' . expand("<afile>:e")
 
     au bufread,BufNewFile *.txt set filetype=notes.txt
+    au bufread,BufNewFile *.c4 set filetype=c
 
     au BufWritePre * silent! %s/\s\+$//e
 augroup end

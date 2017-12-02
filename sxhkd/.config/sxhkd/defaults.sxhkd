@@ -1,5 +1,5 @@
 super + Return
-    urxvt
+    $TERMINAL
 
 super + Escape
     pkill -USR1 sxhkd

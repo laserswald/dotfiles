@@ -64,8 +64,8 @@ call s:ApplyStyle("Error", "ctermfg=".s:similar, "ctermbg=1")
 call s:ApplyStyle("ErrorMsg", "ctermfg=1", "ctermbg=".s:similar)
 
 " Searching
-call s:ApplyStyle("Search", "ctermfg=".s:similar, "ctermbg=".s:bsimilar, "cterm=none")
-call s:ApplyStyle("IncSearch", "ctermfg=3", "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("Search", "ctermfg=darkgreen", "ctermbg=none", "cterm=none")
+call s:ApplyStyle("IncSearch", "ctermfg=green", "ctermbg=none", "cterm=none")
 call s:ApplyStyle("NonText", "ctermfg=".s:similar, "cterm=none")
 call s:ApplyStyle("Visual", "ctermbg=".s:bsimilar, "cterm=none")
 

@@ -2,6 +2,7 @@
 
 alias c=cd
 alias ds=dirs
+alias dmenu_run="dmenu_run -fn $FONT -sb $(tcolor green)"
 alias dvtm="dvtm -m "
 alias p=pushd
 alias o=popd
