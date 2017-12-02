@@ -13,6 +13,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'tsukkee/unite-tag'
+Plug 'abudden/taghighlight-automirror'
 " }}}
 
 " Eye Candy {{{

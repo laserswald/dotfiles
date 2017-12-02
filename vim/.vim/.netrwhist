@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/ben'
-let g:netrw_dirhist_2='/home/ben/org'
-let g:netrw_dirhist_3='/home/ben/org/projects'
-let g:netrw_dirhist_4='/home/ben/org/projects/software'
-let g:netrw_dirhist_5='/home/ben/org/projects/software/clib'
-let g:netrw_dirhist_6='/home/ben/src/c/nitro'
