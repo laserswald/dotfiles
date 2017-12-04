@@ -2,6 +2,15 @@
 # Environment.
 # My default apps and environment variables.
 
+preferred_app() {
+    for app in $@; do
+        if which $app >/dev/null 2>&1; then
+            which $app
+            return
+        fi
+    done
+}
+
 # Include my preferred XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
 if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
@@ -10,16 +19,11 @@ if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
 fi
 
 # Preferred applications
-if command -v nvim >/dev/null 2>&1; then
-    export EDITOR='nvim'
-else
-    export EDITOR='vim'
-fi
-
+export EDITOR="$(preferred_app kak vis nvim vim vi)"
 export VISUAL="$EDITOR"
 export BROWSER="firefox"
 export PAGER="less -R"
-export TERMINAL="alacritty"
+export TERMINAL="st"
 export WM="xmonad"
 
 # Environmental paths

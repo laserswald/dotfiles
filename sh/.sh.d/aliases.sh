@@ -1,9 +1,10 @@
 . ~/.sh.d/environment.sh
+. ~/.sh.d/retrain.sh
 
 alias c=cd
 alias ds=dirs
 alias dmenu_run="dmenu_run -fn $FONT -sb $(tcolor green)"
-alias dvtm="dvtm -m "
+alias dvtm="dvtm -m ^a -M"
 alias p=pushd
 alias o=popd
 alias h='history'
@@ -15,14 +16,15 @@ alias ls="ls --color=auto -xX"
 alias reload=". ~/.profile"
 alias rl=reload
 
-alias e="$EDITOR"
-alias df="e ~/etc"
-alias ea="e ~/.sh.d/aliases.sh"
+alias edit="$EDITOR"
+retrain edit vim vi nvim kak vis sandy
+alias e="edit"
+alias ei3="edit ~/etc/i3/.i3/config"
+alias exm="edit ~/etc/xmonad/.xmonad/xmonad.hs"
+alias df="edit ~/etc"
+alias ea="edit ~/.sh.d/aliases.sh"
 
 alias eclimd="/usr/lib/eclipse/eclimd &"
-alias edit="$EDITOR"
-alias ei3="$EDITOR ~/etc/i3/.i3/config"
-alias exm="$EDITOR ~/etc/xmonad/.xmonad/xmonad.hs"
 alias nctl="netctl"
 alias p9="drawterm -c gibson.gnot.club -a gibson.gnot.club -u lazr"
 alias ping="ping -c 3"
@@ -35,6 +37,8 @@ alias t="todo.sh"
 alias ta="t add"
 alias td="t do"
 alias tl="t ls"
+
+alias mux="$MULTIPLEXER"
 alias tm="tmux"
 alias tmux="tmux -2"
 alias tns="tmux new-session -s -A "
