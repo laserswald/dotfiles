@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Create a dvtm session with a control fifo
+export DVTM_CTL_FIFO=$(mktemp -u "/tmp/dvtm.ctlfifo_XXXXXXXXXX")
+mkfifo "$DVTM_CTL_FIFO"
+dvtm -c "$DVTM_CTL_FIFO" "$@" 
+rm "$DVTM_CTL_FIFO"

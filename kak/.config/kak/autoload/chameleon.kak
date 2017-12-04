@@ -1,0 +1,10 @@
+face value green
+face type blue
+face identifier white
+face string green+b
+face error red
+face keyword red+b
+face operator black+b
+face attribute yellow
+face comment black+b
+face meta magenta
