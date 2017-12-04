@@ -2,8 +2,8 @@
 
 for directory in $@; do
     # Execute install script
-    test -e $directory/install && $directory/install
+    test -e "$directory/install" && "$directory/install"
 
     # Stow all the other files.
-    stow $directory
+    stow --ignore=".install" "$directory"
 done

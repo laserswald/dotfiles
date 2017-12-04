@@ -17,6 +17,7 @@ if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
     # shellcheck source=/dev/null
     . "$XDG_CONFIG_HOME/user-dirs.dirs"
 fi
+export XDG_RUNTIME_DIR="$HOME/.local"
 
 # Preferred applications
 export EDITOR="$(preferred_app kak vis nvim vim vi)"
@@ -24,14 +25,12 @@ export VISUAL="$EDITOR"
 export BROWSER="firefox"
 export PAGER="less -R"
 export TERMINAL="st"
-export WM="xmonad"
 
 # Environmental paths
 export SRC_PATH="$HOME/src"
-export MAIL="$HOME/var/mail"
 export GOPATH="$SRC_PATH/go"
+export MAIL="$HOME/var/mail"
 export ORG_PATH="$HOME/org"
 export PUNCH_FILE="$ORG_PATH/.punches"
 
-export PATH="$PATH:$HOME/bin"
-
+export PATH="$HOME/bin:$PATH"
