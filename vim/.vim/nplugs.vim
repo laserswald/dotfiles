@@ -1,5 +1,6 @@
 " Completion engine
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+" Plug 'lvht/phpcd.vim', {'for': 'php', 'do': 'composer install'}
 
 " REPL support
 Plug 'hkupty/iron.nvim', {'do': ':UpdateRemotePlugins'}
@@ -11,7 +12,7 @@ Plug 'neomake/neomake', {'do': ':UpdateRemotePlugins'}
 Plug 'fntlnz/atags.vim', {'do': ':UpdateRemotePlugins'}
 
 " Global search
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 
 " Neovim exclusive
 Plug 'floobits/floobits-neovim'

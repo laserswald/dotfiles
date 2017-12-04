@@ -5,7 +5,7 @@ Plug 'honza/vim-snippets'
 
 " Buffer and window management
 Plug 'gcmt/taboo.vim'
-Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-vinegar'
 Plug 'moll/vim-bbye'
 
 " Fuzzy Find tools {{{
@@ -32,12 +32,21 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
 
 " Language support
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
-Plug 'LnL7/vim-nix'
-Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
+
+" DebugginCC
+
+Plug 'gcmt/taboo.vim'
+
+"}}}
+
+" Filetype specific plugins"{{{
+
 Plug 'afternoon/vim-phpunit', {'for' : 'php'}
 Plug 'arrufat/vala.vim'
 Plug 'chrisbra/csv.vim'
@@ -46,11 +55,15 @@ Plug 'joonty/vdebug', {'for': 'php'}
 Plug 'jwalton512/vim-blade'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'laserswald/php.vim', {'for' : 'php'}
+Plug 'LnL7/vim-nix'
 Plug 'mattn/emmet-vim'
 Plug 'nelstrom/vim-markdown-folding', {'for' : 'markdown'}
+Plug 'OmniSharp/omnisharp-vim', {'for' : 'cs'}
 Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
 Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
+Plug 'jwalton512/vim-blade', {'for': 'php'}
 Plug 'zah/nim.vim'
 
 " Plug 'davidoc/taskpaper.vim'

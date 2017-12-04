@@ -2,9 +2,9 @@
 ""
 "" Shortcuts in order to find items.
 
-
 " Find any TODO items in this entire project.
-nnoremap <leader>?  :grep -R TODO .<cr>
+nnoremap <leader>?  :silent! grep -R TODO .<cr>
+nnoremap <localleader>?  :silent! lgrep -R TODO %<cr>
 
 " Find the current word in any file in this project. (Reverse of C-])
 nnoremap <leader>]  :silent! lgrep -R <cword> . <cr>

@@ -54,18 +54,18 @@ call s:ApplyStyle("Comment", "ctermfg=".s:similar, "cterm=none")
 
 " black
 call s:ApplyStyle("FoldColumn", "ctermfg=1")
-call s:ApplyStyle("Folded", "ctermfg=".s:bcontrast, "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("Folded", "ctermfg=".s:bsimilar, "ctermbg=".s:similar, "cterm=none")
 
 " Display
-call s:ApplyStyle("ColorColumn", "ctermbg=3")
+call s:ApplyStyle("ColorColumn", "ctermbg=".s:similar)
 call s:ApplyStyle("CursorLine", "ctermbg=".s:similar)
 call s:ApplyStyle("Directory", "ctermfg=".s:contrast, "cterm=bold")
 call s:ApplyStyle("Error", "ctermfg=".s:similar, "ctermbg=1")
 call s:ApplyStyle("ErrorMsg", "ctermfg=1", "ctermbg=".s:similar)
 
 " Searching
-call s:ApplyStyle("Search", "ctermfg=".s:similar, "ctermbg=".s:bsimilar, "cterm=none")
-call s:ApplyStyle("IncSearch", "ctermfg=3", "ctermbg=".s:bsimilar, "cterm=none")
+call s:ApplyStyle("Search", "ctermfg=darkgreen", "ctermbg=none", "cterm=none")
+call s:ApplyStyle("IncSearch", "ctermfg=green", "ctermbg=none", "cterm=none")
 call s:ApplyStyle("NonText", "ctermfg=".s:similar, "cterm=none")
 call s:ApplyStyle("Visual", "ctermbg=".s:bsimilar, "cterm=none")
 
@@ -134,7 +134,6 @@ syn match Visual       "\"__Visual.*"
 "__Identifier           Never ran into that actually...
 "__Comment              /* this is a comment */
 "__PreProc              #define SHBLAH true
-
 "__Cursor               char under the cursor?
 "__CursorLine           Line where the cursor is
 "__DiffAdd              +line added from file.orig

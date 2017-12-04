@@ -4,7 +4,3 @@
 command -v fortune >/dev/null 2>&1 && fortune
 
 export ENV="$HOME/.shrc"
-
-#set up dir colors
-d=.dircolors
-test -r $d && eval "$(dircolors $d)"

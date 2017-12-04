@@ -64,7 +64,7 @@ highlight Debug          term=none cterm=none ctermfg=6    ctermbg=none
 highlight SpecialComment term=none cterm=none ctermfg=6    ctermbg=none
 
 
-highlight ColorColumn  term=none cterm=none ctermfg=none ctermbg=3
+highlight ColorColumn  term=none cterm=none ctermfg=none ctermbg=8
 highlight Cursor       term=none cterm=none ctermfg=3    ctermbg=none
 highlight CursorLine   term=none cterm=none ctermfg=none ctermbg=none
 highlight DiffAdd      term=none cterm=none ctermfg=2    ctermbg=none

@@ -17,4 +17,6 @@ prompt_git () {
 }
 
 # Micro
-PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "
+export PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "
+
+[ $TERM = "dumb" ] && export PS1='$ '
