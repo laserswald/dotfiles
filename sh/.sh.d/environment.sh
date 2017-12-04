@@ -18,10 +18,12 @@ export PAGER="less -R"
 export GOPATH=~/usr/src/go
 export MAIL=~/var/mail
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_RUNTIME_DIR="$HOME/.local"
 
 export TERMINAL=st
 
-export PATH="$PATH:$HOME/bin"
+
+export PATH="$HOME/bin:$PATH"
 
 # export HISTFILE="$HOME/.shhistory"
 

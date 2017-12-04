@@ -8,5 +8,3 @@ export ENV="$HOME/.shrc"
 #set up dir colors
 d=.dircolors
 test -r $d && eval "$(dircolors $d)"
-
-. "$ENV"
