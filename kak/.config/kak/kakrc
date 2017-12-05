@@ -1,11 +1,12 @@
-# Mappings
-map global user w :write<ret>
-map global user s :send-text<ret>
-map global user S <a-s>
-map global goto b <esc>:buffer<space>
+colorscheme tomorrow-night
 
 set global tabstop 4
 set global indentwidth 4
+
+try %{
+	add-highlighter global number_lines -relative -separator ' '
+    def find -params 1 -shell-candidates %{find -type f} %{edit %arg{1}}
+}
 
 define-command -allow-override fzf %{ %sh{
 	# Suspend kak
@@ -16,4 +17,10 @@ define-command -allow-override fzf %{ %sh{
 	kill -CONT $kak_client_pid
 }}
 
-def find -params 1 -shell-candidates %{find -type f} %{edit %arg{1}}
+# Mappings
+map global user w <esc>:write<ret> -docstring "Write the file"
+map global user s <esc>:send-text<ret> -docstring "Send selection to repl"
+map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
+map global goto b <esc>:buffer<space> -docstring "Another buffer"
+map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Open your kakrc"
+
