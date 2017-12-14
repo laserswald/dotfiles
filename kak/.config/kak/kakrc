@@ -1,4 +1,4 @@
-colorscheme tomorrow-night
+colorscheme chameleon
 
 set global tabstop 4
 set global indentwidth 4
@@ -11,10 +11,9 @@ try %{
 define-command -allow-override fzf %{ %sh{
 	# Suspend kak
 	kill -STOP $kak_client_pid
-	echo "hello"
-	fzf
-	echo "eval -client '$kak_client' 'edit! $selected_file'"| kak -p ${kak_session}
+	{ fzf } & 
 	kill -CONT $kak_client_pid
+	echo "eval -client '$kak_client' 'edit! $selected_file'"| kak -p ${kak_session}
 }}
 
 # Mappings
@@ -22,5 +21,6 @@ map global user w <esc>:write<ret> -docstring "Write the file"
 map global user s <esc>:send-text<ret> -docstring "Send selection to repl"
 map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
 map global goto b <esc>:buffer<space> -docstring "Another buffer"
-map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Open your kakrc"
+map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
+map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
 
