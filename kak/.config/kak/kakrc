@@ -8,7 +8,7 @@ try %{
     def find -params 1 -shell-candidates %{find -type f} %{edit %arg{1}}
 }
 
-define-command -allow-override fzf %{ %sh{
+define-command -allow-override fzf %{%sh{
 	# Suspend kak
 	kill -STOP $kak_client_pid
 	echo "hello"
