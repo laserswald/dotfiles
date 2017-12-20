@@ -19,4 +19,4 @@ Special thanks goes to:
     z3bra and dcat for being general badasses and making wmutils.
 
 License:
-I really don't give a fuck, but it would be nice if you credit me.
+I really don't care, but it would be nice if you credit me.
