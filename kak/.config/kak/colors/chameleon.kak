@@ -1,25 +1,18 @@
 face Default default
 
-face attribute black
 face comment black+b
-
 face variable blue
-
-face type yellow
-
-face operator default
-
-face error red
+face function cyan
+face type blue
+face operator yellow
+face error yellow,red+b
 face meta magenta+b
-
-face keyword green+b
-face value red+b
-face string red+b
-
-face function white+b
-face builtin white
-
-face module red
+face keyword red
+face attribute red
+face value magenta
+face string green+b
+face builtin white+b
+face module green
 
 face PrimaryCursor default+r
 face PrimarySelection black,white

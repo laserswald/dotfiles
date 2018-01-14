@@ -62,9 +62,13 @@
 		      "j" 'split-window-vertically
 		      "l" 'split-window-horizontally))
 
-(load "lisp/xresources-theme/xresources-theme")
+;; (load "lisp/xresources-theme/xresources-theme")
 
-(enable-theme 'xresources)
+(use-package xresources-theme :ensure t)
+(use-package monochrome-theme :ensure t)
+(enable-theme 'monochrome)
+
+(set-face-attribute 'default nil :height 70)
 
 
 (custom-set-variables
@@ -76,7 +80,7 @@
    ["#080808" "#d70000" "#67b11d" "#875f00" "#268bd2" "#af00df" "#00ffff" "#b2b2b2"])
  '(custom-safe-themes
    (quote
-    ("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+    ("39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "cab317d0125d7aab145bc7ee03a1e16804d5abdfa2aa8738198ac30dc5f7b569" "065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(package-selected-packages
    (quote
     (magit php-mode general evil-leader evil-escape goto-last-change evil))))

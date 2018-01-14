@@ -24,7 +24,7 @@ export EDITOR="$(preferred_app kak vis nvim vim vi)"
 export VISUAL="$EDITOR"
 export BROWSER="firefox"
 export PAGER="less -R"
-export TERMINAL="st"
+export TERMINAL="$(preferred_app st alacritty termite urxvt xterm)"
 
 # Environmental paths
 export SRC_PATH="$HOME/src"

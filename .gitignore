@@ -6,4 +6,5 @@
 xmonad/xmonad
 procmailrc
 vim/.vim/bundle/*
+vim/.vim/.netrwhist
 **/tags

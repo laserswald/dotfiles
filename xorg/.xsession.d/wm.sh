@@ -62,6 +62,11 @@ case $WM in
         wm_bg
         wm_keybinds
         ;;
+	2bwm)
+        wm_notify
+        wm_bg
+        wm_keybinds
+        ;;
     xmonad)
         wm_notify
         wm_bg

@@ -3,14 +3,15 @@
 
 . "$HOME/.profile"
 
-exec >>.xsession.log
+# exec >>.xsession.log
 exec 2>&1
 
 echo "Starting X Session"
 
-# WM="backflip"
+export WM="backflip"
 # WM="i3"
-WM="openbox-session"
+# WM="openbox-session"
+# WM="gnome-session"
 
 # Source any shell scripts in a dir, for maximum flexibility
 if [ -d "$HOME/.xsession.d" ]; then
@@ -24,4 +25,4 @@ fi
 
 
 echo "Starting desktop $WM"
-exec "$WM"
+#exec "$WM"
