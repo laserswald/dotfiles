@@ -46,3 +46,7 @@ define-command -allow-override autotags-disable %{
 set global modelinefmt %{
 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 }
+
+hook -group clang-enable global WinSetOption filetype=c %{
+	clang-enable-autocomplete
+}
