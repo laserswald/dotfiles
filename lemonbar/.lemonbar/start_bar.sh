@@ -1,11 +1,11 @@
 #!/bin/sh
 
-font="Fira Mono:pixelsize=10"
-symbolfont="Siji:pixelsize=10"
+font="-*-tamzen-medium-*-*-*-12-*-*-*-*-*-*-*"
+symbolfont="-*-siji-*-*-*-*-*-*-*-*-*-*-*-*"
 
-left=""
+left="group todo"
 middle="time"
-right="wifi batt"
+right="pacman browser"
 
 ## Go through each panel component and execute it.
 construct_items() {
@@ -34,19 +34,18 @@ on_kill() {
 
 trap "on_kill" SIGTERM SIGKILL SIGHUP SIGQUIT
 
-bar_refresh &
-
 while true
 do
-    line="$(tail -1 $PANEL_FIFO)"
-    echo "$line" >> ~/panel.log
-    if [ "$line" != "" ]
-    then
-        stat="$line "
-    fi
-    echo "$stat$(construct_items $left)%{c}$(construct_items $middle)%{r}$(construct_items $right)"
+    # line="$(tail -1 $PANEL_FIFO)"
+    # echo "$line" >> ~/panel.log
+    # if [ "$line" != "" ]
+    # then
+    #     stat="$line "
+    # fi
+
+    echo "$(construct_items $left)%{c}$(construct_items $middle)%{r}$(construct_items $right)"
 done \
-     | lemonbar -f "$font" -f "$symbolfont"  \
+     | lemonbar -d -f $font -f $symbolfont -B `tcolor background` -F `tcolor foreground`\
      | while read ln; do eval "$ln"; done
 
 

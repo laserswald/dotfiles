@@ -7,7 +7,7 @@ function show_icon_text {
     text=$3
 
     #echo "%{B$maincolor} $icon %{B-} %{F$maincolor}$text%{F-}"
-    echo "%{F$maincolor} $icon $text %{F-}"
+    printf "%%{F$maincolor} $icon $text %%{F-}"
 }
 
 function show_icon {
@@ -15,7 +15,7 @@ function show_icon {
     icon=$2
 
     #echo "%{B$maincolor} $icon %{B-} %{F$maincolor}$text%{F-}"
-    echo "%{F$maincolor}$icon%{F-}"
+    printf "%%{F$maincolor}$icon%%{F-}"
 }
 
 function str_contains(){

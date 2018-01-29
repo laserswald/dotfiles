@@ -21,7 +21,7 @@ super + f
     $TERMINAL -name ranger -e ranger
 
 super + shift + colon
-    dmenu_run -b -p "run:"
+    dm
 
 super + ctrl + k
     $TERMINAL -e vim .sxhkdrc

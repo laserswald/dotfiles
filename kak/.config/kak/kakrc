@@ -2,9 +2,11 @@ colorscheme chameleon
 
 set global tabstop 4
 set global indentwidth 4
+set global termcmd "st -e sh -c"
 
 try %{
 	add-highlighter global number_lines -relative -separator ' '
+
     def find -params 1 -shell-candidates %{find -type f} %{edit %arg{1}}
 }
 
@@ -24,3 +26,27 @@ map global goto b <esc>:buffer<space> -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
 
+# When this 
+define-command -allow-override autobuild-enable %{
+    hook -group autobuild buffer BufWritePost .* %{ evaluate-commands %{ make } } 
+}
+
+define-command -allow-override autobuild-disable %{
+    remove-hooks buffer autobuild
+}
+
+define-command -allow-override autotags-enable %{
+    hook -group autotags buffer BufWritePost .* %{ evaluate-commands %{ ctags-update-tags } } 
+}
+
+define-command -allow-override autotags-disable %{
+    remove-hooks buffer autotags
+}
+
+set global modelinefmt %{
+	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
+}
+
+hook -group clang-enable global WinSetOption filetype=c %{
+	clang-enable-autocomplete
+}
