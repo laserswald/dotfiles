@@ -2,6 +2,7 @@ colorscheme chameleon
 
 set global tabstop 4
 set global indentwidth 4
+set global termcmd "st -e sh -c"
 
 try %{
 	add-highlighter global number_lines -relative -separator ' '
@@ -36,3 +37,6 @@ set global modelinefmt %{
 # Enable git gutter
 hook global WinCreate .* %{ git show-diff } 
 hook global BufWritePost .* %{ git update-diff } 
+hook -group clang-enable global WinSetOption filetype=c %{
+	clang-enable-autocomplete
+}

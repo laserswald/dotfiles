@@ -1,8 +1,9 @@
 /* URxvt.font: xft:Fira Mono:pixelsize=11:antialias=true */
 /* URxvt.font: xft:artwiz lemon:pixelsize=10 */
-/* URxvt.font: xft:Tamzen:pixelsize=11 */
-URxvt.font: xft:Fira Mono:pixelsize=10
-URxvt.boldFont: xft:Fira Mono:pixelsize=10
+URxvt.font: xft:Tamzen:pixelsize=12 
+URxvt.boldFont: xft:Tamzen:pixelsize=12 
+/* URxvt.font: xft:Fira Mono:pixelsize=10 */
+/* URxvt.boldFont: xft:Fira Mono:pixelsize=10 */
 
 
 ! vim:ft=xdefaults
