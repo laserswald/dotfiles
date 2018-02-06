@@ -18,30 +18,21 @@ define-command -allow-override fzf %{ %sh{
 }}
 
 # Mappings
-map global user w <esc>:write<ret> -docstring "Write the file"
-map global user s <esc>:send-text<ret> -docstring "Send selection to repl"
+
+# User mappings
+map global user w <esc>:write<ret>:git<space>add<ret> -docstring "Write the file and add the changes to version control"
+map global user s <esc>:send-text<ret> -docstring "Send selection to repl window"
 map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
+
+# Go to mappings
 map global goto b <esc>:buffer<space> -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
 
-# When this 
-define-command -allow-override autobuild-enable %{
-    hook -group autobuild buffer BufWritePost .* %{ evaluate-commands %{ make } } 
-}
-
-define-command -allow-override autobuild-disable %{
-    remove-hooks buffer autobuild
-}
-
-define-command -allow-override autotags-enable %{
-    hook -group autotags buffer BufWritePost .* %{ evaluate-commands %{ ctags-update-tags } } 
-}
-
-define-command -allow-override autotags-disable %{
-    remove-hooks buffer autotags
-}
-
 set global modelinefmt %{
 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 }
+
+# Enable git gutter
+hook global WinCreate .* %{ git show-diff } 
+hook global BufWritePost .* %{ git update-diff } 
