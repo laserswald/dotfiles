@@ -19,12 +19,13 @@ define-command -allow-override fzf %{%sh{
 }}
 
 # Mappings
-map global user w <esc>:write<ret> -docstring "Write the file"
-map global user s <esc>:send-text<ret> -docstring "Send selection to repl"
-map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
-map global goto b <esc>:buffer<space> -docstring "Another buffer"
+map global user w <esc>:write<ret>                           -docstring "Write the file"
+map global user s <esc>:send-text<ret>                       -docstring "Send selection to repl"
+map global user c <esc>:comment-line<ret>                    -docstring "Comment the selection"
+
+map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
+map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
 
 # When this 
 define-command -allow-override autobuild-enable %{
