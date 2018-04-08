@@ -40,3 +40,11 @@ hook global BufWritePost .* %{ git update-diff }
 hook -group clang-enable global WinSetOption filetype=c %{
 	clang-enable-autocomplete
 }
+
+define-command integrated %{
+    rename-client main
+	set-option global jumpclient main
+	new
+    rename-client tools
+	set-option global toolsclient tools
+}
