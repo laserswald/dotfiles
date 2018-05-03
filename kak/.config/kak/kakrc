@@ -21,17 +21,18 @@ try %{
      	%{edit %arg{1}}
 }
 
+
 # Mappings
 
 # User mappings
-map global user w <esc>:write<ret>:git<space>add<ret> -docstring "Write the file and add the changes to version control"
-map global user s <esc>:send-text<ret> -docstring "Send selection to repl window"
-map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
+map global user w <esc>:write<ret>:git<space>add<ret>        -docstring "Write the file and add the changes to version control"
+map global user s <esc>:send-text<ret>                       -docstring "Send selection to repl window"
+map global user c <esc>:comment-line<ret>                    -docstring "Comment the selection"
 
 # Go to mappings
-map global goto b <esc>:buffer<space> -docstring "Another buffer"
+map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
+map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
 
 # Fancy modeline
 set global modelinefmt %{
@@ -54,4 +55,12 @@ def ide %{
 
     new rename-client docs
     set global docsclient docs
+}
+
+define-command integrated %{
+    rename-client main
+	set-option global jumpclient main
+	new
+    rename-client tools
+	set-option global toolsclient tools
 }

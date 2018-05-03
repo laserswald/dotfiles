@@ -34,11 +34,11 @@ servers = (
     port = "6667";
   },
   {
-    address = "devengersteam.irc.slack.com";
+    address = "azaleaahi.irc.slack.com";
     chatnet = "Slack";
     port = "6667";
     use_tls = "yes";
-    password = "devengersteam.Yn4TY8DMktnTbgT836Qh";
+    password = "azaleaahi.Yn4TY8DMktnTbgT836Qh";
     tls_verify = "no";
     autoconnect = "yes";
   }

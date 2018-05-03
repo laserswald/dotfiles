@@ -7,5 +7,5 @@ nnoremap <buffer> <localleader>t :OmniSharpFindSymbol<cr>
 
 au cursorhold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
 au bufwritepost *.cs call OmniSharp#AddToProject()
-au BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+au! BufEnter,TextChanged,InsertLeave *.cs
 
