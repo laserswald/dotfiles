@@ -1,42 +1,66 @@
-colorscheme chameleon
+colorscheme necromancer
 
 set global tabstop 4
 set global indentwidth 4
 set global termcmd "st -e sh -c"
 
+declare-option -docstring "File selection for :find function" str findcmd 'find -type f'
+
 try %{
 	add-highlighter global number_lines -relative -separator ' '
 
-    def find -params 1 -shell-candidates %{find -type f} %{edit %arg{1}}
+    def find -params 1 \
+    	-shell-candidates '
+        	${kak_opt_findcmd} >.kak_find_cache_tmp && mv .kak_find_cache_tmp .kak_find_cache &
+        	PID=$!
+    		if ! [ -e ".kak_find_cache" ]; then
+				wait $PID
+    		fi
+    		cat ".kak_find_cache"
+        	' \
+     	%{edit %arg{1}}
 }
 
-define-command -allow-override fzf %{ %sh{
-	# Suspend kak
-	kill -STOP $kak_client_pid
-	{ fzf } & 
-	kill -CONT $kak_client_pid
-	echo "eval -client '$kak_client' 'edit! $selected_file'"| kak -p ${kak_session}
-}}
 
 # Mappings
 
 # User mappings
-map global user w <esc>:write<ret>:git<space>add<ret> -docstring "Write the file and add the changes to version control"
-map global user s <esc>:send-text<ret> -docstring "Send selection to repl window"
-map global user c <esc>:comment-line<ret> -docstring "Comment the selection"
+map global user w <esc>:write<ret>:git<space>add<ret>        -docstring "Write the file and add the changes to version control"
+map global user s <esc>:send-text<ret>                       -docstring "Send selection to repl window"
+map global user c <esc>:comment-line<ret>                    -docstring "Comment the selection"
 
 # Go to mappings
-map global goto b <esc>:buffer<space> -docstring "Another buffer"
+map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto d <esc><a-i>w:ctags-search<ret> -docstring "tag definition"
+map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
 
+# Fancy modeline
 set global modelinefmt %{
 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 }
 
 # Enable git gutter
 hook global WinCreate .* %{ git show-diff } 
-hook global BufWritePost .* %{ git update-diff } 
-hook -group clang-enable global WinSetOption filetype=c %{
-	clang-enable-autocomplete
+hook global BufWritePost .* %{ git update-diff }
+
+hook -group clang-enable global WinSetOption filetype=c %{ clang-enable-autocomplete }
+hook -group clang-enable global WinSetOption filetype=go %{ go-enable-autocomplete }
+
+def ide %{
+    rename-client main
+    set global jumpclient main
+
+    new rename-client tools
+    set global toolsclient tools
+
+    new rename-client docs
+    set global docsclient docs
+}
+
+define-command integrated %{
+    rename-client main
+	set-option global jumpclient main
+	new
+    rename-client tools
+	set-option global toolsclient tools
 }

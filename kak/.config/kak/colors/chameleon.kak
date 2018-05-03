@@ -1,28 +1,28 @@
 
-face attribute black+be
-face builtin white+b
-face comment black
-face error yellow,red+b
-face function cyan
-face keyword green+b
-face meta magenta+b
-face module red
-face operator default
-face string red+b
-face type yellow+e
-face value red
-face variable blue+e
+face global attribute black+be
+face global builtin white+b
+face global comment black
+face global error yellow,red+b
+face global function cyan
+face global keyword green+b
+face global meta magenta+b
+face global module red
+face global operator default
+face global string red+b
+face global type yellow+e
+face global value red
+face global variable blue+e
 
-face Default default
-face PrimaryCursor default+r
-face PrimarySelection black,white
-face SecondaryCursor default+r
-face SecondarySelection black,white
-face LineNumbers black+e
-face LineNumberCursor blue+b
-face LineNumbersWrapped black+b
-face MenuForeground white,blue
-face MenuBackground blue,white
-face MenuInfo red,white
-face BufferPadding black,default
-face StatusLine cyan,black+i
+face global Default default
+face global PrimaryCursor default+r
+face global PrimarySelection black,white
+face global SecondaryCursor default+r
+face global SecondarySelection black,white
+face global LineNumbers black+e
+face global LineNumberCursor blue+b
+face global LineNumbersWrapped black+b
+face global MenuForeground white,blue
+face global MenuBackground blue,white
+face global MenuInfo red,white
+face global BufferPadding black,default
+face global StatusLine cyan,black+i
