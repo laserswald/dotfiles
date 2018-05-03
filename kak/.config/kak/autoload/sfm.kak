@@ -2,28 +2,60 @@
 #
 # Super simple file explorer
 
-define-command -allow-override explore %{
+declare-option -hidden str sfm_dir
+
+try %{
+    remove-hooks buffer explore-hooks
+    remove-hooks global explore-hooks
+}
+
+add-highlighter shared/ group sfm
+add-highlighter shared/sfm regex ^(.*/)$ 1:variable
+
+define-command -allow-override -params 0..1 explore %{
     %sh{
+    	dir="."
+    	[ -e "$1" ] && dir="$1"
+    	dir=$(readlink -f "$dir")
     	output=$(mktemp -d "${TMPDIR:-/tmp}"/kak-explore.XXXXXXXX)/fifo
     	mkfifo ${output}
-    	(ls -1 `dirname ${kak_buffile}` >${output} 2>&1) > /dev/null < /dev/null 2>&1 &
+    	(ls -1p "$dir" | sort >${output} 2>&1) > /dev/null < /dev/null 2>&1 &
     	printf %s\\n "
-    	edit! -fifo ${output} -scroll *explore*
-    	set-option buffer filetype explore
+    	try %{ delete-buffer *explore* }
+    	edit! -fifo ${output} *explore*
+     	set-option buffer filetype explore
+     	set-option buffer sfm_dir '$dir'
     	"
     }
 }
 
+hook global -group explore-hooks RuntimeError "\d+:\d+: '\w+' (.*): is a directory" %{ %sh{
+	echo "explore" $kak_hook_param_capture_1
+}}
+
+hook global -group explore-hooks NormalKey <minus> explore-up
+
 hook global WinSetOption filetype=explore %{
     hook buffer -group explore-hooks NormalKey <ret> explore-down
-    hook buffer -group explore-hooks NormalKey <minus> explore-up
+    add-highlighter buffer ref sfm
 }
 
-define-command -allow-override -hidden explore-up %{
-}
+define-command -allow-override -hidden explore-up %{ %sh{
+	if [ "${kak_opt_sfm_dir}" ]; then
+		echo 'explore' "$kak_opt_sfm_dir/.."
+	else
+		echo 'explore' ".."
+	fi
+}}
 
 define-command -allow-override -hidden explore-down %{
-	evaluate-commands -collapse-jumps %{
-    	execute-keys '<a-x>H:edit! <c-r>.<ret>'
-    }
+    execute-keys <a-l><a-h>
+	evaluate-commands %{ %sh{
+    	file="${kak_opt_sfm_dir}/${kak_selection}"
+    	if [ -d "$file" ]; then
+    		echo 'explore' "$file"
+    	else 
+         	echo 'edit! -existing' "$file"
+        fi
+    }}
 }
