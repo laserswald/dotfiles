@@ -1,16 +1,9 @@
 # dvtm.kak
 #
-# Support for dvtm, the dynamic virtual terminal manager
+# Support for dvtm, the dynamic virtual terminal managerk
 
 
-%sh{
-	if [ -n "$DVTM" ] && [ -n "$DVTM_CMD_FIFO" ]; then
-		echo "alias global focus dvtm-focus"
-		echo "alias global new dvtm-new"
-	fi
-}
-
-define-command dvtm-focus -allow-override -params ..1 -docstring "Focus the given client window. \
+define-command dvtm-focus -params ..1 -docstring "Focus the given client window. \
 	If no window is given, focuses the current client" %{
 	%sh{
        	if [ $# -eq 1 ]; then
@@ -21,9 +14,15 @@ define-command dvtm-focus -allow-override -params ..1 -docstring "Focus the give
 	}
 }
 
-define-command dvtm-new -allow-override %{
+define-command dvtm-new %{
 	%sh{
 		echo "create 'kak -c ${kak_session}'" >$DVTM_CMD_FIFO
 	}
 }
 
+%sh{
+	if [ "$DVTM" ] && [ "$DVTM_CMD_FIFO" ]; then
+		echo "alias global focus dvtm-focus"
+		echo "alias global new dvtm-new"
+	fi
+}
