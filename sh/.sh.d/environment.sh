@@ -33,4 +33,4 @@ export MAIL="$HOME/var/mail"
 export ORG_PATH="$HOME/org"
 export PUNCH_FILE="$ORG_PATH/.punches"
 
-export PATH="$HOME/bin:$PATH"
+export PATH="$XDG_RUNTIME_DIR/bin:$HOME/bin:$PATH"
