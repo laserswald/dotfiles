@@ -9,6 +9,10 @@ mkfifo "$DVTM_CTL_FIFO"
 export DVTM_STATUS_FIFO="$DVTM_SESSION_DIR/status"
 mkfifo "$DVTM_STATUS_FIFO"
 
+while true; do
+	echo $(hostname)
+done > $DVTM_STATUS_FIFO &
+
 dvtm -c "$DVTM_CTL_FIFO" -s "$DVTM_STATUS_FIFO" -m ^a "$@" 
 
 rm "$DVTM_CTL_FIFO"
