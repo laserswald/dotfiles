@@ -3,17 +3,7 @@
 # Default colors
 color normal default default
 
-# Index colors
-color index green black "~N|~O"
-color index blue black "~f *.edu"
-color index blue black ~F
-color index black red ~=
-color index brightblue black ~T
-color index brightblack black ~D
-
-
 # Message colors
-
 color hdrdefault green white
 color quoted yellow black
 color signature black blue
@@ -27,12 +17,13 @@ color markers red black
 color search white black
 color tilde brightmagenta black
 
+# Index colors
 
-color index green black "~N|~O"
-color index blue black "~f *.edu"
-color index blue black ~F
+color index blue default "~N"
+color index white default "~O"
+color index brightyellow default ~F
 color index black red ~=
-color index brightblue black ~T
+color index brightblue default ~T
 color index brightblack black ~D
 
 # color body brightwhite black '\*+[^*]+\*+'
