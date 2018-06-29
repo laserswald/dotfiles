@@ -5,7 +5,6 @@ set global indentwidth 4
 set global termcmd "st -e sh -c"
 
 declare-option -docstring "File selection for :find function" str findcmd 'find -type f'
-
 try %{
 	add-highlighter global number_lines -relative -separator ' '
 
@@ -36,15 +35,24 @@ map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag def
 
 # Fancy modeline
 set global modelinefmt %{
-	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
+	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 }
 
-# Enable git gutter
-hook global WinCreate .* %{ git show-diff } 
+# Styles and hooks for all windows.
+hook global WinCreate .* %{
+    modeline-parse
+    ctags-enable-autoinfo
+    git show-diff
+    add-highlighter window wrap
+    add-highlighter window show_matching
+} 
 hook global BufWritePost .* %{ git update-diff }
 
-hook -group clang-enable global WinSetOption filetype=c %{ clang-enable-autocomplete }
-hook -group clang-enable global WinSetOption filetype=go %{ go-enable-autocomplete }
+hook -group autocomplete global WinSetOption filetype=c %{ clang-enable-autocomplete }
+hook -group autocomplete global WinSetOption filetype=cpp %{ clang-enable-autocomplete }
+hook -group autocomplete global WinSetOption filetype=go %{ go-enable-autocomplete }
+hook -group autocomplete global WinSetOption filetype=python %{ jedi-enable-autocomplete }
+hook -group autocomplete global WinSetOption filetype=rust %{ racer-enable-autocomplete }
 
 def ide %{
     rename-client main
@@ -60,7 +68,8 @@ def ide %{
 define-command integrated %{
     rename-client main
 	set-option global jumpclient main
-	new
-    rename-client tools
+	new rename-client tools
 	set-option global toolsclient tools
 }
+
+try %{ source .kakrc.local }

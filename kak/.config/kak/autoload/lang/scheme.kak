@@ -127,10 +127,10 @@ hook global WinSetOption filetype=scheme %{
     hook window InsertEnd  .* -group scheme-hooks  lisp-filter-around-selections
     hook window InsertChar \n -group scheme-indent lisp-indent-on-new-line
     hook window InsertChar \( -group scheme-parens %{
-        execute-keys %{)<left>}
+        execute-keys -no-hooks %{)<left>}
     }
     hook window InsertChar \) -group scheme-parens %{
-        execute-keys %{<right>}
+        execute-keys -no-hooks %{<right>}
     }
 }
 

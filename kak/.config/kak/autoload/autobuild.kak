@@ -1,8 +1,8 @@
 
-define-command -allow-override autobuild-enable %{
+define-command autobuild-enable %{
     hook -group autobuild buffer BufWritePost .* %{ evaluate-commands %{ make } } 
 }
 
-define-command -allow-override autobuild-disable %{
+define-command autobuild-disable %{
     remove-hooks buffer autobuild
 }
