@@ -17,7 +17,7 @@ if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
     # shellcheck source=/dev/null
     . "$XDG_CONFIG_HOME/user-dirs.dirs"
 fi
-export XDG_RUNTIME_DIR="$HOME/.local"
+export XDG_RUNTIME_DIR="$HOME/.local/share"
 
 # Preferred applications
 export EDITOR="$(preferred_app kak vis nvim vim vi)"
