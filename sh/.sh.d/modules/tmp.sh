@@ -9,4 +9,6 @@
 # Link the directory
 [ ! -L "$HOME/tmp" ] && ln -s /tmp/$USER $HOME/tmp
 
+# Set standard tempdir to our new temp dir
+export TMPDIR="$HOME/tmp"
 

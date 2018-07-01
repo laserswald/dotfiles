@@ -1,9 +1,21 @@
 #!/bin/sh
 
+# Before we do anything, we are going to define path manipulation stuff here.
+
+insert_path() {
+    export PATH="${1}:${PATH}"
+}
+
 # Load any files in my shell directory.
 for file in ~/.sh.d/*.sh ; do
     . $file
 done
+
+# Local install tree is here.
+insert_path "$XDG_RUNTIME_DIR/bin"
+
+# All command overrides here
+insert_path "$HOME/bin"
 
 # Override defaults with locals.
 if [ -e $HOME/.shrc.local ]; then
