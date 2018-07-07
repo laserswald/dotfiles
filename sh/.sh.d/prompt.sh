@@ -9,14 +9,23 @@ fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
 prompt_dir () {
-    pwd | sed 's:$HOME:~:g'
+    printf " %s" "$(pwd | sed 's:'$HOME':~:g')"
 }
 
 prompt_git () {
     :
 }
 
+prompt_last_status () {
+	char="$1"
+	if test $? -eq 0; then
+		echo " ${fgreen}:${normal}"
+	else
+		echo " ${fred}:${normal}"
+	fi
+}
+
 # Micro
-export PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "
+export PS1="${fblue}$(hostname)${normal}\$(prompt_dir)\$(prompt_git)\$(prompt_last_status) "
 
 [ $TERM = "dumb" ] && export PS1='$ '
