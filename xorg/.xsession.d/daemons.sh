@@ -4,3 +4,4 @@
 syncthing --no-browser > .syncthing.log &
 mpd &
 redshift &
+battnotifyd &

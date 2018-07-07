@@ -3,7 +3,6 @@
 
 alias c=cd
 alias ds=dirs
-alias dmenu_run="dmenu_run -fn $FONT -sb $(tcolor green)"
 alias dvtm="dvtm -m ^a -M"
 alias p=pushd
 alias o=popd
@@ -17,7 +16,6 @@ alias reload=". ~/.profile"
 alias rl=reload
 
 alias edit="$EDITOR"
-retrain edit vim vi nvim kak vis sandy
 alias e="edit"
 alias ei3="edit ~/etc/i3/.i3/config"
 alias exm="edit ~/etc/xmonad/.xmonad/xmonad.hs"

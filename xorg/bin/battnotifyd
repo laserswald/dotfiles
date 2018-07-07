@@ -1,0 +1,14 @@
+#!/bin/sh
+
+percent=$(acpi | grep -o '[0-9]*%')
+only_digits=$(echo '$percent' | tr -d '%')
+
+while true
+do
+	if [ $only_digits -lt 15 ]
+	then
+		notify-send -u critical "Battery low" "Plug me in, I only have $percent left."
+	fi
+	sleep 60
+done
+

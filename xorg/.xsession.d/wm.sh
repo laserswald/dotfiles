@@ -86,6 +86,10 @@ case $WM in
         wm_notify
         wm_bg
         ;;
+	dwm)
+		wm_notify
+		wm_bg
+		;;
     ?)
         ### Unrecognized WM.
         ;;

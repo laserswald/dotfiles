@@ -3,8 +3,8 @@
 
 . "$HOME/.profile"
 
-# exec >>.xsession.log
-exec 2>&1
+exec >>  .xsession.log
+exec 2>> .xsession-errors
 
 echo "Starting X Session"
 
@@ -23,4 +23,8 @@ if [ -d "$HOME/.xsession.d" ]; then
 fi
 
 echo "Starting desktop $WM"
-exec "$WM"
+if command -v ck-launch-session >/dev/null; then 
+    exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
+else
+    exec "$WM"
+fi
