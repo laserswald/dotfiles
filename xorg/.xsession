@@ -8,11 +8,9 @@ exec 2>&1
 
 echo "Starting X Session"
 
-#export WM="backflip"
-# WM="i3"
-# WM="openbox-session"
-# WM="gnome-session"
-export WM="i3"
+if [ -f "$HOME/.xsession.local" ]; then
+	. "$HOME/.xsession.local"
+fi
 
 # Source any shell scripts in a dir, for maximum flexibility
 if [ -d "$HOME/.xsession.d" ]; then
@@ -24,6 +22,5 @@ if [ -d "$HOME/.xsession.d" ]; then
     done
 fi
 
-
 echo "Starting desktop $WM"
-exec ck-launch-session "$WM"
+exec "$WM"
