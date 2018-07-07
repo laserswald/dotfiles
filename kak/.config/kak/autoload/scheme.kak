@@ -104,15 +104,13 @@ add-highlighter shared/scheme/code regex \b[0-9]+\b 0:value
 
 hook -group scheme-highlight global WinSetOption filetype=scheme %{
     add-highlighter window ref scheme
+    add-highlighter buffer show_matching
 }
 
 hook global WinSetOption filetype=scheme %{
 	set-option buffer extra_word_chars %{-:!:%:?:<:>:=}
     hook window InsertEnd  .* -group scheme-hooks  lisp-filter-around-selections
     hook window InsertChar \n -group scheme-indent lisp-indent-on-new-line
-    hook window InsertChar \( -group scheme-parens %{
-        execute-keys %{)<left>}
-    }
 }
 
 hook -group scheme-highlight global WinSetOption filetype=(?!scheme).* %{ remove-highlighter window/scheme }
