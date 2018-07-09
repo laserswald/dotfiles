@@ -4,11 +4,6 @@
 
 declare-option -hidden str sfm_dir
 
-try %{
-    remove-hooks buffer explore-hooks
-    remove-hooks global explore-hooks
-}
-
 add-highlighter shared/ group sfm
 add-highlighter shared/sfm regex ^(.*/)$ 1:variable
 
