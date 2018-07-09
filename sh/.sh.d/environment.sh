@@ -20,7 +20,7 @@ fi
 export XDG_RUNTIME_DIR="$HOME/.local/share"
 
 # Preferred applications
-export EDITOR="$(preferred_app kak vis nvim vim vi)"
+export EDITOR="$(preferred_app kak nvim vis vim vi)"
 export VISUAL="$EDITOR"
 export BROWSER="firefox"
 export PAGER="less -R"
@@ -33,4 +33,4 @@ export MAIL="$HOME/var/mail"
 export ORG_PATH="$HOME/org"
 export PUNCH_FILE="$ORG_PATH/.punches"
 
-export PATH="$XDG_RUNTIME_DIR/bin:$HOME/bin:$PATH"
+export FONT="Tamzen:size=9"
