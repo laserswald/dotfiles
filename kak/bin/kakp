@@ -1,7 +1,7 @@
 #!/bin/sh
 # Use a per-project kakoune session.
 
-session_name="$(basename $(PWD))"
+session_name="$(basename $PWD)"
 
 if ! [ "$(kak -l | grep $session_name)" ]; then
 	kak -d -s "$session_name"
