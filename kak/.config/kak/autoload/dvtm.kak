@@ -1,7 +1,6 @@
 # dvtm.kak
 #
-# Support for dvtm, the dynamic virtual terminal managerk
-
+# Support for dvtm, the dynamic virtual terminal manager
 
 define-command dvtm-focus -params ..1 -docstring "Focus the given client window. \
 	If no window is given, focuses the current client" %{
@@ -20,9 +19,9 @@ define-command dvtm-new %{
 	}
 }
 
-%sh{
+evaluate-commands  %sh{
 	if [ "$DVTM" ] && [ "$DVTM_CMD_FIFO" ]; then
-		echo "alias global focus dvtm-focus"
-		echo "alias global new dvtm-new"
+		printf %s\\n "alias global focus dvtm-focus"
+		printf %s\\n "alias global new dvtm-new"
 	fi
 }

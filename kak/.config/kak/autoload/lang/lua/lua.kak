@@ -13,25 +13,23 @@ hook global BufCreate .*[.](lua) %{
 
 remove-highlighter shared/lua
 
-add-highlighter shared/ regions -default code -match-capture lua \
-    string  '"'           (?<!\\)(?:\\\\)*" '' \
-    string  "'"          (?<!\\)(?:\\\\)*'  '' \
-    string  '\[(=*)\['   '\](=*)\]'       '' \
-    comment '--\[(=*)\[' '\](=*)\]'       '' \
-    comment '--'         '$'              '' \
+add-highlighter shared/lua regions
+add-highlighter shared/lua/code default-region group
+add-highlighter shared/lua/double_string region '"'   (?<!\\)(?:\\\\)*" fill string
+add-highlighter shared/lua/single_string region "'"   (?<!\\)(?:\\\\)*' fill string
+add-highlighter shared/lua/comment       region '--'  $                 fill comment
+add-highlighter shared/lua/raw_string  region -match-capture '\[(=*)\['   '\](=*)\]'       fill string
+add-highlighter shared/lua/raw_comment region -match-capture '--\[(=*)\[' '\](=*)\]'       fill comment
 
-add-highlighter shared/lua/string fill string
 
-add-highlighter shared/lua/comment fill comment
-
-add-highlighter shared/lua/code regex \b(false|nil|true)\b 0:value
-add-highlighter shared/lua/code regex \b(and|or|not)\b 0:operator
-add-highlighter shared/lua/code regex \b(break|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while)\b 0:keyword
-add-highlighter shared/lua/code regex \b(assert|collectgarbage|dofile|getfenv|getmetatable|ipairs|load|loadfile|loadstring|next|pairs|pcall|print|rawequal|rawget|rawset|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\b 0:builtin
-add-highlighter shared/lua/code regex function\s*(\w+)\( 1:function 
-add-highlighter shared/lua/code regex function\s*(\w+):(\w+)\( 1:type 2:function 
-add-highlighter shared/lua/code regex function\s*(\w+)\.(\w+)\( 1:module 2:function 
-add-highlighter shared/lua/code regex \w+:(\w+)\( 1:function 
+add-highlighter shared/lua/code/ regex \b(false|nil|true)\b 0:value
+add-highlighter shared/lua/code/ regex \b(and|or|not)\b 0:operator
+add-highlighter shared/lua/code/ regex \b(break|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while)\b 0:keyword
+add-highlighter shared/lua/code/ regex \b(assert|collectgarbage|dofile|getfenv|getmetatable|ipairs|load|loadfile|loadstring|next|pairs|pcall|print|rawequal|rawget|rawset|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\b 0:builtin
+add-highlighter shared/lua/code/ regex function\s*(\w+)\( 1:function 
+add-highlighter shared/lua/code/ regex function\s*(\w+):(\w+)\( 1:type 2:function 
+add-highlighter shared/lua/code/ regex function\s*(\w+)\.(\w+)\( 1:module 2:function 
+add-highlighter shared/lua/code/ regex \w+:(\w+)\( 1:function 
 
 # Commands
 # ‾‾‾‾‾‾‾‾

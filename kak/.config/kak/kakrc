@@ -1,6 +1,8 @@
 
 set global tabstop 4
 set global indentwidth 4
+set global aligntab false
+
 set global termcmd "st -e sh -c"
 
 # Mappings
@@ -23,21 +25,28 @@ set global modelinefmt %{
 }
 
 # Styles and hooks for all windows.
-add-highlighter global wrap
-add-highlighter global show_matching
+add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+add-highlighter global/ wrap
+add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
     modeline-parse
     ctags-enable-autoinfo
     git show-diff
+    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+        execute-keys -draft h %opt{indentwidth}@
+    } }
+}
+
+hook global WinSetOption filetype=makefile %{
+    remove-hooks buffer tabs-to-spaces
 }
 
 hook global BufWritePost .* %{
     git update-diff
+   	ctags-update-tags
 }
 
-hook -group autocomplete global WinSetOption filetype=c %{ clang-enable-autocomplete }
-hook -group autocomplete global WinSetOption filetype=cpp %{ clang-enable-autocomplete }
 hook -group autocomplete global WinSetOption filetype=go %{ go-enable-autocomplete }
 hook -group autocomplete global WinSetOption filetype=python %{ jedi-enable-autocomplete }
 hook -group autocomplete global WinSetOption filetype=rust %{ racer-enable-autocomplete }
@@ -50,6 +59,10 @@ define-command integrated %{
 	set-option global toolsclient tools
 }
 
-colorscheme necromancer
+hook global BufCreate .*\.js4$ %{
+	set-option buffer filetype javascript
+}
+
+colorscheme default
 
 try %{ source .kakrc.local }
