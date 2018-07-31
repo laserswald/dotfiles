@@ -4,15 +4,12 @@
 
 declare-option -hidden str sfm_dir
 
-try %{
-    remove-hooks buffer explore-hooks
-    remove-hooks global explore-hooks
-}
+remove-highlighter shared/sfm
 
-add-highlighter shared/ group sfm
-add-highlighter shared/sfm regex ^(.*/)$ 1:variable
+add-highlighter shared/sfm group 
+add-highlighter shared/sfm/ regex ^(.*/)$ 1:variable
 
-define-command -allow-override -params 0..1 explore %{
+define-command -override -params 0..1 explore %{
     %sh{
     	dir="."
     	[ -e "$1" ] && dir="$1"
@@ -40,7 +37,7 @@ hook global WinSetOption filetype=explore %{
     add-highlighter buffer ref sfm
 }
 
-define-command -allow-override -hidden explore-up %{ %sh{
+define-command -override -hidden explore-up %{ %sh{
 	if [ "${kak_opt_sfm_dir}" ]; then
 		echo 'explore' "$kak_opt_sfm_dir/.."
 	else
@@ -48,7 +45,7 @@ define-command -allow-override -hidden explore-up %{ %sh{
 	fi
 }}
 
-define-command -allow-override -hidden explore-down %{
+define-command -override -hidden explore-down %{
     execute-keys <a-l><a-h>
 	evaluate-commands %{ %sh{
     	file="${kak_opt_sfm_dir}/${kak_selection}"

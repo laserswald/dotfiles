@@ -10,8 +10,9 @@ function classes_in_file($file){
     return array_diff($all_classes, $std_classes);
 }
 
-function show_fn_completion(ReflectionMethod $meth) {
+c
 
+function show_fn_completion(ReflectionMethod $meth) {
     $doc_lines = preg_split('/$\R?^/m', $meth->getDocComment());
 	$text_line = current(preg_grep('/\w/', $doc_lines));
 	$text_line = preg_replace('/^\W+/', "", $text_line);
