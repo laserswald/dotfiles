@@ -2,7 +2,6 @@
 set global tabstop 4
 set global indentwidth 4
 set global aligntab false
-
 set global termcmd "st -e sh -c"
 
 # Mappings

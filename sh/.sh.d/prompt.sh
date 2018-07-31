@@ -9,14 +9,29 @@ fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
 prompt_dir () {
-    pwd | sed 's:$HOME:~:g'
+    pwd | sed 's:'$HOME':~:g'
 }
 
 prompt_git () {
-    :
+    if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
+		printf " ${fyellow}%s${normal}" $(git rev-parse --abbrev-ref HEAD)
+	fi
+}
+
+prompt_status_color () {
+	if [ "$?" -eq 0 ]; then
+		printf "${fgreen}"
+	else
+		printf "${fred}"
+	fi
+}
+
+prompt () {
+	statusc=$(prompt_status_color)
+	printf "%s" "${fblue}$(hostname)${normal} $(prompt_dir)$(prompt_git) ${statusc}\$${normal} "
 }
 
 # Micro
-export PS1="${fblue}$(hostname)${normal} \$(prompt_dir) ${fgreen}:${normal} "
+export PS1="\$(prompt)"
 
 [ $TERM = "dumb" ] && export PS1='$ '
