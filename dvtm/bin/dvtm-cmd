@@ -13,7 +13,7 @@ while true; do
 	echo $(hostname)
 done > $DVTM_STATUS_FIFO &
 
-dvtm -c "$DVTM_CTL_FIFO" -s "$DVTM_STATUS_FIFO" -m ^a "$@" 
+/usr/local/bin/dvtm -c "$DVTM_CTL_FIFO" -s "$DVTM_STATUS_FIFO" -m ^a "$@" 
 
 rm "$DVTM_CTL_FIFO"
 rm "$DVTM_STATUS_FIFO"
