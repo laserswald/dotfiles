@@ -1,5 +1,0 @@
-set from="ben.davenportray@gmail.com"
-set folder=$HOME/var/mail/bdrgmail
-set spoolfile=+inbox
-
-# vim : ft=conf.muttrc : 
