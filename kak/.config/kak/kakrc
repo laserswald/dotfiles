@@ -17,7 +17,8 @@ map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load y
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
-map global goto u <esc><a-i>w*n<ret>                         -docstring "word usage"
+map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention"
+map global goto u <esc><a-i>w:grep<space><c-r>.<ret>               -docstring "Grep for usage"
 
 # Fancy modeline
 set global modelinefmt %{
