@@ -1,15 +1,18 @@
-source $HOME/.mutt/aliases
-source $HOME/.mutt/laserlight.colors
-
 # paths
 set my_muttdir=$HOME/.mutt
 set alias_file=$my_muttdir/aliases
+
+source $my_muttdir/aliases
+source $my_muttdir/colors/laserlight.colors
+
 set signature = $HOME/.sig
+
+source $my_muttdir/keybindings.muttrc
 
 # options
 set wait_key = no
-set mbox_type=Maildir
-set timeout=3
+set mbox_type = Maildir
+set timeout = 3
 set mail_check=0
 unset move
 set delete
@@ -18,20 +21,6 @@ set quit
 unset mark_old
 set beep_new
 set pipe_decode
-
-# keys
-bind index gg first-entry
-bind index G last-entry
-macro index o "<shell-escape>dtach -n /tmp/ben/mbsyncdtach mbsync -qqa<enter>" "Sync email."
-macro index zM "<limit>all\n" "show all messages (undo limit)"
-bind index <space> tag-entry 
-
-bind pager k previous-line
-bind pager j next-line
-bind pager gg top
-bind pager G bottom
-
-bind attach <return> view-mailcap
 
 set edit_headers=yes
 set header_cache=~/.cache/mutt
@@ -45,7 +34,8 @@ set spoolfile=+/
 auto_view text/enriched
 alternative_order text/plain text/enriched text/html
 
-source $my_muttdir/bdrgmail.muttrc
+source $my_muttdir/accounts/ahi.muttrc
+# source $my_muttdir/bdrgmail.muttrc
 # source $my_muttdir/ld11gmail.muttrc
 # source $my_muttdir/ksu.muttrc
 # source $my_muttdir/lsom.muttrc

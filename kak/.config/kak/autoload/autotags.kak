@@ -1,8 +1,8 @@
 
-define-command -allow-override autotags-enable %{
+define-command autotags-enable %{
     hook -group autotags buffer BufWritePost .* %{ evaluate-commands %{ ctags-update-tags } } 
 }
 
-define-command -allow-override autotags-disable %{
+define-command autotags-disable %{
     remove-hooks buffer autotags
 }

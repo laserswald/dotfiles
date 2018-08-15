@@ -1,18 +1,23 @@
-# Kakoune default color scheme
 
 # For Code
-face global value magenta+b
-face global type blue+b
-face global variable default
-face global module default
-face global function cyan+b
-face global string magenta+b
-face global keyword default+b
-face global operator default
-face global attribute default
 face global comment black+b
-face global meta red+b
-face global builtin cyan
+
+# DATA : magenta
+face global variable default
+face global type magenta+b
+face global value magenta
+face global string magenta
+
+# PROCEDURE : blue
+face global operator blue+b
+face global function blue+b
+face global builtin blue
+
+#META
+face global meta yellow
+face global attribute cyan
+face global keyword default+b
+face global module default
 
 # For markup
 face global title yellow+b
@@ -28,27 +33,27 @@ face global list yellow
 # builtin faces
 face global Default default,default
 
-face global PrimarySelection white,blue
+face global PrimarySelection   white,blue
 face global SecondarySelection black,blue
-face global PrimaryCursor default+r
-face global SecondaryCursor default+r
+face global PrimaryCursor      default+r
+face global SecondaryCursor    default+r
 
-face global LineNumbers black
+face global LineNumbers 	 black
 face global LineNumberCursor yellow
 
 face global MenuForeground white+b
 face global MenuBackground black,white+b
-face global MenuInfo cyan
+face global MenuInfo       cyan
 
-face global Information black,yellow
+face global Information black,magenta
 face global Error black,red
 
 face global StatusLine white,black
-face global StatusLineMode default+b
-face global StatusLineInfo blue,default
-face global StatusLineValue green,default
-face global StatusCursor black,cyan
+face global StatusLineMode magenta+b
+face global StatusLineInfo blue,default+b
+face global StatusLineValue magenta
+face global StatusCursor black,magenta
+face global Prompt magenta
 
-face global Prompt yellow,default
 face global MatchingChar default,default+b
 face global BufferPadding blue,default

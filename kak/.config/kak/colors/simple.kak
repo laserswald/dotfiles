@@ -19,3 +19,12 @@ face global PrimarySelection black,white
 face global BufferPadding black,default
 face global StatusLine cyan,black+i
 
+
+face global SecondaryCursor default+r
+face global SecondarySelection black,white
+face global LineNumbers black+e
+face global LineNumberCursor blue+b
+face global LineNumbersWrapped black+b
+face global MenuForeground white,blue
+face global MenuBackground blue,white
+face global MenuInfo red,white
