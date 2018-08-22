@@ -35,3 +35,4 @@ prompt () {
 export PS1="\$(prompt)"
 
 [ $TERM = "dumb" ] && export PS1='$ '
+
