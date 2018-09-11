@@ -1,9 +1,27 @@
-/* URxvt.font: xft:Fira Mono:pixelsize=11:antialias=true */
-/* URxvt.font: xft:artwiz lemon:pixelsize=10 */
-URxvt.font: xft:Tamzen:pixelsize=12 
-URxvt.boldFont: xft:Tamzen:pixelsize=12 
-/* URxvt.font: xft:Fira Mono:pixelsize=10 */
-/* URxvt.boldFont: xft:Fira Mono:pixelsize=10 */
+
+#define UUSHI 1
+
+#if   FIRA_CODE
+URxvt.font: xft:Fira Code:pixelsize=11:style=Regular
+URxvt.boldFont: xft:Fira Code Medium:pixelsize=11
+
+#elif UUSHI
+URxvt.font: xft:uushi:pixelsize=13
+URxvt.boldFont: xft:uushi:pixelsize=13
+
+#elif LEMON
+URxvt.font: xft:lemon:pixelsize=13
+URxvt.boldFont: xft:lemon:pixelsize=13
+
+#elif TAMZEN
+URxvt.font: xft:Tamzen:pixelsize=12
+URxvt.boldFont: xft:Tamzen:pixelsize=12
+
+#elif MONOID
+URxvt.font: xft:Monoid:pixelsize=12
+#else
+
+#endif
 
 
 ! vim:ft=xdefaults

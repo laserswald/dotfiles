@@ -89,6 +89,7 @@ case $WM in
 	dwm)
 		wm_notify
 		wm_bg
+        ~/bin/dwm-status &
 		;;
     ?)
         ### Unrecognized WM.

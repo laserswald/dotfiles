@@ -13,6 +13,7 @@ echo "Starting X Session"
 # WM="openbox-session"
 # WM="gnome-session"
 WM="dwm"
+#WM="xmonad"
 export WM
 
 # Source any shell scripts in a dir, for maximum flexibility
@@ -27,4 +28,8 @@ fi
 
 
 echo "Starting desktop $WM"
-exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
+if [ `uname` == 'OpenBSD' ]; then
+	exec "$WM" 2>>.xsession-errors >>.xsession.log
+else
+	exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
+fi
