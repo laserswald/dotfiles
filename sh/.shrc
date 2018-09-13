@@ -12,7 +12,7 @@ for file in ~/.sh.d/*.sh ; do
 done
 
 # Local install tree is here.
-insert_path "$XDG_RUNTIME_DIR/bin"
+insert_path "$HOME/.local/bin"
 
 # All command overrides here
 insert_path "$HOME/bin"

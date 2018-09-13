@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while true; do
+    status=$(date)
+    xsetroot -name "$status"
+    sleep 1
+done

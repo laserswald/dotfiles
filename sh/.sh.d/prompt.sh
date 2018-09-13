@@ -44,3 +44,4 @@ prompt_last_status () {
 export PS1="\$(prompt)"
 
 [ $TERM = "dumb" ] && export PS1='$ '
+

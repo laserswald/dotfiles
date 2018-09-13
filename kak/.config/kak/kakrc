@@ -66,3 +66,4 @@ hook global BufCreate .*\.js4$ %{
 colorscheme default
 
 try %{ source .kakrc.local }
+eval %sh{kak-lsp --kakoune -s $kak_session}
