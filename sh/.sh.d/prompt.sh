@@ -9,7 +9,7 @@ fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
 prompt_dir () {
-    pwd | sed 's:'$HOME':~:g'
+    printf " %s" "$(pwd | sed 's:'$HOME':~:g')"
 }
 
 prompt_git () {
@@ -29,6 +29,15 @@ prompt_status_color () {
 prompt () {
 	statusc=$(prompt_status_color)
 	printf "%s" "${fblue}$(hostname)${normal} $(prompt_dir)$(prompt_git) ${statusc}\$${normal} "
+}
+
+prompt_last_status () {
+	char="$1"
+	if test $? -eq 0; then
+		echo " ${fgreen}:${normal}"
+	else
+		echo " ${fred}:${normal}"
+	fi
 }
 
 # Micro

@@ -3,18 +3,14 @@
 
 . "$HOME/.profile"
 
-exec >> .xsession.log
-exec 2>>.xsession-errors
+exec >>  .xsession.log
+exec 2>> .xsession-errors
 
 echo "Starting X Session"
 
-#export WM="backflip"
-# WM="i3"
-# WM="openbox-session"
-# WM="gnome-session"
-WM="dwm"
-#WM="xmonad"
-export WM
+if [ -f "$HOME/.xsession.local" ]; then
+	. "$HOME/.xsession.local"
+fi
 
 # Source any shell scripts in a dir, for maximum flexibility
 if [ -d "$HOME/.xsession.d" ]; then
@@ -26,10 +22,8 @@ if [ -d "$HOME/.xsession.d" ]; then
     done
 fi
 
-
-echo "Starting desktop $WM"
-if [ `uname` == 'OpenBSD' ]; then
-	exec "$WM" 2>>.xsession-errors >>.xsession.log
+if command -v ck-launch-session >/dev/null; then
+    exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
 else
-	exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
+    exec "$WM" 2>>.xsession-errors >>.xsession.log
 fi
