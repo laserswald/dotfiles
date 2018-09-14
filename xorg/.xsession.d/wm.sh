@@ -8,14 +8,14 @@ wm_notify() {
 
 wm_bg() {
 
-    ~/.screenlayout/default.sh
+    ~/.screenlayout/triplehead.sh
 
     ## Set the cursor to the left arrow pointer.
     xsetroot -cursor_name left_ptr &
 
     ## Set up my background.
-    sh -c "~/.fehbg" &
-    # ~/bin/termbg -c red
+    # sh -c "~/.fehbg" &
+    ~/bin/termbg -c blue
 }
 
 wm_composite(){
@@ -89,6 +89,7 @@ case $WM in
 	dwm)
 		wm_notify
 		wm_bg
+        ~/bin/dwm-status &
 		;;
     ?)
         ### Unrecognized WM.

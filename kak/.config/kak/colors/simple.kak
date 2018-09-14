@@ -1,5 +1,4 @@
-
-
+face global Default default
 face global error yellow,red+b
 
 # comment
@@ -33,6 +32,10 @@ evaluate-commands %sh{
 face global Default default
 face global PrimaryCursor cyan+r
 face global PrimarySelection black,white
+face global BufferPadding black,default
+face global StatusLine cyan,black+i
+
+
 face global SecondaryCursor default+r
 face global SecondarySelection black,white
 face global LineNumbers black+e
@@ -41,5 +44,3 @@ face global LineNumbersWrapped black+b
 face global MenuForeground white,blue
 face global MenuBackground blue,white
 face global MenuInfo red,white
-face global BufferPadding black,default
-face global StatusLine cyan,black+i
