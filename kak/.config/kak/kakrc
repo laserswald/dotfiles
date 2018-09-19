@@ -1,6 +1,10 @@
+# Laserswald's kakrc.
+#
+
+colorscheme chameleon
 
 set global tabstop 4
-set global indentwidth 4
+set global indentwidth 0
 set global aligntab false
 set global termcmd "st -e sh -c"
 
@@ -38,9 +42,6 @@ hook global WinCreate .* %{
     } }
 }
 
-hook global WinSetOption filetype=makefile %{
-    remove-hooks buffer tabs-to-spaces
-}
 
 hook global BufWritePost .* %{
     git update-diff
@@ -51,6 +52,21 @@ hook -group autocomplete global WinSetOption filetype=go %{ go-enable-autocomple
 hook -group autocomplete global WinSetOption filetype=python %{ jedi-enable-autocomplete }
 hook -group autocomplete global WinSetOption filetype=rust %{ racer-enable-autocomplete }
 
+hook global BufCreate .*\.js4$ %{
+	set-option buffer filetype javascript
+}
+
+
+hook global WinSetOption filetype=makefile %{
+    remove-hooks buffer tabs-to-spaces
+}
+
+hook global WinSetOption filetype=php %{
+   	set buffer indentwidth 0
+   	lint-enable
+   	lint
+}
+
 # I prefer to use my main window as my jump client.
 define-command integrated %{
     rename-client main
@@ -59,11 +75,9 @@ define-command integrated %{
 	set-option global toolsclient tools
 }
 
-hook global BufCreate .*\.js4$ %{
-	set-option buffer filetype javascript
-}
+#evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
-colorscheme default
+#nop %sh{ (kak-lsp -s $kak_session -vvv ) > ~/kak-lsp.log 2>&1 < /dev/null & }
 
 try %{ source .kakrc.local }
-eval %sh{kak-lsp --kakoune -s $kak_session}
+# eval %sh{kak-lsp --kakoune -s $kak_session}

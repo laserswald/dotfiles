@@ -15,7 +15,8 @@ enum {
 	DEFAULT,
 	SELECTED,
 	NORMAL,
-	URGENT
+	URGENT,
+	TERMINAL,
 };
 
 static Color colors[] = {
@@ -23,6 +24,7 @@ static Color colors[] = {
 	[SELECTED] = { .fg = -1, .bg = COLOR_GREEN, .fg256 = -1, .bg256 = COLOR_GREEN, },
 	[NORMAL]   = { .fg = -1, .bg = COLOR_WHITE, .fg256 = -1, .bg256 = COLOR_WHITE, },
 	[URGENT]   = { .fg = -1, .bg = COLOR_RED,   .fg256 = -1, .bg256 = COLOR_RED,  },
+	[TERMINAL] = { .fg = -1, .bg = -1,          .fg256 = -1, .bg256 = -1,  },
 };
 
 #define COLOR(c)        COLOR_PAIR(colors[c].pair)
@@ -151,7 +153,7 @@ static KeyBinding bindings[] = {
 };
 
 static const ColorRule colorrules[] = {
-	{ "", A_NORMAL, &colors[DEFAULT] }, /* default */
+	{ "", A_NORMAL, &colors[TERMINAL] }, /* default */
 };
 
 /* possible values for the mouse buttons are listed below:

@@ -1,20 +1,36 @@
 face global Default default
-
-face global comment cyan
-face global variable default
-face global function green
-face global type default
-face global operator default
 face global error yellow,red+b
-face global meta magenta
-face global keyword default+b
-face global attribute default
-face global value red+i
-face global string cyan
-face global builtin default+i
-face global module default
 
-face global PrimaryCursor default+r
+# comment
+
+evaluate-commands %sh{
+	similar="black"
+	bsimilar="black+b"
+	contrast="white"
+	bcontrast="white+b"
+
+	face () {
+		printf "face global %s %s\n" $1 $2
+	}
+
+	face_group () {
+	    color=$1
+	    shift
+	    for i in $@; do
+	        face $i $color
+	    done
+	}
+
+	face_group $similar meta
+	face_group magenta comment
+	face_group $contrast string
+	face_group $bcontrast 'function' type module
+
+	face_group default attribute type keyword variable operator value
+}
+
+face global Default default
+face global PrimaryCursor cyan+r
 face global PrimarySelection black,white
 face global BufferPadding black,default
 face global StatusLine cyan,black+i
