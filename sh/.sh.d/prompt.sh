@@ -41,7 +41,12 @@ prompt_last_status () {
 }
 
 # Micro
-export PS1="\$(prompt)"
+if [ "$SHELL" = 'zsh' ]; then
+    setopt PROMPT_SUBST
+    export PS1="$(prompt)"
+else
+    export PS1="\$(prompt)"
+fi
 
 [ $TERM = "dumb" ] && export PS1='$ '
 

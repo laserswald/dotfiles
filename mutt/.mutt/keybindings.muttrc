@@ -1,14 +1,21 @@
 # keys
+
 bind index gg first-entry
+bind pager gg top
+
 bind index G last-entry
+bind pager G bottom
+
 macro index o "<shell-escape>dtach -n /tmp/ben/mbsyncdtach mbsync -qqa<enter>" "Sync email."
 macro index zM "<limit>all\n" "show all messages (undo limit)"
-bind index <space> tag-entry 
+bind index <space> tag-entry
 
 bind pager k previous-line
 bind pager j next-line
-bind pager gg top
-bind pager G bottom
-
+bind pager R group-reply
 bind attach <return> view-mailcap
+
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Cl sidebar-open
 

@@ -1,13 +1,13 @@
 # paths
 set my_muttdir=$HOME/.mutt
 set alias_file=$my_muttdir/aliases
+set mailcap_path = $my_muttdir/mailcap
 
 source $my_muttdir/aliases
-source $my_muttdir/colors/laserlight.colors
 
 set signature = $HOME/.sig
+set sig_on_top
 
-source $my_muttdir/keybindings.muttrc
 
 # options
 set wait_key = no
@@ -29,12 +29,23 @@ set record=+sent
 set realname="Ben Davenport-Ray"
 set sendmail="/usr/bin/msmtp"
 set sort=reverse-threads
+set sort_aux=last-date-received
 set spoolfile=+/
+set pager_index_lines = 10
 
-auto_view text/enriched
+
+auto_view text/html
 alternative_order text/plain text/enriched text/html
 
-source $my_muttdir/accounts/ahi.muttrc
+set sidebar_visible
+set sidebar_format = "%B %?F? [%F]? %* %?N?%N/?%S"
+set mail_check_stats
+set sidebar_folder_indent
+set sidebar_short_path
+
+source $my_muttdir/keybindings.muttrc
+source $my_muttdir/colors/laserlight.colors
+source $my_muttdir/accounts/azaleahealth.com.muttrc
 # source $my_muttdir/bdrgmail.muttrc
 # source $my_muttdir/ld11gmail.muttrc
 # source $my_muttdir/ksu.muttrc

@@ -11,7 +11,6 @@ alias j='jobs -l'
 alias l=ls
 alias la="ls -a"
 alias ll="ls -l"
-alias ls="ls --color=auto -xX"
 alias reload=". ~/.profile"
 alias rl=reload
 
@@ -36,6 +35,8 @@ alias t="todo.sh -t"
 alias ta="t add"
 alias td="t do"
 alias tl="t ls"
+alias twork="tl @work -@waiting"
+alias et="e $ORG_PATH/todo.txt"
 
 alias mux="$MULTIPLEXER"
 alias tm="tmux"
