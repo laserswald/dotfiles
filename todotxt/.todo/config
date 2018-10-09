@@ -52,9 +52,9 @@ export DEFAULT='\\033[0m'
 # Priorities can be any upper-case letter.
 # A,B,C are highlighted; you can add coloring for more.
 #
-# export PRI_A=$YELLOW        # color for A priority
-# export PRI_B=$GREEN         # color for B priority
-# export PRI_C=$LIGHT_BLUE    # color for C priority
+export PRI_A=$RED        # color for A priority
+export PRI_B=$LIGHT_RED         # color for B priority
+export PRI_C=$YELLOW    # color for C priority
 # export PRI_D=...            # define your own
 # export PRI_X=$WHITE         # color unless explicitly defined
 
@@ -81,4 +81,4 @@ export COLOR_CONTEXT=$GREEN
 # TODOTXT_FINAL_FILTER will filter list output after colorization,
 # priority hiding, context hiding, and project hiding. That is,
 # just before the list output is displayed.#
-export TODOTXT_FINAL_FILTER="$TODO_ACTIONS_DIR/futureTasks"
+export TODOTXT_FINAL_FILTER="$TODO_ACTIONS_DIR/customFilter"
