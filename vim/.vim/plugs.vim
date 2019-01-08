@@ -40,8 +40,7 @@ Plug 'tpope/vim-projectionist'
 " Language support
 Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
-" DebugginCC
-
+" Debugging
 Plug 'gcmt/taboo.vim'
 
 "}}}
