@@ -1,3 +1,4 @@
+#
 # Laserswald's kakrc.
 #
 
@@ -5,8 +6,22 @@ colorscheme chameleon
 
 set global tabstop 4
 set global indentwidth 0
-set global aligntab false
+set global aligntab true
 set global termcmd "st -e sh -c"
+
+#
+# Smart code navigation.
+#
+
+alias global jump-to-definition ctags-search
+
+define-command grep-find-references %{
+	evaluate-commands "grep <c-r>."
+}
+
+alias global find-references grep-find-references
+
+alias global tag ctags-search
 
 # Mappings
 
@@ -19,9 +34,8 @@ map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load y
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention"
-map global goto u <esc><a-i>w:grep<space><c-r>.<ret>               -docstring "Grep for usage"
+map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
 
 # Fancy modeline
 set global modelinefmt %{
@@ -35,36 +49,31 @@ add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
     modeline-parse
+
     ctags-enable-autoinfo
+
     git show-diff
+
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
-}
 
+	map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
+}
 
 hook global BufWritePost .* %{
     git update-diff
    	ctags-update-tags
 }
 
-hook -group autocomplete global WinSetOption filetype=go %{ go-enable-autocomplete }
-hook -group autocomplete global WinSetOption filetype=python %{ jedi-enable-autocomplete }
-hook -group autocomplete global WinSetOption filetype=rust %{ racer-enable-autocomplete }
+# Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
 	set-option buffer filetype javascript
 }
 
-
 hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
-}
-
-hook global WinSetOption filetype=php %{
-   	set buffer indentwidth 0
-   	lint-enable
-   	lint
 }
 
 # I prefer to use my main window as my jump client.
@@ -75,9 +84,7 @@ define-command integrated %{
 	set-option global toolsclient tools
 }
 
-#evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
-#nop %sh{ (kak-lsp -s $kak_session -vvv ) > ~/kak-lsp.log 2>&1 < /dev/null & }
 
 try %{ source .kakrc.local }
-# eval %sh{kak-lsp --kakoune -s $kak_session}

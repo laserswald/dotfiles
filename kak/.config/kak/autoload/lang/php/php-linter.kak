@@ -1,5 +1,6 @@
 
-hook global WinSetOption filetype=php %{
-    set buffer lintcmd %{~/.config/kak/kak_phplint}
+define-command -hidden phplint-enable evaluate-commands %{
+    set buffer lintcmd "$HOME/.config/kak/kak_phplint"
     lint-enable
 }
+

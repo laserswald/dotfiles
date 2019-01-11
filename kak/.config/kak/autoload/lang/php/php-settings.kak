@@ -1,6 +1,8 @@
 
 hook global WinSetOption filetype=php %{
-   	set buffer indentwidth 0
-
+   	set-option buffer indentwidth 0
+   	set-option buffer aligntab true
+   	lint-enable
+   	lint
 }
 

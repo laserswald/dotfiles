@@ -7,5 +7,5 @@ define-command -override -hidden php-set-phpunit-makecmd %{
     	[ "$phpunit_cmd" ] && echo "set buffer makecmd %{ $phpunit_cmd }"
     }
 }
-hook global WinSetOption filetype=php %{ php-set-phpunit-makecmd }
+# hook global WinSetOption filetype=php %{ php-set-phpunit-makecmd }
 

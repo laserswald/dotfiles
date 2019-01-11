@@ -12,7 +12,7 @@ define-command find \
     -docstring "Fuzzy-find a file in the current directory."\
     -override \
     -params 1 \
-	-shell-candidates %{
+	-shell-script-candidates %{
 	    # Launch the update command.
 	    (
         	${kak_opt_findcmd} >.kak_find_cache_tmp
