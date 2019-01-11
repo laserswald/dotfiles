@@ -2,7 +2,7 @@
 declare-option \
     -docstring "File selection for :find function" \
     str findcmd \
-    'find -type f'
+    'find . -path ./.git/ -prune -o -type f -print'
 
 declare-option \
     -docstring 'indicates if a file saved is new in BufWritePost' \
