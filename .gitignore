@@ -8,3 +8,4 @@ procmailrc
 vim/.vim/bundle/*
 vim/.vim/.netrwhist
 **/tags
+**/.kak_find_cache
