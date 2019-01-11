@@ -65,6 +65,8 @@ Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
 Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
 Plug 'jwalton512/vim-blade', {'for': 'php'}
 Plug 'zah/nim.vim'
+Plug 'fatih/vim-go', {'do' : ':GoInstallBinaries'}
+Plug 'leafo/moonscript-vim'
 
 " Plug 'davidoc/taskpaper.vim'
 "}}}

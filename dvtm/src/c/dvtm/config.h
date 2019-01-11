@@ -20,9 +20,9 @@ enum {
 };
 
 static Color colors[] = {
-	[DEFAULT]  = { .fg = -1, .bg = COLOR_BLACK, .fg256 = -1, .bg256 = COLOR_BLACK, },
+	[DEFAULT]  = { .fg = -1, .bg = -1, .fg256 = -1, .bg256 = -1, },
 	[SELECTED] = { .fg = -1, .bg = COLOR_GREEN, .fg256 = -1, .bg256 = COLOR_GREEN, },
-	[NORMAL]   = { .fg = -1, .bg = COLOR_WHITE, .fg256 = -1, .bg256 = COLOR_WHITE, },
+	[NORMAL]   = { .fg = -1, .bg = COLOR_BLACK, .fg256 = -1, .bg256 = COLOR_BLACK, },
 	[URGENT]   = { .fg = -1, .bg = COLOR_RED,   .fg256 = -1, .bg256 = COLOR_RED,  },
 	[TERMINAL] = { .fg = -1, .bg = -1,          .fg256 = -1, .bg256 = -1,  },
 };

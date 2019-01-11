@@ -8,6 +8,8 @@ static const char selfg[] = "$BRWHITE";
 static const char selbg[] = "$GREEN";
 static const char selborder[] = "$GREEN";
 '
+static const char *fonts[]          = { "artwiz lemon:pixelsize=10" };
+static const char dmenufont[]       = "artwiz lemon:pixelsize=10";
 
 export BLACK=$(tcolor 'black')
 export RED=$(tcolor 'red')

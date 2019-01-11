@@ -44,7 +44,7 @@ prompt_dir () {
 
 prompt_git () {
     if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
-		printf " %s " $(fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
+		printf " %s" $(fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
 	fi
 }
 
@@ -60,7 +60,7 @@ prompt_status_color () {
 
 prompt () {
 	statusc=$(prompt_status_color)
-	printf '%s' "$(fg ${fblue} $(hostname)) $(prompt_dir)$(prompt_git)${statusc}\$$(nonprint $normal) "
+	printf '%s' "$(fg ${fblue} $(hostname)) $(prompt_dir)$(prompt_git) ${statusc}\$$(nonprint $normal) "
 }
 
 case $SHELL in
@@ -70,6 +70,10 @@ case $SHELL in
     *ksh) 
 		# Micro
 		export PS1="\$(prompt)"
+        ;;
+    *zsh)
+		setopt PROMPT_SUBST
+		export PS1="$(prompt)"
         ;;
 esac
 
