@@ -1,0 +1,15 @@
+#!/bin/sh
+
+for package_name in $@
+do
+    package_directory="$HOME/etc/$package_name"
+
+    # Execute install script
+    test -e "$package_directory/install" && "$package_directory/install"
+
+    # Stow all the other files.
+    stow --ignore="(pre)?install" --dir="$HOME/etc" "$package_name"
+
+    # Execute post install script
+    test -e "$package_directory/postinstall" && "$package_directory/postinstall"
+done
