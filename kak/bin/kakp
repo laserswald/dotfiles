@@ -3,7 +3,7 @@
 
 session_name="$(basename $PWD)"
 
-if ! [ "$(kak -l | grep $session_name)" ]; then
+if ! [ "$(kak -l | grep -x $session_name)" ]; then
 	kak -d -s "$session_name"
 fi
 
