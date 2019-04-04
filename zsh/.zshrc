@@ -1,3 +1,5 @@
+source /etc/profile
+
 # Universal shell environment
 echo "zshrc"
 source ~/.shrc
