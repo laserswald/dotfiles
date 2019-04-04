@@ -1,4 +1,5 @@
 # Universal shell environment
+echo "zshrc"
 source ~/.shrc
 setopt PROMPT_SUBST
 

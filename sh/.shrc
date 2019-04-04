@@ -1,21 +1,11 @@
 #!/bin/sh
+# vim:ft=sh
+# Launched in every interactive shell.
 
-# Before we do anything, we are going to define path manipulation stuff here.
+# Before we do anything, we are going to load our path manipulation stuff.
+. ~/.local/lib/sh/path.sh
 
-insert_path() {
-    export PATH="${1}:${PATH}"
-}
-
-# Load any files in my shell directory.
-for file in ~/.sh.d/*.sh ; do
-    . $file
-done
-
-# Local install tree is here.
-insert_path "$HOME/.local/bin"
-
-# All command overrides here
-insert_path "$HOME/bin"
+source_dir "$HOME/.sh.d/env.d"
 
 # Override defaults with locals.
 if [ -e $HOME/.shrc.local ]; then
