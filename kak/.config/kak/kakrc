@@ -7,21 +7,22 @@ colorscheme chameleon
 set global tabstop 4
 set global indentwidth 0
 set global aligntab true
-set global termcmd "st -e sh -c"
 
 #
 # Smart code navigation.
 #
 
-alias global jump-to-definition ctags-search
+try %{
+	alias global jump-to-definition ctags-search
+	alias global tag ctags-search
+}
 
-define-command grep-find-references %{
+define-command -override grep-find-references %{
 	evaluate-commands "grep <c-r>."
 }
 
 alias global find-references grep-find-references
 
-alias global tag ctags-search
 
 # Mappings
 
@@ -30,6 +31,7 @@ map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write 
 map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
+map global user m <esc>:make<ret> -docstring "Make the current project"
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
@@ -43,9 +45,11 @@ set global modelinefmt %{
 }
 
 # Styles and hooks for all windows.
-add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-add-highlighter global/ wrap
-add-highlighter global/ show-matching
+try %{ 
+	add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+	add-highlighter global/ wrap
+	add-highlighter global/ show-matching
+}
 
 hook global WinCreate .* %{
     modeline-parse
@@ -72,19 +76,24 @@ hook global BufCreate .*\.js4$ %{
 	set-option buffer filetype javascript
 }
 
+hook global WinSetOption filetype=kak %{
+	map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
+}
+
 hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
 # I prefer to use my main window as my jump client.
-define-command integrated %{
+define-command -override integrated %{
     rename-client main
 	set-option global jumpclient main
 	new rename-client tools
 	set-option global toolsclient tools
 }
 
-evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
-
+evaluate-commands %sh{
+	kak-lsp --kakoune -s $kak_session
+}
 
 try %{ source .kakrc.local }
