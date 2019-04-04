@@ -1,17 +1,20 @@
 
-face global attribute black+bF
+face global attribute green+b
 face global builtin white+b
 face global comment black
 face global error yellow,red+b
 face global function cyan
-face global keyword green+b
-face global meta magenta+b
+face global keyword green
+face global meta magenta
 face global module red
 face global operator default
 face global string red+b
 face global type yellow+f
 face global value red
-face global variable blue+f
+face global variable blue
+face global identifier blue+b
+
+face global block black+b
 
 face global Default default
 face global PrimaryCursor default+r
