@@ -1,0 +1,7 @@
+set my_email="me@lazr.space"
+set from = "$my_email"
+set my_pass="`pass email/me@lazr.space`"
+set folder="imaps://$my_email:$my_pass@mail.gandi.net"
+set spoolfile=+INBOX
+subscribe ~lazr/.*@lists.sr.ht
+
