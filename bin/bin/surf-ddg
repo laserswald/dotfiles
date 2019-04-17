@@ -1,0 +1,16 @@
+#!/bin/sh
+# Search the internet with DuckDuckGo and surf.
+
+SEARCH_HISTORY=$HOME/.search-history
+touch $SEARCH_HISTORY
+
+query=$(dmenu -p "search:" <$SEARCH_HISTORY)
+if [ $? -ne 0 ]; then 
+    exit
+fi
+
+printf %s\\n "$query" >> $SEARCH_HISTORY
+sort $SEARCH_HISTORY | uniq >${SEARCH_HISTORY}.tmp && mv ${SEARCH_HISTORY}.tmp ${SEARCH_HISTORY}
+
+surf "duckduckgo.com/?q=$(echo $query | tr ' ' '+')"
+
