@@ -1,16 +1,19 @@
 
+;;; Code:
+
 ;;;; Settings.
 
-;;; Screw your tool and menu bars.
+;; Clean up the GUI.
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(setq inhibit-startup-message t)
-
-;;; For real, leave me alone about this.
-(setq vc-follow-symlinks t)
-
+(when (boundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Fira Code-9"))
+	     '(font . "Input Mono-9"))
+
+;; Stop annoying me about stuff.
+(setq inhibit-startup-message t
+      vc-follow-symlinks t)
 
 ;;;; Package setup.
 (require 'package)
@@ -31,12 +34,10 @@
 (use-package smart-tabs-mode
   :ensure t
   :config
-  (smart-tabs-insinuate 'php-mode 'c 'javascript))
+  (smart-tabs-insinuate 'c 'javascript)
+  (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
 
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-global-mode))
+(use-package projectile :ensure t :config (projectile-mode))
 
 (use-package helm
   :ensure t
@@ -49,88 +50,46 @@
   :config
   (helm-projectile-on))
 
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
 
 ;;; Evil configuration!
 (use-package evil
   :ensure t
 
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
+  (setq evil-want-integration t
+	evil-want-keybinding nil)
+  (evil-mode)
 
   :config
-
-  ;; Window movement with C-hjkl
-  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-
-  ;; Hotsequences 
-
-  (define-key evil-normal-state-map "gb" 'helm-buffers-list)
-  (define-key evil-normal-state-map "ga" 'evil-switch-to-windows-last-buffer)
-  (define-key evil-normal-state-map "gs" 'magit-status)
-
-  (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
   (evil-set-initial-state 'dired-mode 'normal)
+  ;; Hotsequences ;;
+  
+  ;; Vim-vinegar replacement
+  (evil-define-key 'normal 'dired-mode-map "-" 'dired-jump)
   (define-key evil-normal-state-map (kbd "-")
     '(lambda ()
        (interactive)
-       (find-file ".")))
+       (find-file "."))))
 
-  ;; I neeeeed my jk
-  (use-package evil-escape
+;; I neeeeed my jk
+(use-package evil-escape
     :ensure t
+    :after evil
     :config
     (setq-default evil-escape-key-sequence "jk")
     (evil-escape-mode))
 
-  (evil-mode 1))
-
-(use-package general
-  :ensure t
-  :config
-  (setq general-default-keymaps 'evil-normal-state-map)
-  (setq general-default-prefix "SPC")
-
-  ;; Window manipulation
-  (general-define-key :infix "w"
-		      "j" 'split-window-vertically
-		      "l" 'split-window-horizontally
-		      "c" 'kill-buffer)
-
-  (general-define-key "p" 'projectile-command-map))
-
-(use-package evil-ediff
-  :after evil
-  :ensure t)
-
-(use-package evil-magit
-  :after evil
-  :after magit
-  :ensure t)
-
-(use-package evil-surround
-  :after evil
-  :ensure t)
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
-(use-package evil-tabs
-  :after evil
-  :ensure t
-  :config
-  (global-evil-tabs-mode t))
-
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode))
+(use-package general :ensure t :config (general-evil-setup))
+(use-package evil-ediff :after evil :ensure t)
+(use-package evil-magit :after '(evil magit) :ensure t)
+(use-package evil-surround :after evil :ensure t)
+(use-package evil-collection :after evil :ensure t :config (evil-collection-init))
+(use-package evil-tabs :after evil :ensure t :config (global-evil-tabs-mode t))
+(use-package company :ensure t :config (global-company-mode))
 
 (use-package evil-org
   :after org
@@ -143,13 +102,69 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-;; (load "lisp/xresources-theme/xresources-theme")
+;;; Keybindings.
 
-(use-package xresources-theme :ensure t)
-(use-package monochrome-theme :ensure t)
-(use-package nord-theme :ensure t)
-(use-package zenburn-theme :ensure t)
-(enable-theme 'zenburn)
+(general-create-definer lazr-leader-map
+  :states 'normal
+  :prefix "SPC")
+
+(general-create-definer lazr-local-leader-map
+  :states 'normal
+  :prefix ",")
+
+;; Window movement with C-hjkl
+(general-define-key "C-h" 'evil-window-left
+		    "C-j" 'evil-window-down
+		    "C-k" 'evil-window-up
+		    "C-l" 'evil-window-right)
+		    
+;; Go to ...
+(general-define-key :states 'normal :prefix "g"
+		    "a" 'evil-switch-to-windows-last-buffer ; alternate
+		    "b" 'helm-buffers-list)                 ; buffer
+
+;; 'W'indow manipulation
+(lazr-leader-map :infix "w"
+		 "c" 'kill-buffer
+		 "j" 'split-window-vertically
+		 "l" 'split-window-horizontally)
+
+;;; 'P'roject tools
+(lazr-leader-map "p" 'projectile-command-map)
+
+;;; 'V'ersion control
+(lazr-leader-map :infix "v"
+		 "s" 'magit-status
+		 "a" 'magit-stage-file)
+
+;;; File type specific tools
+(lazr-local-leader-map :keymaps 'php-mode-map
+		       "ta" 'phpunit-current-project
+		       "tt" 'phpunit-current-test
+		       "tc" 'phpunit-current-class)
+
+(defun lazr-eval-buffer ()
+  "Evaluate a buffer and say something about it."
+  (interactive)
+  (eval-buffer)
+  (message "Evaluated."))
+
+
+(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
+		       "eb" 'lazr-eval-buffer)
+
+(if (display-graphic-p)
+    (progn
+      (use-package xresources-theme :ensure t)
+      (use-package monochrome-theme :ensure t)
+      (use-package nord-theme :ensure t)
+      (use-package zenburn-theme :ensure t)
+      (enable-theme 'zenburn))
+  (set-face-background 'default "background")
+  (set-face-foreground 'font-lock-keyword-face "green")
+  (set-face-foreground 'font-lock-comment-face "black")
+  (set-face-foreground 'font-lock-variable-name-face "blue")
+  (set-face-foreground 'elscreen-tab-control-face "blue"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -170,3 +185,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(provide 'init)
+;;; init.el ends here
