@@ -1,12 +1,33 @@
+#
 # Laserswald's kakrc.
 #
 
-colorscheme chameleon
+# Looks 
 
-set global tabstop 4
-set global indentwidth 0
-set global aligntab false
-set global termcmd "st -e sh -c"
+colorscheme chameleon
+add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+add-highlighter global/ wrap
+add-highlighter global/ show-matching
+
+# Alignment
+
+set-option global tabstop 4
+set-option global indentwidth 0
+set-option global aligntab false
+
+# Smart-er code navigation.
+
+set-option global grepcmd 'ag --column'
+alias global jump-to-definition ctags-search
+
+define-command -override grep-find-references %{
+	evaluate-commands "grep %val{reg_.} ."
+}
+
+alias global find-references grep-find-references
+
+alias global tag ctags-search
+
 
 # Mappings
 
@@ -15,13 +36,16 @@ map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write 
 map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
+map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto d <esc><a-i>w:ctags-search<ret>              -docstring "tag definition"
-map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention"
-map global goto u <esc><a-i>w:grep<space><c-r>.<ret>               -docstring "Grep for usage"
+map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
+map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
+#map global goto f <esc>:goto-file-line<ret>                  -docstring "File and line if in standard colon form"
+
+
 
 # Fancy modeline
 set global modelinefmt %{
@@ -29,55 +53,52 @@ set global modelinefmt %{
 }
 
 # Styles and hooks for all windows.
-add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-add-highlighter global/ wrap
-add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
     modeline-parse
+
     ctags-enable-autoinfo
+
+    try %{ editorconfig-load }
+
     git show-diff
+
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
-}
 
+	map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
+}
 
 hook global BufWritePost .* %{
     git update-diff
    	ctags-update-tags
 }
 
-hook -group autocomplete global WinSetOption filetype=go %{ go-enable-autocomplete }
-hook -group autocomplete global WinSetOption filetype=python %{ jedi-enable-autocomplete }
-hook -group autocomplete global WinSetOption filetype=rust %{ racer-enable-autocomplete }
+# Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
 	set-option buffer filetype javascript
 }
-
 
 hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
 hook global WinSetOption filetype=php %{
-   	set buffer indentwidth 0
-   	lint-enable
-   	lint
+    remove-hooks buffer tabs-to-spaces
 }
 
 # I prefer to use my main window as my jump client.
-define-command integrated %{
+define-command open-tools %{
     rename-client main
 	set-option global jumpclient main
 	new rename-client tools
 	set-option global toolsclient tools
 }
 
-#evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
-#nop %sh{ (kak-lsp -s $kak_session -vvv ) > ~/kak-lsp.log 2>&1 < /dev/null & }
+evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
 try %{ source .kakrc.local }
-# eval %sh{kak-lsp --kakoune -s $kak_session}
+

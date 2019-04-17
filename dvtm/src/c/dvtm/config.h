@@ -37,8 +37,8 @@ static Color colors[] = {
 /* curses attributes for the status bar */
 #define BAR_ATTR        (COLOR(SELECTED) | A_NORMAL)
 /* characters for beginning and end of status bar message */
-#define BAR_BEGIN       '['
-#define BAR_END         ']'
+#define BAR_BEGIN       ' '
+#define BAR_END         ' '
 /* status bar (command line option -s) position */
 #define BAR_POS         BAR_BOTTOM /* BAR_TOP, BAR_OFF */
 /* whether status bar should be hidden if only one client exists */
@@ -50,7 +50,7 @@ static Color colors[] = {
 /* scroll back buffer size in lines */
 #define SCROLL_HISTORY 500
 /* printf format string for the tag in the status bar */
-#define TAG_SYMBOL   "[%s]"
+#define TAG_SYMBOL   " %s "
 /* curses attributes for the currently selected tags */
 #define TAG_SEL      (COLOR(SELECTED) | A_BOLD)
 /* curses attributes for not selected tags which contain no windows */
@@ -60,7 +60,7 @@ static Color colors[] = {
 /* curses attributes for not selected tags which with urgent windows */
 #define TAG_URGENT (COLOR(SELECTED) | A_NORMAL | A_BLINK)
 
-const char tags[][8] = { "1", "2", "3", "4", "5" };
+const char tags[][8] = { "edit", "bin", "data", "srv", "etc" };
 
 #include "tile.c"
 #include "grid.c"
@@ -75,7 +75,7 @@ static Layout layouts[] = {
 	{ "[ ]", fullscreen },
 };
 
-#define MOD  CTRL('g')
+#define MOD  CTRL('a')
 #define TAGKEYS(KEY,TAG) \
 	{ { MOD, 'v', KEY,     }, { view,           { tags[TAG] }               } }, \
 	{ { MOD, 't', KEY,     }, { tag,            { tags[TAG] }               } }, \
