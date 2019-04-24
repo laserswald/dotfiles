@@ -2,7 +2,14 @@
 # Laserswald's kakrc.
 #
 
+# Looks.
+
 colorscheme gruvbox
+add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+add-highlighter global/ wrap
+add-highlighter global/ show-matching
+
+# Plugins.
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
@@ -15,25 +22,25 @@ plug "andreyorst/tagbar.kak" config %{
     }
 }
 
-set global tabstop 4
-set global indentwidth 0
-set global aligntab true
+# Alignment
 
-#
-# Smart code navigation.
-#
+set-option global tabstop 4
+set-option global indentwidth 0
+set-option global aligntab false
 
+# Smart-er code navigation.
+
+set-option global grepcmd 'ag --column'
 try %{
 	alias global jump-to-definition ctags-search
 	alias global tag ctags-search
 }
 
 define-command -override grep-find-references %{
-	evaluate-commands "grep <c-r>."
+	evaluate-commands "grep %val{reg_.} ."
 }
 
 alias global find-references grep-find-references
-
 
 # Mappings
 
@@ -43,67 +50,72 @@ map global user s <esc>:send-text<ret>                        -docstring "Send s
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
 map global user m <esc>:make<ret>                             -docstring "Make the current project"
+map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention"
+map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
 map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
+#map global goto f <esc>:goto-file-line<ret>                  -docstring "File and line if in standard colon form"
 
 # Fancy modeline
+
 # set global modelinefmt %{
 # 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 # }
 
 # Styles and hooks for all windows.
-add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-add-highlighter global/ wrap
-add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
-	editorconfig-load
     modeline-parse
-    # ctags-enable-autoinfo
+    ctags-enable-autoinfo
+    try %{ editorconfig-load }
     git show-diff
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
-	map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
+    map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
 }
 
 hook global BufWritePost .* %{
     git update-diff
-   	ctags-update-tags
+    ctags-update-tags
 }
 
-# Filetype-specific hooks
+## Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
-	set-option buffer filetype javascript
+    set-option buffer filetype javascript
 }
 
 hook global WinSetOption filetype=kak %{
-	map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
+    map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
 }
 
 hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
+hook global WinSetOption filetype=php %{
+    remove-hooks buffer tabs-to-spaces
+}
+
+## Commands.
+
 # I prefer to use my main window as my jump client.
-define-command -override integrated %{
+define-command open-tools %{
     rename-client jump
-	set-option global jumpclient jump
-	new rename-client tools
-	set-option global toolsclient tools
+    set-option global jumpclient jump
+    new rename-client tools
+    set-option global toolsclient tools
 }
 
 define-command -override phpunit-this-file %{
 	set-option global makecmd "vendor/bin/phpunit %reg{%}"
 }
 
-evaluate-commands %sh{
-	kak-lsp --kakoune -s $kak_session
-}
+evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
 try %{ source .kakrc.local }
+

@@ -1,0 +1,6 @@
+set my_username = "ben.davenportray@azaleahealth.com"
+set my_password = "`pass email/bdavenportray@azaleahealth.com`"
+set folder = "imaps://$my_username:$my_password@imap.gmail.com/"
+set spoolfile = +INBOX
+set smtp_pass = "$my_password"
+set smtp_url = "smtps://$my_username@smtp.gmail.com/"

@@ -73,7 +73,7 @@ case $SHELL in
         ;;
     *zsh)
 		setopt PROMPT_SUBST
-		export PS1="$(prompt)"
+		export PS1="\$(prompt)"
         ;;
 esac
 
