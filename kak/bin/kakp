@@ -8,4 +8,4 @@ if ! [ "$(kak -l | grep -x $session_name)" ]; then
     echo $! >.kak_session_pid
 fi
 
-kak -c "$session_name" $@
+exec kak -c "$session_name" $@
