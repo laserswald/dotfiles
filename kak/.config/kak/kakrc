@@ -2,7 +2,18 @@
 # Laserswald's kakrc.
 #
 
-colorscheme chameleon
+colorscheme gruvbox
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+
+plug "nkoehring/kakoune-todo.txt"
+plug "andreyorst/plug.kak"
+plug "andreyorst/fzf.kak"
+plug "andreyorst/tagbar.kak" config %{
+    hook global WinSetOption filetype=tagbar %{
+	    remove-highlighter window/wrap
+    }
+}
 
 set global tabstop 4
 set global indentwidth 0
@@ -31,7 +42,7 @@ map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write 
 map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
-map global user m <esc>:make<ret> -docstring "Make the current project"
+map global user m <esc>:make<ret>                             -docstring "Make the current project"
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
@@ -40,28 +51,23 @@ map global goto n <esc><a-i>w*n<ret>                         -docstring "Next me
 map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
 
 # Fancy modeline
-set global modelinefmt %{
-	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
-}
+# set global modelinefmt %{
+# 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
+# }
 
 # Styles and hooks for all windows.
-try %{ 
-	add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-	add-highlighter global/ wrap
-	add-highlighter global/ show-matching
-}
+add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+add-highlighter global/ wrap
+add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
+	editorconfig-load
     modeline-parse
-
-    ctags-enable-autoinfo
-
+    # ctags-enable-autoinfo
     git show-diff
-
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
-
 	map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
 }
 
@@ -86,10 +92,14 @@ hook global WinSetOption filetype=makefile %{
 
 # I prefer to use my main window as my jump client.
 define-command -override integrated %{
-    rename-client main
-	set-option global jumpclient main
+    rename-client jump
+	set-option global jumpclient jump
 	new rename-client tools
 	set-option global toolsclient tools
+}
+
+define-command -override phpunit-this-file %{
+	set-option global makecmd "vendor/bin/phpunit %reg{%}"
 }
 
 evaluate-commands %sh{
