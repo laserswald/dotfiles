@@ -1,7 +1,22 @@
-set my_email="me@lazr.space"
-set from = "$my_email"
-set my_pass="`pass email/me@lazr.space`"
-set folder="imaps://$my_email:$my_pass@mail.gandi.net"
-set spoolfile=+INBOX
 subscribe ~lazr/.*@lists.sr.ht
 
+set my_username = "me@lazr.space"
+set my_password = "`pass email/me@lazr.space`"
+set my_imap_url = "imaps://$my_username:$my_password@mail.gandi.net"
+
+set imap_user = "$my_username"
+set imap_pass = "$my_password"
+
+set smtp_pass = "$my_password"
+set smtp_url = "smtps://$my_username@mail.gandi.net/"
+
+mailboxes $my_imap_url/INBOX
+
+folder-hook $my_imap_url "\
+set folder = \"$my_imap_url\"; \
+set spoolfile = +INBOX; \
+"
+
+unset my_username;
+unset my_password;
+unset my_imap_url;

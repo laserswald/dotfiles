@@ -2,26 +2,32 @@
 # Laserswald's kakrc.
 #
 
+# Looks 
+
 colorscheme chameleon
+add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
+add-highlighter global/ wrap
+add-highlighter global/ show-matching
 
-set global tabstop 4
-set global indentwidth 0
-set global aligntab true
-set global termcmd "st -e sh -c"
+# Alignment
 
-#
-# Smart code navigation.
-#
+set-option global tabstop 4
+set-option global indentwidth 0
+set-option global aligntab false
 
+# Smart-er code navigation.
+
+set-option global grepcmd 'ag --column'
 alias global jump-to-definition ctags-search
 
-define-command grep-find-references %{
-	evaluate-commands "grep <c-r>."
+define-command -override grep-find-references %{
+	evaluate-commands "grep %val{reg_.} ."
 }
 
 alias global find-references grep-find-references
 
 alias global tag ctags-search
+
 
 # Mappings
 
@@ -30,12 +36,16 @@ map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write 
 map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
+map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention"
+map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
 map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
+#map global goto f <esc>:goto-file-line<ret>                  -docstring "File and line if in standard colon form"
+
+
 
 # Fancy modeline
 set global modelinefmt %{
@@ -43,14 +53,13 @@ set global modelinefmt %{
 }
 
 # Styles and hooks for all windows.
-add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-add-highlighter global/ wrap
-add-highlighter global/ show-matching
 
 hook global WinCreate .* %{
     modeline-parse
 
     ctags-enable-autoinfo
+
+    try %{ editorconfig-load }
 
     git show-diff
 
@@ -82,17 +91,20 @@ hook global WinSetOption filetype=zig %{
         execute-keys -draft h %opt{indentwidth}@
     } }
 
+hook global WinSetOption filetype=php %{
+    remove-hooks buffer tabs-to-spaces
 }
 
 # I prefer to use my main window as my jump client.
-define-command integrated %{
+define-command open-tools %{
     rename-client main
 	set-option global jumpclient main
 	new rename-client tools
 	set-option global toolsclient tools
 }
 
+
 evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
 
-
 try %{ source .kakrc.local }
+
