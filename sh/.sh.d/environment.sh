@@ -33,4 +33,6 @@ export MAIL="$HOME/var/mail"
 export ORG_PATH="$HOME/org"
 export PUNCH_FILE="$ORG_PATH/.punches"
 
+# Desktop stuff
+export CLICOLOR=1
 export FONT="Tamzen:size=9"

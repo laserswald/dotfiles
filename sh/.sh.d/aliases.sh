@@ -8,11 +8,12 @@ alias p=pushd
 alias o=popd
 alias h='history'
 alias j='jobs -l'
+alias reload=". ~/.profile"
+alias rl=reload
+
 alias l=ls
 alias la="ls -a"
 alias ll="ls -l"
-alias reload=". ~/.profile"
-alias rl=reload
 
 alias edit="$EDITOR"
 alias e="edit"
