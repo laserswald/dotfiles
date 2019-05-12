@@ -76,6 +76,14 @@ hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
+hook global WinSetOption filetype=zig %{
+	set buffer indentwidth 4
+    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+        execute-keys -draft h %opt{indentwidth}@
+    } }
+
+}
+
 # I prefer to use my main window as my jump client.
 define-command integrated %{
     rename-client main
