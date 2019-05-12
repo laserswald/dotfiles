@@ -1,12 +1,13 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "lemon:pixelsize=10" };
-static const char dmenufont[]       = "lemon:pixelsize=10";
+static const char *fonts[]          = { "Input Mono:pixelsize=12" };
+static const char dmenufont[]       = "Input Mono:pixelsize=12";
 
 #include "themes/lander-green.h"
 
@@ -56,7 +57,12 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "/bin/sh", "-c", "dmenu_run", NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
+static const char *termcmd[]  = { "st", NULL };
+static const char *dispup[]  = { "xbacklight", "+", "10", NULL };
+static const char *dispdown[]  = { "xbacklight", "-", "10", NULL };
+static const char *volup[]  = { "amixer", "set", "Master", "10+", NULL };
+static const char *voldown[]  = { "amixer", "set", "Master", "10-", NULL };
+static const char *volmute[]  = { "amixer", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -93,6 +99,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    {0, XF86XK_MonBrightnessUp,     spawn, {.v = dispup}},
+    {0, XF86XK_MonBrightnessDown,   spawn, {.v = dispdown}},
+    {0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
+    {0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
+    {0, XF86XK_AudioMute,           spawn, {.v = volmute}},
 };
 
 /* button definitions */
