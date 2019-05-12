@@ -8,7 +8,6 @@ source $my_muttdir/aliases
 set signature = $HOME/.sig
 set sig_on_top
 
-
 # options
 set wait_key = no
 set mbox_type = Maildir
@@ -21,7 +20,7 @@ set quit
 unset mark_old
 set beep_new
 set pipe_decode
-
+set crypt_autosign
 set edit_headers=yes
 set header_cache=~/.cache/mutt
 set postponed=+drafts
@@ -32,7 +31,6 @@ set sort=reverse-threads
 set sort_aux=last-date-received
 set spoolfile=+/
 set pager_index_lines = 10
-
 
 auto_view text/html
 alternative_order text/plain text/enriched text/html
@@ -45,7 +43,8 @@ set sidebar_short_path
 
 source $my_muttdir/keybindings.muttrc
 source $my_muttdir/colors/laserlight.colors
-source $my_muttdir/accounts/azaleahealth.com.muttrc
+source $my_muttdir/accounts/lazr.space.muttrc
+# source $my_muttdir/accounts/azaleahealth.com.muttrc
 # source $my_muttdir/bdrgmail.muttrc
 # source $my_muttdir/ld11gmail.muttrc
 # source $my_muttdir/ksu.muttrc
