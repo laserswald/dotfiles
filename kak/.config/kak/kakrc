@@ -85,6 +85,12 @@ hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
+hook global WinSetOption filetype=zig %{
+	set buffer indentwidth 4
+    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+        execute-keys -draft h %opt{indentwidth}@
+    } }
+
 hook global WinSetOption filetype=php %{
     remove-hooks buffer tabs-to-spaces
 }

@@ -20,7 +20,7 @@ set quit
 unset mark_old
 set beep_new
 set pipe_decode
-
+set crypt_autosign
 set edit_headers=yes
 set header_cache=~/.cache/mutt
 set sendmail="/usr/bin/msmtp"

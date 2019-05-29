@@ -26,10 +26,10 @@ const char *colorname[] = {
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"$FOREGROUND",
-	"$BACKGROUND",
-	"$CURSOR",
-	"$REVCURSOR",
+	"$FOREGROUND", // 256
+	"$BACKGROUND", // 257
+	"$CURSOR",     // 258
+	"$REVCURSOR",  // 259
 };
 '
 

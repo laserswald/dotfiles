@@ -1,3 +1,5 @@
+subscribe ~lazr/.*@lists.sr.ht
+
 set my_username = "me@lazr.space"
 set my_password = "`pass email/me@lazr.space`"
 set my_imap_url = "imaps://$my_username:$my_password@mail.gandi.net"
