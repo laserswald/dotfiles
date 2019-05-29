@@ -13,9 +13,11 @@ add-highlighter global/ show-matching
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "nkoehring/kakoune-todo.txt"
-plug "andreyorst/plug.kak"
-plug "andreyorst/fzf.kak"
+plug "andreyorst/plug.kak" noload config %{}
+plug 'nkoehring/kakoune-todo.txt'
+plug "andreyorst/fzf.kak" config %{
+	map global goto f <esc>:fzf-mode<ret> -docstring "Fuzzy finder mode"
+}
 plug "andreyorst/tagbar.kak" config %{
     hook global WinSetOption filetype=tagbar %{
 	    remove-highlighter window/wrap
@@ -27,20 +29,6 @@ plug "andreyorst/tagbar.kak" config %{
 set-option global tabstop 4
 set-option global indentwidth 0
 set-option global aligntab false
-
-# Smart-er code navigation.
-
-set-option global grepcmd 'ag --column'
-try %{
-	alias global jump-to-definition ctags-search
-	alias global tag ctags-search
-}
-
-define-command -override grep-find-references %{
-	evaluate-commands "grep %val{reg_.} ."
-}
-
-alias global find-references grep-find-references
 
 # Mappings
 
@@ -56,8 +44,7 @@ map global user d <esc>:db<ret>                               -docstring "Delete
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
-map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
-#map global goto f <esc>:goto-file-line<ret>                  -docstring "File and line if in standard colon form"
+map global goto u <esc>:find-references<ret>           -docstring "References to symbol"
 
 # Fancy modeline
 
@@ -115,7 +102,14 @@ define-command -override phpunit-this-file %{
 	set-option global makecmd "vendor/bin/phpunit %reg{%}"
 }
 
-evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+try %{ 
+	evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+	hook global KakEnd .* %{
+		lsp-exit
+	}
+}
+
+# nop %sh{ (kak-lsp -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 
 try %{ source .kakrc.local }
 
