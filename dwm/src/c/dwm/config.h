@@ -2,13 +2,12 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "lemon:pixelsize=10" };
-static const char dmenufont[]       = "lemon:pixelsize=10";
+static const int topbar             = 0;        /* 0 means bottom bar */
 
-#include "themes/lander-green.h"
+#include "themes/gruvbox.h"
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -17,16 +16,25 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix" };
+static const char *tags[] = { "main", "web", "music", "mail", "chat", "tools", "srv", "etc", "bg" };
+
+#define ONLYTAG(n) (1 << (n - 1))
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class        instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",       NULL,       NULL,       0,            1,           -1 },
+
+	/* browsers */
+	{ "Firefox",    NULL,       NULL,       ONLYTAG(2),       0,           -1 },
+	{ "Chromium",   NULL,       NULL,       ONLYTAG(2),       0,           -1 },
+	{ "surf",       NULL,       NULL,       ONLYTAG(2),       0,           -1 },
+
+	/* terminal applications */
+	{ "Alacritty",  NULL,       "weechat",  ONLYTAG(5),       0,           -1 },
 };
 
 
@@ -54,14 +62,23 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+
+#include "applications.h"
+
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "/bin/sh", "-c", "dmenu_run", NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_slash,  spawn,          {.v = searchcmd } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = fmcmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = chatcmd } },
+	{ MODKEY,                       XK_g,      spawn,          {.v = browsercmd } },
+
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
