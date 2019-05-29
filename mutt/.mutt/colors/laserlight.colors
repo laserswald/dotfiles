@@ -24,11 +24,11 @@ color quoted4    blue          default
 color quoted5    magenta          default
 
 # Index colors
-color index brightblue   default "~N"
-color index blue         default "~O"
-color index brightred    default ~F
+color index green default "~N"
+color index green default "~O"
+color index brightred default ~F
 color index black brightblack ~=
-color index brightblue default ~T
+color index blue default ~T
 color index brightblack black ~D
 
 # color body brightwhite black '\*+[^*]+\*+'

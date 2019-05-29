@@ -1,20 +1,13 @@
 set my_username = "me@lazr.space"
 set my_password = "`pass email/me@lazr.space`"
 set my_imap_url = "imaps://$my_username:$my_password@mail.gandi.net"
+set my_smtp_url = "smtps://$my_username@mail.gandi.net/"
 
-set imap_user = "$my_username"
-set imap_pass = "$my_password"
+mailboxes $my_imap_url $my_imap_url/Drafts
 
-set smtp_pass = "$my_password"
-set smtp_url = "smtps://$my_username@mail.gandi.net/"
-
-mailboxes $my_imap_url/INBOX
-
-folder-hook $my_imap_url "\
-set folder = \"$my_imap_url\"; \
-set spoolfile = +INBOX; \
-"
+source $my_muttdir/accounts/imap.muttrc
 
 unset my_username;
 unset my_password;
 unset my_imap_url;
+unset my_smtp_url;

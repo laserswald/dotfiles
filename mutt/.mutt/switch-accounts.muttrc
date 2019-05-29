@@ -1,0 +1,5 @@
+macro generic \Cx| "<enter-command>source"
+macro generic \Cx& "<enter-command>macro index \\t \"\\Cx"
+macro index <tab> "\Cx1"    # default change to account 1, this will be redefined once pressed
+macro generic \Cx0 "\Cx| ~/.mutt/accounts/azaleahealth.com.muttrc\"\n\Cx&1\"<enter><change-folder>!<enter>"
+macro generic \Cx1 "\Cx| ~/.mutt/accounts/lazr.space.muttrc\"\n\Cx&0\"<enter><change-folder>!<enter>"
