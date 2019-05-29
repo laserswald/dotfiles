@@ -9,7 +9,7 @@
 /* char font[] = "Liberation Mono:pixelsize=12:antialias=true:autohint=true"; */
 /* char font[] = "Fira Mono:pixelsize=10:antialias=true:autohint=true"; */
 /* char font[] = "fixed:pixelsize=10"; */
-char font[] = "Tamsyn:pixelsize=12";
+// char font[] = "Tamsyn:pixelsize=12";
 /* char font[] = "gohufont:pixelsize=10"; */
 
 #include "themes/lander.h"

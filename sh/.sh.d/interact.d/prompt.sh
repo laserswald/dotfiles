@@ -17,33 +17,41 @@ npstart=""
 npend=""
 
 case $SHELL in
-    *bash)
+	*bash)
 		npstart="\["
 		npend="\]"
         ;;
-    *ksh) 
-        promptfirst=$(print \\001)
+	*zsh)
+		npstart="%{"	
+		npend="%}"	
+	;;
+	*ksh) 
+		promptfirst=$(print \\001)
 		npstart=$promptfirst
 		npend=$promptfirst
         ;;
 esac
 
 nonprint() {
-    printf "%s%s%s" $npstart $1 $npend
+	printf "%s%s%s" $npstart $1 $npend
 }
 
 fg() {
-    printf "%s%s%s" "$(nonprint $1)" "$2" "$(nonprint $normal)"
+	printf "%s%s%s" "$(nonprint $1)" "$2" "$(nonprint $normal)"
 }
 
 ## Different prompt components
 
 prompt_dir () {
-    printf "%s" "$(pwd | sed 's:'$HOME':~:g')"
+	if [ $SHELL = "/bin/zsh" ]; then 
+		printf "%%~" 
+	else
+		printf "%s" "$(pwd | sed 's:'$HOME':~:g')"
+	fi
 }
 
 prompt_git () {
-    if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
+	if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
 		printf " %s" $(fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
 	fi
 }
@@ -52,7 +60,7 @@ prompt_status_color () {
 	if [ "$?" -eq 0 ]; then
 		nonprint $fgreen
 	else
-        nonprint $fred
+		nonprint $fred
 	fi
 }
 
@@ -64,19 +72,17 @@ prompt () {
 }
 
 case $SHELL in
-    *bash)
-        export PROMPT_COMMAND='export PS1=$(prompt)'
+	*bash)
+		export PROMPT_COMMAND='export PS1=$(prompt)'
         ;;
-    *ksh) 
-		# Micro
+	*ksh) 
 		export PS1="\$(prompt)"
         ;;
-    *zsh)
+	*zsh)
 		setopt PROMPT_SUBST
 		export PS1="\$(prompt)"
         ;;
 esac
-
 
 [ $TERM = "dumb" ] && export PS1='$ '
 

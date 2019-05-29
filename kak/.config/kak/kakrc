@@ -4,7 +4,9 @@
 
 # Looks.
 
-colorscheme gruvbox
+# colorscheme gruvbox
+colorscheme gruvbox-light
+
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
@@ -84,6 +86,12 @@ hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
+hook global WinSetOption filetype=zig %{
+	set buffer indentwidth 4
+    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+        execute-keys -draft h %opt{indentwidth}@
+    } }
+
 hook global WinSetOption filetype=php %{
     remove-hooks buffer tabs-to-spaces
 }
@@ -109,7 +117,10 @@ try %{
 	}
 }
 
-# nop %sh{ (kak-lsp -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+hook global WinSetOption filetype=php %{
+	unmap global goto d
+	lsp-enable-window
+}
 
 try %{ source .kakrc.local }
 

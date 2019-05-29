@@ -1,5 +1,7 @@
 # keys
 
+bind index g noop
+bind pager g noop
 bind index gg first-entry
 bind pager gg top
 
