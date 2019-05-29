@@ -4,7 +4,7 @@
 
 # Looks 
 
-colorscheme chameleon
+colorscheme gruvbox-light
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
@@ -99,6 +99,10 @@ define-command open-tools %{
 
 
 evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+hook global WinSetOption filetype=php %{
+	unmap global goto d
+	lsp-enable-window
+}
 
 try %{ source .kakrc.local }
 
