@@ -5,7 +5,8 @@ alias p=pushd
 alias o=popd
 alias h='history'
 alias j='jobs -l'
-alias l=ls
+alias ls='ls --color=auto'
+alias l='ls'
 alias la="ls -a"
 alias ll="ls -l"
 alias reload=". ~/.profile"
