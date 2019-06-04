@@ -1,4 +1,6 @@
 
+provide-module ctags-fixes %{
+
 define-command -override ctags-funcinfo -docstring "Display ctags information about a selected function" %{
     evaluate-commands -draft %{
         try %{
@@ -33,4 +35,6 @@ BEGIN {
             }
         }
     }
+}
+
 }

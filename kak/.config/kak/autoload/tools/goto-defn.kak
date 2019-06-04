@@ -2,7 +2,7 @@
 # Globally useful code navigation tools.
 # 
 
-set-option global grepcmd 'ag --column'
+provide-module goto-definition %{
 
 define-command -override grep-find-references %{
 	evaluate-commands %sh{
@@ -19,3 +19,9 @@ try %{
 }
 
 alias global find-references grep-find-references
+
+define-command -override goto-def-doc %{
+
+}
+
+}
