@@ -7,15 +7,14 @@ wm_notify() {
 }
 
 wm_bg() {
-
-    ~/.screenlayout/triplehead.sh
+    ~/.screenlayout/external.sh
 
     ## Set the cursor to the left arrow pointer.
     xsetroot -cursor_name left_ptr &
 
     ## Set up my background.
-    # sh -c "~/.fehbg" &
-    ~/bin/termbg -c blue
+    sh -c "~/.fehbg" &
+    # ~/bin/termbg -c blue
 }
 
 wm_composite(){

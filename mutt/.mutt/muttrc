@@ -1,13 +1,12 @@
-# paths
-set my_muttdir=$HOME/.mutt
-set alias_file=$my_muttdir/aliases
-set mailcap_path = $my_muttdir/mailcap
-
-source $my_muttdir/aliases
-
+# My info
+set realname="Ben Davenport-Ray"
 set signature = $HOME/.sig
 set sig_on_top
 
+# paths
+set my_muttdir=$HOME/.mutt
+set folder = $HOME/var/mail
+set mailcap_path = $my_muttdir/mailcap
 
 # options
 set wait_key = no
@@ -21,34 +20,39 @@ set quit
 unset mark_old
 set beep_new
 set pipe_decode
-
+set crypt_autosign
 set edit_headers=yes
 set header_cache=~/.cache/mutt
-set postponed=+drafts
-set record=+sent
-set realname="Ben Davenport-Ray"
 set sendmail="/usr/bin/msmtp"
+
+# set imap_check_subscribed
+
+### Aliases.
+set alias_file=$my_muttdir/aliases
+source $my_muttdir/aliases
+
+### Viewing mail
 set sort=reverse-threads
 set sort_aux=last-date-received
-set spoolfile=+/
 set pager_index_lines = 10
-
-
 auto_view text/html
 alternative_order text/plain text/enriched text/html
+set read_inc = 100
 
+### Sidebar
 set sidebar_visible
 set sidebar_format = "%B %?F? [%F]? %* %?N?%N/?%S"
 set mail_check_stats
 set sidebar_folder_indent
 set sidebar_short_path
 
+### Key bindings
 source $my_muttdir/keybindings.muttrc
-source $my_muttdir/colors/laserlight.colors
-source $my_muttdir/accounts/azaleahealth.com.muttrc
-# source $my_muttdir/bdrgmail.muttrc
-# source $my_muttdir/ld11gmail.muttrc
-# source $my_muttdir/ksu.muttrc
-# source $my_muttdir/lsom.muttrc
-# source $my_muttdir/lssom.muttrc
 
+### Colorscheme
+source $my_muttdir/colors/laserlight.colors
+
+### Accounts
+source $my_muttdir/accounts/azaleahealth.com.muttrc
+source $my_muttdir/accounts/lazr.space.muttrc
+source $my_muttdir/switch-accounts.muttrc

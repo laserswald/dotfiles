@@ -2,12 +2,39 @@
 # Laserswald's kakrc.
 #
 
-# Looks 
+# Looks.
 
-colorscheme chameleon
+# colorscheme gruvbox
+colorscheme gruvbox-light
+
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
+
+# Plugins.
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+
+plug "andreyorst/plug.kak" noload config %{}
+
+plug 'nkoehring/kakoune-todo.txt'
+
+plug "andreyorst/fzf.kak" config %{
+	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
+	map global goto b <esc>:fzf-buffer<ret> -docstring "Find a file"
+}
+
+plug "andreyorst/tagbar.kak" config %{
+    hook global WinSetOption filetype=tagbar %{
+	    remove-highlighter window/wrap
+    }
+}
+
+require-module goto-definition
+
+# General options.
+
+set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
 
 # Alignment
 
@@ -15,90 +42,121 @@ set-option global tabstop 4
 set-option global indentwidth 0
 set-option global aligntab false
 
-# Smart-er code navigation.
-
-set-option global grepcmd 'ag --column'
-alias global jump-to-definition ctags-search
-
-define-command -override grep-find-references %{
-	evaluate-commands "grep %val{reg_.} ."
-}
-
-alias global find-references grep-find-references
-
-alias global tag ctags-search
-
-
 # Mappings
 
 # User mappings
-map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
-map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
+map global user C <esc>:comment-block<ret>                    -docstring "Comment the selection, block style"
 map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
-map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
 map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
+map global user m <esc>:make<ret>                             -docstring "Make the current project"
+map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
+map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
+map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
+map global user , <esc>:fzf-mode<ret>                         -docstring "Open fuzzy finder mode"
 
 # Go to mappings
 map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
+map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
-map global goto u <esc><a-i>w:find-references<ret>           -docstring "References to symbol"
-#map global goto f <esc>:goto-file-line<ret>                  -docstring "File and line if in standard colon form"
-
-
+map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
 
 # Fancy modeline
-set global modelinefmt %{
-	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
-}
+
+# set global modelinefmt %{
+# 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
+# }
 
 # Styles and hooks for all windows.
 
 hook global WinCreate .* %{
     modeline-parse
-
     ctags-enable-autoinfo
-
     try %{ editorconfig-load }
-
     git show-diff
-
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
-
-	map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
 }
 
 hook global BufWritePost .* %{
     git update-diff
-   	ctags-update-tags
+    ctags-update-tags
 }
 
-# Filetype-specific hooks
+hook global ClientCreate .* %{ setup-jump-client }
+
+## Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
-	set-option buffer filetype javascript
+    set-option buffer filetype javascript
+}
+
+hook global WinSetOption filetype=kak %{
+    map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
 }
 
 hook global WinSetOption filetype=makefile %{
     remove-hooks buffer tabs-to-spaces
 }
 
+hook global WinSetOption filetype=zig %{
+	set buffer indentwidth 4
+    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+        execute-keys -draft h %opt{indentwidth}@
+    } }
+}
+
 hook global WinSetOption filetype=php %{
     remove-hooks buffer tabs-to-spaces
+	define-command -override phpunit-this-file %{
+		set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
+	}
 }
 
-# I prefer to use my main window as my jump client.
+## Commands.
+
+define-command -hidden setup-jump-client %{
+	evaluate-commands %sh{
+	    if ! (echo "$kak_client_list" | grep -q 'jump') ; then
+	        printf %s\\n "rename-client jump"
+	    fi
+	    if ! [ "$kak_opt_jumpclient" ] ; then 
+		    printf %s\\n "set-option global jumpclient jump"
+		fi
+	}
+}
+
 define-command open-tools %{
-    rename-client main
-	set-option global jumpclient main
-	new rename-client tools
-	set-option global toolsclient tools
+    new rename-client tools
+    set-option global toolsclient tools
 }
 
+define-command close-tools %{
+    evaluate-commands %sh{
+	    printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
+    }
+}
 
-evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+define-command open-docs %{
+    new rename-client docs
+    set-option global docsclient docs
+}
 
+define-command close-docs %{
+    evaluate-commands %sh{
+	    printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
+    }
+}
+
+# Language server protocol support.
+try %{ 
+	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+	lsp-start
+	hook global KakEnd .* %{ lsp-exit }
+	hook global WinSetOption filetype=php %{ lsp-enable-window }
+}
+
+# Local kakrc sourcing for custom project commands and tools
 try %{ source .kakrc.local }
 

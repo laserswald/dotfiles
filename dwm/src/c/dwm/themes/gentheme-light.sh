@@ -1,12 +1,12 @@
 #!/bin/sh
 
 template='
-static const char normfg[] = "$WHITE";
-static const char normbg[] = "$BLACK";
+static const char normfg[] = "$FOREGROUND";
+static const char normbg[] = "$BACKGROUND";
 static const char normborder[] = "$BLACK";
 static const char selfg[] = "$BRWHITE";
-static const char selbg[] = "$GREEN";
-static const char selborder[] = "$GREEN";
+static const char selbg[] = "$CYAN";
+static const char selborder[] = "$CYAN";
 '
 
 export BLACK=$(tcolor 'black')

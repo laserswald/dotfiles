@@ -15,7 +15,6 @@ add-highlighter shared/sfm regions
 add-highlighter shared/sfm/default default-region group
 add-highlighter shared/sfm/default/files regex '^.+$' 0:Default
 add-highlighter shared/sfm/default/dirs regex '^.+/$' 0:keyword
-add-highlighter shared/sfm/default/dirs regex '^.+/$' 0:keyword
 
 define-command -override -params 0..1 explore %{
     evaluate-commands %sh{

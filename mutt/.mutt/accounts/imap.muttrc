@@ -1,0 +1,7 @@
+folder-hook $my_imap_url "unmailboxes *; \
+	set imap_user = \"$my_username\"; \
+	set imap_pass = \"$my_password\"; \
+	set smtp_pass = \"$my_password\"; \
+	set smtp_url = \"$my_smtp_url\"; \
+	set folder = \"$my_imap_url\"; \
+	set spoolfile = +INBOX"
