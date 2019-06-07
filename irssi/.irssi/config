@@ -1,16 +1,12 @@
-
 Yn4TY8DMktnTbgT836Qh = "chatnets";
+
 UnixChat = { type = "IRC"; nick = "lazr"; autosendcmd = "1"; };
-Slack = { type = "IRC"; nick = "bdavenportray"; autosendcmd = "1"; };
 
 servers = (
   {
-    address = "ahi.irc.slack.com";
-    chatnet = "Slack";
+    address = "localhost";
     port = "6667";
-    use_tls = "yes";
-    password = "";
-    tls_verify = "no";
+    chatnet = "Bitlbee";
     autoconnect = "yes";
   }
 );
@@ -286,4 +282,4 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
-chatnets = { Slack = { type = "IRC"; }; };
+chatnets = { Bitlbee = { type = "IRC"; }; };
