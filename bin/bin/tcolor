@@ -18,5 +18,5 @@ else
     esac
 fi
 
-echo $(xrdb -query | grep "*.${cn}:" | cut -d: -f2 | tr -d ' ')
+echo $(xrdb -query | grep "${cn}:" | cut -d: -f2 | tr -d ' ')
 exit 0

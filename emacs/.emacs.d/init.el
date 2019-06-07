@@ -27,9 +27,20 @@
 
 
 (use-package php-mode :ensure t)
+(use-package ac-php :ensure t
+  :config
+  (add-hook 'php-mode-hook
+	    '(lambda ()
+	       (company-mode t)
+	       (require 'company-php)
+	       (ac-php-core-eldoc-setup)
+	       (set (make-local-variable 'company-backends)
+		    '((company-ac-php-backend company-dabbrev-code)
+		      company-capf company-files)))))
+
 (use-package phpunit :ensure t)
-(use-package magit :ensure t)
 (use-package undo-tree :ensure t)
+(use-package speedbar :ensure t)
 
 (use-package smart-tabs-mode
   :ensure t
@@ -66,6 +77,7 @@
 
   :config
   (evil-set-initial-state 'dired-mode 'normal)
+  (evil-set-initial-state 'magit-mode 'normal)
   ;; Hotsequences ;;
   
   ;; Vim-vinegar replacement
@@ -85,7 +97,16 @@
 
 (use-package general :ensure t :config (general-evil-setup))
 (use-package evil-ediff :after evil :ensure t)
-(use-package evil-magit :after '(evil magit) :ensure t)
+
+(use-package magit
+  :ensure t
+  :defer t
+  :init
+  (use-package evil-magit
+    :ensure t
+    :config
+    (add-hook 'with-editor-mode-hook 'evil-insert-state)))
+
 (use-package evil-surround :after evil :ensure t)
 (use-package evil-collection :after evil :ensure t :config (evil-collection-init))
 (use-package evil-tabs :after evil :ensure t :config (global-evil-tabs-mode t))
@@ -159,7 +180,8 @@
       (use-package monochrome-theme :ensure t)
       (use-package nord-theme :ensure t)
       (use-package zenburn-theme :ensure t)
-      (enable-theme 'zenburn))
+      (use-package gruvbox-theme :ensure t)
+      (enable-theme 'gruvbox))
   (set-face-background 'default "background")
   (set-face-foreground 'font-lock-keyword-face "green")
   (set-face-foreground 'font-lock-comment-face "black")
@@ -178,7 +200,7 @@
     ("39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "cab317d0125d7aab145bc7ee03a1e16804d5abdfa2aa8738198ac30dc5f7b569" "065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(package-selected-packages
    (quote
-    (smart-tabs-mode helm-projectile phpunit phpunit\.el zenburn-theme evil-org evil-tabs nord-theme helm evil-collection evil-surround evil-ediff evil-magit ## magit php-mode general evil-leader evil-escape goto-last-change evil))))
+    (ac-php gruvbox-theme smart-tabs-mode helm-projectile phpunit phpunit\.el zenburn-theme evil-org evil-tabs nord-theme helm evil-collection evil-surround evil-ediff evil-magit ## magit php-mode general evil-leader evil-escape goto-last-change evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
