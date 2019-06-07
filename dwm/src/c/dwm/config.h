@@ -7,10 +7,9 @@ static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Input Mono:pixelsize=12" };
-static const char dmenufont[]       = "Input Mono:pixelsize=12";
+static const char *fonts[]          = { "Iosevka:pixelsize=13" };
 
-#include "themes/gruvbox.h"
+#include "themes/gruvbox-light.h"
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -19,25 +18,38 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "main", "web", "music", "mail", "chat", "tools", "srv", "etc", "bg" };
+static const char *tags[] = { "main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg" };
 
 #define ONLYTAG(n) (1 << (n - 1))
+
+#define TERMINAL_CLASS(title, tagmask, floating, monitor) \
+	{ "Alacritty", NULL, title, tagmask, floating, monitor },\
+	{ "st",        NULL, title, tagmask, floating, monitor }
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class        instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",       NULL,       NULL,       0,            1,           -1 },
 
+	/* class        instance    title       tags mask     isfloating   monitor */
 	/* browsers */
 	{ "Firefox",    NULL,       NULL,       ONLYTAG(2),       0,           -1 },
 	{ "Chromium",   NULL,       NULL,       ONLYTAG(2),       0,           -1 },
 	{ "surf",       NULL,       NULL,       ONLYTAG(2),       0,           -1 },
 
-	/* terminal applications */
-	{ "Alacritty",  NULL,       "weechat",  ONLYTAG(5),       0,           -1 },
+	/* media */
+	{ "mpv",        NULL,       NULL,       ONLYTAG(3),       0,           -1 },
+	{ "Gimp",       NULL,       NULL,       ONLYTAG(3),       1,           -1 },
+	TERMINAL_CLASS(             "ncmpcpp",  ONLYTAG(3),       0,           -1),
+
+	/* mail */
+	TERMINAL_CLASS(             "neomutt",  ONLYTAG(4),       0,           -1),
+
+	/* chat */
+	TERMINAL_CLASS(             "weechat",  ONLYTAG(5),       0,           -1),
+	{ "TelegramDesktop", NULL,  NULL,       ONLYTAG(5),       0,           -1},
+
 };
 
 
@@ -112,12 +124,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-
-    {0, XF86XK_MonBrightnessUp,     spawn, {.v = dispup}},
-    {0, XF86XK_MonBrightnessDown,   spawn, {.v = dispdown}},
-    {0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
-    {0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
-    {0, XF86XK_AudioMute,           spawn, {.v = volmute}},
+	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
+	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
+	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
 };
 
 /* button definitions */
