@@ -1,4 +1,5 @@
 #!/bin/sh
+# jrnl: a bullet journal designed using the Unix philosophy
 
 JRNLFILE=${JRNLFILE:-${HOME}/org/jrnl.txt}
 
@@ -48,7 +49,6 @@ while getopts ':f:' flag; do
 done
 shift $((OPTIND - 1))
 
-ensure_date_entry $JRNLFILE
 
 cmd=$1
 shift
@@ -59,11 +59,13 @@ case $cmd in
 	exit 0
     ;;
     ev|event) 
+	ensure_date_entry
         SIGN='o'
         add_entry $SIGN "$@"
 	exit 0
     ;;
-    t|task) 
+    t|task) 	
+	ensure_date_entry
         SIGN='.'
         add_entry $SIGN "$@"
 	exit 0
@@ -73,6 +75,7 @@ case $cmd in
 	exit 0
     ;;
     n|note) 
+	ensure_date_entry
         SIGN='-'
         add_entry $SIGN "$@"
 	exit 0
