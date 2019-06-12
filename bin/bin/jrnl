@@ -1,19 +1,89 @@
 #!/bin/sh
 
-case $1 in 
-	e|event) 
-		SIGN='o'
-	;;
-	t|task) 
-		SIGN='.'
-	;;
-	n|note) 
-		SIGN='-'
-	;;
-	*)
-		echo "Unknown command. Valid commands: event, task, note"
-	;;
-esac
+JRNLFILE=${JRNLFILE:-${HOME}/org/jrnl.txt}
 
-printf "%s %s\n" $SIGN "$@" >> $HOME/org/jrnl.txt
+add_entry () {
+    sign=$1
+    shift
+    text="$@"
+
+    printf "%s $text\n" $sign >> $JRNLFILE
+}
+
+change_entry_type () {
+    line=$1
+    sign=$2
+
+    if [ -z "$line" ]; then
+        echo "jrnl: cannot change entry: no entry specified" >&2
+    fi
+
+    sed -i "$line,$line s/^./$sign/" $JRNLFILE
+}
+
+ensure_date_entry () {    
+    datestr="# $(date +%F)" 
+    if ! grep -q "$datestr" $JRNLFILE; then
+	echo "" >> $JRNLFILE
+        add_entry "#" `date +%F`
+    fi
+}
+
+filter_by_type () {
+    type=$1
+
+    nl | grep "^\s\+[[:digit:]]\+\s\+$1"
+}
+
+while getopts ':f:' flag; do
+    case $flag in 
+        f) 
+            JRNLFILE=$OPTARG
+        ;;  
+        \?)
+            echo "Unknown option. Valid options: -f"
+            exit 1
+        ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+ensure_date_entry $JRNLFILE
+
+cmd=$1
+shift
+
+case $cmd in  
+    ed|edit)
+        $EDITOR $JRNLFILE
+	exit 0
+    ;;
+    ev|event) 
+        SIGN='o'
+        add_entry $SIGN "$@"
+	exit 0
+    ;;
+    t|task) 
+        SIGN='.'
+        add_entry $SIGN "$@"
+	exit 0
+    ;;
+    d|'do')
+        change_entry_type $1 'x'
+	exit 0
+    ;;
+    n|note) 
+        SIGN='-'
+        add_entry $SIGN "$@"
+	exit 0
+    ;; 
+    ls|list-tasks) 
+        filter_by_type "\\." < $JRNLFILE
+	exit 0
+    ;; 
+    *)
+        echo "Unknown command."
+        exit 1
+    ;;
+esac
 
