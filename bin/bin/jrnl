@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case $1 in 
+	e|event) 
+		SIGN='o'
+	;;
+	t|task) 
+		SIGN='.'
+	;;
+	n|note) 
+		SIGN='-'
+	;;
+	*)
+		echo "Unknown command. Valid commands: event, task, note"
+	;;
+esac
+
+printf "%s %s\n" $SIGN "$@" >> $HOME/org/jrnl.txt
+
