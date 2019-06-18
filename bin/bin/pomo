@@ -1,0 +1,57 @@
+#!/bin/sh
+# a pomodoro script
+
+WORK_TIME=${WORK_TIME:=10}
+BREAK_TIME=${BREAK_TIME:=2}
+SET_LENGTH=${SET_LENGTH:=4}
+
+cmdname=`basename $0`
+
+alert() {
+    local message=$1
+
+    if [ "$2" ]; then 
+	    local icon=$2
+    else
+        local icon="info"
+    fi
+
+	notify-send \
+        --urgency=normal \
+        --urgency=normal \
+        "$cmdname" \
+        "$message"
+}
+
+updatestatus() {
+    if ! [ -d $TMPDIR/pomo ]; then
+        mkdir $TMPDIR/pomo
+    fi
+    if [ $1 -ne 0 ]; then
+        [ -f $TMPDIR/pomo/brk ] && rm $TMPDIR/pomo/brk
+        touch $TMPDIR/pomo/wrk
+    else
+        [ -f $TMPDIR/pomo/wrk ] && rm $TMPDIR/pomo/wrk
+        touch $TMPDIR/pomo/brk
+    fi
+}
+
+cleanupstatus() {
+    [ -d $TMPDIR/pomo ] && rm -r $TMPDIR/pomo
+}
+
+trap cleanupstatus TERM
+
+for i in `seq 1 $SET_LENGTH`; do
+    alert "Start working!"
+    updatestatus 1
+	sleep $((WORK_TIME * 60))
+
+    alert "Break time!"
+    updatestatus 0
+	sleep $((BREAK_TIME * 60))
+
+    alert "Done!"
+    cleanupstatus
+done
+
