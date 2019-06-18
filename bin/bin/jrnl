@@ -33,7 +33,14 @@ ensure_date_entry () {
 filter_by_type () {
     type=$1
 
-    nl | grep "^\s\+[[:digit:]]\+\s\+$1"
+    nl -ba | grep "^\s\+[[:digit:]]\+\s\+$1"
+}
+
+display_day () {
+    ensure_date_entry
+    datestr="# $(date +%F)" 
+    dateline=$(grep "$datestr" $JRNLFILE | cut -d: -f1)
+    sed "$dateline,/^#/p" $JRNLFILE
 }
 
 while getopts ':f:' flag; do
@@ -84,6 +91,10 @@ case $cmd in
         filter_by_type "\\." < $JRNLFILE
 	exit 0
     ;; 
+    today)
+	display_day
+	exit 0
+    ;;
     *)
         echo "Unknown command."
         exit 1
