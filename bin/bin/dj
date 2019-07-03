@@ -1,0 +1,35 @@
+#!/bin/sh
+# dj: manage media playback
+
+while getopts 'v' flag; do
+    :
+done
+shift $((OPTIND - 1))
+
+cmd=$1
+
+case $cmd in 
+    toggle) 
+        if pgrep mpv >/dev/null; then 
+            wid=`xdotool search --class mpv`
+            xdotool key --window $wid p
+        fi
+        notify-send "Dj" "Toggling play/pause."
+    ;;
+    next) 
+        if pgrep mpv >/dev/null; then 
+            wid=`xdotool search --class mpv`
+            xdotool key --window $wid "greater"
+            notify-send "Dj: Now playing" "$(xprop -id $wid WM_NAME | sed 's/.*\"\(.*\)\"/\1/')"
+        fi
+    ;;
+    prev) 
+        if pgrep mpv >/dev/null; then 
+            wid=`xdotool search --class mpv`
+            xdotool key --window $wid "less"
+            notify-send "Dj: Now playing" "$(xprop -id $wid WM_NAME | sed 's/.*\"\(.*\)\"/\1/')"
+        fi
+    ;;
+    show) 
+    ;;
+esac
