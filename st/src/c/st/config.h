@@ -5,7 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka:pixelsize=13:antialias=true:autohint=true";
+// static char *font = "benis uushi:pixelsize=12:antialias=false";
+// static char *font = "xos4 Terminus:pixelsize=12:antialias=false";
+static char *font = "Fira Code:pixelsize=14:antialias=true";
 static int borderpx = 2;
 
 /*
