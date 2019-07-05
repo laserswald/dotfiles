@@ -3,11 +3,11 @@ TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
 
-MODULES := bash bin bspwm dunst dvtm dwm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
+MODULES := bash bin bspwm dunst dvtm dwm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tmux todotxt uzbl vim vis xdg xmonad xorg zsh
 
 .PHONY: $(MODULES) core desktop
 
-desktop: core sh git xdg $(WM) $(TERMINAL) $(EDITOR) dunst weechat mutt ncmpcpp newsbeuter todotxt
+desktop: core sh git xdg $(WM) $(TERMINAL) $(EDITOR) dunst irssi mutt ncmpcpp newsbeuter todotxt
 
 # primary stuff
 bin: core sh
@@ -48,7 +48,6 @@ termite: xorg
 dvtm: core
 tmux:
 irssi:
-weechat:
 mutt: 
 ncmpcpp:
 newsbeuter:
