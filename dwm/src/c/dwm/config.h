@@ -128,6 +128,8 @@ static Key keys[] = {
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
+	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
+	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };
 
 /* button definitions */

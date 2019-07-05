@@ -3,7 +3,7 @@ TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
 
-MODULES := bash bin bspwm dunst dvtm dwm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tmux todotxt uzbl vim vis xdg xmonad xorg zsh
+MODULES := bash bin bspwm dunst dvtm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
 
 .PHONY: $(MODULES) core desktop
 
@@ -28,7 +28,7 @@ vis: bin
 
 # window managers
 bspwm: sxhkd xorg
-dwm: xorg
+		
 i3: xorg
 xmonad: xorg
 
@@ -55,6 +55,23 @@ todotxt:
 
 $(MODULES):
 	stow $@
+
+dwm: xorg
+	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
+	rm ~/src/c/dwm/config.mk
+	stow $@
+	@cd ~/src/c/dwm; \
+	for f in $$(find -L patches -name '*.diff' | sort); do \
+		if ! patch -R -p1 -s -f --dry-run -i $$f >/dev/null; then \
+			echo "Applying patch $$f"; \
+			patch -s -f -p1 -i $$f; \
+			if ! [ $$? -eq 0 ]; then \
+				echo "Could not apply patch $$f"; \
+				exit 1; \
+			fi\
+		fi \
+	done; \
+	cd -
 	
 core: core/install
 	exec ./core/install
