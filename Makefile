@@ -3,7 +3,7 @@ TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
 
-MODULES := bash bin bspwm dunst dvtm dwm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
+MODULES := bash bin bspwm dunst dvtm dwm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tig tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
 
 .PHONY: $(MODULES) core desktop
 
@@ -53,7 +53,7 @@ mutt:
 ncmpcpp:
 newsbeuter:
 todotxt:
-
+tig: git
 $(MODULES):
 	stow $@
 	
