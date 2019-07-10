@@ -1,5 +1,4 @@
-
-;;; Code:
+;;; lazr-config --- Lazr's config for Emacs.
 
 ;;;; Settings.
 
@@ -20,6 +19,7 @@
 (setq package-archives
            '(("melpa" . "https://melpa.org/packages/")
 	    ("gnu" . "https://elpa.gnu.org/packages/")))
+
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -48,18 +48,20 @@
   (smart-tabs-insinuate 'c 'javascript)
   (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
 
-(use-package projectile :ensure t :config (projectile-mode))
-
-(use-package helm
+(use-package ivy
   :ensure t
   :config
-  (setq projectile-completion-system 'helm))
+  (ivy-mode 1))
 
-(use-package helm-projectile
+(use-package company :ensure t :config (global-company-mode))
+
+(use-package projectile
   :ensure t
-  :after '(helm projectile)
   :config
-  (helm-projectile-on))
+  (projectile-mode)
+  (setq projectile-completion-system 'ivy))
+
+(use-package magit :ensure t)
 
 (use-package flycheck
   :ensure t
@@ -73,57 +75,34 @@
   :init
   (setq evil-want-integration t
 	evil-want-keybinding nil)
-  (evil-mode)
 
   :config
-  (evil-set-initial-state 'dired-mode 'normal)
-  (evil-set-initial-state 'magit-mode 'normal)
-  ;; Hotsequences ;;
-  
+  (evil-mode 1)
   ;; Vim-vinegar replacement
-  (evil-define-key 'normal 'dired-mode-map "-" 'dired-jump)
   (define-key evil-normal-state-map (kbd "-")
     '(lambda ()
        (interactive)
        (find-file "."))))
 
-;; I neeeeed my jk
-(use-package evil-escape
-    :ensure t
-    :after evil
-    :config
-    (setq-default evil-escape-key-sequence "jk")
-    (evil-escape-mode))
-
 (use-package general :ensure t :config (general-evil-setup))
-(use-package evil-ediff :after evil :ensure t)
 
-(use-package magit
-  :ensure t
-  :defer t
-  :init
-  (use-package evil-magit
-    :ensure t
-    :config
-    (add-hook 'with-editor-mode-hook 'evil-insert-state)))
+(use-package evil-collection
+  :after 'evil
+  :ensure t)
 
-(use-package evil-surround :after evil :ensure t)
-(use-package evil-collection :after evil :ensure t :config (evil-collection-init))
-(use-package evil-tabs :after evil :ensure t :config (global-evil-tabs-mode t))
-(use-package company :ensure t :config (global-company-mode))
+(evil-collection-init)
 
-(use-package evil-org
-  :after org
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-	    (lambda ()
-	      (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+(use-package evil-magit
+  :after '(evil magit)
+  :ensure t)
+
+(evil-magit-init)
 
 ;;; Keybindings.
+
+(general-define-key
+ :states 'normal
+ "/" 'swiper)
 
 (general-create-definer lazr-leader-map
   :states 'normal
@@ -142,7 +121,10 @@
 ;; Go to ...
 (general-define-key :states 'normal :prefix "g"
 		    "a" 'evil-switch-to-windows-last-buffer ; alternate
-		    "b" 'helm-buffers-list)                 ; buffer
+		    "b" 'ivy-switch-buffer ; buffer
+		    "B" 'list-bookmarks ; Bookmark
+		    "F" 'counsel-find-file
+		    "f" 'projectile-find-file)
 
 ;; 'W'indow manipulation
 (lazr-leader-map :infix "w"
@@ -188,25 +170,19 @@
   (set-face-foreground 'font-lock-variable-name-face "blue")
   (set-face-foreground 'elscreen-tab-control-face "blue"))
 
+(provide 'init)
+;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#080808" "#d70000" "#67b11d" "#875f00" "#268bd2" "#af00df" "#00ffff" "#b2b2b2"])
  '(custom-safe-themes
    (quote
-    ("39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "cab317d0125d7aab145bc7ee03a1e16804d5abdfa2aa8738198ac30dc5f7b569" "065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(package-selected-packages
-   (quote
-    (ac-php gruvbox-theme smart-tabs-mode helm-projectile phpunit phpunit\.el zenburn-theme evil-org evil-tabs nord-theme helm evil-collection evil-surround evil-ediff evil-magit ## magit php-mode general evil-leader evil-escape goto-last-change evil))))
+    ("1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(provide 'init)
-;;; init.el ends here
