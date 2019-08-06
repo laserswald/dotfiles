@@ -1,0 +1,3 @@
+#!/bin/sh
+
+slock $HOME/bin/on_lock && $HOME/bin/on_unlock

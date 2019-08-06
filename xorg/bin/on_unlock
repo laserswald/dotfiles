@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notify-send "Auto-task" "Welcome back!"
