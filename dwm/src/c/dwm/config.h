@@ -11,7 +11,6 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 #include "hconfig.h"
 
 static const char *fonts[]          = { "Fira Code:pixelsize=13" };
-
 static const char *colors[][3]      = {
 	/*               fg                   bg                   border   */
 	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
@@ -42,6 +41,7 @@ static const Rule rules[] = {
 	/* media */
 	{ "mpv",        NULL,       NULL,       ONLYTAG(3),       0,           -1 },
 	{ "Gimp",       NULL,       NULL,       ONLYTAG(3),       1,           -1 },
+	{ "Pavucontrol",NULL,       NULL,       ONLYTAG(3),       1,           -1 },
 	TERMINAL_CLASS(             "ncmpcpp",  ONLYTAG(3),       0,           -1),
 
 	/* mail */

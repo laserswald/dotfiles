@@ -1,0 +1,10 @@
+
+bind generic S :source ~/.tigrc
+
+## Revising commits
+# Revise commits
+bind main <Ctrl-r> ?!git rebase -i %(commit)^
+# Finish revision
+bind main <Ctrl-f> +git rebase --continue
+
+
