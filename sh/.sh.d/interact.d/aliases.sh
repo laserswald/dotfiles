@@ -35,3 +35,5 @@ alias tns="tmux new-session -s -A "
 alias update="sudo pacman -Syu && notify-send 'Pacman' 'System update was successful.'"
 alias wall="~/.fehbg"
 alias xm="xrdb -merge ~/.xrdb.d/main"
+
+alias clocksum="hledger -f $HOME/org/work.timedot"
