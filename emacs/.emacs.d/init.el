@@ -39,6 +39,9 @@
 		      company-capf company-files)))))
 
 (use-package phpunit :ensure t)
+
+(use-package slime :ensure t)
+
 (use-package undo-tree :ensure t)
 (use-package speedbar :ensure t)
 
@@ -100,9 +103,9 @@
 
 ;;; Keybindings.
 
-(general-define-key
- :states 'normal
- "/" 'swiper)
+(general-define-key :states 'normal "/" 'swiper)
+
+(general-nmap dired-mode-map "-" 'dired-up-directory)
 
 (general-create-definer lazr-leader-map
   :states 'normal
@@ -125,6 +128,7 @@
 		    "B" 'list-bookmarks ; Bookmark
 		    "F" 'counsel-find-file
 		    "f" 'projectile-find-file)
+
 
 ;; 'W'indow manipulation
 (lazr-leader-map :infix "w"
@@ -179,7 +183,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))))
+    ("1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
+ '(package-selected-packages
+   (quote
+    (slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
