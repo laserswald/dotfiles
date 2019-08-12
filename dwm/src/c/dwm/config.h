@@ -7,25 +7,19 @@ static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:pixelsize=13" };
 
-#ifdef THEME_DARK
-#include "themes/gruvbox.h"
-#elif defined(THEME_LIGHT)
-#include "themes/gruvbox-light.h"
-#else
-#error "No theme type specified, cannot continue."
-#endif
+#include "hconfig.h"
 
+static const char *fonts[]          = { "Fira Code:pixelsize=13" };
 
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { normfg,    normbg,    normborder },
-	[SchemeSel]  = { selfg,     selbg,     selborder  },
+	/*               fg                   bg                   border   */
+	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
+	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_BLUE,         HTHEME_BRIGHT_BLUE},
 };
 
 /* tagging */
-static const char *tags[] = { "main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg" };
+static const char *tags[] = {"main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg"};
 
 #define ONLYTAG(n) (1 << (n - 1))
 
