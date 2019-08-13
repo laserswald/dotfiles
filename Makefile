@@ -56,7 +56,7 @@ newsbeuter:
 todotxt:
 tig: git
 $(MODULES):
-	stow $@
+	stow --ignore=install $@
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
@@ -77,4 +77,5 @@ dwm: xorg
 	
 core: core/install
 	exec ./core/install
+	stow --ignore=install $@
 
