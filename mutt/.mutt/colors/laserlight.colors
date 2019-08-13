@@ -4,14 +4,14 @@
 color normal default default
 
 # Message colors
-color hdrdefault green        white
-color signature  black        blue
+color hdrdefault green        default 
+color signature  magenta      default
 color attachment red          black
 color message    brightred    black
 color error      brightred    black
-color indicator  brightyellow black
-color status     brightblack  black
-color tree       black        default
+color indicator  black        yellow
+color status     cyan         black
+color tree       white        black
 color markers    red          black
 color search     white        black
 color tilde      brightmagenta black
@@ -24,11 +24,13 @@ color quoted4    blue          default
 color quoted5    magenta          default
 
 # Index colors
-color index green default "~N"
-color index green default "~O"
-color index brightred default ~F
+color index blue default "~N"
+color index blue default "~O"
+color index red default ~F
 color index black brightblack ~=
-color index blue default ~T
+color index brightwhite default ~T
+color index brightblue default ~T~N
+color index brightred default ~T~F
 color index brightblack black ~D
 
 # color body brightwhite black '\*+[^*]+\*+'
