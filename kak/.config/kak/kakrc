@@ -5,7 +5,7 @@
 # Looks.
 
 # colorscheme gruvbox
-colorscheme gruvbox-light
+colorscheme chameleon
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
