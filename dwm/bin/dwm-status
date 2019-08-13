@@ -1,7 +1,8 @@
 #!/bin/sh
 
 while true; do
-    status=$(date)
+	task=$(todo.sh -p list | head -1)
+    status="${task} | $(date)"
     xsetroot -name "$status"
     sleep 1
 done

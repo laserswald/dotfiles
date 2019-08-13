@@ -6,3 +6,4 @@ mpd &
 redshift &
 pulseaudio &
 battnotifyd &
+xautolock -locker "$HOME/bin/locktool" &

@@ -17,7 +17,7 @@ bind pager j next-line
 bind pager R group-reply
 bind attach <return> view-mailcap
 
-bind index,pager \Cp sidebar-prev
-bind index,pager \Cn sidebar-next
-bind index,pager \Cl sidebar-open
+bind index,pager [ sidebar-prev
+bind index,pager ] sidebar-next
+bind index,pager \` sidebar-open
 

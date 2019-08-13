@@ -5,3 +5,5 @@ folder-hook $my_imap_url "unmailboxes *; \
 	set smtp_url = \"$my_smtp_url\"; \
 	set folder = \"$my_imap_url\"; \
 	set spoolfile = +INBOX"
+
+account-hook $my_imap_url "set my_folder = \"$my_imap_url\""

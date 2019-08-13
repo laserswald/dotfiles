@@ -7,18 +7,18 @@ static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:pixelsize=13" };
 
-#include "themes/gruvbox.h"
+#include "hconfig.h"
 
+static const char *fonts[]          = { "Fira Code:pixelsize=13" };
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { normfg,    normbg,    normborder },
-	[SchemeSel]  = { selfg,     selbg,     selborder  },
+	/*               fg                   bg                   border   */
+	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
+	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_BLUE,         HTHEME_BRIGHT_BLUE},
 };
 
 /* tagging */
-static const char *tags[] = { "main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg" };
+static const char *tags[] = {"main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg"};
 
 #define ONLYTAG(n) (1 << (n - 1))
 
@@ -64,6 +64,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -107,6 +109,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

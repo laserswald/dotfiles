@@ -1,5 +1,19 @@
-macro generic \Cx| "<enter-command>source"
-macro generic \Cx& "<enter-command>macro index \\t \"\\Cx"
+
+macro generic \Cx0 "\
+<enter-command>echo 'Switching to AHI'<enter>\
+<enter-command>source ~/.mutt/accounts/azaleahealth.com.muttrc<enter>\
+<enter-command>macro index \\t \Cx1<enter>\
+<change-folder>$my_folder/INBOX<enter>\
+"
+
+macro generic \Cx1 "\
+<enter-command>source ~/.mutt/accounts/lazr.space.muttrc<enter>\
+<enter-command>echo 'Switching to Personal'<enter>\
+<enter-command>macro index \\t \Cx0<enter>\
+<change-folder>$my_folder/INBOX<enter>\
+"
+
+# macro generic \Cx1 "\Cx| ~/.mutt/accounts/lazr.space.muttrc\"\n\Cx&0\"<enter><change-folder>!<enter>"
+
 macro index <tab> "\Cx1"    # default change to account 1, this will be redefined once pressed
-macro generic \Cx0 "\Cx| ~/.mutt/accounts/azaleahealth.com.muttrc\"\n\Cx&1\"<enter><change-folder>!<enter>"
-macro generic \Cx1 "\Cx| ~/.mutt/accounts/lazr.space.muttrc\"\n\Cx&0\"<enter><change-folder>!<enter>"
+

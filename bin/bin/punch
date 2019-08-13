@@ -1,0 +1,46 @@
+#!/bin/sh
+
+PUNCHFILE="$HOME/org/work.timeclock"
+
+clocked_in () {
+    status=$(sed '/^$/d' "$PUNCHFILE" | tail -1 | cut -d' ' -f1)
+    [ "i" = "$status" ]
+    return $?
+}
+
+clock_in () {
+    echo "i $(date +%Y-%m-%d)"
+}
+
+clock_out () {
+
+}
+
+toggle_punch () {
+	if clocked_in; then
+		clock_out $@
+	else
+	    clock_in $@
+    fi
+}
+
+cmd=$1
+shift
+
+case $cmd in
+	show)
+		if clocked_in; then
+			echo "You are clocked in"
+		else
+			echo "You are clocked out"
+		fi
+	;;
+    ""|toggle)
+        toggle_punch $@
+	;;
+    *)
+	    echo "unrecognized command: $cmd"
+esac
+
+
+
