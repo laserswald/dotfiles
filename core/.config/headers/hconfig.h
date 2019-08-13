@@ -8,4 +8,5 @@
 
 #include "themes/gruvbox-light.htheme"
 
-#define HTHEME_FONT "Fira Code:pixelsize=14"
+/* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
+#define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"

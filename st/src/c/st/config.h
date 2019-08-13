@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include "hconfig.h"
+
 /*
  * appearance
  *
@@ -8,7 +10,7 @@
 // static char *font = "benis uushi:pixelsize=12:antialias=false";
 // static char *font = "xos4 Terminus:pixelsize=12:antialias=false";
 // static char *font = "Fira Code:pixelsize=14:antialias=true";
-static char *font = "Hack:pixelsize=14:antialias=true";
+static char *font = HTHEME_FONT;
 static int borderpx = 2;
 
 /*
@@ -84,8 +86,6 @@ char *termname = "st-256color";
  *	stty tabs
  */
 unsigned int tabspaces = 8;
-
-#include "hconfig.h"
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
