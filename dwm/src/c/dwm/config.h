@@ -129,11 +129,13 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{0, XK_Print,                   spawn, {.v = printscr}},
 	{0, XF86XK_MonBrightnessUp,     spawn, {.v = dispup}},
 	{0, XF86XK_MonBrightnessDown,   spawn, {.v = dispdown}},
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
+	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = micmute}},
 	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
 	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };

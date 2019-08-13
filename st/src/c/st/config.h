@@ -108,16 +108,22 @@ static const char *colorname[] = {
 	HTHEME_BRIGHT_MAGENTA,
 	HTHEME_BRIGHT_CYAN,
 	HTHEME_BRIGHT_WHITE,
+
+	[255] = 0,
+	[256] = HTHEME_FOREGROUND,
+	[257] = HTHEME_BACKGROUND,
+	[258] = HTHEME_CURSOR,
+	[259] = HTHEME_REVERSE_CURSOR,
 };
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 15;
-unsigned int defaultbg = 0;
-static unsigned int defaultcs = 15;
-static unsigned int defaultrcs = 0;
+unsigned int defaultfg = 256;
+unsigned int defaultbg = 257;
+static unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
 
 /*
  * Default shape of cursor
