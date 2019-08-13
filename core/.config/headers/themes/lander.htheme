@@ -1,40 +1,23 @@
 
-/* Terminal colors (16 first used in escape sequence) */
-const char *colorname[] = {
-	/* 8 normal colors */
-	"#414141",
-	"#a84c3d",
-	"#3f8250",
-	"#94813b",
-	"#3d52b5",
-	"#a641a6",
-	"#3a9085",
-	"#acacac",
+#define HTHEME_BLACK "#414141"
+#define HTHEME_RED "#a84c3d"
+#define HTHEME_GREEN "#3f8250"
+#define HTHEME_YELLOW "#94813b"
+#define HTHEME_BLUE "#3d52b5"
+#define HTHEME_MAGENTA "#a641a6"
+#define HTHEME_CYAN "#3a9085"
+#define HTHEME_WHITE "#acacac"
+#define HTHEME_BRIGHT_BLACK "#5c5c5c"
+#define HTHEME_BRIGHT_RED "#bb6b42"
+#define HTHEME_BRIGHT_GREEN "#619b5d"
+#define HTHEME_BRIGHT_YELLOW "#b1b95c"
+#define HTHEME_BRIGHT_BLUE "#4e93cf"
+#define HTHEME_BRIGHT_MAGENTA "#be6187"
+#define HTHEME_BRIGHT_CYAN "#66c9a2"
+#define HTHEME_BRIGHT_WHITE "#eeeeee"
 
-	/* 8 bright colors */
-	"#5c5c5c",
-	"#bb6b42",
-	"#619b5d",
-	"#b1b95c",
-	"#4e93cf",
-	"#be6187",
-	"#66c9a2",
-	"#eeeeee",
+#define HTHEME_FOREGROUND "#cccccc"
+#define HTHEME_BACKGROUND "#1f1f1f"
+#define HTHEME_CURSOR "#ffffff"
+#define HTHEME_REVERSE_CURSOR "#000000"
 
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#1f1f1f",
-	"#ffffff",
-	"#000000",
-};
-
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 256;
-unsigned int defaultbg = 257;
-static unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 259;
