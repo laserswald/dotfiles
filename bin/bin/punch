@@ -9,11 +9,11 @@ clocked_in () {
 }
 
 clock_in () {
-    echo "i $(date +%Y-%m-%d)"
+    echo "i $(date '+%Y-%m-%d %H:%M:%S') $@" >> $PUNCHFILE
 }
 
 clock_out () {
-
+    echo "o $(date '+%Y-%m-%d %H:%M:%S')" >> $PUNCHFILE
 }
 
 toggle_punch () {
@@ -38,9 +38,30 @@ case $cmd in
     ""|toggle)
         toggle_punch $@
 	;;
+    switch)
+	    if clocked_in; then
+	        clock_out
+	    fi
+        clock_in $@
+	;;
+    "in")
+	    if ! clocked_in; then
+	        clock_in $@
+	    else
+            echo "Already clocked in."
+            exit 1
+	    fi
+	;;
+    "out")
+	    if clocked_in; then
+	        clock_out $@
+	    else
+            echo "Already clocked out."
+            exit 1
+	    fi
+	;;
     *)
 	    echo "unrecognized command: $cmd"
+	;;
 esac
-
-
 
