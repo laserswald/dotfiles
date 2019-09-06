@@ -10,7 +10,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 
 #include "hconfig.h"
 
-static const char *fonts[]          = { "Fira Code:pixelsize=13" };
+static const char *fonts[]          = { HTHEME_FONT };
 static const char *colors[][3]      = {
 	/*               fg                   bg                   border   */
 	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
@@ -21,6 +21,7 @@ static const char *colors[][3]      = {
 static const char *tags[] = {"main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg"};
 
 #define ONLYTAG(n) (1 << (n - 1))
+#define ALLTAGS ~0
 
 #define TERMINAL_CLASS(title, tagmask, floating, monitor) \
 	{ "Alacritty", NULL, title, tagmask, floating, monitor },\
@@ -51,6 +52,8 @@ static const Rule rules[] = {
 	TERMINAL_CLASS(             "weechat",  ONLYTAG(5),       0,           -1),
 	{ "TelegramDesktop", NULL,  NULL,       ONLYTAG(5),       0,           -1},
 
+    /* popups and tools */
+	{ "Xmessage",   NULL,       NULL,       ~0,               1,           -1},
 };
 
 

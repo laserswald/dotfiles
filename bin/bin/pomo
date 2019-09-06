@@ -18,7 +18,6 @@ alert() {
 
 	notify-send \
         --urgency=normal \
-        --urgency=normal \
         "$cmdname" \
         "$message"
 }
@@ -43,15 +42,21 @@ cleanupstatus() {
 trap cleanupstatus TERM
 
 for i in `seq 1 $SET_LENGTH`; do
+	canberra-gtk-play -i bell
     alert "Start working!"
     updatestatus 1
+    punch in $@
 	sleep $((WORK_TIME * 60))
+    punch out
 
+	canberra-gtk-play -i bell
     alert "Break time!"
     updatestatus 0
+    punch in "work:break"
 	sleep $((BREAK_TIME * 60))
+    punch out
 
-    alert "Done!"
     cleanupstatus
 done
-
+canberra-gtk-play -i complete
+alert "Done!"
