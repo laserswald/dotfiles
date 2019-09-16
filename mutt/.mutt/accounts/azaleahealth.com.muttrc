@@ -1,11 +1,2 @@
-set my_username = "ben.davenportray@azaleahealth.com"
-set my_password = "`pass email/bdavenportray@azaleahealth.com`"
-set my_imap_url= "imaps://$my_username:$my_password@imap.gmail.com"
-set my_smtp_url = "smtps://$my_username@smtp.gmail.com"
 
-source $my_muttdir/accounts/imap.muttrc
-
-unset my_username;
-unset my_password;
-unset my_imap_url;
-unset my_smtp_url;
+mailboxes =azaleahealth/

@@ -12,6 +12,7 @@ export REPORT_FILE="$TODO_DIR/report.txt"
 
 # You can customize your actions directory location
 export TODO_ACTIONS_DIR="$HOME/.todo/actions.d"
+export TODO_FILTERS_DIR="$HOME/.todo/filters.d"
 
 # == EDIT FILE LOCATIONS ABOVE ===
 
@@ -81,4 +82,4 @@ export COLOR_CONTEXT=$GREEN
 # TODOTXT_FINAL_FILTER will filter list output after colorization,
 # priority hiding, context hiding, and project hiding. That is,
 # just before the list output is displayed.#
-export TODOTXT_FINAL_FILTER="$TODO_ACTIONS_DIR/customFilter"
+export TODOTXT_FINAL_FILTER="$TODO_FILTERS_DIR/custom"

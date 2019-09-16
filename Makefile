@@ -3,9 +3,9 @@ TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
 
-MODULES := bash bin bspwm dunst dvtm dzen emacs git i3 irssi kak lemonbar mutt ncmpcpp newsbeuter polybar sh st sxhkd termite tig tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
+MODULES := bash bin bspwm dunst dvtm dzen emacs git i3 irssi kak lemonbar mutt mail ncmpcpp newsbeuter polybar sh st sxhkd termite tig tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
 
-.PHONY: $(MODULES) core desktop
+.PHONY: $(MODULES) core desktop server
 
 desktop: core sh git xdg $(WM) $(TERMINAL) $(EDITOR) dunst irssi mutt ncmpcpp newsbeuter todotxt
 
@@ -13,6 +13,7 @@ server: core sh git $(EDITOR) $(MULTIPLEXER) tig
 
 # primary stuff
 bin: core sh
+mail: bin
 git: core
 xorg: core
 xdg: xorg
@@ -50,13 +51,13 @@ termite: xorg
 dvtm: core
 tmux:
 irssi:
-mutt: 
+mutt: mail
 ncmpcpp:
 newsbeuter:
 todotxt:
 tig: git
 $(MODULES):
-	stow $@
+	stow --ignore=install $@
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
@@ -77,4 +78,5 @@ dwm: xorg
 	
 core: core/install
 	exec ./core/install
+	stow --ignore=install $@
 

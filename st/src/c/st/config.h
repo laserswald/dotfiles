@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include "hconfig.h"
+
 /*
  * appearance
  *
@@ -7,7 +9,8 @@
  */
 // static char *font = "benis uushi:pixelsize=12:antialias=false";
 // static char *font = "xos4 Terminus:pixelsize=12:antialias=false";
-static char *font = "Fira Code:pixelsize=14:antialias=true";
+// static char *font = "Fira Code:pixelsize=14:antialias=true";
+static char *font = HTHEME_FONT;
 static int borderpx = 2;
 
 /*
@@ -84,7 +87,43 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-#include "themes/gruvbox.h"
+/* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	/* 8 normal colors */
+	HTHEME_BLACK,
+	HTHEME_RED,
+	HTHEME_GREEN,
+	HTHEME_YELLOW,
+	HTHEME_BLUE,
+	HTHEME_MAGENTA,
+	HTHEME_CYAN,
+	HTHEME_WHITE,
+
+	/* 8 bright colors */
+	HTHEME_BRIGHT_BLACK,
+	HTHEME_BRIGHT_RED,
+	HTHEME_BRIGHT_GREEN,
+	HTHEME_BRIGHT_YELLOW,
+	HTHEME_BRIGHT_BLUE,
+	HTHEME_BRIGHT_MAGENTA,
+	HTHEME_BRIGHT_CYAN,
+	HTHEME_BRIGHT_WHITE,
+
+	[255] = 0,
+	[256] = HTHEME_FOREGROUND,
+	[257] = HTHEME_BACKGROUND,
+	[258] = HTHEME_CURSOR,
+	[259] = HTHEME_REVERSE_CURSOR,
+};
+
+/*
+ * Default colors (colorname index)
+ * foreground, background, cursor, reverse cursor
+ */
+unsigned int defaultfg = 256;
+unsigned int defaultbg = 257;
+static unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
 
 /*
  * Default shape of cursor

@@ -8,6 +8,11 @@ hook global BufCreate .*[.](lisp) %{
     set-option buffer filetype lisp
 }
 
+try %{
+    remove-highlighter shared/lisp
+
+}
+
 # Highlighters
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
@@ -16,17 +21,17 @@ add-highlighter shared/lisp/code default-region group
 add-highlighter shared/lisp/string  region '"' (?<!\\)(\\\\)*" fill string
 add-highlighter shared/lisp/comment region ';' '$'             fill comment
 
+add-highlighter shared/lisp/code/ regex (#?(['`:]|,@?))?\b[a-zA-Z][\w!$%&*+./:<=>?@^_~-]* 0:variable
+add-highlighter shared/lisp/code/ regex \*[a-zA-Z][\w!$%&*+./:<=>?@^_~-]*\* 0:variable
 add-highlighter shared/lisp/code/ regex \b(nil|true|false)\b 0:value
 add-highlighter shared/lisp/code/ regex (((\Q***\E)|(///)|(\Q+++\E)){1,3})|(1[+-])|(<|>|<=|=|>=) 0:operator
 add-highlighter shared/lisp/code/ regex \b(def[a-z]+|if|do|let|lambda|catch|and|assert|while|def|do|fn|finally|let|loop|new|quote|recur|set!|throw|try|var|case|if-let|if-not|when|when-first|when-let|when-not|(cond(->|->>)?))\b 0:keyword
-add-highlighter shared/lisp/code/ regex (#?(['`:]|,@?))?\b[a-zA-Z][\w!$%&*+./:<=>?@^_~-]* 0:variable
-add-highlighter shared/lisp/code/ regex \*[a-zA-Z][\w!$%&*+./:<=>?@^_~-]*\* 0:variable
 add-highlighter shared/lisp/code/ regex (\b\d+)?\.\d+([eEsSfFdDlL]\d+)?\b 0:value
 
 # Commands
 # ‾‾‾‾‾‾‾‾
 
-define-command -hidden lisp-trim-indent %{
+define-command -override -hidden lisp-trim-indent %{
     # remove trailing white spaces
     try %{ execute-keys -draft -itersel <a-x> s \h+$ <ret> d }
 }
@@ -36,7 +41,7 @@ declare-option \
     regex lisp_special_indent_forms \
     '(?:def.*|if(-.*|)|let.*|lambda|with-.*|when(-.*|))'
 
-define-command -hidden lisp-indent-on-new-line %{
+define-command -hidden -override lisp-indent-on-new-line %{
     # registers: i = best align point so far; w = start of first word of form
     evaluate-commands -draft -save-regs '/"|^@iw' -itersel %{
         execute-keys -draft 'gk"iZ'

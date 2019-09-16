@@ -1,4 +1,4 @@
+$include /etc/inputrc
 set editing-mode vi
-
 set completion-ignore-case on
 

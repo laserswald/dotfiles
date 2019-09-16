@@ -1,8 +1,8 @@
 source /etc/profile
 
 # Universal shell environment
-echo "zshrc"
 source ~/.shrc
+source_dir ~/.sh.d/interact.d
 setopt PROMPT_SUBST
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"

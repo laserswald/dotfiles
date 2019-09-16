@@ -7,20 +7,21 @@ static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:pixelsize=13" };
 
-#include "themes/gruvbox.h"
+#include "hconfig.h"
 
+static const char *fonts[]          = { HTHEME_FONT };
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { normfg,    normbg,    normborder },
-	[SchemeSel]  = { selfg,     selbg,     selborder  },
+	/*               fg                   bg                   border   */
+	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
+	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_BLUE,         HTHEME_BRIGHT_BLUE},
 };
 
 /* tagging */
-static const char *tags[] = { "main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg" };
+static const char *tags[] = {"main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg"};
 
 #define ONLYTAG(n) (1 << (n - 1))
+#define ALLTAGS ~0
 
 #define TERMINAL_CLASS(title, tagmask, floating, monitor) \
 	{ "Alacritty", NULL, title, tagmask, floating, monitor },\
@@ -51,6 +52,8 @@ static const Rule rules[] = {
 	TERMINAL_CLASS(             "weechat",  ONLYTAG(5),       0,           -1),
 	{ "TelegramDesktop", NULL,  NULL,       ONLYTAG(5),       0,           -1},
 
+    /* popups and tools */
+	{ "Xmessage",   NULL,       NULL,       ~0,               1,           -1},
 };
 
 
@@ -64,6 +67,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -107,6 +112,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -125,9 +132,13 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{0, XK_Print,                   spawn, {.v = printscr}},
+	{0, XF86XK_MonBrightnessUp,     spawn, {.v = dispup}},
+	{0, XF86XK_MonBrightnessDown,   spawn, {.v = dispdown}},
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
+	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = micmute}},
 	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
 	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };
