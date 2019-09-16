@@ -5,7 +5,7 @@
 # Looks.
 
 # colorscheme gruvbox
-colorscheme gruvbox-light
+colorscheme chameleon
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
@@ -17,7 +17,7 @@ source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 plug "andreyorst/plug.kak" noload config %{}
 
-plug 'nkoehring/kakoune-todo.txt'
+plug 'nkoehring/kakoune-todo.txt' branch "v9999.99.99"
 
 plug "andreyorst/fzf.kak" config %{
 	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
@@ -60,6 +60,7 @@ map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol 
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
 map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
+map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol"
 
 # Fancy modeline
 
@@ -149,12 +150,16 @@ define-command close-docs %{
     }
 }
 
+define-command cross-reference %{
+	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
+}
+
 # Language server protocol support.
-try %{ 
-	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-	lsp-start
-	hook global KakEnd .* %{ lsp-exit }
-	hook global WinSetOption filetype=php %{ lsp-enable-window }
+try %{
+	# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+	# lsp-start
+	# hook global KakEnd .* %{ lsp-exit }
+	# hook global WinSetOption filetype=php %{ lsp-enable-window }
 }
 
 # Local kakrc sourcing for custom project commands and tools
