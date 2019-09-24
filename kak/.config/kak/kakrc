@@ -32,6 +32,7 @@ plug "andreyorst/tagbar.kak" config %{
 }
 
 require-module goto-definition
+require-module tmux-repl
 
 # General options.
 
