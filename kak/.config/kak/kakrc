@@ -8,9 +8,14 @@
 colorscheme chameleon
 # colorscheme gruvbox-light
 
+# Custom faces.
+
+set-face global Column black,white+rb
+
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
+add-highlighter global/ column 80 Column
 
 # Plugins.
 
@@ -30,6 +35,8 @@ plug "andreyorst/tagbar.kak" config %{
 	    remove-highlighter window/wrap
     }
 }
+
+plug "occivink/kakoune-snippets" config %{ }
 
 require-module goto-definition
 
@@ -86,7 +93,9 @@ hook global BufWritePost .* %{
     ctags-update-tags
 }
 
-hook global ClientCreate .* %{ setup-jump-client }
+hook global ClientCreate .* %{
+	setup-jump-client
+}
 
 ## Filetype-specific hooks
 
@@ -129,9 +138,20 @@ define-command -hidden setup-jump-client %{
 	}
 }
 
-define-command open-tools %{
-    new rename-client tools
+### Tools and docs clients.
+
+define-command set-tools-client %{
+	rename-client tools
     set-option global toolsclient tools
+}
+
+define-command set-docs-client %{
+	rename-client docs
+    set-option global docsclient docs
+}
+
+define-command open-tools %{
+	new set-tools-client
 }
 
 define-command close-tools %{
@@ -141,8 +161,7 @@ define-command close-tools %{
 }
 
 define-command open-docs %{
-    new rename-client docs
-    set-option global docsclient docs
+	new set-docs-client
 }
 
 define-command close-docs %{
@@ -153,6 +172,17 @@ define-command close-docs %{
 
 define-command cross-reference %{
 	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
+}
+
+define-command ide-mode %{
+}
+
+define-command git-merge-left %{
+	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
+}
+
+define-command git-merge-right %{
+	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
 
 # Language server protocol support.
