@@ -1,3 +1,6 @@
+#
+# Lazr's prompt.
+#
 
 fblack=`tput setaf 0`
 fred=`tput setaf 1`
@@ -10,8 +13,7 @@ fwhite=`tput setaf 7`
 normal=`tput sgr0`
 
 # Set up nonprinting character support.
-# 
-# 
+
 promptfirst=""
 npstart=""
 npend=""
@@ -32,15 +34,15 @@ case $SHELL in
         ;;
 esac
 
-nonprint() {
+nonprint () {
 	printf "%s%s%s" $npstart $1 $npend
 }
 
-fg() {
+prompt_fg () {
 	printf "%s%s%s" "$(nonprint $1)" "$2" "$(nonprint $normal)"
 }
 
-## Different prompt components
+# Different prompt components
 
 prompt_dir () {
 	if [ $SHELL = "/bin/zsh" ]; then 
@@ -52,7 +54,7 @@ prompt_dir () {
 
 prompt_git () {
 	if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
-		printf " %s" $(fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
+		printf " %s" $(prompt_fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
 	fi
 }
 
@@ -68,7 +70,7 @@ prompt_status_color () {
 
 prompt () {
 	statusc=$(prompt_status_color)
-	printf '%s' "$(fg ${fblue} $(hostname)) $(prompt_dir)$(prompt_git) ${statusc}\$$(nonprint $normal) "
+	printf '%s' "$(prompt_fg ${fblue} $(hostname)) $(prompt_dir)$(prompt_git) ${statusc}\$$(nonprint $normal) "
 }
 
 case $SHELL in

@@ -2,7 +2,7 @@
 
 while true; do
 	task=$(todo.sh -p list | head -1)
-    status="${task} | $(date)"
+    status="${task} [$(pomo-status)] | $(date)"
     xsetroot -name "$status"
     sleep 1
 done

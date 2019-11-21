@@ -18,8 +18,6 @@ source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 plug "andreyorst/plug.kak" noload config %{}
 
-plug 'nkoehring/kakoune-todo.txt'
-
 plug "andreyorst/fzf.kak" config %{
 	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
 	map global goto b <esc>:fzf-buffer<ret> -docstring "Find a file"
@@ -29,6 +27,13 @@ plug "andreyorst/tagbar.kak" config %{
     hook global WinSetOption filetype=tagbar %{
 	    remove-highlighter window/wrap
     }
+}
+
+plug "alexherbo2/auto-pairs.kak"
+
+plug "eraserhd/parinfer-rust" do %{
+	cargo build --release
+	cargo install --force --path .
 }
 
 require-module goto-definition
@@ -78,6 +83,7 @@ hook global WinCreate .* %{
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
+    auto-pairs-enable
 }
 
 hook global BufWritePost .* %{
@@ -149,6 +155,16 @@ define-command close-docs %{
 	    printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
     }
 }
+
+define-command cqlout-hl %~
+    addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
+    addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
+    addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
+    addhl buffer/expressionref regex '\(\d+\) ([a-zA-Z0-9 ]+):' 1:bright-cyan,default
+    addhl buffer/true regex 'TRUE' 0:green,default
+    addhl buffer/false regex 'FALSE' 0:red,default
+    addhl buffer/null regex 'NULL' 0:bright-red,default
+~
 
 # Language server protocol support.
 try %{ 

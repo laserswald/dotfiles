@@ -14,6 +14,4 @@ Plug 'fntlnz/atags.vim', {'do': ':UpdateRemotePlugins'}
 " Global search
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 
-" Neovim exclusive
-Plug 'floobits/floobits-neovim'
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>

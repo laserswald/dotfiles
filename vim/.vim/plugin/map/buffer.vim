@@ -1,6 +1,4 @@
 """ buffer.vim
-
-
 nnoremap gb :ls<cr>:buffer<space>
 
 " Go to the next buffer.

@@ -63,6 +63,9 @@ case $cmd in
             exit 1
 	    fi
 	;;
+    "edit")
+	    $EDITOR $PUNCHFILE
+	;;
     *)
 	    echo "unrecognized command: $cmd"
 	;;
