@@ -39,6 +39,7 @@ plug "andreyorst/tagbar.kak" config %{
 plug "occivink/kakoune-snippets" config %{ }
 
 require-module goto-definition
+require-module tmux-repl
 
 # General options.
 
