@@ -1,4 +1,5 @@
 bind generic S :source ~/.tigrc
+bind generic P +git push
 
 bind generic h scroll-left
 bind generic j move-down

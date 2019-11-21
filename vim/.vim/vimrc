@@ -4,6 +4,13 @@
 
 let g:lazr_use_plugins=1
 
+" Plugin levels: all work mini
+let g:lazr_plugin_level="all"
+
+if filereadable(glob("~/.vim/local.vim"))
+    source ~/.vim/local.vim
+endif
+
 " Environment
 function! WINDOWS()
     return (has("win32") || has("win64"))

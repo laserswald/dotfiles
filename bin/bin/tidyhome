@@ -1,0 +1,5 @@
+#!/bin/sh
+
+while read glob path; do 
+    mv glob path
+done | < .tidyfile

@@ -4,13 +4,18 @@
 
 # Looks.
 
-colorscheme gruvbox
 # colorscheme gruvbox
+colorscheme chameleon
 # colorscheme gruvbox-light
+
+# Custom faces.
+
+set-face global Column black,white+rb
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
+add-highlighter global/ column 80 Column
 
 # Plugins.
 
@@ -31,12 +36,17 @@ plug "andreyorst/tagbar.kak" config %{
 
 plug "alexherbo2/auto-pairs.kak"
 
-plug "eraserhd/parinfer-rust" do %{
-	cargo build --release
-	cargo install --force --path .
+try {
+    plug "eraserhd/parinfer-rust" do %{
+    	cargo build --release
+    	cargo install --force --path .
+    }
 }
 
+plug "occivink/kakoune-snippets" config %{ }
+
 require-module goto-definition
+require-module tmux-repl
 
 # General options.
 
@@ -66,6 +76,7 @@ map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol 
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
 map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
+map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol"
 
 # Fancy modeline
 
@@ -91,7 +102,9 @@ hook global BufWritePost .* %{
     ctags-update-tags
 }
 
-hook global ClientCreate .* %{ setup-jump-client }
+hook global ClientCreate .* %{
+	setup-jump-client
+}
 
 ## Filetype-specific hooks
 
@@ -134,9 +147,20 @@ define-command -hidden setup-jump-client %{
 	}
 }
 
-define-command open-tools %{
-    new rename-client tools
+### Tools and docs clients.
+
+define-command set-tools-client %{
+	rename-client tools
     set-option global toolsclient tools
+}
+
+define-command set-docs-client %{
+	rename-client docs
+    set-option global docsclient docs
+}
+
+define-command open-tools %{
+	new set-tools-client
 }
 
 define-command close-tools %{
@@ -146,8 +170,7 @@ define-command close-tools %{
 }
 
 define-command open-docs %{
-    new rename-client docs
-    set-option global docsclient docs
+	new set-docs-client
 }
 
 define-command close-docs %{
@@ -166,12 +189,27 @@ define-command cqlout-hl %~
     addhl buffer/null regex 'NULL' 0:bright-red,default
 ~
 
+define-command cross-reference %{
+	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
+}
+
+define-command ide-mode %{
+}
+
+define-command git-merge-left %{
+	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
+}
+
+define-command git-merge-right %{
+	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
+}
+
 # Language server protocol support.
-try %{ 
-	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-	lsp-start
-	hook global KakEnd .* %{ lsp-exit }
-	hook global WinSetOption filetype=php %{ lsp-enable-window }
+try %{
+	# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+	# lsp-start
+	# hook global KakEnd .* %{ lsp-exit }
+	# hook global WinSetOption filetype=php %{ lsp-enable-window }
 }
 
 # Local kakrc sourcing for custom project commands and tools

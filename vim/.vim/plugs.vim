@@ -1,3 +1,9 @@
+
+" Bare essentials
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
@@ -5,7 +11,6 @@ Plug 'honza/vim-snippets'
 
 " Buffer and window management
 Plug 'gcmt/taboo.vim'
-Plug 'tpope/vim-vinegar'
 Plug 'moll/vim-bbye'
 
 " Fuzzy Find tools {{{
@@ -18,6 +23,10 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'inkarkat/SyntaxAttr.vim'
 Plug 'jaxbot/semantic-highlight.vim'
 " Plug 'tpope/vim-flagship'
+Plug 'laserswald/chameleon.vim'
+Plug 'fxn/vim-monochrome'
+Plug 'morhetz/gruvbox'
+Plug 'robertmeta/nofrils'
 "}}}
 
 " Databases."{{{
@@ -26,13 +35,9 @@ Plug 'jaxbot/semantic-highlight.vim'
 " External environment integration
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
-
-" Language support
-Plug 'JalaiAmitahl/maven-compiler.vim', {'for' : 'java'}
 
 " Debugging
 Plug 'gcmt/taboo.vim'
@@ -60,21 +65,15 @@ Plug 'jpalardy/vim-slime'
 
 Plug 'chrisbra/csv.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
+Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
 
 " Plug 'davidoc/taskpaper.vim'
 " }}}
 
-" Themes
-Plug 'laserswald/chameleon.vim'
-Plug 'morhetz/gruvbox'
-Plug 'fxn/vim-monochrome'
-Plug 'inkarkat/SyntaxAttr.vim'
-
 " Text manipulation
 Plug 'tpope/vim-commentary'
 Plug 'tommcdo/vim-exchange'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'godlygeek/tabular'

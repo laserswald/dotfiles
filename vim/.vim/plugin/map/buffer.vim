@@ -9,3 +9,5 @@ nnoremap <leader>bp :bp<cr>
 
 " Delete this buffer
 nnoremap <leader>bd :Bdelete<cr>
+
+nnoremap ga <c-^>
