@@ -1,10 +1,18 @@
-
 bind generic S :source ~/.tigrc
+bind generic P +git push
 
-## Revising commits
-# Revise commits
-bind main <Ctrl-r> ?!git rebase -i %(commit)^
-# Finish revision
-bind main <Ctrl-f> +git rebase --continue
+bind generic h scroll-left
+bind generic j move-down
+bind generic k move-up
+bind generic l scroll-right
 
+bind generic g none
+bind generic gg move-first-line
+bind generic ge move-last-line
+bind generic ga back
+
+bind generic i none
+bind main i none
+bind main ir ?!git rebase -i %(commit)^
+bind main if +git rebase --continue
 

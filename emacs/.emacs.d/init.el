@@ -25,6 +25,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package lsp-mode :ensure t)
 
 (use-package php-mode :ensure t)
 (use-package ac-php :ensure t
@@ -37,6 +38,12 @@
 	       (set (make-local-variable 'company-backends)
 		    '((company-ac-php-backend company-dabbrev-code)
 		      company-capf company-files)))))
+
+(use-package php-eldoc
+  :ensure t
+  :config
+  (php-eldoc-enable)
+  (add-hook 'php-mode-hook 'php-mode-options))
 
 (use-package phpunit :ensure t)
 
@@ -187,10 +194,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
+    ("585942bb24cab2d4b2f74977ac3ba6ddbd888e3776b9d2f993c5704aa8bb4739" "1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
  '(package-selected-packages
    (quote
-    (slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
+    (lsp-mode slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

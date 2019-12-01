@@ -35,6 +35,9 @@ case $cmd in
 			echo "You are clocked out"
 		fi
 	;;
+    "projects")
+        cut -d' ' -f4 "$PUNCHFILE" | sort | uniq | sed '/^$/d'
+	;;
     ""|toggle)
         toggle_punch $@
 	;;
@@ -59,6 +62,9 @@ case $cmd in
             echo "Already clocked out."
             exit 1
 	    fi
+	;;
+    "edit")
+	    $EDITOR $PUNCHFILE
 	;;
     *)
 	    echo "unrecognized command: $cmd"
