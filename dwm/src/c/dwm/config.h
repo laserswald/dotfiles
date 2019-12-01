@@ -88,6 +88,7 @@ static const Layout layouts[] = {
 
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static Key keys[] = {
+
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
@@ -138,7 +139,6 @@ static Key keys[] = {
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
-	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = micmute}},
 	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
 	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };
