@@ -10,3 +10,4 @@
 
 /* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
 #define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"
+/* #define HTHEME_FONT "Fixed:style=regular:pixelsize=10" */
