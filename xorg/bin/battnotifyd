@@ -2,63 +2,35 @@
 ; vim:ft=scheme
 
 (import (scheme small)
+        (scheme r5rs)
 		(scheme list)
-		(chibi filesystem)
-		(chibi process))
+        (chibi process)
+		(lazr battery)
+        (lazr notify))
 
-(define *linux-battery-dir* "/sys/class/power_supply")
+(define (approximate-percentage batteries)
+  (exact->inexact (/ (apply + (map read-capacity batteries))
+                     (length batteries))))
 
-(define (string-starts-with? str beg)
-  (and (> (string-length beg) 3)
-	   (equal? (substring beg 0 3) str)))
-
-(define (is-battery? dirname)
-  (string-starts-with? dirname "BAT"))
-
-(define (get-batteries)
-  (filter 
-	is-battery? 
-	(directory-files "/sys/class/power_supply")))
-
-(define (read-battery-data battery name)
-  (read
-	(open-input-file 
-	  (string-append *linux-battery-dir* "/" battery "/" name))))
-
-(define (read-capacity battery)
-  (read-battery-data battery "capacity"))
-
-(define (read-charge-state battery)
-  (symbol->string (read-battery-data battery "status")))
-
-(define (is-charging? battery)
-  (string-starts-with? (read-charge-state battery) "Charging"))
-
-(define (has-low-charge? battery)
-  (< (read-capacity battery) 15))
+(define (system-has-low-charge? batteries)
+  (< (approximate-percentage batteries) 15))
 
 (define (sleep n)
   (system "sleep" n))
 
-(define (send-notification batteries)
-  (system "notify-send" 
-		  "-u" "critical" 
-		  "Battery"
-		  (fold
-			(lambda (battery str)
-			  (string-append str " " (number->string (read-capacity battery)) "%"))
-			"Plug me in! Batteries are at"
-			batteries)))
-
 (define (check-batteries)
   (let ((batteries (get-batteries)))
-	(if (and (every has-low-charge? batteries)
-			 (not (any is-charging? batteries)))
-	  (send-notification batteries))))
+	(and (system-has-low-charge? batteries)
+	     (not (any is-charging? batteries)))))
 
 (define (main)
-  (check-batteries)
-  (sleep "10m"))
+  (if (check-batteries)
+    (send-notification "Battery" 
+                       (string-append "Battery levels at approximately " 
+                                      (number->string (approximate-percentage (get-batteries)))
+                                      "%")
+                       "critical"))
+  (sleep "5")
+  (main))
 
 (main)
-
