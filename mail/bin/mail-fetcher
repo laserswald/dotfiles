@@ -1,0 +1,9 @@
+#!/bin/sh
+
+while true
+do 
+    notify-send "Mail" "Fetching mail..."
+    notmuch new 
+    notify-send "Mail" "Done."
+    sleep 15m
+done
