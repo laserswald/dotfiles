@@ -56,8 +56,9 @@ ncmpcpp:
 newsbeuter:
 todotxt:
 tig: git
+	
 $(MODULES):
-	stow --ignore=install $@
+	stow --ignore=install --ignore='\.kak.*' --ignore=tags $@
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
