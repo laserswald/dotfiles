@@ -47,7 +47,10 @@
 
 (use-package phpunit :ensure t)
 
-(use-package slime :ensure t)
+(use-package slime
+  :ensure t
+  :config
+  (setf inferior-lisp-program "/usr/bin/sbcl"))
 
 (use-package undo-tree :ensure t)
 (use-package speedbar :ensure t)
@@ -183,6 +186,7 @@
 
 (provide 'init)
 ;;; init.el ends here
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

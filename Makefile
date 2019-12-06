@@ -3,6 +3,8 @@ TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
 
+STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
+
 MODULES := bash bin bspwm dunst dvtm dzen emacs git i3 irssi kak lemonbar mutt mail ncmpcpp newsbeuter polybar sh st sxhkd termite tig tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh
 
 .PHONY: $(MODULES) core desktop server
@@ -58,7 +60,7 @@ todotxt:
 tig: git
 	
 $(MODULES):
-	stow --ignore=install --ignore='\.kak.*' --ignore=tags $@
+	$(STOW_CMD) $@
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
@@ -79,5 +81,5 @@ dwm: xorg
 	
 core: core/install
 	exec ./core/install
-	stow --ignore=install $@
+	$(STOW_CMD) $@
 
