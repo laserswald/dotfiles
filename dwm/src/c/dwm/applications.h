@@ -13,14 +13,24 @@ static const char *scratchpadcmd[] = { TERMINAL_BIN, "-t", scratchpadname, NULL 
 static const char *searchcmd[]     = { "/usr/bin/env", "surf-ddg", NULL };
 static const char *mailcmd[]       = INST_CMD("neomutt");
 
-/* Media key commands. */
+#define PULSEAUDIO
 
+/* Media key commands. */
 static const char *dispup[]        = { "xbacklight", "+", "10", NULL };
 static const char *dispdown[]      = { "xbacklight", "-", "10", NULL };
+
+#ifdef PULSEAUDIO
+static const char *volup[]         = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
+static const char *voldown[]       = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
+static const char *volmute[]       = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *micmute[]       = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
+#else /* Alsa */
 static const char *volup[]         = { "amixer", "set", "Master", "10+", NULL };
 static const char *voldown[]       = { "amixer", "set", "Master", "10-", NULL };
 static const char *volmute[]       = { "amixer", "set", "Master", "toggle", NULL };
 static const char *micmute[]       = { "amixer", "set", "Capture", "toggle", NULL };
+#endif /* PULSEAUDIO */
+
 static const char *printscr[]      = { "/usr/bin/env", "scrot", NULL };
 static const char *media_play[]    = { "/usr/bin/env", "dj", "toggle", NULL };
 static const char *media_prev[]    = { "/usr/bin/env", "dj", "prev", NULL };

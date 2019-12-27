@@ -1,0 +1,26 @@
+# Specific email tags
++lazr -- to:me@lazr.space
++ahi -- to:ben.davenportray@azaleahealth.com
++ahi -- to:bdavenportray@azaleahealth.com
+
+# Work shit
+
++tickets -inbox -- subject:/.*JIRA.*/
+
++old_interop -inbox -- to:/.*interfaces@azaleahealth.com/
++old_interop -inbox -- cc:/.*interfaces@azaleahealth.com/
++old_interop -inbox -- cc:/.*interop@azaleahealth.com/
++old_interop -inbox -- from:/.*zendesk.*/
++old_interop -inbox -- subject:/.*Bitbucket.*INT.*/
+
+# junk
+-inbox -unread -- subject:"Running Cron Locked"
+
+# Personal stuff
++lists -inbox -- to:/.*@lists.sr.ht/
++lists -inbox -- from:/.*robert@stuffwithstuff.com.*/
++lists -inbox -- from:/.*sir@cmpwn.com.*/
++lists -inbox -- from:/.*srfi.schemers.org.*/
+
++ads -inbox -unread -- from:patreon.com
+

@@ -2,6 +2,7 @@
 
 export LC_CTYPE="en_US.UTF-8"
 export ENV="$HOME/.shrc"
+
 . ~/.local/lib/sh/path.sh
 source_dir "$HOME/.sh.d/env.d"
 source_dir "$HOME/.sh.d/login.d"
