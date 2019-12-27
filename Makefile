@@ -57,7 +57,7 @@ newsbeuter:
 todotxt:
 tig: git
 $(MODULES):
-	stow --ignore=install $@
+	stow --ignore=install --ignore=tags --ignore=.kak_find_cache $@
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
