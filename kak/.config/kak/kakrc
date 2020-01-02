@@ -36,17 +36,20 @@ plug "andreyorst/tagbar.kak" config %{
 
 plug "alexherbo2/auto-pairs.kak"
 
-try {
+try %{
     plug "eraserhd/parinfer-rust" do %{
     	cargo build --release
     	cargo install --force --path .
     }
 }
 
-plug "occivink/kakoune-snippets" config %{ }
+plug "occivink/kakoune-snippets"
 
 require-module goto-definition
-require-module tmux-repl
+
+try %{
+    require-module tmux-repl
+} 
 
 # General options.
 
@@ -67,6 +70,7 @@ map global user d <esc>:db<ret>                               -docstring "Delete
 map global user m <esc>:make<ret>                             -docstring "Make the current project"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
 map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
+map global user S <esc><a-i>p:send-text<ret>                  -docstring "Send current paragraph to repl window"
 map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
 map global user , <esc>:fzf-mode<ret>                         -docstring "Open fuzzy finder mode"
 
