@@ -6,7 +6,7 @@ set sig_on_top
 # paths
 set my_muttdir=$HOME/.mutt
 set folder = $HOME/var/mail/
-set spoolfile = +inbox
+set spoolfile = $HOME/var/mail/inbox
 set mailcap_path = $my_muttdir/mailcap
 
 # options
@@ -53,5 +53,12 @@ source $my_muttdir/keybindings.muttrc
 ### Colorscheme
 source $my_muttdir/colors/laserlight.colors
 
-mailboxes =ahi/Inbox
+source $my_muttdir/boxes.muttrc
+virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
+virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
+virtual-mailboxes "Old Interop" "notmuch://?query=tag:old_interop"
+virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
+virtual-mailboxes "Lists" "notmuch://?query=tag:lists"
+
+lists schemecomm Schemecomm schemeweb '~lazr/gnot.club' '~sircmpwn/sr.ht-announce'
 
