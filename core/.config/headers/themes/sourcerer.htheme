@@ -1,0 +1,28 @@
+/*
+ * Sourcerer theme, by xero harrison
+ */
+
+/* Normal colors. */
+#define HTHEME_BLACK        "#111111"
+#define HTHEME_RED          "#AA4450"
+#define HTHEME_GREEN        "#719611"
+#define HTHEME_YELLOW       "#FF9800"
+#define HTHEME_BLUE         "#6688AA"
+#define HTHEME_MAGENTA      "#8F6F8F"
+#define HTHEME_CYAN         "#528B8B"
+#define HTHEME_WHITE        "#D3D3D3"
+
+/* Bright colors */
+#define HTHEME_BRIGHT_BLACK   "#181818"
+#define HTHEME_BRIGHT_RED     "#FF6A6A"
+#define HTHEME_BRIGHT_GREEN   "#B1D631"
+#define HTHEME_BRIGHT_YELLOW  "#87875F"
+#define HTHEME_BRIGHT_BLUE    "#90B0D1"
+#define HTHEME_BRIGHT_MAGENTA "#8181A6"
+#define HTHEME_BRIGHT_CYAN    "#87CEEB"
+#define HTHEME_BRIGHT_WHITE   "#C1CDC1"
+
+#define HTHEME_FOREGROUND     "#C2C2B0"
+#define HTHEME_BACKGROUND     "#222222"
+#define HTHEME_CURSOR         "#C2C2B0"
+#define HTHEME_REVERSE_CURSOR "#222222"
