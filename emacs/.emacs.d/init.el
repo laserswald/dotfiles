@@ -25,7 +25,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package lsp-mode :ensure t)
+(use-package lsp-mode :ensure t
+  :hook (php-mode . lsp)
+  :commands lsp)
 
 (use-package php-mode :ensure t)
 (use-package ac-php :ensure t
@@ -53,7 +55,10 @@
   (setf inferior-lisp-program "/usr/bin/sbcl"))
 
 (use-package undo-tree :ensure t)
-(use-package speedbar :ensure t)
+
+(use-package speedbar
+  :ensure t
+  :config)
 
 (use-package smart-tabs-mode
   :ensure t
@@ -96,6 +101,27 @@
     '(lambda ()
        (interactive)
        (find-file "."))))
+
+(use-package evil-org
+  :ensure t
+
+  :after org
+	
+  :init
+  (setq org-agenda-files '("~/org"))
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (setq org-todo-keywords
+	'((sequence "TODO" "|" "DONE" "WAIT")
+	  (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
+
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+	    (lambda ()
+	      (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
 
 (use-package general :ensure t :config (general-evil-setup))
 
@@ -152,8 +178,15 @@
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
 		 "s" 'magit-status
-		 "a" 'magit-stage-file)
+		 "a" 'magit-stage-file
+		 "c" 'magit-commit)
 
+;;; 'O'rg mode
+(lazr-leader-map :infix "o"
+  "l" 'org-store-link
+  "a" 'org-agenda
+  "c" 'org-capture)
+  
 ;;; File type specific tools
 (lazr-local-leader-map :keymaps 'php-mode-map
 		       "ta" 'phpunit-current-project
@@ -169,6 +202,9 @@
 
 (lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
 		       "eb" 'lazr-eval-buffer)
+
+(lazr-local-leader-map :keymaps 'org-mode-map
+  "t" 'org-todo)
 
 (if (display-graphic-p)
     (progn
