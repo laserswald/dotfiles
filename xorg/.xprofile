@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. "$HOME/.profile"
+
+exec >>  .xprofile.log
+exec 2>> .xprofile-errors
+
+if [ -f "$HOME/.xsession.local" ]; then
+	. "$HOME/.xsession.local"
+fi
+
+# Source any shell scripts in a dir, for maximum flexibility
+if [ -d "$HOME/.xsession.d" ]; then
+    for script in $HOME/.xsession.d/*.sh; do
+        echo "Sourcing module $script"
+        set +x
+        . "$script"
+        set -x
+    done
+fi
+
