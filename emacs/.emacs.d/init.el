@@ -1,4 +1,4 @@
-;;; lazr-config --- Lazr's config for Emacs.
+;; lazr-config --- Lazr's config for Emacs.
 
 ;;;; Settings.
 
@@ -8,7 +8,7 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Input Mono-9"))
+	     '(font . "Fira Code-9"))
 
 ;; Stop annoying me about stuff.
 (setq inhibit-startup-message t
@@ -17,13 +17,18 @@
 ;;;; Package setup.
 (require 'package)
 (setq package-archives
-           '(("melpa" . "https://melpa.org/packages/")
-	    ("gnu" . "https://elpa.gnu.org/packages/")))
+      '(("melpa" . "https://melpa.org/packages/")
+	("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(use-package spaceline :ensure t
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 (use-package lsp-mode :ensure t)
 
@@ -113,8 +118,6 @@
 
 ;;; Keybindings.
 
-(general-define-key :states 'normal "/" 'swiper)
-
 (general-nmap dired-mode-map "-" 'dired-up-directory)
 
 (general-create-definer lazr-leader-map
@@ -130,7 +133,7 @@
 		    "C-j" 'evil-window-down
 		    "C-k" 'evil-window-up
 		    "C-l" 'evil-window-right)
-		    
+
 ;; Go to ...
 (general-define-key :states 'normal :prefix "g"
 		    "a" 'evil-switch-to-windows-last-buffer ; alternate
@@ -142,23 +145,23 @@
 
 ;; 'W'indow manipulation
 (lazr-leader-map :infix "w"
-		 "c" 'kill-buffer
-		 "j" 'split-window-vertically
-		 "l" 'split-window-horizontally)
+  "c" 'kill-buffer
+  "j" 'split-window-vertically
+  "l" 'split-window-horizontally)
 
 ;;; 'P'roject tools
 (lazr-leader-map "p" 'projectile-command-map)
 
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
-		 "s" 'magit-status
-		 "a" 'magit-stage-file)
+  "s" 'magit-status
+  "a" 'magit-stage-file)
 
 ;;; File type specific tools
 (lazr-local-leader-map :keymaps 'php-mode-map
-		       "ta" 'phpunit-current-project
-		       "tt" 'phpunit-current-test
-		       "tc" 'phpunit-current-class)
+  "ta" 'phpunit-current-project
+  "tt" 'phpunit-current-test
+  "tc" 'phpunit-current-class)
 
 (defun lazr-eval-buffer ()
   "Evaluate a buffer and say something about it."
@@ -168,14 +171,10 @@
 
 
 (lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
-		       "eb" 'lazr-eval-buffer)
+  "eb" 'lazr-eval-buffer)
 
 (if (display-graphic-p)
     (progn
-      (use-package xresources-theme :ensure t)
-      (use-package monochrome-theme :ensure t)
-      (use-package nord-theme :ensure t)
-      (use-package zenburn-theme :ensure t)
       (use-package gruvbox-theme :ensure t)
       (enable-theme 'gruvbox))
   (set-face-background 'default "background")
@@ -204,3 +203,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+
