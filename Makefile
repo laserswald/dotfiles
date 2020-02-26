@@ -33,7 +33,6 @@ vis: bin
 
 # window managers
 bspwm: sxhkd xorg
-		
 i3: xorg
 xmonad: xorg
 
@@ -58,7 +57,7 @@ ncmpcpp:
 newsbeuter:
 todotxt:
 tig: git
-	
+
 $(MODULES):
 	$(STOW_CMD) $@
 
@@ -78,7 +77,7 @@ dwm: xorg
 		fi \
 	done; \
 	cd -
-	
+
 core: core/install
 	exec ./core/install
 	$(STOW_CMD) $@
