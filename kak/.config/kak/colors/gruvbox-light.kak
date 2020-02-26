@@ -11,16 +11,19 @@ evaluate-commands %sh{
     orange="rgb:d65d0e"
 
     fg0="rgb:282828"
-    fg="rgb:3c3836"
+    fg1="rgb:3c3836"
     fg2="rgb:504945"
     fg3="rgb:665c54"
     fg4="rgb:7c6f64"
 
-    bg="rgb:fbf1c7"
+    bg0="rgb:fbf1c7"
     bg1="rgb:ebdbb2"
     bg2="rgb:d5c4a1"
     bg3="rgb:bdae93"
     bg4="rgb:a89984"
+
+    fg=$fg0
+    bg=$bg0
 
     echo "
         # Code highlighting
