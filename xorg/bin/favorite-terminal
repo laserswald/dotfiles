@@ -1,6 +1,4 @@
 #! /bin/sh
 # favorite-terminal WINDOW_CLASS COMMAND
 
-. $HOME/.sh.d/environment.sh
-
-$TERMINAL -n $1 -e $2 
+alacritty -n $1 -e $2 

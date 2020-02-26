@@ -1,7 +1,7 @@
 #!/bin/sh
 # global X session startup file.
 
-. "$HOME/.xprofile"
+[ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
 if command -v ck-launch-session >/dev/null; then
     exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
