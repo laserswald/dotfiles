@@ -9,15 +9,16 @@ static const char *browsercmd[]    = { "firefox" , NULL };
 static const char *chatcmd[]       = INST_CMD("weechat");
 static const char *fmcmd[]         = INST_CMD("ranger");
 static const char *lockcmd[]       = { "slock", NULL };
-static const char *scratchpadcmd[] = { TERMINAL_BIN, "-t", scratchpadname, NULL };
+static const char *scratchpadcmd[] = INST_CMD("scratchpad");
 static const char *searchcmd[]     = { "/usr/bin/env", "surf-ddg", NULL };
 static const char *mailcmd[]       = INST_CMD("neomutt");
 
-#define PULSEAUDIO
 
 /* Media key commands. */
 static const char *dispup[]        = { "xbacklight", "+", "10", NULL };
 static const char *dispdown[]      = { "xbacklight", "-", "10", NULL };
+
+#define PULSEAUDIO 1
 
 #ifdef PULSEAUDIO
 static const char *volup[]         = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
