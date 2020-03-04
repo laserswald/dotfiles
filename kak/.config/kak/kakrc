@@ -10,12 +10,14 @@ colorscheme chameleon
 
 # Custom faces.
 
-set-face global Column black,white+rb
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
 add-highlighter global/ show-matching
-add-highlighter global/ column 80 Column
+
+
+# set-face global Column black,white+rb
+# add-highlighter global/ column 80 Column
 
 # Plugins.
 
@@ -69,8 +71,6 @@ map global user c <esc>:comment-line<ret>                     -docstring "Commen
 map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
 map global user m <esc>:make<ret>                             -docstring "Make the current project"
 map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
-map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
-map global user S <esc><a-i>p:send-text<ret>                  -docstring "Send current paragraph to repl window"
 map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
 map global user , <esc>:fzf-mode<ret>                         -docstring "Open fuzzy finder mode"
 
@@ -80,7 +80,8 @@ map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol 
 map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
 map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
 map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
-map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol"
+map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol in docs client"
+map global goto s <esc>:buffer *scratch*<ret>                -docstring "Scratch buffer"
 
 # Fancy modeline
 
@@ -129,6 +130,11 @@ hook global WinSetOption filetype=zig %{
     hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
         execute-keys -draft h %opt{indentwidth}@
     } }
+}
+
+hook global WinSetOption filetype=(scheme|lisp|clojure) %{
+	map buffer user s <esc>:send-text<ret>       -docstring "Send selection to repl window"
+	map buffer user S <esc><a-i>p:send-text<ret> -docstring "Send current paragraph to repl window"
 }
 
 hook global WinSetOption filetype=php %{
@@ -183,6 +189,15 @@ define-command close-docs %{
     }
 }
 
+define-command open-ide %{
+	open-docs
+	open-tools
+	nop %sh{
+        $(TMUX) select-layout main-vertical
+	}
+}
+
+
 define-command cqlout-hl %~
     addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
     addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
@@ -195,9 +210,6 @@ define-command cqlout-hl %~
 
 define-command cross-reference %{
 	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
-}
-
-define-command ide-mode %{
 }
 
 define-command git-merge-left %{
