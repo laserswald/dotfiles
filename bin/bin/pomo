@@ -1,62 +1,143 @@
-#!/bin/sh
-# a pomodoro script
+#!/usr/bin/env chibi-scheme
+; vim: ft=scheme
+;;;;
+;;;; A tool for performing Pomodoros.
+;;;;
 
-WORK_TIME=${WORK_TIME:=10}
-BREAK_TIME=${BREAK_TIME:=2}
-SET_LENGTH=${SET_LENGTH:=4}
+(import (scheme base)
+        (scheme load)
+        (scheme file)
+        (scheme write)
+        (scheme process-context)
+        (chibi process)
+        (chibi filesystem)
+        (chibi pathname))
 
-cmdname=`basename $0`
+(define *work-time* 25)
+(define *break-time* 5)
+(define *long-break-time* 15)
+(define *set-length* 4)
 
-alert() {
-    local message=$1
+(define *status-dir* (string-append (get-environment-variable "TMPDIR")
+                                    "/pomo"))
 
-    if [ "$2" ]; then 
-	    local icon=$2
-    else
-        local icon="info"
-    fi
+(define *tick-sound* (string-append (get-environment-variable "XDG_CONFIG_HOME")
+                                    "/pomo/ticking.mp3"))
 
-	notify-send \
-        --urgency=normal \
-        "$cmdname" \
-        "$message"
-}
+(define-syntax add-hook!
+  (syntax-rules ()
+    ((add-hook! hook proc)
+     (set! hook (cons proc hook)))))
 
-updatestatus() {
-    if ! [ -d $TMPDIR/pomo ]; then
-        mkdir $TMPDIR/pomo
-    fi
-    if [ $1 -ne 0 ]; then
-        [ -f $TMPDIR/pomo/brk ] && rm $TMPDIR/pomo/brk
-        touch $TMPDIR/pomo/wrk
-    else
-        [ -f $TMPDIR/pomo/wrk ] && rm $TMPDIR/pomo/wrk
-        touch $TMPDIR/pomo/brk
-    fi
-}
+(define (call-hooks hook)
+  (for-each (lambda (p)
+             (p))
+           hook))
 
-cleanupstatus() {
-    [ -d $TMPDIR/pomo ] && rm -r $TMPDIR/pomo
-}
+(define *pomo-work-begin-hook* '())
+(define *pomo-work-end-hook* '())
+(define *pomo-break-begin-hook* '())
+(define *pomo-break-end-hook* '())
 
-trap cleanupstatus TERM
+(define (play-sound what)
+  (system "canberra-gtk-play" "-i" (symbol->string what)))
 
-for i in `seq 1 $SET_LENGTH`; do
-	canberra-gtk-play -i bell
-    alert "Start working!"
-    updatestatus 1
-    punch in $@
-	sleep $((WORK_TIME * 60))
-    punch out
+(define (alert message)
+  (system "notify-send" "--urgency=normal" "pomodoro" message))
 
-	canberra-gtk-play -i bell
-    alert "Break time!"
-    updatestatus 0
-    punch in "work:break"
-	sleep $((BREAK_TIME * 60))
-    punch out
+(define (touch path)
+  (close-output-port (open-output-file path)))
 
-    cleanupstatus
-done
-canberra-gtk-play -i complete
-alert "Done!"
+(define (update-status working?)
+  (let ((working-file (string-append *status-dir* "/wrk"))
+        (break-file (string-append *status-dir* "/brk")))
+    (unless (file-directory? *status-dir*)
+      (create-directory* *status-dir*))
+    	(if working?
+        (begin
+            (when (file-exists? break-file)
+                (delete-file break-file))
+            (touch working-file))
+        (begin
+            (when (file-exists? working-file)
+                (delete-file working-file))
+            (touch break-file)))))
+
+(define (clean-status)
+  (delete-file-hierarchy *status-dir*))
+
+(define tick-pid #f)
+
+(define (start-ticking)
+  (display *tick-sound*)
+  (newline)
+  (call-with-process-io `(mpv -really-quiet -loop ,0 ,*tick-sound*)
+    (lambda (pid stdin stdout stderr)
+      (set! tick-pid pid))))
+
+(define (stop-ticking)
+  (kill tick-pid signal/kill))
+
+(define (do-set work-time break-time)
+  (call-hooks *pomo-work-begin-hook*)
+  (sleep (* 60 work-time))
+  (call-hooks *pomo-work-end-hook*)
+  (call-hooks *pomo-break-begin-hook*)
+  (sleep (* 60 break-time))
+  (call-hooks *pomo-break-end-hook*))
+
+(define (long-break time)
+  (call-hooks *pomo-break-begin-hook*)
+  (sleep (* 60 time))
+  (call-hooks *pomo-break-end-hook*))
+
+(define (pomodoro work-length break-length long-break-length set-count)
+  (let set-loop ((current-set 1))
+                	(if (= current-set set-count)
+                    (long-break long-break-length)
+                    (begin
+                        (do-set work-length break-length)
+                        (set-loop (+ current-set 1)))))
+  (play-sound 'complete)
+  (alert "done!")
+  (clean-status))
+
+(set-signal-action! signal/term 
+  (lambda (signum)
+    (stop-ticking)
+    (clean-status)))
+
+(add-hook! *pomo-work-begin-hook*
+  (lambda ()
+    (play-sound 'bell)
+    (alert "start working!")
+    (update-status #t)
+    (system "punch" "in")
+    (start-ticking)))
+
+(add-hook! *pomo-work-end-hook*
+  (lambda ()
+    (stop-ticking)
+    (system "punch" "out")))
+
+(add-hook! *pomo-break-begin-hook*
+  (lambda ()
+          	(play-sound 'bell)
+          	(alert "break time!")
+          	(update-status #f)
+          	(system "punch" "in" "break")))
+
+(add-hook! *pomo-break-end-hook*
+  (lambda ()
+    (system "punch" "out")))
+
+(let ((init-file-name (string-append (get-environment-variable "XDG_CONFIG_HOME")
+                                     "pomo/init.scm")))
+  (if (file-exists? init-file-name)
+      	(load init-file-name)))
+
+(pomodoro *work-time* 
+          *break-time* 
+          *long-break-time* 
+          *set-length*)
+
