@@ -1,6 +1,7 @@
 #
 # Laserswald's kakrc.
 #
+echo -debug "starting kakrc"
 
 # Looks.
 
@@ -10,7 +11,7 @@ colorscheme chameleon
 
 # Custom faces.
 
-set-face global Column black,white+rb
+set-face global Column black,white+r
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
@@ -18,10 +19,12 @@ add-highlighter global/ show-matching
 add-highlighter global/ column 80 Column
 
 # Plugins.
+# 
+echo -debug "loaded look and feel"
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "andreyorst/plug.kak" noload config %{}
+plug "andreyorst/plug.kak" noload
 
 plug "andreyorst/fzf.kak" config %{
 	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
@@ -29,24 +32,38 @@ plug "andreyorst/fzf.kak" config %{
 }
 
 plug "andreyorst/tagbar.kak" config %{
-    hook global WinSetOption filetype=tagbar %{
-	    remove-highlighter window/wrap
-    }
+	hook global WinSetOption filetype=tagbar %{
+		remove-highlighter window/wrap
+	}
 }
 
-plug "alexherbo2/auto-pairs.kak"
 
-try {
-    plug "eraserhd/parinfer-rust" do %{
-    	cargo build --release
-    	cargo install --force --path .
-    }
+# plug "alexherbo2/auto-pairs.kak"
+
+plug "andreyorst/powerline.kak" config %{
+	powerline-start
 }
 
-plug "occivink/kakoune-snippets" config %{ }
+try %{
+	plug "eraserhd/parinfer-rust" do %{
+		cargo install --force --path .
+	} config %{
+		hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
+			parinfer-enable-window -smart
+		}
+	}
+}
+
+echo -debug "loaded"
+
+plug "occivink/kakoune-snippets"
+
+echo -debug "loaded plugins"
 
 require-module goto-definition
 require-module tmux-repl
+
+echo -debug "loaded modules"
 
 # General options.
 
@@ -61,45 +78,87 @@ set-option global aligntab false
 # Mappings
 
 # User mappings
-map global user C <esc>:comment-block<ret>                    -docstring "Comment the selection, block style"
-map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
-map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
-map global user m <esc>:make<ret>                             -docstring "Make the current project"
-map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
-map global user s <esc>:send-text<ret>                        -docstring "Send selection to repl window"
-map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
-map global user , <esc>:fzf-mode<ret>                         -docstring "Open fuzzy finder mode"
+map global user C \
+	-docstring "Comment the selection, block style" \
+	<esc>:comment-block<ret>
+
+map global user c \
+	-docstring "Comment the selection" \
+	<esc>:comment-line<ret>
+
+map global user d \
+	-docstring "Delete this buffer." \
+	<esc>:db<ret>
+
+map global user m \
+	-docstring "Make the current project" \
+	<esc>:make<ret>
+
+map global user R \
+	-docstring "Load your kakrc" \
+	<esc>:source<space>~/.config/kak/kakrc<ret>
+
+map global user s \
+	-docstring "Send selection to repl window" \
+	<esc>:send-text<ret>
+
+map global user w \
+	-docstring "Write the file and add the changes to version control" \
+	<esc>:write<ret>:git<space>add<ret>
+
+map global user , \
+	-docstring "Open fuzzy finder mode" \
+	<esc>:fzf-mode<ret>
+
 
 # Go to mappings
-map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
-map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
-map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
-map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
-map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol"
+map global goto b \
+	-docstring "Another buffer" \
+	<esc>:buffer<space>
+
+map global goto d \
+	-docstring "Symbol definition" \
+	<esc><a-i>w:jump-to-definition<ret>
+
+map global goto K \
+	-docstring "Your kakrc" \
+	<esc>:edit!<space>~/.config/kak/kakrc<ret>
+
+map global goto n \
+	-docstring "Next mention in buffer" \
+	<esc><a-i>w*n<ret>
+
+map global goto u \
+	-docstring "References to symbol" \
+	<esc>:find-references<ret>
+
+map global goto x \
+	-docstring "References to symbol" \
+	<esc>:cross-reference<ret>
+
 
 # Fancy modeline
 
 # set global modelinefmt %{
-# 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
+#	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
 # }
 
 # Styles and hooks for all windows.
 
 hook global WinCreate .* %{
-    modeline-parse
-    ctags-enable-autoinfo
-    try %{ editorconfig-load }
-    git show-diff
-    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
-        execute-keys -draft h %opt{indentwidth}@
-    } }
-    auto-pairs-enable
+	modeline-parse
+	ctags-enable-autoinfo
+	try %{ editorconfig-load }
+	git show-diff
+	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+		execute-keys -draft h %opt{indentwidth}@
+	} }
+	auto-pairs-enable
 }
 
 hook global BufWritePost .* %{
-    git update-diff
-    ctags-update-tags
+	git update-diff
+	ctags-update-tags
 }
 
 hook global ClientCreate .* %{
@@ -109,26 +168,28 @@ hook global ClientCreate .* %{
 ## Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
-    set-option buffer filetype javascript
+	set-option buffer filetype javascript
 }
 
 hook global WinSetOption filetype=kak %{
-    map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
+	map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
 }
 
 hook global WinSetOption filetype=makefile %{
-    remove-hooks buffer tabs-to-spaces
+	remove-hooks buffer tabs-to-spaces
 }
 
 hook global WinSetOption filetype=zig %{
 	set buffer indentwidth 4
-    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
-        execute-keys -draft h %opt{indentwidth}@
-    } }
+	hook -group tabs-to-spaces buffer InsertChar \t %{
+            	try %{
+        		execute-keys -draft h %opt{indentwidth}@
+        	}
+	}
 }
 
 hook global WinSetOption filetype=php %{
-    remove-hooks buffer tabs-to-spaces
+	remove-hooks buffer tabs-to-spaces
 	define-command -override phpunit-this-file %{
 		set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
 	}
@@ -138,11 +199,11 @@ hook global WinSetOption filetype=php %{
 
 define-command -hidden setup-jump-client %{
 	evaluate-commands %sh{
-	    if ! (echo "$kak_client_list" | grep -q 'jump') ; then
-	        printf %s\\n "rename-client jump"
-	    fi
-	    if ! [ "$kak_opt_jumpclient" ] ; then 
-		    printf %s\\n "set-option global jumpclient jump"
+		if ! (echo "$kak_client_list" | grep -q 'jump') ; then
+			printf %s\\n "rename-client jump"
+		fi
+		if ! [ "$kak_opt_jumpclient" ] ; then 
+			printf %s\\n "set-option global jumpclient jump"
 		fi
 	}
 }
@@ -151,12 +212,12 @@ define-command -hidden setup-jump-client %{
 
 define-command set-tools-client %{
 	rename-client tools
-    set-option global toolsclient tools
+	set-option global toolsclient tools
 }
 
 define-command set-docs-client %{
 	rename-client docs
-    set-option global docsclient docs
+	set-option global docsclient docs
 }
 
 define-command open-tools %{
@@ -164,9 +225,9 @@ define-command open-tools %{
 }
 
 define-command close-tools %{
-    evaluate-commands %sh{
-	    printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
-    }
+	evaluate-commands %sh{
+		printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
+	}
 }
 
 define-command open-docs %{
@@ -174,27 +235,25 @@ define-command open-docs %{
 }
 
 define-command close-docs %{
-    evaluate-commands %sh{
-	    printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
-    }
+	evaluate-commands %sh{
+		printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
+	}
 }
 
-define-command cqlout-hl %~
-    addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
-    addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
-    addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
-    addhl buffer/expressionref regex '\(\d+\) ([a-zA-Z0-9 ]+):' 1:bright-cyan,default
-    addhl buffer/true regex 'TRUE' 0:green,default
-    addhl buffer/false regex 'FALSE' 0:red,default
-    addhl buffer/null regex 'NULL' 0:bright-red,default
+define-command cqllog-hl %~
+	addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
+	addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
+	addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
+	addhl buffer/expressionref regex '\(\d+\) ([a-zA-Z0-9 ]+):' 1:bright-cyan,default
+	addhl buffer/true regex 'TRUE' 0:green,default
+	addhl buffer/false regex 'FALSE' 0:red,default
+	addhl buffer/null regex 'NULL' 0:bright-red,default
 ~
 
 define-command cross-reference %{
 	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
 }
 
-define-command ide-mode %{
-}
 
 define-command git-merge-left %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"

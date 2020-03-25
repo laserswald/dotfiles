@@ -44,6 +44,17 @@ prompt_fg () {
 
 # Different prompt components
 
+prompt_host () {
+	host=$(hostname)
+	hostcolor=$fblue
+	if [ $host = "adev02" ]; then
+		hostcolor=$fgreen
+	elif [ $host = "afs03" ]; then
+		hostcolor=$fred
+	fi
+	printf "$(prompt_fg ${hostcolor} $(hostname))"
+}
+
 prompt_dir () {
 	if [ $SHELL = "/bin/zsh" ]; then 
 		printf "%%~" 
