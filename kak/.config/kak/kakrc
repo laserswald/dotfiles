@@ -36,7 +36,7 @@ plug "andreyorst/tagbar.kak" config %{
 
 plug "alexherbo2/auto-pairs.kak"
 
-try {
+try %{
     plug "eraserhd/parinfer-rust" do %{
     	cargo build --release
     	cargo install --force --path .
@@ -204,12 +204,16 @@ define-command git-merge-right %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
 
+hook global WinSetOption filetype=scheme %{
+    set-option buffer indentwidth 2
+}
+
 # Language server protocol support.
 try %{
-	# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-	# lsp-start
-	# hook global KakEnd .* %{ lsp-exit }
-	# hook global WinSetOption filetype=php %{ lsp-enable-window }
+	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+	lsp-start
+	hook global KakEnd .* %{ lsp-exit }
+	hook global WinSetOption filetype=php %{ lsp-enable-window }
 }
 
 # Local kakrc sourcing for custom project commands and tools
