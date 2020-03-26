@@ -10,6 +10,10 @@
 
 /* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
 #define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"
+/* #define HTHEME_FONT "Monoid:pixelsize=12:antialias=true" */
+
 /* #define HTHEME_FONT "Fixed:style=regular:pixelsize=10" */
-// #define HTHEME_FONT "xos4 Terminus:pixelsize=11"
-// #define HTHEME_FONT "benis uushi:pixelsize=12"
+/* #define HTHEME_FONT "xos4 Terminus:pixelsize=11" */
+/* #define HTHEME_FONT "benis uushi:pixelsize=12" */
+/* #define HTHEME_FONT "Cozette:pixelsize=12" */
+

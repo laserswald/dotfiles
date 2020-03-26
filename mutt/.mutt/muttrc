@@ -1,13 +1,14 @@
-# My info
+# My info 
 set realname="Ben Davenport-Ray"
 set signature = $HOME/.sig
 set sig_on_top
+set my_muttdir   = $HOME/.mutt
 
-# paths
-set my_muttdir=$HOME/.mutt
-set folder = $HOME/var/mail/
-set spoolfile = $HOME/var/mail/inbox
+# Paths 
+set folder       = $HOME/var/mail/
+set spoolfile    = $HOME/var/mail/inbox
 set mailcap_path = $my_muttdir/mailcap
+set header_cache = ~/.cache/mutt
 
 # options
 set wait_key = no
@@ -23,8 +24,6 @@ set beep_new
 set pipe_decode
 set crypt_autosign
 set edit_headers=yes
-set header_cache=~/.cache/mutt
-set sendmail="/usr/bin/msmtp"
 
 # set imap_check_subscribed
 
@@ -38,7 +37,7 @@ set sort_aux=last-date-received
 set pager_index_lines = 10
 auto_view text/html
 alternative_order text/plain text/enriched text/html
-set read_inc = 100
+set read_inc = 1000
 
 ### Sidebar
 set sidebar_visible
@@ -54,11 +53,20 @@ source $my_muttdir/keybindings.muttrc
 source $my_muttdir/colors/laserlight.colors
 
 source $my_muttdir/boxes.muttrc
-virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
-virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
-virtual-mailboxes "Old Interop" "notmuch://?query=tag:old_interop"
-virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
-virtual-mailboxes "Lists" "notmuch://?query=tag:lists"
+
+folder-hook ahi "set sendmail=\"msmtp -a ahi\"; \
+set from=\"ben.davenportray@azaleahealth.com\" \
+"
+
+folder-hook lazr "set sendmail=\"msmtp -a lazr\"; \
+set from=\"me@lazr.space\" \
+"
+
+# virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
+# virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
+# virtual-mailboxes "Old Interop" "notmuch://?query=tag:old_interop"
+# virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
+# virtual-mailboxes "Lists" "notmuch://?query=tag:lists"
 
 lists schemecomm Schemecomm schemeweb '~lazr/gnot.club' '~sircmpwn/sr.ht-announce'
 

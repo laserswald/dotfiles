@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ $REVERSE -eq 1 ]; then
+patchfiles=$(find -L patches -iname "*.diff" | sort -R);
+else
+patchfiles=$(find -L patches -iname "*.diff");
+fi
+
+
+for pf in $patchfiles ; do
+    echo "Unpatched $pf"
+    patch -R <"$pf"
+done
+
+
