@@ -1,4 +1,4 @@
-
+/* vim: ft=c */
 #define HTHEME_BLACK "#414141"
 #define HTHEME_RED "#a84c3d"
 #define HTHEME_GREEN "#3f8250"

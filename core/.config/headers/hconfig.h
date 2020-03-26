@@ -6,11 +6,10 @@
  * of my programs to allow for a shared theme system.
  */
 
-#include "themes/gruvbox-dark.htheme"
+#include "themes/gruvbox-light.htheme"
 
 /* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
 #define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"
 /* #define HTHEME_FONT "Fixed:style=regular:pixelsize=10" */
 // #define HTHEME_FONT "xos4 Terminus:pixelsize=11"
 // #define HTHEME_FONT "benis uushi:pixelsize=12"
-
