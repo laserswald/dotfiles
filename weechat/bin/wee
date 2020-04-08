@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export WEECHAT_PASSPHRASE=$(pass im/weechat)
+exec weechat $@
