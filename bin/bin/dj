@@ -6,30 +6,40 @@ while getopts 'v' flag; do
 done
 shift $((OPTIND - 1))
 
+mpv_send_key () {
+    wid=`xdotool search --class mpv`
+    xdotool key --window $wid $1
+}
+
 cmd=$1
 
 case $cmd in 
     toggle) 
-        if pgrep mpv >/dev/null; then 
-            wid=`xdotool search --class mpv`
-            xdotool key --window $wid p
-        fi
-        notify-send "Dj" "Toggling play/pause."
+        if pgrep mpv >/dev/null; then
+	        mpv_send_key 'p'
+        elif pgrep mpd >/dev/null; then
+	        mpc toggle
+	    fi
     ;;
     next) 
         if pgrep mpv >/dev/null; then 
-            wid=`xdotool search --class mpv`
-            xdotool key --window $wid "greater"
-            notify-send "Dj: Now playing" "$(xprop -id $wid WM_NAME | sed 's/.*\"\(.*\)\"/\1/')"
+	        mpv_send_key 'greater'
+        elif pgrep mpd >/dev/null; then
+	        mpc next
         fi
     ;;
     prev) 
         if pgrep mpv >/dev/null; then 
-            wid=`xdotool search --class mpv`
-            xdotool key --window $wid "less"
-            notify-send "Dj: Now playing" "$(xprop -id $wid WM_NAME | sed 's/.*\"\(.*\)\"/\1/')"
+	        mpv_send_key 'less'
+        elif pgrep mpd >/dev/null; then
+	        mpc prev
         fi
     ;;
-    show) 
+    stop)
+        if pgrep mpv >/dev/null; then 
+	        mpv_send_key 'q'
+        elif pgrep mpd >/dev/null; then
+	        mpc stop
+        fi
     ;;
 esac

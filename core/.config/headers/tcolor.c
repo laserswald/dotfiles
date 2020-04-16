@@ -41,15 +41,15 @@ int main(int argc, char *argv[]) {
 	}
 
 	char *end = NULL;
-    long colornum = strtol(argv[1], &end, 10);
-    if (*end != '\0') {
-	    die("Not recognized: '%s'\n", argv[1]);
-    }
+	long colornum = strtol(argv[1], &end, 10);
+	if (*end != '\0') {
+		die("Not recognized: '%s'\n", argv[1]);
+	}
 
-    if (colornum > 15 || colornum < 0) {
-	    die("Not a valid color number: '%i'\n", colornum);
-    }
+	if (colornum > 15 || colornum < 0) {
+		die("Not a valid color number: '%i'\n", colornum);
+	}
 
-    puts(colors[colornum]);
-    return EXIT_SUCCESS;
+	puts(colors[colornum]);
+	return EXIT_SUCCESS;
 }

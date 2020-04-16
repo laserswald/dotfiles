@@ -5,9 +5,7 @@ echo -debug "starting kakrc"
 
 # Looks.
 
-# colorscheme gruvbox
 colorscheme chameleon
-# colorscheme gruvbox-light
 
 # Custom faces.
 
@@ -40,6 +38,7 @@ plug "andreyorst/tagbar.kak" config %{
 	}
 }
 
+# TODO: make sure this gets configured properly before enabling
 # plug "alexherbo2/auto-pairs.kak"
 
 plug "andreyorst/powerline.kak" config %{
@@ -106,6 +105,10 @@ hook global BufCreate .*\.js4$ %{
 	set-option buffer filetype javascript
 }
 
+hook global WinSetOption filetype=c %{
+	add-highlighter buffer/enum_struct regex '\b(struct\|enum) \(\w+\)\b' 2:type
+}
+
 hook global WinSetOption filetype=kak %{
 	map buffer user s \
         -docstring "Source this kak file" \
@@ -126,6 +129,7 @@ hook global WinSetOption filetype=zig %{
 }
 
 hook global WinSetOption filetype=(scheme|lisp|clojure) %{
+    set-option buffer indentwidth 2
 	map -docstring "Send selection to repl window" buffer user s <esc>:send-text<ret>       
 	map -docstring "Send current paragraph to repl window" buffer user S <esc><a-i>p:send-text<ret> 
 }
@@ -280,10 +284,10 @@ map -docstring "the scratch buffer" \
 
 # Language server protocol support.
 try %{
-	# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-	# lsp-start
-	# hook global KakEnd .* %{ lsp-exit }
-	# hook global WinSetOption filetype=php %{ lsp-enable-window }
+	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+	lsp-start
+	hook global KakEnd .* %{ lsp-exit }
+	hook global WinSetOption filetype=php %{ lsp-enable-window }
 }
 
 # Local kakrc sourcing for custom project commands and tools

@@ -282,4 +282,9 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
-chatnets = { Bitlbee = { type = "IRC"; }; };
+chatnets = {
+  Bitlbee = {
+    type = "IRC";
+    autosendcmd = "/^msg &bitlbee identify boopadoop40";
+  };
+};

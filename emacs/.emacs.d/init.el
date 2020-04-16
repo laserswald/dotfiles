@@ -1,4 +1,4 @@
-;;; lazr-config --- Lazr's config for Emacs.
+;; lazr-config --- Lazr's config for Emacs.
 
 ;;;; Settings.
 
@@ -8,7 +8,7 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Fira Code Medium-11"))
+	     '(font . "Fira Code-9"))
 
 ;; Stop annoying me about stuff.
 (setq inhibit-startup-message t
@@ -17,16 +17,20 @@
 ;;;; Package setup.
 (require 'package)
 (setq package-archives
-           '(("melpa" . "https://melpa.org/packages/")
-	    ("gnu" . "https://elpa.gnu.org/packages/")))
+      '(("melpa" . "https://melpa.org/packages/")
+	("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-
 ;;; Fun-damental packages for look and feel, etc.
+
+(use-package spaceline :ensure t
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 (use-package treemacs
   :ensure t
@@ -43,22 +47,16 @@
   :commands lsp)
 
 (use-package php-mode :ensure t)
+
 (use-package ac-php :ensure t
   :config
   (add-hook 'php-mode-hook
 	    '(lambda ()
 	       (company-mode t)
 	       (require 'company-php)
-	       (ac-php-core-eldoc-setup)
 	       (set (make-local-variable 'company-backends)
 		    '((company-ac-php-backend company-dabbrev-code)
 		      company-capf company-files)))))
-
-(use-package php-eldoc
-  :ensure t
-  :config
-  (php-eldoc-enable)
-  (add-hook 'php-mode-hook 'php-mode-options))
 
 (use-package phpunit :ensure t)
 
@@ -138,6 +136,7 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(use-package org-pomodoro :ensure t :after org)
 
 (use-package general :ensure t :config (general-evil-setup))
 
@@ -170,8 +169,6 @@
 
 ;;; Keybindings.
 
-(general-define-key :states 'normal "/" 'swiper)
-
 (general-nmap dired-mode-map "-" 'dired-up-directory)
 
 (general-create-definer lazr-leader-map
@@ -187,7 +184,7 @@
 		    "C-j" 'evil-window-down
 		    "C-k" 'evil-window-up
 		    "C-l" 'evil-window-right)
-		    
+
 ;; Go to ...
 (general-define-key :states 'normal :prefix "g"
 		    "a" 'evil-switch-to-windows-last-buffer ; alternate
@@ -199,9 +196,9 @@
 
 ;; 'W'indow manipulation
 (lazr-leader-map :infix "w"
-		 "c" 'kill-buffer
-		 "j" 'split-window-vertically
-		 "l" 'split-window-horizontally)
+  "c" 'kill-buffer
+  "j" 'split-window-vertically
+  "l" 'split-window-horizontally)
 
 ;;; 'P'roject tools
 (lazr-leader-map "p" 'projectile-command-map)
@@ -216,13 +213,14 @@
 (lazr-leader-map :infix "o"
   "l" 'org-store-link
   "a" 'org-agenda
-  "c" 'org-capture)
+  "c" 'org-capture
+  "p" 'org-pomodoro)
   
 ;;; File type specific tools
 (lazr-local-leader-map :keymaps 'php-mode-map
-		       "ta" 'phpunit-current-project
-		       "tt" 'phpunit-current-test
-		       "tc" 'phpunit-current-class)
+  "ta" 'phpunit-current-project
+  "tt" 'phpunit-current-test
+  "tc" 'phpunit-current-class)
 
 (defun lazr-eval-buffer ()
   "Evaluate a buffer and say something about it."
@@ -231,18 +229,14 @@
   (message "Evaluated."))
 
 
-(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
-		       "eb" 'lazr-eval-buffer)
+(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map 
+                       "eb" 'lazr-eval-buffer)
 
-(lazr-local-leader-map :keymaps 'org-mode-map
-  "t" 'org-todo)
+(lazr-local-leader-map :keymaps 'org-mode-map 
+                       "t" 'org-todo)
 
 (if (display-graphic-p)
     (progn
-      (use-package xresources-theme :ensure t)
-      (use-package monochrome-theme :ensure t)
-      (use-package nord-theme :ensure t)
-      (use-package zenburn-theme :ensure t)
       (use-package gruvbox-theme :ensure t)
       (enable-theme 'gruvbox))
   (set-face-background 'default "background")
@@ -254,20 +248,3 @@
 (provide 'init)
 ;;; init.el ends here
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("585942bb24cab2d4b2f74977ac3ba6ddbd888e3776b9d2f993c5704aa8bb4739" "1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
- '(package-selected-packages
-   (quote
-    (treemacs-magit treemacs-projectile treemacs-evil treemacs which-key editorconfig lsp-mode slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
