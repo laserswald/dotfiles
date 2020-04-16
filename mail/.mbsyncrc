@@ -14,8 +14,8 @@ Account azalea
 MaildirStore azalea-local
 Subfolders Verbatim
 # The trailing "/" is important
-Path ~/var/mail/ahi
-Inbox ~/var/mail/ahi/Inbox
+Path ~/var/mail/ahi/
+Inbox ~/var/mail/ahi/Inbox/
 
 Channel azalea
 Master :azalea-remote:
@@ -46,7 +46,7 @@ Account lazr
 MaildirStore lazr-local
 Subfolders Verbatim
 # The trailing "/" is important
-Path ~/var/mail/lazr
+Path ~/var/mail/lazr/
 Inbox ~/var/mail/lazr/Inbox
 
 Channel lazr

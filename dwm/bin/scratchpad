@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/local/bin/st -e kak "${HOME}/org/everything.taskpaper" &

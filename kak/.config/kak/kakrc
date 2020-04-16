@@ -1,6 +1,7 @@
 #
 # Laserswald's kakrc.
 #
+echo -debug "starting kakrc"
 
 # Looks.
 
@@ -10,6 +11,7 @@ colorscheme chameleon
 
 # Custom faces.
 
+set-face global Column black,white+r
 
 add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
 add-highlighter global/ wrap
@@ -20,10 +22,12 @@ add-highlighter global/ show-matching
 # add-highlighter global/ column 80 Column
 
 # Plugins.
+#
+echo -debug "loaded look and feel"
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "andreyorst/plug.kak" noload config %{}
+plug "andreyorst/plug.kak" noload
 
 plug "andreyorst/fzf.kak" config %{
 	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
@@ -31,27 +35,38 @@ plug "andreyorst/fzf.kak" config %{
 }
 
 plug "andreyorst/tagbar.kak" config %{
-    hook global WinSetOption filetype=tagbar %{
-	    remove-highlighter window/wrap
-    }
+	hook global WinSetOption filetype=tagbar %{
+		remove-highlighter window/wrap
+	}
 }
 
-plug "alexherbo2/auto-pairs.kak"
+# plug "alexherbo2/auto-pairs.kak"
+
+plug "andreyorst/powerline.kak" config %{
+	powerline-start
+}
 
 try %{
-    plug "eraserhd/parinfer-rust" do %{
-    	cargo build --release
-    	cargo install --force --path .
-    }
+	plug "eraserhd/parinfer-rust" do %{
+		cargo install --force --path .
+	} config %{
+		hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
+			parinfer-enable-window -smart
+		}
+	}
 }
 
 plug "occivink/kakoune-snippets"
+
+echo -debug "loaded plugins"
 
 require-module goto-definition
 
 try %{
     require-module tmux-repl
-} 
+}
+
+echo -debug "loaded modules"
 
 # General options.
 
@@ -63,48 +78,22 @@ set-option global tabstop 4
 set-option global indentwidth 0
 set-option global aligntab false
 
-# Mappings
-
-# User mappings
-map global user C <esc>:comment-block<ret>                    -docstring "Comment the selection, block style"
-map global user c <esc>:comment-line<ret>                     -docstring "Comment the selection"
-map global user d <esc>:db<ret>                               -docstring "Delete this buffer."
-map global user m <esc>:make<ret>                             -docstring "Make the current project"
-map global user R <esc>:source<space>~/.config/kak/kakrc<ret> -docstring "Load your kakrc"
-map global user w <esc>:write<ret>:git<space>add<ret>         -docstring "Write the file and add the changes to version control"
-map global user , <esc>:fzf-mode<ret>                         -docstring "Open fuzzy finder mode"
-
-# Go to mappings
-map global goto b <esc>:buffer<space>                        -docstring "Another buffer"
-map global goto d <esc><a-i>w:jump-to-definition<ret>        -docstring "Symbol definition"
-map global goto K <esc>:edit!<space>~/.config/kak/kakrc<ret> -docstring "Your kakrc"
-map global goto n <esc><a-i>w*n<ret>                         -docstring "Next mention in buffer"
-map global goto u <esc>:find-references<ret>                 -docstring "References to symbol"
-map global goto x <esc>:cross-reference<ret>                 -docstring "References to symbol in docs client"
-map global goto s <esc>:buffer *scratch*<ret>                -docstring "Scratch buffer"
-
-# Fancy modeline
-
-# set global modelinefmt %{
-# 	 %val{bufname} {StatusLineValue}(%sh{git rev-parse --abbrev-ref HEAD 2> /dev/null}){StatusLine} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]
-# }
-
 # Styles and hooks for all windows.
 
 hook global WinCreate .* %{
-    modeline-parse
-    ctags-enable-autoinfo
-    try %{ editorconfig-load }
-    git show-diff
-    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
-        execute-keys -draft h %opt{indentwidth}@
-    } }
-    auto-pairs-enable
+	modeline-parse
+	ctags-enable-autoinfo
+	try %{ editorconfig-load }
+	git show-diff
+	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
+		execute-keys -draft h %opt{indentwidth}@
+	} }
+	auto-pairs-enable
 }
 
 hook global BufWritePost .* %{
-    git update-diff
-    ctags-update-tags
+	git update-diff
+	ctags-update-tags
 }
 
 hook global ClientCreate .* %{
@@ -114,31 +103,35 @@ hook global ClientCreate .* %{
 ## Filetype-specific hooks
 
 hook global BufCreate .*\.js4$ %{
-    set-option buffer filetype javascript
+	set-option buffer filetype javascript
 }
 
 hook global WinSetOption filetype=kak %{
-    map buffer user s <esc>:source<space>%reg{%}<ret> -docstring "Source this kak file"
+	map buffer user s \
+        -docstring "Source this kak file" \
+        <esc>:source<space>%reg{%}<ret>
 }
 
 hook global WinSetOption filetype=makefile %{
-    remove-hooks buffer tabs-to-spaces
+	remove-hooks buffer tabs-to-spaces
 }
 
 hook global WinSetOption filetype=zig %{
 	set buffer indentwidth 4
-    hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
-        execute-keys -draft h %opt{indentwidth}@
-    } }
+	hook -group tabs-to-spaces buffer InsertChar \t %{
+        try %{
+            execute-keys -draft h %opt{indentwidth}@
+        }
+	}
 }
 
 hook global WinSetOption filetype=(scheme|lisp|clojure) %{
-	map buffer user s <esc>:send-text<ret>       -docstring "Send selection to repl window"
-	map buffer user S <esc><a-i>p:send-text<ret> -docstring "Send current paragraph to repl window"
+	map -docstring "Send selection to repl window" buffer user s <esc>:send-text<ret>       
+	map -docstring "Send current paragraph to repl window" buffer user S <esc><a-i>p:send-text<ret> 
 }
 
 hook global WinSetOption filetype=php %{
-    remove-hooks buffer tabs-to-spaces
+	remove-hooks buffer tabs-to-spaces
 	define-command -override phpunit-this-file %{
 		set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
 	}
@@ -148,11 +141,11 @@ hook global WinSetOption filetype=php %{
 
 define-command -hidden setup-jump-client %{
 	evaluate-commands %sh{
-	    if ! (echo "$kak_client_list" | grep -q 'jump') ; then
-	        printf %s\\n "rename-client jump"
-	    fi
-	    if ! [ "$kak_opt_jumpclient" ] ; then 
-		    printf %s\\n "set-option global jumpclient jump"
+		if ! (echo "$kak_client_list" | grep -q 'jump') ; then
+			printf %s\\n "rename-client jump"
+		fi
+		if ! [ "$kak_opt_jumpclient" ] ; then
+			printf %s\\n "set-option global jumpclient jump"
 		fi
 	}
 }
@@ -161,12 +154,12 @@ define-command -hidden setup-jump-client %{
 
 define-command set-tools-client %{
 	rename-client tools
-    set-option global toolsclient tools
+	set-option global toolsclient tools
 }
 
 define-command set-docs-client %{
 	rename-client docs
-    set-option global docsclient docs
+	set-option global docsclient docs
 }
 
 define-command open-tools %{
@@ -174,9 +167,9 @@ define-command open-tools %{
 }
 
 define-command close-tools %{
-    evaluate-commands %sh{
-	    printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
-    }
+	evaluate-commands %sh{
+		printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
+	}
 }
 
 define-command open-docs %{
@@ -197,6 +190,9 @@ define-command open-ide %{
 	}
 }
 
+define-command split %{
+    tmux-terminal-vertical kak -c %val{session}
+}
 
 define-command cqlout-hl %~
     addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
@@ -219,6 +215,68 @@ define-command git-merge-left %{
 define-command git-merge-right %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
+
+# Mappings
+
+# User mappings
+map -docstring "Comment the selection, block style" \
+	global user C \
+	<esc>:comment-block<ret>
+
+map -docstring "Comment the selection" \
+	global user c \
+	<esc>:comment-line<ret>
+
+map -docstring "Delete this buffer." \
+	global user d \
+	<esc>:db<ret>
+
+map -docstring "Make the current project" \
+	global user m \
+	<esc>:make<ret>
+
+map -docstring "Load your kakrc" \
+	global user R \
+	<esc>:source<space>~/.config/kak/kakrc<ret>
+
+map -docstring "Write the file and add the changes to version control" \
+	global user w \
+	<esc>:write<ret>:git<space>add<ret>
+
+map -docstring "Open fuzzy finder mode" \
+	global user , \
+	<esc>:fzf-mode<ret>
+
+
+# Go to mappings
+map -docstring "your kakrc file" \
+	global goto K \
+	<esc>:edit!<space>~/.config/kak/kakrc<ret>
+
+map -docstring "another open buffer" \
+	global goto b \
+	<esc>:buffer<space>
+
+map -docstring "symbol definition" \
+	global goto d \
+	<esc><a-i>w:jump-to-definition<ret>
+
+map -docstring "next mention in buffer" \
+	global goto n \
+	<esc><a-i>w*n<ret>
+
+map -docstring "goto reference for editing" \
+	global goto u \
+	<esc>:find-references<ret>
+
+map -docstring "goto reference for viewing" \
+	global goto x \
+	<esc>:cross-reference<ret>
+
+map -docstring "the scratch buffer" \
+	global goto s \
+    <esc>:buffer *scratch*<ret>
+
 
 # Language server protocol support.
 try %{

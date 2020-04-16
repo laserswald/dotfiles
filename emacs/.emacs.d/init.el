@@ -8,7 +8,7 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Input Mono-9"))
+	     '(font . "Fira Code Medium-11"))
 
 ;; Stop annoying me about stuff.
 (setq inhibit-startup-message t
@@ -25,7 +25,22 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package lsp-mode :ensure t)
+
+;;; Fun-damental packages for look and feel, etc.
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :config)
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
+(use-package lsp-mode :ensure t
+  :hook (php-mode . lsp)
+  :commands lsp)
 
 (use-package php-mode :ensure t)
 (use-package ac-php :ensure t
@@ -53,7 +68,7 @@
   (setf inferior-lisp-program "/usr/bin/sbcl"))
 
 (use-package undo-tree :ensure t)
-(use-package speedbar :ensure t)
+
 
 (use-package smart-tabs-mode
   :ensure t
@@ -65,6 +80,11 @@
   :ensure t
   :config
   (ivy-mode 1))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 (use-package company :ensure t :config (global-company-mode))
 
@@ -97,6 +117,28 @@
        (interactive)
        (find-file "."))))
 
+(use-package evil-org
+  :ensure t
+
+  :after org
+	
+  :init
+  (setq org-agenda-files '("~/org"))
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (setq org-archive-location (concat org-directory "/archive.org"))
+  (setq org-todo-keywords
+	'((sequence "TODO" "|" "DONE" "WAIT")
+	  (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
+
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+	    (lambda ()
+	      (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
+
 (use-package general :ensure t :config (general-evil-setup))
 
 (use-package evil-collection
@@ -110,6 +152,21 @@
   :ensure t)
 
 (evil-magit-init)
+
+(use-package treemacs-evil
+  :ensure t
+  :after evil treemacs
+  :config)
+
+(use-package treemacs-projectile
+  :ensure t
+  :after treemacs projectile
+  :config)
+
+(use-package treemacs-magit
+  :ensure t
+  :after treemacs magit
+  :config)
 
 ;;; Keybindings.
 
@@ -134,8 +191,8 @@
 ;; Go to ...
 (general-define-key :states 'normal :prefix "g"
 		    "a" 'evil-switch-to-windows-last-buffer ; alternate
-		    "b" 'ivy-switch-buffer ; buffer
-		    "B" 'list-bookmarks ; Bookmark
+		    "b" 'helm-buffers-list ; buffer
+		    "B" 'helm-bookmarks ; Bookmark
 		    "F" 'counsel-find-file
 		    "f" 'projectile-find-file)
 
@@ -152,8 +209,15 @@
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
 		 "s" 'magit-status
-		 "a" 'magit-stage-file)
+		 "a" 'magit-stage-file
+		 "c" 'magit-commit)
 
+;;; 'O'rg mode
+(lazr-leader-map :infix "o"
+  "l" 'org-store-link
+  "a" 'org-agenda
+  "c" 'org-capture)
+  
 ;;; File type specific tools
 (lazr-local-leader-map :keymaps 'php-mode-map
 		       "ta" 'phpunit-current-project
@@ -169,6 +233,9 @@
 
 (lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
 		       "eb" 'lazr-eval-buffer)
+
+(lazr-local-leader-map :keymaps 'org-mode-map
+  "t" 'org-todo)
 
 (if (display-graphic-p)
     (progn
@@ -197,7 +264,7 @@
     ("585942bb24cab2d4b2f74977ac3ba6ddbd888e3776b9d2f993c5704aa8bb4739" "1195d71dfd46c43492993a528336ac7f8c7400b4c58338e5b40329d6cad655b6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
  '(package-selected-packages
    (quote
-    (lsp-mode slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
+    (treemacs-magit treemacs-projectile treemacs-evil treemacs which-key editorconfig lsp-mode slime zenburn-theme xresources-theme use-package smartparens smart-tabs-mode phpunit phoenix-dark-mono-theme nordless-theme nord-theme monochrome-theme lua-mode ivy helm-projectile haskell-mode gruvbox-theme general geiser flycheck evil-tabs evil-surround evil-org evil-matchit evil-magit evil-exchange evil-escape evil-ediff evil-collection company ac-php))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
