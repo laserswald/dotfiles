@@ -1,3 +1,13 @@
 #!/bin/sh
+# scratchpad: quick access to a scratch file, my notes, and my task list
 
-/usr/local/bin/st -e kak "${HOME}/org/everything.taskpaper" &
+# Create session if it doesn't exist
+if ! tmux has-session -t 'org' >/dev/null; then
+	tmux new-session -d -c "${HOME}/org" -s 'org' "kak ${HOME}/org/everything.taskpaper"
+	tmux rename-window -t 'org:1' 'overview'
+	tmux split-window -h -t 'org:overview.1'
+	tmux send-keys -t 'org:overview.2' 'todo.sh ls' Enter
+fi
+
+# Attach to the scratchpad session
+tmux attach-session -t "org"

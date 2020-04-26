@@ -3,6 +3,12 @@
 #
 echo -debug "starting kakrc"
 
+try %{ source %val{config}/plugins.kak }
+try %{ source %val{config}/visual.kak }
+try %{ source %val{config}/command.kak }
+try %{ source %val{config}/mappings.kak }
+try %{ source %val{config}/options.kak }
+
 # Looks.
 
 colorscheme chameleon
@@ -18,45 +24,6 @@ add-highlighter global/ column 80 Column
 
 # Plugins.
 # 
-echo -debug "loaded look and feel"
-
-source "%val{config}/plugins/plug.kak/rc/plug.kak"
-
-plug "andreyorst/plug.kak" noload
-
-plug "andreyorst/fzf.kak" config %{
-	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
-	map global goto b <esc>:fzf-buffer<ret> -docstring "Find a file"
-}
-
-plug "andreyorst/tagbar.kak" config %{
-	hook global WinSetOption filetype=tagbar %{
-		remove-highlighter window/wrap
-	}
-}
-
-# TODO: make sure this gets configured properly before enabling
-# plug "alexherbo2/auto-pairs.kak"
-
-plug "andreyorst/powerline.kak" config %{
-	powerline-start
-}
-
-try %{
-	plug "eraserhd/parinfer-rust" do %{
-		cargo install --force --path .
-	} config %{
-		hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
-			parinfer-enable-window -smart
-		}
-	}
-}
-
-echo -debug "loaded"
-
-plug "occivink/kakoune-snippets"
-
-echo -debug "loaded plugins"
 
 require-module goto-definition
 require-module tmux-repl
@@ -191,74 +158,6 @@ hook global WinSetOption filetype=php %{
 	define-command -override phpunit-this-file %{
 		set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
 	}
-}
-
-## Commands.
-
-define-command -hidden setup-jump-client %{
-	evaluate-commands %sh{
-		if ! (echo "$kak_client_list" | grep -q 'jump') ; then
-			printf %s\\n "rename-client jump"
-		fi
-		if ! [ "$kak_opt_jumpclient" ] ; then 
-			printf %s\\n "set-option global jumpclient jump"
-		fi
-	}
-}
-
-### Tools and docs clients.
-
-define-command set-tools-client %{
-	rename-client tools
-	set-option global toolsclient tools
-}
-
-define-command set-docs-client %{
-	rename-client docs
-	set-option global docsclient docs
-}
-
-define-command open-tools %{
-	new set-tools-client
-}
-
-define-command close-tools %{
-	evaluate-commands %sh{
-		printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
-	}
-}
-
-define-command open-docs %{
-	new set-docs-client
-}
-
-define-command close-docs %{
-	evaluate-commands %sh{
-		printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
-	}
-}
-
-define-command cqllog-hl %~
-	addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
-	addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
-	addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
-	addhl buffer/expressionref regex '\(\d+\) ([a-zA-Z0-9 ]+):' 1:bright-cyan,default
-	addhl buffer/true regex 'TRUE' 0:green,default
-	addhl buffer/false regex 'FALSE' 0:red,default
-	addhl buffer/null regex 'NULL' 0:bright-red,default
-~
-
-define-command cross-reference %{
-	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
-}
-
-
-define-command git-merge-left %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
-}
-
-define-command git-merge-right %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
 
 hook global WinSetOption filetype=scheme %{

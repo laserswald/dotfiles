@@ -1,11 +1,6 @@
 #!/bin/sh
 # dj: manage media playback
 
-while getopts 'v' flag; do
-    :
-done
-shift $((OPTIND - 1))
-
 mpv_send_key () {
     wid=`xdotool search --class mpv`
     xdotool key --window $wid $1

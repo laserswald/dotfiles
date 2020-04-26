@@ -63,7 +63,7 @@ $(MODULES):
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
-	rm ~/src/c/dwm/config.mk
+	rm -f ~/src/c/dwm/config.mk
 	stow $@
 	@cd ~/src/c/dwm; \
 	for f in $$(find -L patches -name '*.diff' | sort); do \
