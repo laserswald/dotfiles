@@ -6,33 +6,24 @@ static const char scratchpadname[] = "scratchpad";
 static const char *dmenucmd[]      = { "/bin/sh", "-c", "dmenu_run", NULL };
 static const char *termcmd[]       = { TERMINAL_BIN, NULL };
 static const char *browsercmd[]    = { "firefox" , NULL };
-static const char *chatcmd[]       = INST_CMD("weechat");
+static const char *chatcmd[]       = INST_CMD("wee");
 static const char *fmcmd[]         = INST_CMD("ranger");
 static const char *lockcmd[]       = { "slock", NULL };
 static const char *scratchpadcmd[] = INST_CMD("scratchpad");
 static const char *searchcmd[]     = { "/usr/bin/env", "surf-ddg", NULL };
 static const char *mailcmd[]       = INST_CMD("neomutt");
 
-
 /* Media key commands. */
 static const char *dispup[]        = { "xbacklight", "+", "10", NULL };
 static const char *dispdown[]      = { "xbacklight", "-", "10", NULL };
 
-#define PULSEAUDIO 1
-
-#ifdef PULSEAUDIO
-static const char *volup[]         = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
-static const char *voldown[]       = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
-static const char *volmute[]       = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
-static const char *micmute[]       = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
-#else /* Alsa */
-static const char *volup[]         = { "amixer", "set", "Master", "10+", NULL };
-static const char *voldown[]       = { "amixer", "set", "Master", "10-", NULL };
-static const char *volmute[]       = { "amixer", "set", "Master", "toggle", NULL };
-static const char *micmute[]       = { "amixer", "set", "Capture", "toggle", NULL };
-#endif /* PULSEAUDIO */
-
 static const char *printscr[]      = { "/usr/bin/env", "scrot", NULL };
+
+static const char *volup[]         = { "/usr/bin/env", "audiomixer", "volup", NULL };
+static const char *voldown[]       = { "/usr/bin/env", "audiomixer", "voldown", NULL };
+static const char *volmute[]       = { "/usr/bin/env", "audiomixer", "voltoggle", NULL };
+static const char *micmute[]       = { "/usr/bin/env", "audiomixer", "mictoggle", NULL };
+
 static const char *media_play[]    = { "/usr/bin/env", "dj", "toggle", NULL };
 static const char *media_prev[]    = { "/usr/bin/env", "dj", "prev", NULL };
 static const char *media_next[]    = { "/usr/bin/env", "dj", "next", NULL };

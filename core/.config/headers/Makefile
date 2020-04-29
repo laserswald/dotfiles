@@ -4,7 +4,7 @@ PROJECT_CONTAINING_DIR = ${HOME}/src/c/
 PROJECT_DIRS = $(patsubst %,$(PROJECT_CONTAINING_DIR)%,$(PROJECTS))
 
 install: $(PROJECT_DIRS) tcolor
-	ln tcolor ${HOME}/bin/tcolor
+	ln -sf tcolor ${HOME}/bin/tcolor
 
 $(PROJECT_DIRS): hconfig.h themes
 	cd $@; \

@@ -3,6 +3,12 @@
 #
 echo -debug "starting kakrc"
 
+try %{ source %val{config}/plugins.kak }
+try %{ source %val{config}/visual.kak }
+try %{ source %val{config}/command.kak }
+try %{ source %val{config}/mappings.kak }
+try %{ source %val{config}/options.kak }
+
 # Looks.
 
 colorscheme chameleon
@@ -18,46 +24,6 @@ add-highlighter global/ show-matching
 
 # set-face global Column black,white+rb
 # add-highlighter global/ column 80 Column
-
-# Plugins.
-#
-echo -debug "loaded look and feel"
-
-source "%val{config}/plugins/plug.kak/rc/plug.kak"
-
-plug "andreyorst/plug.kak" noload
-
-plug "andreyorst/fzf.kak" config %{
-	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
-	map global goto b <esc>:fzf-buffer<ret> -docstring "Find a file"
-}
-
-plug "andreyorst/tagbar.kak" config %{
-	hook global WinSetOption filetype=tagbar %{
-		remove-highlighter window/wrap
-	}
-}
-
-# TODO: make sure this gets configured properly before enabling
-# plug "alexherbo2/auto-pairs.kak"
-
-plug "andreyorst/powerline.kak" config %{
-	powerline-start
-}
-
-try %{
-	plug "eraserhd/parinfer-rust" do %{
-		cargo install --force --path .
-	} config %{
-		hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
-			parinfer-enable-window -smart
-		}
-	}
-}
-
-plug "occivink/kakoune-snippets"
-
-echo -debug "loaded plugins"
 
 require-module goto-definition
 
@@ -128,10 +94,10 @@ hook global WinSetOption filetype=zig %{
 	}
 }
 
-hook global WinSetOption filetype=(scheme|lisp|clojure) %{
+hook global WinSetOption filetype=(scheme|lisp|clojure|fennel) %{
     set-option buffer indentwidth 2
-	map -docstring "Send selection to repl window" buffer user s <esc>:send-text<ret>       
-	map -docstring "Send current paragraph to repl window" buffer user S <esc><a-i>p:send-text<ret> 
+    map -docstring "Send selection to repl window" buffer user s <esc>:send-text<ret>       
+    map -docstring "Send current paragraph to repl window" buffer user S <esc><a-i>p:send-text<ret> 
 }
 
 hook global WinSetOption filetype=php %{
@@ -152,50 +118,6 @@ define-command -hidden setup-jump-client %{
 			printf %s\\n "set-option global jumpclient jump"
 		fi
 	}
-}
-
-### Tools and docs clients.
-
-define-command set-tools-client %{
-	rename-client tools
-	set-option global toolsclient tools
-}
-
-define-command set-docs-client %{
-	rename-client docs
-	set-option global docsclient docs
-}
-
-define-command open-tools %{
-	new set-tools-client
-}
-
-define-command close-tools %{
-	evaluate-commands %sh{
-		printf %s\\n "evaluate-commands -client %opt{toolsclient} quit"
-	}
-}
-
-define-command open-docs %{
-	new set-docs-client
-}
-
-define-command close-docs %{
-    evaluate-commands %sh{
-	    printf %s\\n "evaluate-commands -client %opt{docsclient} quit"
-    }
-}
-
-define-command open-ide %{
-	open-docs
-	open-tools
-	nop %sh{
-        $(TMUX) select-layout main-vertical
-	}
-}
-
-define-command split %{
-    tmux-terminal-vertical kak -c %val{session}
 }
 
 define-command cqlout-hl %~
@@ -280,7 +202,6 @@ map -docstring "goto reference for viewing" \
 map -docstring "the scratch buffer" \
 	global goto s \
     <esc>:buffer *scratch*<ret>
-
 
 # Language server protocol support.
 try %{
