@@ -71,4 +71,3 @@ map -docstring "Open the docs client to the right of this pane." \
 map -docstring "Close the current docs client." \
     global splits D ': close-docs<ret>'
 
-map global user , ": enter-user-mode splits<ret>"

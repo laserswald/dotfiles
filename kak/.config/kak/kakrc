@@ -6,9 +6,8 @@ echo -debug "starting kakrc"
 source "%val{config}/plugins.kak"
 source "%val{config}/commands.kak"
 source "%val{config}/visual.kak"
+source "%val{config}/mappings.kak"
 
-try %{ source %val{config}/visual.kak }
-try %{ source %val{config}/mappings.kak }
 try %{ source %val{config}/options.kak }
 
 # set-face global Column black,white+rb
@@ -125,67 +124,6 @@ define-command git-merge-left %{
 define-command git-merge-right %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
-
-# Mappings
-
-# User mappings
-map -docstring "Comment the selection, block style" \
-	global user C \
-	<esc>:comment-block<ret>
-
-map -docstring "Comment the selection" \
-	global user c \
-	<esc>:comment-line<ret>
-
-map -docstring "Delete this buffer." \
-	global user d \
-	<esc>:db<ret>
-
-map -docstring "Make the current project" \
-	global user m \
-	<esc>:make<ret>
-
-map -docstring "Load your kakrc" \
-	global user R \
-	<esc>:source<space>~/.config/kak/kakrc<ret>
-
-map -docstring "Write the file and add the changes to version control" \
-	global user w \
-	<esc>:write<ret>:git<space>add<ret>
-
-map -docstring "Open fuzzy finder mode" \
-	global user , \
-	<esc>:fzf-mode<ret>
-
-
-# Go to mappings
-map -docstring "your kakrc file" \
-	global goto K \
-	"<esc>:edit! ~/.config/kak/kakrc<ret>"
-
-map -docstring "another open buffer" \
-	global goto b \
-	"<esc>:buffer<space>"
-
-map -docstring "symbol definition" \
-	global goto d \
-	"<esc><a-i>w:jump-to-definition<ret>"
-
-map -docstring "next mention in buffer" \
-	global goto n \
-	"<esc><a-i>w*n<ret>"
-
-map -docstring "goto reference for editing" \
-	global goto u \
-	"<esc>: find-references<ret>"
-
-map -docstring "goto reference for viewing" \
-	global goto x \
-	"<esc>: cross-reference<ret>"
-
-map -docstring "the scratch buffer" \
-	global goto s \
-    "<esc>: buffer *scratch*<ret>"
 
 # Language server protocol support.
 try %{

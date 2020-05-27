@@ -9,9 +9,7 @@ plug "andreyorst/plug.kak" noload
 
 # Fuzzy finder. 
 plug "andreyorst/fzf.kak" config %{
-	
-	map global goto F <esc>:fzf-file<ret> -docstring "Find a file"
-	map global goto b <esc>:fzf-buffer<ret> -docstring "Find a file"
+	require-module fzf
 }
 
 plug "andreyorst/tagbar.kak" config %{
