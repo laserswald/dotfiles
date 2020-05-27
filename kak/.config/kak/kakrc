@@ -3,24 +3,13 @@
 #
 echo -debug "starting kakrc"
 
-try %{ source %val{config}/plugins.kak }
+source "%val{config}/plugins.kak"
+source "%val{config}/commands.kak"
+source "%val{config}/visual.kak"
+
 try %{ source %val{config}/visual.kak }
-try %{ source %val{config}/command.kak }
 try %{ source %val{config}/mappings.kak }
 try %{ source %val{config}/options.kak }
-
-# Looks.
-
-colorscheme chameleon
-
-# Custom faces.
-
-set-face global Column black,white+r
-
-add-highlighter global/ number-lines -relative -separator ' | ' -hlcursor
-add-highlighter global/ wrap
-add-highlighter global/ show-matching
-
 
 # set-face global Column black,white+rb
 # add-highlighter global/ column 80 Column
@@ -44,7 +33,6 @@ set-option global indentwidth 0
 set-option global aligntab false
 
 # Styles and hooks for all windows.
-
 hook global WinCreate .* %{
 	modeline-parse
 	ctags-enable-autoinfo
@@ -130,10 +118,6 @@ define-command cqlout-hl %~
     addhl buffer/null regex 'NULL' 0:bright-red,default
 ~
 
-define-command cross-reference %{
-	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
-}
-
 define-command git-merge-left %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
@@ -177,31 +161,31 @@ map -docstring "Open fuzzy finder mode" \
 # Go to mappings
 map -docstring "your kakrc file" \
 	global goto K \
-	<esc>:edit!<space>~/.config/kak/kakrc<ret>
+	"<esc>:edit! ~/.config/kak/kakrc<ret>"
 
 map -docstring "another open buffer" \
 	global goto b \
-	<esc>:buffer<space>
+	"<esc>:buffer<space>"
 
 map -docstring "symbol definition" \
 	global goto d \
-	<esc><a-i>w:jump-to-definition<ret>
+	"<esc><a-i>w:jump-to-definition<ret>"
 
 map -docstring "next mention in buffer" \
 	global goto n \
-	<esc><a-i>w*n<ret>
+	"<esc><a-i>w*n<ret>"
 
 map -docstring "goto reference for editing" \
 	global goto u \
-	<esc>:find-references<ret>
+	"<esc>: find-references<ret>"
 
 map -docstring "goto reference for viewing" \
 	global goto x \
-	<esc>:cross-reference<ret>
+	"<esc>: cross-reference<ret>"
 
 map -docstring "the scratch buffer" \
 	global goto s \
-    <esc>:buffer *scratch*<ret>
+    "<esc>: buffer *scratch*<ret>"
 
 # Language server protocol support.
 try %{
