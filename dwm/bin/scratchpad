@@ -3,7 +3,7 @@
 
 # Create session if it doesn't exist
 if ! tmux has-session -t 'org' >/dev/null; then
-	tmux new-session -d -c "${HOME}/org" -s 'org' "kak ${HOME}/org/everything.taskpaper"
+	tmux new-session -d -c "${HOME}/org" -s 'org' "kak ${HOME}/org/jrnl.txt"
 	tmux rename-window -t 'org:1' 'overview'
 	tmux split-window -h -t 'org:overview.1'
 	tmux send-keys -t 'org:overview.2' 'todo.sh ls' Enter

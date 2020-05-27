@@ -8,11 +8,6 @@ source "%val{config}/commands.kak"
 source "%val{config}/visual.kak"
 source "%val{config}/mappings.kak"
 
-try %{ source %val{config}/options.kak }
-
-# set-face global Column black,white+rb
-# add-highlighter global/ column 80 Column
-
 require-module goto-definition
 
 try %{
@@ -83,8 +78,8 @@ hook global WinSetOption filetype=zig %{
 
 hook global WinSetOption filetype=(scheme|lisp|clojure|fennel) %{
     set-option buffer indentwidth 2
-    map -docstring "Send selection to repl window" buffer user s <esc>:send-text<ret>       
-    map -docstring "Send current paragraph to repl window" buffer user S <esc><a-i>p:send-text<ret> 
+    map -docstring "Send selection to repl window" buffer user e <esc>:send-text<ret> 
+    map -docstring "Send current paragraph to repl window" buffer user E <esc><a-i>p:send-text<ret> 
 }
 
 hook global WinSetOption filetype=php %{
@@ -96,36 +91,6 @@ hook global WinSetOption filetype=php %{
 
 ## Commands.
 
-define-command -hidden setup-jump-client %{
-	evaluate-commands %sh{
-		if ! (echo "$kak_client_list" | grep -q 'jump') ; then
-			printf %s\\n "rename-client jump"
-		fi
-		if ! [ "$kak_opt_jumpclient" ] ; then
-			printf %s\\n "set-option global jumpclient jump"
-		fi
-	}
-}
-
-define-command cqlout-hl %~
-    addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
-    addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
-    addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
-    addhl buffer/expressionref regex '\(\d+\) ([a-zA-Z0-9 ]+):' 1:bright-cyan,default
-    addhl buffer/true regex 'TRUE' 0:green,default
-    addhl buffer/false regex 'FALSE' 0:red,default
-    addhl buffer/null regex 'NULL' 0:bright-red,default
-~
-
-define-command git-merge-left %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
-}
-
-define-command git-merge-right %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
-}
-
-# Language server protocol support.
 try %{
 	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
 	lsp-start

@@ -6,7 +6,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 
 #include "hconfig.h"
 
@@ -14,7 +14,7 @@ static const char *fonts[]          = { HTHEME_FONT };
 static const char *colors[][3]      = {
 	/*               fg                   bg                   border   */
 	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
-	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_BLUE,         HTHEME_BRIGHT_BLUE},
+	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_GREEN,         HTHEME_BRIGHT_BLUE},
 };
 
 /* tagging */
@@ -138,6 +138,8 @@ static Key keys[] = {
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
+	{0, XF86XK_AudioNext,           spawn, {.v = media_next}},
+	{0, XF86XK_AudioPrev,           spawn, {.v = media_prev}},
 	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
 	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };

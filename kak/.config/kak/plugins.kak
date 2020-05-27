@@ -41,8 +41,5 @@ try %{
 	}
 }
 
-echo -debug "loaded"
-
 plug "occivink/kakoune-snippets"
 
-echo -debug "loaded plugins"

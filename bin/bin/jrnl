@@ -56,6 +56,10 @@ while getopts ':f:' flag; do
 done
 shift $((OPTIND - 1))
 
+if [ $# -lt 1 ]; then
+	echo "needs command"
+	exit 1
+fi
 
 cmd=$1
 shift
@@ -63,37 +67,37 @@ shift
 case $cmd in  
     ed|edit)
         $EDITOR $JRNLFILE
-	exit 0
+		exit 0
     ;;
     ev|event) 
-	ensure_date_entry
+		ensure_date_entry
         SIGN='o'
         add_entry $SIGN "$@"
-	exit 0
+		exit 0
     ;;
     t|task) 	
-	ensure_date_entry
+		ensure_date_entry
         SIGN='.'
         add_entry $SIGN "$@"
-	exit 0
+		exit 0
     ;;
     d|'do')
         change_entry_type $1 'x'
-	exit 0
+		exit 0
     ;;
     n|note) 
-	ensure_date_entry
+		ensure_date_entry
         SIGN='-'
         add_entry $SIGN "$@"
-	exit 0
+		exit 0
     ;; 
     ls|list-tasks) 
         filter_by_type "\\." < $JRNLFILE
-	exit 0
+		exit 0
     ;; 
     today)
-	display_day
-	exit 0
+		display_day
+		exit 0
     ;;
     *)
         echo "Unknown command."

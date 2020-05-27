@@ -13,14 +13,14 @@ wm_bg() {
     xsetroot -cursor_name left_ptr &
 
     ## Set up my background.
-    sh -c "~/.fehbg" &
+    hsetroot -root -fill ~/img/wall/tallon_overworld.jpg
+    # sh -c "~/.fehbg" &
     # ~/bin/termbg -c blue
 }
 
 wm_composite(){
     ## Launch a compositor.
-    # compton -fCc &
-    :
+    picom --experimental-backends --daemon
 }
 
 wm_keybinds(){
