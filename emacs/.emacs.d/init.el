@@ -25,12 +25,33 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;;; Core packages.
+
+(use-package undo-tree :ensure t)
+
+(use-package smart-tabs-mode
+  :ensure t
+  :config
+  (smart-tabs-insinuate 'c 'javascript)
+  (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1))
+
 ;;; Fun-damental packages for look and feel, etc.
 
-(use-package spaceline :ensure t
+(use-package doom-themes
+  :ensure t
   :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
+  (load-theme 'doom-one t))
+
+(use-package doom-modeline :ensure t
+  :config (doom-modeline-mode 1))
+
+(use-package all-the-icons
+  :ensure t)
 
 (use-package treemacs
   :ensure t
@@ -41,6 +62,11 @@
   :ensure t
   :config
   (editorconfig-mode 1))
+
+(use-package persp-mode
+  :ensure t)
+
+;;; Languages.
 
 (use-package lsp-mode :ensure t
   :hook (php-mode . lsp)
@@ -65,19 +91,6 @@
   :config
   (setf inferior-lisp-program "/usr/bin/sbcl"))
 
-(use-package undo-tree :ensure t)
-
-
-(use-package smart-tabs-mode
-  :ensure t
-  :config
-  (smart-tabs-insinuate 'c 'javascript)
-  (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
-
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1))
 
 (use-package which-key
   :ensure t
@@ -98,6 +111,8 @@
   :ensure t
   :config
   (global-flycheck-mode))
+
+  
 
 ;;; Evil configuration!
 (use-package evil
@@ -167,6 +182,12 @@
   :after treemacs magit
   :config)
 
+(use-package dumb-jump :ensure t
+  :config
+  (dumb-jump-mode))
+
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+
 ;;; Keybindings.
 
 (general-nmap dired-mode-map "-" 'dired-up-directory)
@@ -191,8 +212,8 @@
 		    "b" 'helm-buffers-list ; buffer
 		    "B" 'helm-bookmarks ; Bookmark
 		    "F" 'counsel-find-file
-		    "f" 'projectile-find-file)
-
+		    "f" 'projectile-find-file
+		    "d" 'dumb-jump-go)
 
 ;; 'W'indow manipulation
 (lazr-leader-map :infix "w"
@@ -205,9 +226,9 @@
 
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
-		 "s" 'magit-status
-		 "a" 'magit-stage-file
-		 "c" 'magit-commit)
+  "s" 'magit-status
+  "a" 'magit-stage-file
+  "c" 'magit-commit)
 
 ;;; 'O'rg mode
 (lazr-leader-map :infix "o"
@@ -228,17 +249,13 @@
   (eval-buffer)
   (message "Evaluated."))
 
-
 (lazr-local-leader-map :keymaps 'emacs-lisp-mode-map 
                        "eb" 'lazr-eval-buffer)
 
 (lazr-local-leader-map :keymaps 'org-mode-map 
                        "t" 'org-todo)
 
-(if (display-graphic-p)
-    (progn
-      (use-package gruvbox-theme :ensure t)
-      (enable-theme 'gruvbox))
+(unless (display-graphic-p)
   (set-face-background 'default "background")
   (set-face-foreground 'font-lock-keyword-face "green")
   (set-face-foreground 'font-lock-comment-face "black")
@@ -248,3 +265,22 @@
 (provide 'init)
 ;;; init.el ends here
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("1ed5c8b7478d505a358f578c00b58b430dde379b856fbcb60ed8d345fc95594e" "a83f05e5e2f2538376ea2bfdf9e3cd8b7f7593b16299238c1134c1529503fa88" "f9cae16fd084c64bf0a9de797ef9caedc9ff4d463dd0288c30a3f89ecf36ca7e" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" "845103fcb9b091b0958171653a4413ccfad35552bc39697d448941bcbe5a660d" default)))
+ '(dumb-jump-mode t)
+ '(package-selected-packages
+   (quote
+    (doom-themes persp-mode doom-modeline dumb-jump treemacs-magit treemacs-projectile treemacs-evil which-key editorconfig treemacs zenburn-theme xresources-theme web-mode use-package spaceline smart-tabs-mode smart-mode-line slime phpunit php-eldoc perspective org-pomodoro nord-theme monochrome-theme lsp-mode ivy helm-projectile gruvbox-theme general flycheck evil-tabs evil-surround evil-org evil-magit evil-escape evil-ediff evil-collection company ac-php)))
+ '(persp-mode t nil (persp-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

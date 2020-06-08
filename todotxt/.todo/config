@@ -67,7 +67,7 @@ export COLOR_DONE=$LIGHT_GREY
 # There is highlighting for projects and contexts.
 #
 export COLOR_PROJECT=$CYAN
-export COLOR_CONTEXT=$GREEN
+export COLOR_CONTEXT=$PURPLE
 
 # === BEHAVIOR ===
 
