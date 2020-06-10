@@ -8,11 +8,12 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Fira Code-9"))
+	     '(font . "Fira Code-10"))
 
 ;; Stop annoying me about stuff.
 (setq inhibit-startup-message t
-      vc-follow-symlinks t)
+      vc-follow-symlinks t
+      custom-file "~/.emacs.d/custom.el")
 
 ;;;; Package setup.
 (require 'package)
@@ -74,7 +75,7 @@
 
 (use-package php-mode :ensure t)
 
-(use-package ac-php :ensure t
+(use-package ac-php :ensure t 
   :config
   (add-hook 'php-mode-hook
 	    '(lambda ()
@@ -91,6 +92,15 @@
   :config
   (setf inferior-lisp-program "/usr/bin/sbcl"))
 
+(use-package undo-tree :ensure t)
+
+(use-package smart-tabs-mode
+  :ensure t
+  :config
+  (smart-tabs-insinuate 'c 'javascript)
+  (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
+
+(use-package counsel :ensure t :config (ivy-mode 1))
 
 (use-package which-key
   :ensure t
@@ -209,7 +219,7 @@
 ;; Go to ...
 (general-define-key :states 'normal :prefix "g"
 		    "a" 'evil-switch-to-windows-last-buffer ; alternate
-		    "b" 'helm-buffers-list ; buffer
+		    "b" 'ivy-switch-buffer ; buffer
 		    "B" 'helm-bookmarks ; Bookmark
 		    "F" 'counsel-find-file
 		    "f" 'projectile-find-file

@@ -1,5 +1,14 @@
 #!/bin/sh
 
+MAIL_PID_FILE=$HOME/var/mail.pid
+
+if [ -f $MAIL_PID_FILE ]; then
+    echo "Mail daemon already running."
+    exit 0
+fi
+
 notify-send "Mail" "Fetching mail..."
-notmuch new 
+notmuch new
+echo $! > $MAIL_PID_FILE
 notify-send "Mail" "Done."
+rm $MAIL_PID_FILE

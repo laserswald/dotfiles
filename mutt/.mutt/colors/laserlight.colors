@@ -33,5 +33,7 @@ color index brightblue default ~T~N
 color index brightred default ~T~F
 color index brightblack black ~D
 
+color index_author brightwhite default '.*'
+
 # color body brightwhite black '\*+[^*]+\*+'
 # color body brightwhite black '_+[^_]+_+'
