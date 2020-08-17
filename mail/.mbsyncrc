@@ -1,25 +1,26 @@
-IMAPAccount azalea
+IMAPAccount bdr
 # Address to connect to
 Host imap.gmail.com
-User ben.davenportray@azaleahealth.com
-PassCmd "pass email/bdavenportray@azaleahealth.com"
+Port 993
+User ben.davenportray@gmail.com
+PassCmd "pass services/google.com"
 SSLType IMAPS
 # The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 PipelineDepth 50
 
-IMAPStore azalea-remote
-Account azalea
+IMAPStore bdr-remote
+Account bdr
 
-MaildirStore azalea-local
+MaildirStore bdr-local
 Subfolders Verbatim
 # The trailing "/" is important
-Path ~/var/mail/ahi/
-Inbox ~/var/mail/ahi/Inbox/
+Path ~/var/mail/bdr/
+Inbox ~/var/mail/bdr/Inbox
 
-Channel azalea
-Master :azalea-remote:
-Slave :azalea-local:
+Channel bdr
+Master :bdr-remote:
+Slave :bdr-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything

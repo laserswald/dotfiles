@@ -1,0 +1,12 @@
+### Sidebar
+
+# Ensure the sidebar is visible.
+set sidebar_visible
+
+# Set the format of each sidebar entry.
+set sidebar_format = "%B %?F? [%F]? %* %?N?%N/?%S"
+
+set sidebar_folder_indent
+
+set sidebar_short_path
+

@@ -3,12 +3,12 @@
 MAIL_PID_FILE=$HOME/var/mail.pid
 
 if [ -f $MAIL_PID_FILE ]; then
-    echo "Mail daemon already running."
+    notify-send -i 'mail-me' "Mail" "Mail daemon already running."
     exit 0
 fi
 
+echo $! > $MAIL_PID_FILE
 notify-send "Mail" "Fetching mail..."
 notmuch new
-echo $! > $MAIL_PID_FILE
-notify-send "Mail" "Done."
+notify-send -i "mail-unread" "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
 rm $MAIL_PID_FILE

@@ -1,20 +1,22 @@
+### Main muttrc config. 
+
 # My info 
-set realname="Ben Davenport-Ray"
+set realname = "Ben Davenport-Ray"
+
 set signature = $HOME/.sig
 set sig_on_top
-set my_muttdir   = $HOME/.mutt
 
 # Paths 
+set my_muttdir   = $HOME/.mutt
 set folder       = $HOME/var/mail/
-set spoolfile    = $HOME/var/mail/inbox
+set spoolfile    = "notmuch://?query=tag:inbox"
 set mailcap_path = $my_muttdir/mailcap
 set header_cache = ~/.cache/mutt
 
 # options
 set wait_key = no
-set mbox_type = Maildir
 set timeout = 3
-set mail_check=0
+set mail_check = 0
 unset move
 set delete
 unset confirmappend
@@ -23,7 +25,7 @@ unset mark_old
 set beep_new
 set pipe_decode
 set crypt_autosign
-set edit_headers=yes
+set edit_headers = yes
 
 # set imap_check_subscribed
 
@@ -38,20 +40,24 @@ set pager_index_lines = 10
 auto_view text/html
 alternative_order text/plain text/enriched text/html
 set read_inc = 1000
+set nm_db_limit = 5000
 
-### Sidebar
-set sidebar_visible
-set sidebar_format = "%B %?F? [%F]? %* %?N?%N/?%S"
-set mail_check_stats
-set sidebar_folder_indent
-set sidebar_short_path
+source $my_muttdir/check.muttrc
 
-### Key bindings
+### Sending mail
+
+set sendmail="msmtp --read-envelope-from"
+
 source $my_muttdir/keybindings.muttrc
+source $my_muttdir/sidebar.muttrc
 
 ### Colorscheme
 source $my_muttdir/colors/laserlight.colors
 
+
+
+## Mailboxes.
+set mbox_type = Maildir
 source $my_muttdir/boxes.muttrc
 
 folder-hook ahi "set sendmail=\"msmtp -a ahi\"; \
@@ -62,11 +68,6 @@ folder-hook lazr "set sendmail=\"msmtp -a lazr\"; \
 set from=\"me@lazr.space\" \
 "
 
-# virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
-# virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
-# virtual-mailboxes "Old Interop" "notmuch://?query=tag:old_interop"
-# virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
-# virtual-mailboxes "Lists" "notmuch://?query=tag:lists"
 
 lists schemecomm Schemecomm schemeweb '~lazr/gnot.club' '~sircmpwn/sr.ht-announce'
 
