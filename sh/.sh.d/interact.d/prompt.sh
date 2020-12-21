@@ -34,12 +34,12 @@ case $SHELL in
         ;;
 esac
 
-nonprint () {
+_nonprint () {
 	printf "%s%s%s" $npstart $1 $npend
 }
 
 prompt_fg () {
-	printf "%s%s%s" "$(nonprint $1)" "$2" "$(nonprint $normal)"
+	printf "%s%s%s" "$(_nonprint $1)" "$2" "$(_nonprint $normal)"
 }
 
 # Different prompt components
@@ -63,17 +63,34 @@ prompt_dir () {
 	fi
 }
 
+shorten () {
+    len=$1
+    str=$2
+    if [ ${#str} -gt $len ]; then
+        truncation=$(expr $len - 3)
+        printf "%s..." "$(expr substr "$str" 1 $truncation)"
+    else
+        printf "%s" $str
+    fi
+}
+
 prompt_git () {
-	if [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
-		printf " %s" $(prompt_fg $fyellow "($(git rev-parse --abbrev-ref HEAD))")
-	fi
+	if ! [ $(git rev-parse --abbrev-ref HEAD 2>/dev/null) ]; then
+        	return 0
+    	fi
+
+    	git_branchname=`git rev-parse --abbrev-ref HEAD`
+
+	printf " %s" $(prompt_fg $fyellow "($(shorten 20 "$git_branchname"))")
+
+	unset git_status
 }
 
 prompt_status_color () {
 	if [ "$?" -eq 0 ]; then
-		nonprint $fgreen
+		_nonprint $fgreen
 	else
-		nonprint $fred
+		_nonprint $fred
 	fi
 }
 
@@ -81,7 +98,7 @@ prompt_status_color () {
 
 prompt () {
 	statusc=$(prompt_status_color)
-	printf '%s' "$(prompt_fg ${fblue} $(hostname)) $(prompt_dir)$(prompt_git) ${statusc}\$$(nonprint $normal) "
+	printf '%s' "$(prompt_host) $(prompt_dir)$(prompt_git) ${statusc}\$$(_nonprint $normal) "
 }
 
 case $SHELL in
@@ -89,7 +106,7 @@ case $SHELL in
 		export PROMPT_COMMAND='export PS1=$(prompt)'
         ;;
 	*ksh) 
-		export PS1="\$(prompt)"
+		export PS1="$promptfirst\$(prompt)"
         ;;
 	*zsh)
 		setopt PROMPT_SUBST

@@ -3,12 +3,16 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 2;        /* gap width of windows */
+static const unsigned int gappx     = 4;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int baralpha = 0xd0;
-static const unsigned int borderalpha = OPAQUE;
+static const unsigned int borderalpha = 0xff;
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 
 #include "hconfig.h"
 
@@ -16,12 +20,13 @@ static const char *fonts[]          = { HTHEME_FONT };
 static const char *colors[][3]      = {
 	/*               fg                   bg                   border   */
 	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
-	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_BLUE,         HTHEME_BRIGHT_BLUE},
+	[SchemeSel]  = { HTHEME_BLACK,        HTHEME_WHITE,        HTHEME_BRIGHT_WHITE},
 };
+
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
-	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeNorm] = { 0xff, baralpha, borderalpha },
+	[SchemeSel]  = { 0xff, baralpha, borderalpha },
 };
 
 /* tagging */
@@ -96,7 +101,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static Key keys[] = {
 
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = menucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_slash,  spawn,          {.v = searchcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },

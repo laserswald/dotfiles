@@ -1,13 +1,27 @@
 #!/bin/sh
 # scratchpad: quick access to a scratch file, my notes, and my task list
 
+SCRATCH_FILE="$HOME/org/jrnl.md"
+NOTES_INDEX_FILE="$HOME/org/index.md"
+TASKS_FILE="$HOME/org/todo.txt"
+
+SESSION_NAME=org
+
 # Create session if it doesn't exist
-if ! tmux has-session -t 'org' >/dev/null; then
-	tmux new-session -d -c "${HOME}/org" -s 'org' "kak ${HOME}/org/everything.taskpaper"
-	tmux rename-window -t 'org:1' 'overview'
-	tmux split-window -h -t 'org:overview.1'
-	tmux send-keys -t 'org:overview.2' 'todo.sh ls' Enter
+if ! tmux has-session -t $SESSION_NAME >/dev/null; then
+    tmux new-session -d -c "${HOME}/org" -s $SESSION_NAME "kakp ${SCRATCH_FILE}"
 fi
 
-# Attach to the scratchpad session
+tmux rename-window -t 'org:1' 'journal'
+
+# tasks file
+
+tmux new-window -t 'org:2' -n "tasks" "kakp ${TASKS_FILE}"
+tmux split-window -h -t 'org:tasks.1'
+tmux send-keys -t 'org:tasks.2' 'todo.sh ls' Enter
+
+# Notes
+tmux new-window -t 'org:3' -n "notes" "kakp ${NOTES_INDEX_FILE}"
+
+# Attach to the organization session
 tmux attach-session -t "org"

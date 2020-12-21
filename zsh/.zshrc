@@ -1,8 +1,8 @@
 source /etc/profile
 
 # Universal shell environment
-source ~/.shrc
-source_dir ~/.sh.d/interact.d
+source "$HOME/.shrc"
+source_dir "$HOME/.sh.d/interact.d"
 setopt PROMPT_SUBST
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -14,3 +14,4 @@ setopt PROMPT_SUBST
 
 alias zshconfig="$EDITOR ~/.zshrc"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/phpbrew/bashrc ] && source ~/.phpbrew/bashrc

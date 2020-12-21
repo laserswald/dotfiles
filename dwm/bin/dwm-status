@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SEPERATOR="\uE0B3"
+
 WIFI_ICON="\uFAA8"
 WIFI_DISABLED_ICON="\uFAA9"
 
@@ -13,69 +14,14 @@ wifi_status () {
     fi
 }
 
-EMPTY="\uF583"
-EMPTY_CHRG="\uF585"
-CRIT="\uF579"
-CRIT_CHRG="\uF586"
-LOW="\uF57B"
-LOW_CHRG="\uF587"
-MED="\uF57D"
-MED_CHRG="\uF588"
-OK="\uF57F"
-OK_CHRG="\uF589"
-HIGH="\uF580"
-HIGH_CHRG="\uF58A"
-FULL="\uF578"
-FULL_CHRG="\uF584"
-CHARGING="\uF583"
-
-CRIT_THR=15
-LOW_THR=25
-MED_THR=50
-OK_THR=75
-HIGH_THR=85
-FULL_THR=95
-
-batt_status () {
-	charging=$1
-	percent=$2
-
-	if [ $percent -le $CRIT_THR ]; then
-        icon_name='EMPTY'
-	elif [ $percent -le $LOW_THR ]; then
-        icon_name='CRIT'
-	elif [ $percent -le $MED_THR ]; then
-        icon_name='LOW'
-	elif [ $percent -le $OK_THR ]; then
-        icon_name='MED'
-	elif [ $percent -le $HIGH_THR ]; then
-        icon_name='OK'
-	elif [ $percent -le $FULL_THR ]; then
-        icon_name='HIGH'
-    else
-        icon_name='FULL'
-	fi
-
-    if [ $charging == "Charging" ]; then
-	    icon_name="CHARGING"
-	fi
-
-    printf "%s" ${!icon_name}
-}
-
-multi_batt_status () {
-	acpi -b |\
-	grep -o '\(Charging\|Discharging\|Unknown\), [0-9]\+%' |\
-	sed -e 's/%//;s/,//' | while read stat pcnt; do
-        printf " $(batt_status $stat $pcnt) $pcnt"
-	done
+dwm_status () {
+	wifi=$(wifi_status)
+	date=$(date)
+	# batt=$(multi_batt_status)
+    printf " $batt $SEPERATOR $wifi $SEPERATOR $date"
 }
 
 while true; do
-	wifi=$(wifi_status)
-	date=$(date)
-	batt=$(multi_batt_status)
-    status=$(printf " $batt $SEPERATOR $wifi $SEPERATOR $date")
-    xsetroot -name "$status"
+    xsetroot -name "$(dwm_status)"
     sleep 1
 done

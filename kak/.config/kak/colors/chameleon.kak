@@ -4,7 +4,7 @@ set-face global attribute  yellow
 set-face global builtin    bright-white+b
 set-face global comment    bright-black+i
 set-face global error      yellow,bright-red
-set-face global function   cyan
+set-face global function   bright-white+b
 set-face global identifier bright-magenta
 set-face global keyword    bright-red
 set-face global meta       cyan
@@ -37,3 +37,5 @@ set-face global MatchingChar default,black+b
 set-face global BufferPadding black,default
 
 set-face global StatusLine bright-black,black+i
+
+set-face global Information black,bright-black+i

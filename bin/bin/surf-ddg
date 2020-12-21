@@ -4,7 +4,7 @@
 SEARCH_HISTORY=$HOME/.search-history
 touch $SEARCH_HISTORY
 
-query=$(dmenu -p "search:" <$SEARCH_HISTORY)
+query=$(dmenu -p "web search:" <$SEARCH_HISTORY)
 if [ $? -ne 0 ]; then 
     exit
 fi

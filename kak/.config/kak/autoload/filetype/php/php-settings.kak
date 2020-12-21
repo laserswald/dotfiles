@@ -1,22 +1,22 @@
 
 hook global WinSetOption filetype=php %{
-	require-module php-objects
+    require-module php-objects
+    require-module php-fancy-highlighting
 
-	
-   	set-option buffer indentwidth 0
-   	set-option buffer aligntab true
-   	
-	add-highlighter shared/php/code/this regex '\$this' 0:value
-	add-highlighter shared/php/code/function regex 'function (\w+)\(' 1:function
+    set-option buffer indentwidth 4
+    set-option buffer aligntab false
 
     map -docstring "function" buffer object F %{<a-;>php-select-function<ret>}
     map -docstring "class" buffer object C %{<a-;>php-select-function<ret>}
 
     map -docstring "Apply a refactoring with Phpactor" buffer user R '<esc>: phpactor-mode<ret>'
 
-    set buffer lintcmd "kak_phplint"
-    lint-enable
-    hook -group phplint buffer BufWritePost .* lint
+    try %{ remove-hooks buffer tabs-to-spaces }
+    try %{ enable-lsp }
+}
+
+define-command -override phpunit-this-file %{
+    set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
 }
 
 define-command -override -hidden php-set-phpunit-makecmd %{
@@ -28,7 +28,20 @@ define-command -override -hidden php-set-phpunit-makecmd %{
     }
 }
 
-# add-highlighter shared/php/code/builtins regex \b(array_change_key_case|array_chunk|array_column|array_combine|array_count_values|array_diff_assoc|array_diff_key|array_diff_uassoc|array_diff_ukey|array_diff|array_fill_keys|array_fill|array_filter|array_flip|array_intersect_assoc|array_intersect_key|array_intersect_uassoc|array_intersect_ukey|array_intersect|array_key_exists|array_key_first|array_key_last|array_keys|array_map|array_merge_recursive|array_merge|array_multisort|array_pad|array_pop|array_product|array_push|array_rand|array_reduce|array_replace_recursive|array_replace|array_reverse|array_search|array_shift|array_slice|array_splice|array_sum|array_udiff_assoc|array_udiff_uassoc|array_udiff|array_uintersect_assoc|array_uintersect_uassoc|array_uintersect|array_unique|array_unshift|array_values|array_walk_recursive|array_walk|array|arsort|asort|compact|count|current|each|end|extract|in_array|key_exists|key|krsort|ksort|list|natcasesort|natsort|next|pos|prev|range|reset|rsort|shuffle|sizeof|sort|uasort|uksort|usort)\b 1:builtin
+provide-module php-fancy-highlighting %{
+    require-module php
+    require-module visibility-faces
+
+    add-highlighter shared/php/code/this regex '\$this' 0:value
+    add-highlighter shared/php/code/function regex 'function (\w+)\(' 1:function
+
+    add-highlighter shared/php/code/public regex 'public' 0:Public
+    add-highlighter shared/php/code/protected regex 'protected' 0:Protected
+    add-highlighter shared/php/code/private regex 'private' 0:Private
+
+    add-highlighter shared/php/code/builtins regex \b(array_change_key_case|array_chunk|array_column|array_combine|array_count_values|array_diff_assoc|array_diff_key|array_diff_uassoc|array_diff_ukey|array_diff|array_fill_keys|array_fill|array_filter|array_flip|array_intersect_assoc|array_intersect_key|array_intersect_uassoc|array_intersect_ukey|array_intersect|array_key_exists|array_key_first|array_key_last|array_keys|array_map|array_merge_recursive|array_merge|array_multisort|array_pad|array_pop|array_product|array_push|array_rand|array_reduce|array_replace_recursive|array_replace|array_reverse|array_search|array_shift|array_slice|array_splice|array_sum|array_udiff_assoc|array_udiff_uassoc|array_udiff|array_uintersect_assoc|array_uintersect_uassoc|array_uintersect|array_unique|array_unshift|array_values|array_walk_recursive|array_walk|array|arsort|asort|compact|count|current|each|end|extract|in_array|key_exists|key|krsort|ksort|list|natcasesort|natsort|next|pos|prev|range|reset|rsort|shuffle|sizeof|sort|uasort|uksort|usort)\b 1:builtin
+}
+
 
 # PHP smart selections
 # --------------------
@@ -68,6 +81,6 @@ define-command -override php-select-function %<
         fi
     >
 >
-
-
 >
+
+

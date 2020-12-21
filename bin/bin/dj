@@ -14,7 +14,7 @@ case $cmd in
 	        mpv_send_key 'p'
         elif pgrep mpd >/dev/null; then
 	        mpc toggle
-	    fi
+        fi
     ;;
     next) 
         if pgrep mpv >/dev/null; then 

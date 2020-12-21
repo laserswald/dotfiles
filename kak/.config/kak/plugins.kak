@@ -5,7 +5,7 @@
 # Initialize the plugin manager.
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "andreyorst/plug.kak" noload
+plug "robertmeta/plug.kak" noload
 
 # Fuzzy finder. 
 plug "andreyorst/fzf.kak" config %{
@@ -19,30 +19,40 @@ plug "andreyorst/tagbar.kak" config %{
 }
 
 # TODO: make sure this gets configured properly before enabling
-# plug "alexherbo2/auto-pairs.kak"
+plug "alexherbo2/auto-pairs.kak" 
 
 plug "andreyorst/powerline.kak" config %{
 	powerline-start
 }
 
 plug "TeddyDD/kakoune-wiki" config %{
-	wiki-setup %sh{ echo "$HOME/org" }
-    declare-user-mode notes
-    map global user n :<space>enter-user-mode<space>notes<ret>
+    wiki-setup %sh{ echo "$HOME/org" }
 }
 
-try %{
-	plug "eraserhd/parinfer-rust" do %{
-		cargo install --force --path .
-	} config %{
-		hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
-			parinfer-enable-window -smart
-		}
+plug "eraserhd/parinfer-rust" do %{
+	cargo install --force --path .
+} config %{
+	hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
+		parinfer-enable-window -indent
+		auto-pairs-disable
 	}
 }
 
-echo -debug "loaded"
-
 plug "occivink/kakoune-snippets"
+plug "jjk96/kakoune-rainbow"
+
+plug "notes" load-path "~/src/kak/kak-goal"
+plug "kakoune-todo" load-path "~/src/kak/kakoune-todo.txt"
+
+plug "kak-lsp/kak-lsp" config %{
+    # Language server protocol support.
+
+    set-option global lsp_hover_anchor true
+
+    try %{
+        evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+    }
+}
+
 
 echo -debug "loaded plugins"

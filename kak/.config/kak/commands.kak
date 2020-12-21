@@ -19,3 +19,19 @@ define-command git-merge-right %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
 
+define-command -params 1..1 rename-file %{
+	nop %sh{
+        mv "$kak_buffile" "$1"
+    }
+    delete-buffer!
+    edit %arg{1}
+}
+
+define-command enable-lsp %{
+    lsp-enable-window
+
+    lsp-auto-hover-enable
+    lsp-diagnostic-lines-enable window
+    lsp-auto-signature-help-enable
+}
+

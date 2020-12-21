@@ -3,12 +3,13 @@
 MAIL_PID_FILE=$HOME/var/mail.pid
 
 if [ -f $MAIL_PID_FILE ]; then
-    notify-send -i 'mail-me' "Mail" "Mail daemon already running."
+    notify-send -i 'mail' "Mail" "Mail daemon already running."
     exit 0
 fi
 
-echo $! > $MAIL_PID_FILE
-notify-send "Mail" "Fetching mail..."
+notify-send -u low -i mail-send-recieve "Mail" "Fetching mail..."
 notmuch new
-notify-send -i "mail-unread" "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
+echo $! > $MAIL_PID_FILE
+notify-send -u low -i mail-unread "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
+canberra-gtk-play -i message
 rm $MAIL_PID_FILE

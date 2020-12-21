@@ -33,7 +33,13 @@ map -docstring "Open fuzzy finder mode" \
 	global user , \
 	": fzf-mode<ret>"
 
+map -docstring "Paste from system clipboard" \
+	global user p \
+	"<a-!> xclip -o -selection clipboard<ret>"
 
+map -docstring "Paste before" \
+	global user P \
+	"! xclip -o -selection clipboard<ret>"
 
 # Go to mappings
 map -docstring "your kakrc file" \
@@ -52,17 +58,9 @@ map -docstring "symbol definition" \
 	global goto d \
 	"<esc><a-i>w: jump-to-definition<ret>"
 
-map -docstring "next mention in buffer" \
-	global goto n \
-	"<esc><a-i>w*n<ret>"
-
 map -docstring "goto reference for editing" \
-	global goto u \
+	global goto r \
 	"<esc>: find-references<ret>"
-
-map -docstring "goto reference for viewing" \
-	global goto x \
-	"<esc>: cross-reference<ret>"
 
 map -docstring "the scratch buffer" \
 	global goto s \

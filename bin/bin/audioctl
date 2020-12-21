@@ -4,7 +4,13 @@
 COMMAND=$1
 
 showvolume () {
-    notify-send -h int:value:$(amixer get Master | grep "%" | head -1 | cut -d' ' -f7 | tr -d "[%]") "Volume:"
+    if pgrep pulseaudio >/dev/null; then
+        volume=$(pamixer --get-volume)
+    else
+        volume=$(amixer get Master | grep "%" | head -1 | cut -d' ' -f7 | tr -d "[%]")
+    fi
+    notify-send --hint=int:value:$volume "Volume"
+    canberra-gtk-play -i audio-volume-change -d "changeVolume"
 }
 
 showmute () {
@@ -16,19 +22,39 @@ showmute () {
     fi
 }
 
-case $COMMAND in
-    up )
+raisevolume()
+{
+    if pgrep pulseaudio >/dev/null; then
+        pactl -- set-sink-volume @DEFAULT_SINK@ +10%
+    else
         amixer set Master 10%+
-        showvolume
-        ;;
-    down )
-        amixer set Master 10%-
-        showvolume
-        ;;
-    mute)
-        amixer set Master toggle
-        showmute
-        ;;
-esac
+    fi
+    showvolume
+}
 
+lowervolume()
+{
+    if pgrep pulseaudio >/dev/null; then
+        pactl -- set-sink-volume @DEFAULT_SINK@ -10%
+    else
+        amixer set Master 10%-
+    fi
+    showvolume
+}
+
+togglemuted()
+{
+    if pgrep pulseaudio >/dev/null; then
+        pactl -- set-sink-mute @DEFAULT_SINK@ toggle
+    else
+        amixer set Master 10%-
+    fi
+    showmute
+}
+
+case $COMMAND in
+    up) raisevolume ;;
+    down) lowervolume ;;
+    mute) togglemuted ;;
+esac
 

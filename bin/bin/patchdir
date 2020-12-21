@@ -2,39 +2,60 @@
 
 REVERSE=0
 
+patchcmd='patch --force -p1 --quiet'
+
 can_apply_patch () {
-    return $(patch -R -p1 -s -f --dry-run -i $1 >/dev/null)
+    $patchcmd --dry-run -i $1 >/dev/null
+    return $?
+}
+
+can_reverse_patch () {
+    $patchcmd --reverse --dry-run -i $1 >/dev/null
+    return $?
 }
 
 apply_patch () {
-    echo "Applying $1..."
-    patch -s -f -p1 -i "$1"
+    $patchcmd -i $1 >/dev/null
     if ! [ $? -eq 0 ]
     then
-	    echo "Could not apply patch: $1"
-	    exit 1
-	fi
+        echo "Could not apply patch: $1"
+        exit 1
+    fi
+}
+
+reverse_patch () {
+    $patchcmd --reverse -i $1 >/dev/null
+    if ! [ $? -eq 0 ]
+    then
+        echo "Could not apply patch: $1"
+        exit 1
+    fi
 }
 
 while getopts "r" opt
 do
 	case $opt in
-        r) REVERSE=1 ;;
+        	r) REVERSE=1 ;;
 	esac
 done
-shift $OPTIND
+shift $(($OPTIND - 1))
 
 patchfiles=$(find -L $1 -iname "*.diff" | sort);
 
 if [ $REVERSE -eq 1 ]; then
-	patchfiles=$(echo $patchfiles | sort -R);
+	patchfiles=$(echo "$patchfiles" | sort -r)
 fi
 
 for pf in $patchfiles
 do
-	if can_apply_patch $pf
-	then
+	if can_apply_patch $pf && ! can_reverse_patch $pf; then
 		apply_patch $pf
+	elif ! can_apply_patch $pf && can_reverse_patch $pf; then
+		echo "Already applied: $pf"
+        else
+		echo "Cannot apply $pf"
+                patch --force -s -p1 -i "$pf"
+                exit 1
 	fi
 done
 

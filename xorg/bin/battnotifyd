@@ -2,16 +2,10 @@
 ;;;; vim:ft=scheme
 
 (import (scheme base)
-        (chibi filesystem)
-	    (chibi process)
-	    (lazr battery)
-	    (scheme list)
+        (scheme list)
         (chibi process)
+        (lazr battery)
         (lazr notify))
-
-(define (approximate-percentage batteries)
-  (/ (apply + (map read-capacity batteries))
-     (length batteries)))
 
 (define (system-has-low-charge? batteries)
   (< (approximate-percentage batteries) 15))

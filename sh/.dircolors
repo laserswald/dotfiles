@@ -62,6 +62,7 @@ TERM xterm-256color
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
+TERM xterm-kitty
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
 # Attribute codes:
@@ -215,11 +216,16 @@ EXEC 00;32
 .spx 00;36
 .xspf 00;36
 #code formats
-.c 01;32
-.cpp 01;32
-.cxx 01;32
-.cc 01;32
-.h 01;32
-.py 01;32
-.sh 01;32
-.java 01;32
+.c 00;32
+.cpp 00;32
+.cxx 00;32
+.cc 00;32
+.h 00;32
+.py 00;32
+.sh 00;32
+.java 00;32
+.php 00;32
+.lisp 00;32
+.scm 00;32
+.sld 00;32
+.sh 00;32

@@ -20,7 +20,7 @@ wm_bg() {
 wm_composite(){
     ## Launch a compositor.
     # compton -fCc &
-    :
+    picom &
 }
 
 wm_keybinds(){
@@ -85,11 +85,12 @@ case $WM in
         wm_notify
         wm_bg
         ;;
-	dwm)
-		wm_notify
-		wm_bg
-        ~/bin/dwm-status &
-		;;
+    dwm)
+        wm_notify
+        wm_bg
+        wm_composite
+        ~/bin/bar &
+        ;;
     ?)
         ### Unrecognized WM.
         ;;

@@ -8,7 +8,7 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (add-to-list 'default-frame-alist
-	     '(font . "Fira Code-10"))
+	     '(font . "Fira Code NF-10"))
 
 ;; Stop annoying me about stuff.
 (setq inhibit-startup-message t
@@ -46,7 +46,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-gruvbox t))
 
 (use-package doom-modeline :ensure t
   :config (doom-modeline-mode 1))
@@ -148,7 +148,7 @@
   :init
   (setq org-agenda-files '("~/org"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
-  (setq org-archive-location (concat org-directory "/archive.org"))
+  (setq org-archive-location (concat org-directory "/archive.org::"))
   (setq org-todo-keywords
 	'((sequence "TODO" "|" "DONE" "WAIT")
 	  (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
@@ -246,6 +246,12 @@
   "a" 'org-agenda
   "c" 'org-capture
   "p" 'org-pomodoro)
+
+;;; X for perspective mode because too many things start with P
+(lazr-leader-map :infix "x"
+  "x" 'persp-switch
+  "p" 'persp-prev
+  "n" 'persp-next)
   
 ;;; File type specific tools
 (lazr-local-leader-map :keymaps 'php-mode-map

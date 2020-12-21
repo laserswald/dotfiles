@@ -63,20 +63,11 @@ $(MODULES):
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
+	@cd ~/src/c/dwm; \
+		patchdir patches \
+	cd -
 	rm -f ~/src/c/dwm/config.mk
 	stow $@
-	@cd ~/src/c/dwm; \
-	for f in $$(find -L patches -name '*.diff' | sort); do \
-		if ! patch -R -p1 -s -f --dry-run -i $$f >/dev/null; then \
-			echo "Applying patch $$f"; \
-			patch -s -f -p1 -i $$f; \
-			if ! [ $$? -eq 0 ]; then \
-				echo "Could not apply patch $$f"; \
-				exit 1; \
-			fi\
-		fi \
-	done; \
-	cd -
 
 core: core/install
 	exec ./core/install

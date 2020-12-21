@@ -8,10 +8,14 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 // static char *font = "benis uushi:pixelsize=12:antialias=false";
-// static char *font = "xos4 Terminus:pixelsize=12:antialias=false";
+static char *font = "Terminus:size=11:antialias=false";
 // static char *font = "Fira Code:pixelsize=14:antialias=true";
-static char *font = HTHEME_FONT;
+// static char *font = "Cozette:size=12:antialias=false";
+// static char *font = HTHEME_FONT;
 static int borderpx = 2;
+
+/* bg opacity */
+float alpha = 0.95;
 
 /*
  * What program is execed by st depends of these precedence rules:

@@ -1,0 +1,4 @@
+;;; $2
+(define-record-type $1
+  (make-$1)
+  $1?)

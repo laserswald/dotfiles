@@ -67,9 +67,9 @@ define-command -override -hidden explore-down %{
 	evaluate-commands %sh{
     	file="${kak_opt_sfm_dir}/${kak_selection}"
     	if [ -d "$file" ]; then
-    		echo 'explore' "$file"
+    		printf "explore '%s'\n"  "$file"
     	else 
-         	echo 'edit! -existing' "$file"
+    		printf "edit -existing '%s'\n"  "$file"
         fi
     }
 }
