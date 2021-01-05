@@ -1,0 +1,60 @@
+#!/usr/bin/env -S chibi-scheme -I. -r
+;; vim:ft=scheme
+
+(import (scheme small) 
+        (only (chibi process) process->string)
+        (todotxt))
+
+(define (parse-date datestr)
+  (process->string `(chronic -i ,datestr "%F")))
+
+;; Display the help text.
+(define (display-usage)
+  (display-lines 
+   "  deadline:"
+   "    deadline TASK# WHEN"
+   "      set the due date of a task.")
+  (exit 0))
+
+;; Display each string in lines on it's own line.
+(define (display-lines . lines)
+  (for-each (lambda (line) 
+              (display line) 
+              (newline))
+            lines))
+
+(define (modify-task! f n)
+  (write-tasks
+   (let* ((tasks (read-tasks))
+          (old-task (list-ref tasks (- n 1))))
+     (list-set! tasks (- n 1) (f old-task))
+     tasks)))
+
+;;;; Set the deadline for the nth task.
+(define (set-deadline! n date)
+  (modify-task! 
+   (lambda (old-task)
+     (task-add-kv-tag
+      (task-remove-kv-tag old-task "due") 
+      "due" 
+      (parse-date date)))
+   (string->number n)))
+
+(define (remove-deadline! n)
+  (modify-task! (lambda (t) 
+                  (task-remove-kv-tag t "due")) 
+                (string->number n)))
+
+(define *actions* 
+  `(("deadline"   . ,set-deadline!)
+    ("rmdeadline" . ,remove-deadline!)))
+
+(define (main arguments)
+  (let* ((action (cadr arguments))
+         (action-args (cddr arguments))
+         (action-fn (assoc action *actions*)))
+    (if action-fn
+      (apply (cdr action-fn) action-args)
+      (display-usage))))
+
+

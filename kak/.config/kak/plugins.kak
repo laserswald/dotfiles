@@ -41,6 +41,10 @@ plug "eraserhd/parinfer-rust" do %{
 plug "occivink/kakoune-snippets"
 plug "jjk96/kakoune-rainbow"
 
+plug "lePerdu/kakboard" %{
+    hook global WinCreate .* %{ kakboard-enable }
+}
+
 plug "notes" load-path "~/src/kak/kak-goal"
 plug "kakoune-todo" load-path "~/src/kak/kakoune-todo.txt"
 

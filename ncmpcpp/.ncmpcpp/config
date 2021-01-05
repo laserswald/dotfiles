@@ -490,7 +490,7 @@ main_window_color = magenta
 #
 #color2 = green
 #
-main_window_highlight_color = yellow
+# main_window_highlight_color = yellow
 #
 progressbar_color = black
 #

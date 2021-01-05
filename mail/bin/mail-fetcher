@@ -7,9 +7,9 @@ if [ -f $MAIL_PID_FILE ]; then
     exit 0
 fi
 
-notify-send -u low -i mail-send-recieve "Mail" "Fetching mail..."
+notify-send -i mail-send-recieve "Mail" "Fetching mail..."
 notmuch new
 echo $! > $MAIL_PID_FILE
-notify-send -u low -i mail-unread "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
+notify-send -i mail-unread "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
 canberra-gtk-play -i message
 rm $MAIL_PID_FILE
