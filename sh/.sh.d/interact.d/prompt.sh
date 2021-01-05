@@ -24,8 +24,8 @@ case $SHELL in
 		npend="\]"
         ;;
 	*zsh)
-		npstart="%{"	
-		npend="%}"	
+		npstart="%{"
+		npend="%}"
 	;;
 	*ksh) 
 		promptfirst=$(print \\001)
@@ -35,7 +35,7 @@ case $SHELL in
 esac
 
 _nonprint () {
-	printf "%s%s%s" $npstart $1 $npend
+	printf "%s%s%s" "$npstart" "$1" "$npend"
 }
 
 prompt_fg () {
@@ -52,7 +52,7 @@ prompt_host () {
 	elif [ $host = "afs03" ]; then
 		hostcolor=$fred
 	fi
-	printf "$(prompt_fg ${hostcolor} $(hostname))"
+	printf "%s" "$(prompt_fg ${hostcolor} $(hostname))"
 }
 
 prompt_dir () {
