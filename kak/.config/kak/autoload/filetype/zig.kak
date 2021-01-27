@@ -33,3 +33,12 @@ hook global BufCreate .*[.]zig %{
 
 hook -group zig-highlight global WinSetOption filetype=zig %{ add-highlighter window/ ref zig }
 hook -group zig-highlight global WinSetOption filetype=(?!zig).* %{ remove-highlighter window/zig }
+
+hook global WinSetOption filetype=zig %{
+    set buffer indentwidth 4
+    hook -group tabs-to-spaces buffer InsertChar \t %{
+        try %{
+            execute-keys -draft h %opt{indentwidth}@
+        }
+    }
+}

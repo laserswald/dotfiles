@@ -1,7 +1,7 @@
 
 hook -group autocomplete global WinSetOption filetype=cpp %{ clang-enable-autocomplete }
 
-hook -group c-tools global WinSetOption filetype=c %{
+hook -group c-tools global WinSetOption filetype=(c|cpp) %{
     clang-enable-autocomplete
     autotags-enable
     ctags-enable-autoinfo

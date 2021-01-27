@@ -1,5 +1,4 @@
 
-
 define-command split-vertical -params 0..1 %{
 	try %{
 	    tmux-terminal-vertical kak -c %val{session} -e %arg{1}
@@ -50,9 +49,6 @@ define-command close-docs %{
 	}
 }
 
-### Repl client.
-
-
 define-command cross-reference %{
 	evaluate-commands -client %opt{docsclient} ctags-search %val{selection}
 }
@@ -71,3 +67,21 @@ map -docstring "Open the docs client to the right of this pane." \
 map -docstring "Close the current docs client." \
     global splits D ': close-docs<ret>'
 
+
+hook global ClientCreate .* %{
+	setup-jump-client
+}
+
+## Commands.
+define-command -hidden setup-jump-client %{
+	evaluate-commands %sh{
+		if ! (echo "$kak_client_list" | grep -q 'jump') ; then
+			printf %s\\n "rename-client jump"
+		fi
+		if ! [ "$kak_opt_jumpclient" ] ; then
+			printf %s\\n "set-option global jumpclient jump"
+		fi
+	}
+}
+
+### Repl client.

@@ -41,18 +41,12 @@ plug "eraserhd/parinfer-rust" do %{
 plug "occivink/kakoune-snippets"
 plug "jjk96/kakoune-rainbow"
 
-plug "lePerdu/kakboard" %{
-    hook global WinCreate .* %{ kakboard-enable }
-}
-
 plug "notes" load-path "~/src/kak/kak-goal"
 plug "kakoune-todo" load-path "~/src/kak/kakoune-todo.txt"
 
 plug "kak-lsp/kak-lsp" config %{
     # Language server protocol support.
-
     set-option global lsp_hover_anchor true
-
     try %{
         evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
     }

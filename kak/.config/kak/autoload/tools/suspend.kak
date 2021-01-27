@@ -6,7 +6,7 @@ define-command suspend-and-resume \
     %{ evaluate-commands %sh{
 
     # Note we are adding '&& fg' which resumes the kakoune client process after the cli command exits
-    cli_cmd="$1 && command fg"
+    cli_cmd="$1 && fg"
     post_resume_cmd="$2"
 
     # automation is different platform to platform
@@ -16,10 +16,10 @@ define-command suspend-and-resume \
     if [ "$TMUX" ]; then
         automate_cmd="/usr/bin/sleep 0.01; tmux send-keys '$cli_cmd' Enter"
     else
-	    case $platform in
-	        Darwin) automate_cmd="sleep 0.01; osascript -e 'tell application \"System Events\" to keystroke \"$cli_cmd\\n\" '" ;;
-	        Linux) automate_cmd="/usr/bin/sleep 0.5; xdotool type '$cli_cmd'; xdotool key Return" ;;
-	    esac
+        case $platform in
+            Darwin) automate_cmd="sleep 0.01; osascript -e 'tell application \"System Events\" to keystroke \"$cli_cmd\\n\" '" ;;
+            Linux) automate_cmd="/usr/bin/sleep 0.5; xdotool type '$cli_cmd'; xdotool key Return" ;;
+        esac
     fi
 
     # Stop the client command
