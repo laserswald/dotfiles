@@ -45,7 +45,7 @@ hook global BufWritePost .* %{
 	ctags-update-tags
 }
 
-hook global KakBegin .* %{
+hook global KakBegin '.*' %{
     # Enable my simple explorer.
     simple-explorer-enable
 

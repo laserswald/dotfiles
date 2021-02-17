@@ -1,5 +1,5 @@
 
-define-command cqllog-hl %~
+define-command -override cqllog-hl %~
 	addhl buffer/start regex '([a-zA-Z]+): evaluating...' 1:bright-magenta,default
 	addhl buffer/return regex '([a-zA-Z]+) (-->) ([^{\n]+)' 1:magenta,default 2:yellow,default 3:green,default
 	addhl buffer/returnexpr regex '\(\d+\) ([a-zA-Z0-9 ]+) (-->) ([^{\n]+)' 1:cyan,default 2:yellow,default 3:green,default
@@ -11,15 +11,38 @@ define-command cqllog-hl %~
 
 ## Commands.
 
-define-command git-merge-left %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
+define-command -override \
+git-merge-left %{
+	# Search for the left marker, and delete just the marker.
+	set-register slash '<{7}'
+	execute-keys "<a-/><ret>xd"
+
+	# Now select the center marker.
+    set-register slash '={7}' 
+	execute-keys "/<ret>"
+
+    # Select to the right marker and delete.
+	set-register slash '>{7}'
+	execute-keys "?<ret><a-x>d"
 }
 
-define-command git-merge-right %{
-	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
+define-command -override \
+git-merge-right %{
+	# Search backwards for the left marker. 
+	set-register slash '<{7}'
+	execute-keys "<a-/><ret>"
+
+    # Select to the center marker and delete.
+	set-register slash '={7}'
+	execute-keys "?<ret><a-x>d"
+
+    # Find the right marker and delete it.
+	set-register slash '>{7}'
+	execute-keys "/<ret>xd"
 }
 
-define-command -params 1..1 rename-file %{
+define-command -override -params 1..1 \
+rename-file %{
 	nop %sh{
         mv "$kak_buffile" "$1"
     }
@@ -27,8 +50,13 @@ define-command -params 1..1 rename-file %{
     edit %arg{1}
 }
 
-define-command enable-lsp %{
+define-command -override \
+enable-lsp %{
     lsp-enable-window
+
+    unmap window goto d '<esc>: lsp-definition<ret>'
+    unmap window goto r '<esc>: lsp-references<ret>'
+    unmap window goto y '<esc>: lsp-type-definition<ret>'
 
     lsp-auto-hover-enable
     lsp-diagnostic-lines-enable window

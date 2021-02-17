@@ -8,10 +8,18 @@ hook global WinSetOption filetype=php %{
 
     map -docstring "function" buffer object F %{<a-;>php-select-function<ret>}
     map -docstring "class" buffer object C %{<a-;>php-select-function<ret>}
-
     map -docstring "Apply a refactoring with Phpactor" buffer user R '<esc>: phpactor-mode<ret>'
 
+    set-option buffer lintcmd "kak_phplint"
+
     try %{ remove-hooks buffer tabs-to-spaces }
+}
+
+hook -group php-lint global BufWritePost .*\.php %{
+    lint-buffer
+}
+
+hook -group php-lsp-support global WinSetOption filetype=php %{
     try %{ enable-lsp }
 }
 

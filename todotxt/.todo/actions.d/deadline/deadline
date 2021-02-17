@@ -1,4 +1,4 @@
-#!/usr/bin/env -S chibi-scheme -I. -r
+#!/usr/bin/env -S chibi-scheme -I . -rmain
 ;; vim:ft=scheme
 
 (import (scheme small) 

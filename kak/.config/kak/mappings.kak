@@ -41,6 +41,14 @@ map -docstring "Paste before" \
 	global user P \
 	"! xclip -o -selection clipboard<ret>"
 
+map -docstring "Choose left side of merge block" \
+    global user h \
+    ": git-merge-left<ret>"
+
+map -docstring "Choose right side of merge block" \
+    global user l \
+    ": git-merge-right<ret>"
+
 # Go to mappings
 map -docstring "your kakrc file" \
 	global goto K \
@@ -56,7 +64,7 @@ map -docstring "another open buffer" \
 
 map -docstring "symbol definition" \
 	global goto d \
-	"<esc><a-i>w: jump-to-definition<ret>"
+	"<esc>: goto-definition<ret>"
 
 map -docstring "goto reference for editing" \
 	global goto r \
@@ -65,3 +73,4 @@ map -docstring "goto reference for editing" \
 map -docstring "the scratch buffer" \
 	global goto s \
     "<esc>: buffer *scratch*<ret>"
+
