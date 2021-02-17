@@ -10,6 +10,7 @@ plug "robertmeta/plug.kak" noload
 # Fuzzy finder. 
 plug "andreyorst/fzf.kak" config %{
 	require-module fzf
+	set-option global fzf_file_command "ag -l -f --hidden --one-device --ignore .git"
 }
 
 plug "andreyorst/tagbar.kak" config %{
