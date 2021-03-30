@@ -2,12 +2,16 @@
 #
 # Super simple file explorer
 
-define-command simple-explorer-enable %{
+define-command \
+    -docstring "Enable my simple explorer." \
+simple-explorer-enable %{
     require-module simple-explorer
     map global normal <minus> ': explore-up<ret>'
 }
 
-define-command simple-explorer-disable %{
+define-command \
+    -docstring "Disable my simple explorer." \
+simple-explorer-disable %{
     remove-hooks buffer explore-hooks
     remove-hooks global explore-hooks
     remove-highlighter shared/sfm
@@ -21,8 +25,8 @@ declare-option -hidden str sfm_temp_dir
 
 add-highlighter shared/sfm regions
 add-highlighter shared/sfm/default default-region group
-add-highlighter shared/sfm/default/files regex '^.+$' 0:default
-add-highlighter shared/sfm/default/dirs regex '^.+/$' 0:keyword
+add-highlighter shared/sfm/default/files regex '([^\n]+)[\n]' 1:default
+add-highlighter shared/sfm/default/dirs regex '([^\n]+/)[\n]' 1:variable
 
 define-command -docstring \
 "explore <path>: explore a directory" \
@@ -85,12 +89,22 @@ hook global -group explore-hooks WinSetOption filetype=explore %{
 
     map window normal '<ret>' ': explore-down<ret>'
     map window normal 'q' ': explore-close<ret>'
+    map window normal 'o' ': explore-new-file<ret>'
+    map window normal 'm' ': explore-make-directory<ret>'
 
     add-highlighter window/ ref sfm
 }
 
 define-command explore-close %{
     delete-buffer!
+}
+
+define-command explore-new-file %{
+	prompt "Open file: " %{ edit "%opt{sfm_dir}/%val{text}" }
+}
+
+define-command explore-make-directory %{
+	prompt "Create directory: " nop %{ %sh{ mkdir "$kak_opt_sfm_dir/$kak_text" } }
 }
 
 define-command explore-up %{ evaluate-commands %sh{
