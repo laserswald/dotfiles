@@ -68,7 +68,7 @@ provide-module villain %{
     }
 
     define-command villain-enable-chibi %{
-	set-option window villain_repl_cmd "rlwrap -t dumb -pblue chibi-scheme -R -I ."
+		set-option window villain_repl_cmd "rlwrap -t dumb -pblue chibi-scheme -R -I ."
         set-option window villain_within_lib_cmd "@in"
     }
 
@@ -96,3 +96,4 @@ hook global WinSetOption filetype=scheme %{
     map -docstring "Open a Scheme repl." \
    	buffer user R '<esc>: villain-repl<ret>'
 }
+

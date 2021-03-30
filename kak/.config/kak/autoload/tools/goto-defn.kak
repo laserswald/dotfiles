@@ -8,8 +8,13 @@ declare-option -hidden str lazr_defn_handler "ctags-goto-definition"
 # A command that should select the current symbol and look for all of it's references.
 declare-option -hidden str lazr_refs_handler "grep-find-references"
 
-define-command -override goto-definition %opt{lazr_defn_handler}
-define-command -override find-references %opt{lazr_refs_handler}
+define-command -override goto-definition %{
+	evaluate-commands %opt{lazr_defn_handler}
+}
+
+define-command -override find-references %{
+	evaluate-commands %opt{lazr_refs_handler}
+}
 
 define-command -override ctags-goto-definition %{
     select-symbol
@@ -32,3 +37,15 @@ define-command -override -hidden select-symbol %{
         fi
     }
 }
+
+define-command -override -params 1..1 lazr-autodetect-lsp \
+%{ evaluate-commands %sh{
+	if command -v "$1" >/dev/null 2>&1
+	then
+		 printf '%s\n' "set-option window lazr_defn_handler 'lsp-definition'"
+		 printf '%s\n' "set-option window lazr_refs_handler 'lsp-find-references'"
+		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: enabling lsp jumping'"
+	else
+		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: could not find lsp server $1'"
+	fi
+}}

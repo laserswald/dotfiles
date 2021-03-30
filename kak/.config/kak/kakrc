@@ -10,7 +10,6 @@ source "%val{config}/mappings.kak"
 
 try %{ source %val{config}/options.kak }
 
-require-module goto-definition
 try %{ require-module tmux-repl }
 
 echo -debug "loaded modules"
@@ -37,7 +36,6 @@ hook global WinCreate .* %{
 	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
 		execute-keys -draft h %opt{indentwidth}@
 	} }
-	auto-pairs-enable
 }
 
 hook global BufWritePost .* %{
@@ -45,15 +43,13 @@ hook global BufWritePost .* %{
 	ctags-update-tags
 }
 
-hook global KakBegin '.*' %{
-    # Enable my simple explorer.
-    simple-explorer-enable
+# Enable my simple explorer.
+simple-explorer-enable
 
-    # Language server protocol support.
-    try %{ evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session } }
+# Language server protocol support.
+try %{ evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session } }
 
-    # Local kakrc sourcing for custom project commands and tools
-    try %{ source .kakrc.local }
-}
+# Local kakrc sourcing for custom project commands and tools
+try %{ source .kakrc.local }
 
 

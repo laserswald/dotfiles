@@ -20,7 +20,12 @@ hook -group php-lint global BufWritePost .*\.php %{
 }
 
 hook -group php-lsp-support global WinSetOption filetype=php %{
-    try %{ enable-lsp }
+    try %{
+	    enable-lsp
+	    echo -debug "php: enabled LSP for current file"
+	    lazr-autodetect-lsp "intelephense"
+	    echo -debug "php: detected intelephense, setting mappings..."
+    }
 }
 
 define-command -override phpunit-this-file %{
