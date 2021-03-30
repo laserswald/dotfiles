@@ -63,15 +63,24 @@ define-command \
     -docstring "Enable language server integration for this window, along with my... special twists." \
     -override \
 enable-lsp %{
+    echo -debug "Enabling LSP..."
     lsp-enable-window
 
+    echo -debug "Removing LSP keybinds..."
     unmap window goto d '<esc>: lsp-definition<ret>'
     unmap window goto r '<esc>: lsp-references<ret>'
     unmap window goto y '<esc>: lsp-type-definition<ret>'
 
+    echo -debug "Enabling LSP auto hover..."
     lsp-auto-hover-enable
-    lsp-diagnostic-lines-enable window
+
+    echo -debug "Enabling LSP diagnostic lines..."
+    try %{ lsp-diagnostic-lines-enable window }
+
+    echo -debug "Enabling LSP signature help..."
     lsp-auto-signature-help-enable
+
+    echo -debug "LSP enabled."
 }
 
 define-command \

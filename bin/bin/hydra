@@ -1,0 +1,5 @@
+#!/usr/bin/env -S chibi-scheme -r
+;; vim: ft=scheme
+;; -*- scheme -*-
+
+(defin
