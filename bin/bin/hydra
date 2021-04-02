@@ -2,4 +2,12 @@
 ;; vim: ft=scheme
 ;; -*- scheme -*-
 
-(defin
+(import (scheme small)
+        (chibi process))
+
+(define (main args)
+  (let ((preferences (read-hydra-prefs)))
+    (apply-monitor-configuration)))
+
+(define (apply-monitor-configuration preferences)
+  )
