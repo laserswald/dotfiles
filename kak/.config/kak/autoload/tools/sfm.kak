@@ -73,12 +73,13 @@ explore -params 1..1 %{ evaluate-commands %sh{
 
     # Open that file as a fifo.
     printf %s\\n "
-        edit! -fifo ${output} '$dir'
+        edit! -readonly -fifo ${output} '$dir'
         set-option window filetype explore
         set-option window sfm_dir '$dir'
         hook -always -once buffer BufCloseFifo '' %(nop %sh(rm --recursive ${output}))
     "
 }}
+
 
 hook global -group explore-hooks RuntimeError "\d+:\d+: '\w+' (.*): is a directory" %{
     explore %val{hook_param_capture_1}
@@ -103,8 +104,9 @@ define-command explore-new-file %{
 	prompt "Open file: " %{ edit "%opt{sfm_dir}/%val{text}" }
 }
 
-define-command explore-make-directory %{
-	prompt "Create directory: " nop %{ %sh{ mkdir "$kak_opt_sfm_dir/$kak_text" } }
+define-command -override explore-make-directory %{
+	prompt "Create directory: " %{ nop %sh{ mkdir "$kak_opt_sfm_dir/$kak_text" } }
+	explore %opt{sfm_dir}
 }
 
 define-command explore-up %{ evaluate-commands %sh{

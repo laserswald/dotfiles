@@ -49,6 +49,10 @@ map -docstring "Choose right side of merge block" \
     global user l \
     ": git-merge-right<ret>"
 
+map -docstring "Git mode" \
+    global user G \
+    ": enter-user-mode git<ret>"
+
 # Go to mappings
 map -docstring "your kakrc file" \
 	global goto K \

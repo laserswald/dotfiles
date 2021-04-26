@@ -1,19 +1,39 @@
 
-define-command split-vertical -params 0..1 %{
+define-command \
+	-override \
+	-params 0..1 \
+split-vertical %{
 	try %{
 	    tmux-terminal-vertical kak -c %val{session} -e %arg{1}
 	} catch %{
 	    tmux-terminal-vertical kak -c %val{session}
 	}
 }
+alias global vsplit split-vertical
 
-define-command split-horizontal -params 0..1 %{
+define-command \
+	-override \
+	-params 0..1 \
+split-horizontal %{
 	try %{
 	    tmux-terminal-horizontal kak -c %val{session} -e %arg{1}
 	} catch %{
 	    tmux-terminal-horizontal kak -c %val{session}
 	}
 }
+alias global split split-horizontal
+
+define-command \
+	-override \
+	-params 0..1 \
+new-tab %{
+	try %{
+	    tmux-terminal-window kak -c %val{session} -e %arg{1}
+	} catch %{
+	    tmux-terminal-window kak -c %val{session}
+	}
+}
+alias global tnew new-tab
 
 ### Tools client.
 
@@ -40,7 +60,7 @@ define-command set-docs-client %{
 }
 
 define-command open-docs %{
-	split-horizontal set-docs-client
+	    split-horizontal set-docs-client
 }
 
 define-command close-docs %{
@@ -66,7 +86,6 @@ map -docstring "Open the docs client to the right of this pane." \
 
 map -docstring "Close the current docs client." \
     global splits D ': close-docs<ret>'
-
 
 hook global ClientCreate .* %{
 	setup-jump-client
