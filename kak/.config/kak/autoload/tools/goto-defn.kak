@@ -38,12 +38,19 @@ define-command -override -hidden select-symbol %{
     }
 }
 
+define-command \
+	-override \
+	-hidden \
+lazr-use-lsp %{
+	 set-option window lazr_defn_handler 'lsp-definition'
+	 set-option window lazr_refs_handler 'lsp-references'
+}
+
 define-command -override -params 1..1 lazr-autodetect-lsp \
 %{ evaluate-commands %sh{
 	if command -v "$1" >/dev/null 2>&1
 	then
-		 printf '%s\n' "set-option window lazr_defn_handler 'lsp-definition'"
-		 printf '%s\n' "set-option window lazr_refs_handler 'lsp-find-references'"
+		 printf '%s\n' "lazr-use-lsp"
 		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: enabling lsp jumping'"
 	else
 		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: could not find lsp server $1'"

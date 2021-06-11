@@ -18,7 +18,7 @@ set-face global MenuInfo red,white
 set-face global MatchingChar default,black+b
 set-face global BufferPadding black,default
 
-set-face global StatusLine bright-black,black+i
+set-face global StatusLine white,black+i
 
 set-face global Information bright-white,bright-black+i
 
@@ -35,7 +35,7 @@ set-face global operator   default
 set-face global function   bright-white+b
 set-face global variable   bright-blue
 set-face global identifier bright-magenta
-set-face global attribute  yellow
+set-face global attribute  bright-cyan
 
 set-face global meta       cyan
 set-face global module     bright-green
@@ -54,4 +54,11 @@ set-face global mono green+b
 set-face global block cyan+b
 
 set-face global link blue
+
+
+#
+# LSP highlighting
+#
+set-face global DiagnosticWarning yellow,default+ufi
+set-face global DiagnosticError red,default+ufi
 
