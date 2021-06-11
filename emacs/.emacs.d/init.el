@@ -13,9 +13,9 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
-;; Fonts.
+;; Fonts
 (let ((font-size 13)
-      (font-face "Fira Code NF"))
+      (font-face "Fira Code"))
   (add-to-list 'default-frame-alist
 	       (cons 'font (concat font-face "-" (number-to-string font-size)))))
 
@@ -23,6 +23,25 @@
 (setq inhibit-startup-message t
       vc-follow-symlinks t
       custom-file "~/.emacs.d/custom.el")
+
+(defvar lazr-paths
+  (list "/Users/bdavenport-ray/.cargo/bin"
+	"/Users/bdavenport-ray/.config/composer/vendor/bin/"
+	"/Users/bdavenport-ray/.local/bin"
+	"/Users/bdavenport-ray/.luarocks/bin"
+	"/Users/bdavenport-ray/bin"
+	"/Users/bdavenport-ray/src/go/bin"
+	"/bin"
+	"/go/bin"
+	"/sbin"
+	"/usr/bin"
+	"/usr/local/bin"
+	"/usr/local/lib/ruby/gems/2.7.0/bin"
+	"/usr/local/opt/ruby/bin"
+	"/usr/sbin"))
+
+(dolist (path lazr-paths)
+  (add-to-list 'exec-path path))
 
 ;;;; Package setup.
 (require 'package)
@@ -127,8 +146,6 @@
   :ensure t
   :config
   (global-flycheck-mode))
-
-  
 
 ;;; Evil configuration!
 (use-package evil
