@@ -92,6 +92,7 @@ hook global -group explore-hooks WinSetOption filetype=explore %{
     map window normal 'q' ': explore-close<ret>'
     map window normal 'o' ': explore-new-file<ret>'
     map window normal 'm' ': explore-make-directory<ret>'
+    map window normal '/' '/(?i)'
 
     add-highlighter window/ ref sfm
 }

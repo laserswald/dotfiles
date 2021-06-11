@@ -1,0 +1,1 @@
+{"action":"generate_accessor","parameters":{"source":"<?php\n\n/**\n * @class PhpactorTest\n */\nclass PhpactorTest\n{\n    private $thing;\n\n    /**\n     * @inheritDoc\n     */\n    public function __construct($thing) : void\n    {\n        $this->thing = $thing;\n    }\n}","offset":73,"path":"/home/lazr/etc/kak/.config/kak/autoload/filetype/php/PhpactorTest.php"}}
