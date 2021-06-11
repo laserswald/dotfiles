@@ -1,0 +1,9 @@
+while getopts 'optstring' arg; do
+	case $arg in
+		*) 
+			echo "Unknown option"
+            exit 1
+            ;; 
+	esac
+done
+shift $((OPTIND-1))

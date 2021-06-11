@@ -30,17 +30,17 @@ set-option global aligntab false
 
 hook global WinCreate .* %{
 	modeline-parse
-	ctags-enable-autoinfo
 	try %{ editorconfig-load }
 	git show-diff
 	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
 		execute-keys -draft h %opt{indentwidth}@
 	} }
+	ctags-enable
+	add-highlighter window/ wrap
 }
 
-hook global BufWritePost .* %{
+hook -group git-update-diffs global BufWritePost .* %{
 	git update-diff
-	ctags-update-tags
 }
 
 # Enable my simple explorer.

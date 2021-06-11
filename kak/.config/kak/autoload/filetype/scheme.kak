@@ -23,9 +23,9 @@ provide-module villain %{
     }
 
     define-command villain-enable-autoinfo -docstring "Automatically display ctags information about function" %{
-        remove-hooks window ctags-autoinfo
-         hook window -group villain-autoinfo NormalIdle .* villain-funcinfo
-         hook window -group villain-autoinfo InsertIdle .* villain-funcinfo
+		remove-hooks window ctags-autoinfo
+		hook window -group villain-autoinfo NormalIdle .* villain-funcinfo
+		hook window -group villain-autoinfo InsertIdle .* villain-funcinfo
     }
 
     define-command villain-disable-autoinfo -docstring "Disable automatic ctags information displaying" %{ remove-hooks window villain-autoinfo }
@@ -94,6 +94,6 @@ hook global WinSetOption filetype=scheme %{
     	buffer user S '<esc>: villain-eval-form-named define<ret>'
 
     map -docstring "Open a Scheme repl." \
-   	buffer user R '<esc>: villain-repl<ret>'
+	   	buffer user R '<esc>: villain-repl<ret>'
 }
 

@@ -26,16 +26,16 @@ define-command \
 delete-other-buffers %{
     write-all
     evaluate-commands %sh{
-        printf "echo -debug %{%s}\n" "$kak_buflist"
-        for buf in "$kak_buflist"
+        for buf in $kak_buflist
         do
-            case "$buf" in
-                "$kak_bufname") : ;; # current buffer, don't do anything  
-                "\**\*") : ;; # UI buffer, don't do anything.
-                *) printf "delete-buffer '%s'\n" "$buf" ;;
-            esac
+            if ! [ "$buf" = "$kak_bufname" ] && ! echo $buf | egrep -q '\*[^*]+\*'
+            then 
+                printf "echo -debug 'delete-other-buffers: deleting %s'\n" $buf
+                printf "delete-buffer %s\n" $buf
+            fi
         done
     }
+    echo "Extra buffers deleted."
 }
 
 define-command \
@@ -46,11 +46,19 @@ delete-other-buffers-force %{
     evaluate-commands %sh{
         for buf in $kak_buflist
         do
+<<<<<<< HEAD
             case "$buf" in
                 "$kak_bufname") : ;; # current buffer, don't do anything  
                 "\**\*") : ;; # UI buffer, don't do anything.
                 *) printf "delete-buffer! '%s'\n" "$buf" ;;
             esac
+=======
+            if ! [ "$buf" = "$kak_bufname" ] && ! echo $buf | egrep -q '\*[^*]+\*'
+            then 
+                printf "echo -debug 'delete-other-buffers!: deleting %s'\n" $buf
+                printf "delete-buffer! %s\n" $buf
+            fi
+>>>>>>> d57010fbe86fb9a1266348468000e85f6742e585
         done
     }
 }
@@ -66,6 +74,8 @@ define-command \
 enable-lsp %{
     echo -debug "Enabling LSP..."
     lsp-enable-window
+
+    ctags-disable-window
 
     echo -debug "Removing LSP keybinds..."
     unmap window goto d '<esc>: lsp-definition<ret>'
@@ -119,6 +129,36 @@ git-merge-right %{
 define-command \
     -override \
 insert-date %{
-	execute-keys %{!date "+# %a, %b %d, %Y"} 
+	execute-keys %{!date "+# %a, %b %d, %Y"}
+}
+
+define-command \
+    -docstring "Make the current buffer executable." \
+    -override \
+buffer-make-executable %{
+	nop %sh{ chmod +x "$kak_buffile" }
+	echo "Made buffer executable."
+}
+
+define-command \
+    -docstring "Enable using information from tags files for information and completion." \
+    -override \
+ctags-enable-window %{
+	ctags-enable-autocomplete
+	ctags-enable-autoinfo
+
+	hook -group ctags window BufWritePost .* %{
+		ctags-update-tags
+	}
+}
+
+define-command \
+    -docstring "Stop using ctags information or updating it in this window." \
+    -override \
+ctags-disable-window %{
+	ctags-disable-autocomplete
+	ctags-disable-autoinfo
+
+	remove-hooks window ctags
 }
 
