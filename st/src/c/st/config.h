@@ -8,14 +8,14 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 // static char *font = "benis uushi:pixelsize=12:antialias=false";
-static char *font = "Terminus:size=11:antialias=false";
+static char *font = "Terminus:size=15";
 // static char *font = "Fira Code:pixelsize=14:antialias=true";
 // static char *font = "Cozette:size=12:antialias=false";
 // static char *font = HTHEME_FONT;
 static int borderpx = 2;
 
 /* bg opacity */
-float alpha = 0.95;
+float alpha = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -25,7 +25,7 @@ float alpha = 0.95;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/mksh";
 char *utmp = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
@@ -52,7 +52,7 @@ int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
 static unsigned int xfps = 120;
-static unsigned int actionfps = 30;
+static unsigned int actionfps = 120;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking

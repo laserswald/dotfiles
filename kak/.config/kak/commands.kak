@@ -67,7 +67,7 @@ enable-lsp %{
     echo -debug "Enabling LSP..."
     lsp-enable-window
 
-    ctags-disable-window
+    debug options
 
     echo -debug "Removing LSP keybinds..."
     unmap window goto d '<esc>: lsp-definition<ret>'

@@ -13,6 +13,8 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+(global-display-line-numbers-mode)
+
 ;; Fonts.
 (let ((font-size 13)
       (font-face "Fira Code NF"))
@@ -75,9 +77,9 @@
   :hook (php-mode . lsp)
   :commands lsp)
 
-(use-package lsp-mode :ensure t)
+(use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
 
-(use-package php-mode :ensure t)
+;;;; PHP.
 
 (use-package ac-php :ensure t 
   :config
@@ -95,8 +97,6 @@
   :ensure t
   :config
   (setf inferior-lisp-program "/usr/bin/sbcl"))
-
-(use-package geiser :ensure t)
 
 (use-package undo-tree :ensure t)
 
@@ -140,6 +140,7 @@
 
   :config
   (evil-mode 1)
+  (evil-set-initial-state 'dired-mode 'normal)
   ;; Vim-vinegar replacement
   (define-key evil-normal-state-map (kbd "-")
     '(lambda ()
@@ -172,9 +173,14 @@
 (use-package general :ensure t :config (general-evil-setup))
 
 (use-package evil-collection
-  :after 'evil
+  :after evil
   :ensure t
-  :config (evil-collection-init))
+
+  :init 
+  (setq evil-collection-mode-list '(dired))
+
+  :config
+  (evil-collection-init))
 
 ;; (use-package evil-magit
 ;;   :after '(evil magit)

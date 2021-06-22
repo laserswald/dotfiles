@@ -1,4 +1,4 @@
-private function ${1}(${2})${3: : void}
+private function ${1}(${2})${3:: void}
 {
-    ${4: return;}
+    ${4:return;}
 }

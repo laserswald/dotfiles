@@ -148,9 +148,17 @@ map -docstring "Close the current docs client." \
 define-command \
     -override \
 jump-to-last-enable %{
-	hook -group jump-to-last window FocusIn .* %{
+	hook -group jump-to-last buffer FocusIn .* %{
 		set-option global jumpclient %val{client}
 	}
 }
+
+define-command \
+    -override \
+jump-to-last-disable %{
+	remove-hooks buffer jump-to-last 
+}
+
+hook global BufCreate '\*.*\*' jump-to-last-disable
 
 ### Repl client.

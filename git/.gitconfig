@@ -14,5 +14,7 @@
 [alias]
 	unmerged = !git ls-files --unmerged | cut -f2 | uniq
 	pick-branch = !git-pick-branch
+	force-pull = !git-force-pull
+
 [core]
 	excludesFile = ~/.gitignore

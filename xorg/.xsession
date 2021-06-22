@@ -3,8 +3,4 @@
 
 [ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
-if command -v ck-launch-session >/dev/null; then
-    exec ck-launch-session "$WM" 2>>.xsession-errors >>.xsession.log
-else
-    exec "$WM" 2>>.xsession-errors >>.xsession.log
-fi
+exec dbus-launch --exit-with-session "$WM" 2>>.xsession-errors >>.xsession.log

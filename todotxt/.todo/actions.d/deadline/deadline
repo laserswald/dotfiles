@@ -1,9 +1,9 @@
 #!/usr/bin/env -S chibi-scheme -I . -rmain
-;; vim:ft=scheme
+;; vim: ft=scheme
 
 (import (scheme small) 
         (only (chibi process) process->string)
-        (todotxt))
+        (lazr todotxt))
 
 (define (parse-date datestr)
   (process->string `(chronic -i ,datestr "%F")))

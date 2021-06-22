@@ -1,0 +1,10 @@
+#!/bin/sh
+# Open a file in the current "jumpclient" of the current kakoune session.
+
+session_name="$(basename $PWD)"
+if ! [ "$(kak -l | grep -x $session_name)" ]; then
+    echo "No session called $session_name"
+    exit 1
+fi
+
+echo "eval -try-client %opt{jumpclient} %{ edit $1 }" | kak -p "$session_name"

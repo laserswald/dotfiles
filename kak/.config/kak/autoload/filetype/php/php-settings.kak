@@ -21,8 +21,11 @@ hook global WinSetOption filetype=php %{
 
 hook -group php-lsp-support global WinSetOption filetype=php %{
     try %{
+	    ctags-disable-window
+
 	    enable-lsp
 	    echo -debug "php: enabled LSP for current file"
+
 	    lazr-autodetect-lsp "intelephense"
 	    echo -debug "php: detected intelephense, setting mappings..."
     }
@@ -99,5 +102,4 @@ define-command -override php-select-function %<
     >
 >
 >
-
 

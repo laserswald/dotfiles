@@ -45,26 +45,28 @@ rename_txt() {
 
 # Rename the file.
 move_file() {
-	from=$1
-	to=$2
+    from=$1
+    to=$2
 
-	containing_file=$(find . -iname "${from}.*")
-	count=$(echo "$containing_file" | wc -l)
-	if [ $count -gt 1 ]; then 
-		echo "$progname: error: found ${count} files for ${from}. Resolve this manually." >&2
-		exit 1
-	fi
-	if [ $count -eq 0 ]; then 
-		echo "$progname: couldn't find file for construct '${from}'." >&2
-		return 0
-	fi
+    containing_file=$(find . -iname "${from}.*")
 
-	new_file=$(echo "$containing_file" | sed "s/$from/$to/g")
+    count=$(echo "$containing_file" | wc -l)
+
+    if [ $count -gt 1 ]; then 
+    	echo "$progname: error: found ${count} files for ${from}. Resolve this manually." >&2
+    	exit 1
+    fi
+    if [ $count -eq 0 ]; then 
+    	echo "$progname: couldn't find file for construct '${from}'." >&2
+    	return 0
+    fi
+
+    new_file=$(echo "$containing_file" | sed "s/$from/$to/g")
 
     if [ $FORCE_MODE ] || ask_user "$progname: rename file '$containing_file' to '$new_file' (y/n)? "; then
-		echo "Moving '$containing_file' to '$new_file'."
-    	mv "$containing_file" "$new_file"
-	fi
+        echo "Moving '$containing_file' to '$new_file'."
+        mv "$containing_file" "$new_file"
+    fi
 }
 
 while getopts "f" flag; do

@@ -5,4 +5,4 @@ session_name="$(basename $PWD)"
 if ! [ "$(kak -l | grep -x $session_name)" ]; then
     kak -d -s "$session_name" &
 fi
-kak -c "$session_name" $@
+exec kak -c "$session_name" $@

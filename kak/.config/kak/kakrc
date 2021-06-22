@@ -35,8 +35,9 @@ hook global WinCreate .* %{
 	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
 		execute-keys -draft h %opt{indentwidth}@
 	} }
-	ctags-enable
-	add-highlighter window/ wrap
+	ctags-enable-window
+	jump-to-last-enable
+	add-highlighter window/wrapping wrap
 }
 
 hook -group git-update-diffs global BufWritePost .* %{
