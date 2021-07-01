@@ -5,6 +5,7 @@ hook global WinSetOption filetype=php %{
 
     set-option buffer indentwidth 4
     set-option buffer aligntab false
+    set-option buffer extra_word_chars '$' '_'
 
     map -docstring "function" buffer object F %{<a-;>php-select-function<ret>}
     map -docstring "class" buffer object C %{<a-;>php-select-function<ret>}
@@ -61,7 +62,6 @@ provide-module php-fancy-highlighting %{
     add-highlighter shared/php/code/modifiers regex \b(const|static|final|abstract)\b 1:attribute
     add-highlighter shared/php/code/modules regex \b(use|include|require|include_once|require_once|namespace)\b 1:meta
 }
-
 
 # PHP smart selections
 # --------------------

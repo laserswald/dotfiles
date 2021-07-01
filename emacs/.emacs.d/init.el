@@ -15,9 +15,9 @@
 
 (global-display-line-numbers-mode)
 
-;; Fonts.
+;; Fonts
 (let ((font-size 13)
-      (font-face "Fira Code NF"))
+      (font-face "Fira Code Retina"))
   (add-to-list 'default-frame-alist
 	       (cons 'font (concat font-face "-" (number-to-string font-size)))))
 
@@ -26,11 +26,30 @@
       vc-follow-symlinks t
       custom-file "~/.emacs.d/custom.el")
 
+(defvar lazr-paths
+  (list "/Users/bdavenport-ray/.cargo/bin"
+	"/Users/bdavenport-ray/.config/composer/vendor/bin/"
+	"/Users/bdavenport-ray/.local/bin"
+	"/Users/bdavenport-ray/.luarocks/bin"
+	"/Users/bdavenport-ray/bin"
+	"/Users/bdavenport-ray/src/go/bin"
+	"/bin"
+	"/go/bin"
+	"/sbin"
+	"/usr/bin"
+	"/usr/local/bin"
+	"/usr/local/lib/ruby/gems/2.7.0/bin"
+	"/usr/local/opt/ruby/bin"
+	"/usr/sbin"))
+
+(dolist (path lazr-paths)
+  (add-to-list 'exec-path path))
+
 ;;;; Package setup.
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
-	("gnu" . "https://elpa.gnu.org/packages/")))
+        ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -77,11 +96,14 @@
   :hook (php-mode . lsp)
   :commands lsp)
 
-(use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
+(use-package lsp-ivy :ensure t 
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-ui :ensure t)
 
 ;;;; PHP.
 
-(use-package ac-php :ensure t 
+(use-package ac-php :ensure t
   :config
   (add-hook 'php-mode-hook
 	    '(lambda ()
@@ -127,8 +149,6 @@
   :ensure t
   :config
   (global-flycheck-mode))
-
-  
 
 ;;; Evil configuration!
 (use-package evil

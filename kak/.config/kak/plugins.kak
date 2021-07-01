@@ -49,9 +49,6 @@ source "~/src/kak/kakoune-todo.txt/todotxt.kak"
 plug "kak-lsp/kak-lsp" config %{
     # Language server protocol support.
     set-option global lsp_hover_anchor true
-    try %{
-        evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-    }
 }
 
 

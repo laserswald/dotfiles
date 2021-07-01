@@ -46,11 +46,19 @@ delete-other-buffers-force %{
     evaluate-commands %sh{
         for buf in $kak_buflist
         do
+<<<<<<< HEAD
+            case "$buf" in
+                "$kak_bufname") : ;; # current buffer, don't do anything  
+                "\**\*") : ;; # UI buffer, don't do anything.
+                *) printf "delete-buffer! '%s'\n" "$buf" ;;
+            esac
+=======
             if ! [ "$buf" = "$kak_bufname" ] && ! echo $buf | egrep -q '\*[^*]+\*'
             then 
                 printf "echo -debug 'delete-other-buffers!: deleting %s'\n" $buf
                 printf "delete-buffer! %s\n" $buf
             fi
+>>>>>>> d57010fbe86fb9a1266348468000e85f6742e585
         done
     }
 }
@@ -74,8 +82,8 @@ enable-lsp %{
     unmap window goto r '<esc>: lsp-references<ret>'
     unmap window goto y '<esc>: lsp-type-definition<ret>'
 
-    echo -debug "Enabling LSP auto hover..."
-    lsp-auto-hover-enable
+    # echo -debug "Enabling LSP auto hover..."
+    # lsp-auto-hover-enable
 
     echo -debug "Enabling LSP diagnostic lines..."
     try %{ lsp-diagnostic-lines-enable window }
@@ -116,6 +124,12 @@ git-merge-right %{
     # Find the right marker and delete it.
     set-register slash '>{7}'
     execute-keys "/<ret>xd"
+}
+
+define-command \
+    -override \
+insert-date %{
+	execute-keys %{!date "+# %a, %b %d, %Y"}
 }
 
 define-command \
