@@ -13,9 +13,11 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+(display-line-numbers-mode)
+
 ;; Fonts
 (let ((font-size 13)
-      (font-face "Fira Code"))
+      (font-face "Fira Code Retina"))
   (add-to-list 'default-frame-alist
 	       (cons 'font (concat font-face "-" (number-to-string font-size)))))
 
@@ -94,11 +96,11 @@
   :hook (php-mode . lsp)
   :commands lsp)
 
-(use-package lsp-mode :ensure t)
+(use-package lsp-ui :ensure t)
 
 (use-package php-mode :ensure t)
 
-(use-package ac-php :ensure t 
+(use-package ac-php :ensure t
   :config
   (add-hook 'php-mode-hook
 	    '(lambda ()

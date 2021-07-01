@@ -77,6 +77,10 @@ provide-module villain %{
 
 } # provide-module
 
+provide-module scheme-fancy-highlighting %{
+	add-highlighter shared/scheme/custom-defines regex '\bdefine-[\w-]+\b' 0:keyword
+} # provide-module scheme-fancy-highlighting
+
 hook global WinSetOption filetype=scheme %{
     set-option buffer indentwidth 2
     set-option buffer tabstop 2
@@ -95,5 +99,8 @@ hook global WinSetOption filetype=scheme %{
 
     map -docstring "Open a Scheme repl." \
 	   	buffer user R '<esc>: villain-repl<ret>'
+
+	require-module scheme-fancy-highlighting
 }
+
 
