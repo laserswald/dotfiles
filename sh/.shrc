@@ -2,10 +2,22 @@
 # vim:ft=sh
 # Launched in every interactive shell.
 
-# Before we do anything, we are going to load our path manipulation stuff.
-. ~/.local/lib/sh/path.sh
+# Read and execute the system default files.
+case $SHELL in
+	*mksh)
+            [ -f "/etc/skel/.mkshrc" ] && source "/etc/skel/.mkshrc"
+        ;;
+esac
 
+
+# Before we do anything, we are going to load our path manipulation stuff.
+source "$HOME/.local/lib/sh/path.sh"
+
+# Set up environment variables.
 source_dir "$HOME/.sh.d/env.d"
+
+# Set up our functions, aliases, prompt and other such.
+source_dir "$HOME/.sh.d/interact.d"
 
 # Override defaults with locals.
 if [ -e $HOME/.shrc.local ]; then

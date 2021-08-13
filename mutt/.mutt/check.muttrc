@@ -1,0 +1,13 @@
+### Settings involving checking for new mail.
+
+# How often in seconds to check for new mail
+set mail_check = 5
+
+# Periodically calculate stats of a mailbox when polling for new mail. 
+set mail_check_stats = yes
+
+# Beep when new mail is recieved
+set beep_new = yes
+
+# Wait this many seconds until giving up on input
+set timeout = 3

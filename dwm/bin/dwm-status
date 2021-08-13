@@ -1,8 +1,27 @@
-#!/bin/sh
+#!/bin/bash
+
+SEPERATOR="\uE0B3"
+
+WIFI_ICON="\uFAA8"
+WIFI_DISABLED_ICON="\uFAA9"
+
+wifi_status () {
+    ssid=$(wpa_cli -i wlp3s0 status | grep ^ssid | sed 's/.*=//g')
+    if [ "$ssid" == "" ]; then
+	    printf '%s' $WIFI_DISABLED_ICON
+	else
+	    printf '%s %s' $WIFI_ICON $ssid
+    fi
+}
+
+dwm_status () {
+	wifi=$(wifi_status)
+	date=$(date)
+	# batt=$(multi_batt_status)
+    printf " $batt $SEPERATOR $wifi $SEPERATOR $date"
+}
 
 while true; do
-	task=$(todo.sh -p list | head -1)
-    status="${task} [$(pomo-status)] | $(date)"
-    xsetroot -name "$status"
+    xsetroot -name "$(dwm_status)"
     sleep 1
 done

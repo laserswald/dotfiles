@@ -1,15 +1,62 @@
 #!/bin/sh
 
+REVERSE=0
+
+patchcmd='patch --force -p1 --quiet'
+
+can_apply_patch () {
+    $patchcmd --dry-run -i $1 >/dev/null
+    return $?
+}
+
+can_reverse_patch () {
+    $patchcmd --reverse --dry-run -i $1 >/dev/null
+    return $?
+}
+
+apply_patch () {
+    $patchcmd -i $1 >/dev/null
+    if ! [ $? -eq 0 ]
+    then
+        echo "Could not apply patch: $1"
+        exit 1
+    fi
+}
+
+reverse_patch () {
+    $patchcmd --reverse -i $1 >/dev/null
+    if ! [ $? -eq 0 ]
+    then
+        echo "Could not apply patch: $1"
+        exit 1
+    fi
+}
+
+while getopts "r" opt
+do
+	case $opt in
+        	r) REVERSE=1 ;;
+	esac
+done
+shift $(($OPTIND - 1))
+
+patchfiles=$(find -L $1 -iname "*.diff" | sort);
+
 if [ $REVERSE -eq 1 ]; then
-patchfiles=$(find -L patches -iname "*.diff" | sort -R);
-else
-patchfiles=$(find -L patches -iname "*.diff");
+	patchfiles=$(echo "$patchfiles" | sort -r)
 fi
 
-
-for pf in $patchfiles ; do
-    echo "Unpatched $pf"
-    patch -R <"$pf"
+for pf in $patchfiles
+do
+	if can_apply_patch $pf && ! can_reverse_patch $pf; then
+		apply_patch $pf
+	elif ! can_apply_patch $pf && can_reverse_patch $pf; then
+		echo "Already applied: $pf"
+        else
+		echo "Cannot apply $pf"
+                patch --force -s -p1 -i "$pf"
+                exit 1
+	fi
 done
 
 

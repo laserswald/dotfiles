@@ -1,2 +1,4 @@
 
 mailboxes =azaleahealth/
+macro index ,dm "<delete-pattern>~s 'Pull request' ~(=B 'has been accepted') ~f pullrequests-reply@bitbucket.org<enter>" "Delete merged bitbucket threads"
+

@@ -1,17 +1,21 @@
 # Specific email tags
 +lazr -- to:me@lazr.space
+
+# Work
+
+## Azalea
+
 +ahi -- to:ben.davenportray@azaleahealth.com
 +ahi -- to:bdavenportray@azaleahealth.com
-
-# Work shit
-
 +tickets -inbox -- subject:/.*JIRA.*/
-
 +old_interop -inbox -- to:/.*interfaces@azaleahealth.com/
 +old_interop -inbox -- cc:/.*interfaces@azaleahealth.com/
 +old_interop -inbox -- cc:/.*interop@azaleahealth.com/
 +old_interop -inbox -- from:/.*zendesk.*/
 +old_interop -inbox -- subject:/.*Bitbucket.*INT.*/
+-inbox -unread -- tag:ahi
+
++job_search -- from:"/(Glassdoor|Indeed|Monster|Stack\ Overflow\ Jobs)/"
 
 # junk
 -inbox -unread -- subject:"Running Cron Locked"

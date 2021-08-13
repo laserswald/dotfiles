@@ -1,0 +1,13 @@
+#!/usr/bin/env -S chibi-scheme -r
+;; vim: ft=scheme
+;; -*- scheme -*-
+
+(import (scheme small)
+        (chibi process))
+
+(define (main args)
+  (let ((preferences (read-hydra-prefs)))
+    (apply-monitor-configuration)))
+
+(define (apply-monitor-configuration preferences)
+  )

@@ -13,14 +13,14 @@ wm_bg() {
     xsetroot -cursor_name left_ptr &
 
     ## Set up my background.
-    hsetroot -root -fill ~/img/wall/tallon_overworld.jpg
-    # sh -c "~/.fehbg" &
+    sh -c "~/.fehbg" &
     # ~/bin/termbg -c blue
 }
 
 wm_composite(){
     ## Launch a compositor.
-    picom --experimental-backends --daemon
+    # compton -fCc &
+    picom &
 }
 
 wm_keybinds(){
@@ -85,11 +85,12 @@ case $WM in
         wm_notify
         wm_bg
         ;;
-	dwm)
-		wm_notify
-		wm_bg
-        ~/bin/dwm-status &
-		;;
+    dwm)
+        wm_notify
+        wm_bg
+        wm_composite
+        ~/bin/bar &
+        ;;
     ?)
         ### Unrecognized WM.
         ;;

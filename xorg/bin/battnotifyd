@@ -1,18 +1,11 @@
 #!/usr/bin/env chibi-scheme
 ;;;; vim:ft=scheme
 
-(import (chibi filesystem)
-	(chibi process)
-	(lazr battery)
-	(scheme list)
+(import (scheme base)
+        (scheme list)
         (chibi process)
+        (lazr battery)
         (lazr notify))
-        (scheme r5rs)
-        (scheme small))
-
-(define (approximate-percentage batteries)
-  (exact->inexact (/ (apply + (map read-capacity batteries))
-                     (length batteries))))
 
 (define (system-has-low-charge? batteries)
   (< (approximate-percentage batteries) 15))

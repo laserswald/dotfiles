@@ -1,9 +1,10 @@
 #!/bin/bash
 case $1 in
 "usage")
-  echo "$(basename $0) [BASENAME]"
-  echo "  Open \$TODO_DIR/BASENAME.txt in \$EDITOR."
-  echo "  If BASENAME is not given, defaults to 'todo'."
+  echo "  $(basename $0) [BASENAME]"
+  echo "    Open \$TODO_DIR/BASENAME.txt in \$EDITOR."
+  echo "    If BASENAME is not given, defaults to 'todo'."
+  echo ""
   ;;
 *)
   if [[ -z $2 ]]; then

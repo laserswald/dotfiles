@@ -1,5 +1,8 @@
+
 insert_path "$HOME/.local/bin"
 insert_path "$HOME/bin"
+
+export FONT="Tamzen:size=9"
 
 # Environmental paths
 export SRC_PATH="$HOME/src"

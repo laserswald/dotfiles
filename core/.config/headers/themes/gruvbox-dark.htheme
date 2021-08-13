@@ -1,5 +1,4 @@
 /* gruvbox-light colorscheme */
-
 #define GRUVBOX_DARK0_HARD "#1D2021"
 #define GRUVBOX_DARK0 "#282828"
 #define GRUVBOX_DARK0_SOFT "#32302F"
@@ -44,7 +43,7 @@
 #define GRUVBOX_FADED_ORANGE "#AF3A03"
 
 /* Normal colors. */
-#define HTHEME_BLACK        GRUVBOX_DARK0
+#define HTHEME_BLACK        GRUVBOX_DARK0_HARD
 #define HTHEME_RED          GRUVBOX_NEUTRAL_RED
 #define HTHEME_GREEN        GRUVBOX_NEUTRAL_GREEN
 #define HTHEME_YELLOW       GRUVBOX_NEUTRAL_YELLOW

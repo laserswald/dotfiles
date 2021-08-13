@@ -1,2 +1,31 @@
-mailboxes +ahi/Inbox +ahi/Bamboo +ahi/Bitbucket +ahi/Errors +ahi/Issues
-mailboxes +lazr/Inbox
+# Mailboxes.
+
+## Generalized mailboxes from Notmuch.
+virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
+virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
+virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
+virtual-mailboxes "Mailing Lists" "notmuch://?query=tag:lists"
+
+named-mailboxes "Lazr" =lazr/Inbox
+named-mailboxes "Gmail" =bdr/Inbox
+
+mailboxes "=bdr/Archive"
+mailboxes "=bdr/Drafts"
+mailboxes "=bdr/Newsletters"
+mailboxes "=bdr/Sent"
+mailboxes "=bdr/Starred"
+mailboxes "=bdr/Trash"
+
+mailboxes "=bdr/Arch Linux"
+mailboxes "=bdr/Github"
+mailboxes "=bdr/Neovim"
+mailboxes "=bdr/Personal"
+mailboxes "=bdr/Read Later"
+mailboxes "=bdr/Receipts"
+mailboxes "=bdr/School"
+mailboxes "=bdr/Secular Student Alliance"
+mailboxes "=bdr/Social Networks"
+mailboxes "=bdr/Solicitations"
+mailboxes "=bdr/Venturing"
+
+

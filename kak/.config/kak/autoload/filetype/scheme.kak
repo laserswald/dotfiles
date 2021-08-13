@@ -1,15 +1,106 @@
-### Lazr's Scheme stuff
 
-hook -once global WinSetOption filetype=scheme %{
-	evaluate-commands %sh{
-		identifier_chars='-!$%&\\*\\+\\./:<=>\\?\\^_~a-zA-Z0-9'
-		identifier='(['$identifier_chars']+)'
-		constructor='(?:\('$identifier'.*\)|#f)'
-		predicate='(?:(['$identifier_chars']+\?)|#f)'
-		regex='\(define-record-type\s+'$identifier'\s+'$constructor'\s+'$predicate
-		highlights="1:type 2:function 3:function"
-		printf "add-highlighter shared/scheme/code/define-record-type regex '%s' %s\n" "$regex" "$highlights"
-		printf "add-highlighter shared/scheme/code/ regex define-record-type 0:keyword\n"
-	}
+declare-option str villain_repl_cmd
+declare-option str villain_within_lib_cmd
+
+provide-module villain %{
+    require-module scheme
+
+    define-command villain-funcinfo -docstring "Display information about a selected function" %{
+        evaluate-commands -draft %{
+            try %{
+                execute-keys '[b;/\S+<ret>'
+                evaluate-commands %sh{
+                    f=${kak_selection%?}
+                    sig='\tsignature:(.*)'
+                    csn='\t(class|struct|namespace|record|library):\(([^\t]+)\)'
+                    sigs=$(${kak_opt_readtagscmd} -e -Q '(eq? $kind "f")' "${f}" | sed -Ee "s/^.*${csn}.*${sig}$/\3 [\2]/ ;t ;s/^.*${sig}$/\1 [${f}]/")
+                    if [ -n "$sigs" ]; then
+                        printf %s\\n "evaluate-commands -client ${kak_client} %{info -anchor $kak_cursor_line.$kak_cursor_column -style above '$sigs'}"
+                    fi
+                }
+            }
+        }
+    }
+
+    define-command villain-enable-autoinfo -docstring "Automatically display ctags information about function" %{
+		remove-hooks window ctags-autoinfo
+		hook window -group villain-autoinfo NormalIdle .* villain-funcinfo
+		hook window -group villain-autoinfo InsertIdle .* villain-funcinfo
+    }
+
+    define-command villain-disable-autoinfo -docstring "Disable automatic ctags information displaying" %{ remove-hooks window villain-autoinfo }
+
+    define-command villain-eval -params 0..1  %{
+        send-text "%arg{1}"
+        nop %sh{
+            # Fix for silliness
+            tmux send-keys -t "$kak_opt_tmux_repl_id" Enter
+        }
+    }
+
+    define-command villain-select-library-name %{
+        # Find the library declaration, if any
+        execute-keys "<esc>gG/\(define-library <ret>"
+        execute-keys "f(m"
+    }
+
+    define-command villain-repl %{
+        tmux-repl-vertical %opt{villain_repl_cmd}
+        villain-select-library-name
+        villain-eval "%opt{villain_within_lib_cmd} %val{selection}"
+    }
+
+    #
+    # Select a Scheme form with the value given in the car position.
+    # 
+    define-command -params 1..1 villain-select-form-named %{
+        # Search backwards for an open parenthesis and the name
+        execute-keys "<a-/>\(%arg{1} <ret>"
+
+        # Select to the matching parenthesis and the rest of the line
+        execute-keys '<a-f>(m'
+    }
+
+
+    define-command -params 1..1 villain-eval-form-named %{
+        villain-select-form-named %arg{1}
+        villain-eval
+    }
+
+    define-command villain-enable-chibi %{
+		set-option window villain_repl_cmd "rlwrap -t dumb -pblue chibi-scheme -R -I ."
+        set-option window villain_within_lib_cmd "@in"
+    }
+
+    define-command villain-enable-funcinfo %{
+    }
+
+} # provide-module
+
+provide-module scheme-fancy-highlighting %{
+	add-highlighter shared/scheme/custom-defines regex '\bdefine-[\w-]+\b' 0:keyword
+} # provide-module scheme-fancy-highlighting
+
+hook global WinSetOption filetype=scheme %{
+    set-option buffer indentwidth 2
+    set-option buffer tabstop 2
+
+    parinfer-enable-window -smart
+    rainbow-enable
+
+    require-module villain
+    villain-enable-chibi
+
+    map -docstring "Send selection to repl window" \
+    	buffer user s '<esc>: villain-eval<ret>'
+
+    map -docstring "Send current definition to repl window" \
+    	buffer user S '<esc>: villain-eval-form-named define<ret>'
+
+    map -docstring "Open a Scheme repl." \
+	   	buffer user R '<esc>: villain-repl<ret>'
+
+	require-module scheme-fancy-highlighting
 }
+
 

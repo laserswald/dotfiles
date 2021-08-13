@@ -3,10 +3,16 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 2;        /* gap width of windows */
+static const unsigned int gappx     = 4;        /* gap width of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int baralpha = 0xd0;
+static const unsigned int borderalpha = 0xff;
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 
 #include "hconfig.h"
 
@@ -14,11 +20,17 @@ static const char *fonts[]          = { HTHEME_FONT };
 static const char *colors[][3]      = {
 	/*               fg                   bg                   border   */
 	[SchemeNorm] = { HTHEME_WHITE,        HTHEME_BLACK,        HTHEME_BRIGHT_BLACK},
-	[SchemeSel]  = { HTHEME_BRIGHT_WHITE, HTHEME_GREEN,         HTHEME_BRIGHT_BLUE},
+	[SchemeSel]  = { HTHEME_BLACK,        HTHEME_WHITE,        HTHEME_BRIGHT_WHITE},
+};
+
+static const unsigned int alphas[][3]      = {
+	/*               fg      bg        border     */
+	[SchemeNorm] = { 0xff, baralpha, borderalpha },
+	[SchemeSel]  = { 0xff, baralpha, borderalpha },
 };
 
 /* tagging */
-static const char *tags[] = {"main", "web", "media", "mail", "chat", "tools", "srv", "etc", "bg"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
 #define ONLYTAG(n) (1 << (n - 1))
 #define ALLTAGS ~0
@@ -89,7 +101,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static Key keys[] = {
 
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = menucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_slash,  spawn,          {.v = searchcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
@@ -138,8 +150,6 @@ static Key keys[] = {
 	{0, XF86XK_AudioLowerVolume,    spawn, {.v = voldown}},
 	{0, XF86XK_AudioRaiseVolume,    spawn, {.v = volup}},
 	{0, XF86XK_AudioMute,           spawn, {.v = volmute}},
-	{0, XF86XK_AudioNext,           spawn, {.v = media_next}},
-	{0, XF86XK_AudioPrev,           spawn, {.v = media_prev}},
 	{0, XF86XK_AudioPlay,           spawn, {.v = media_play}},
 	{0, XF86XK_Mail,                spawn, {.v = mailcmd}},
 };
@@ -161,3 +171,73 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+void
+setlayoutex(const Arg *arg)
+{
+	setlayout(&((Arg) { .v = &layouts[arg->i] }));
+}
+
+void
+viewex(const Arg *arg)
+{
+	view(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+viewall(const Arg *arg)
+{
+	view(&((Arg){.ui = ~0}));
+}
+
+void
+toggleviewex(const Arg *arg)
+{
+	toggleview(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+tagex(const Arg *arg)
+{
+	tag(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+toggletagex(const Arg *arg)
+{
+	toggletag(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+tagall(const Arg *arg)
+{
+	tag(&((Arg){.ui = ~0}));
+}
+
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signame> [<type> <value>]"` */
+static Signal signals[] = {
+	/* signum           function */
+	{ "focusstack",     focusstack },
+	{ "setmfact",       setmfact },
+	{ "togglebar",      togglebar },
+	{ "incnmaster",     incnmaster },
+	{ "togglefloating", togglefloating },
+	{ "focusmon",       focusmon },
+	{ "tagmon",         tagmon },
+	{ "zoom",           zoom },
+	{ "view",           view },
+	{ "viewall",        viewall },
+	{ "viewex",         viewex },
+	{ "toggleview",     view },
+	{ "toggleviewex",   toggleviewex },
+	{ "tag",            tag },
+	{ "tagall",         tagall },
+	{ "tagex",          tagex },
+	{ "toggletag",      tag },
+	{ "toggletagex",    toggletagex },
+	{ "killclient",     killclient },
+	{ "quit",           quit },
+	{ "setlayout",      setlayout },
+	{ "setlayoutex",    setlayoutex },
+};

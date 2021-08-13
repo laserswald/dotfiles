@@ -8,15 +8,15 @@ source "%val{config}/commands.kak"
 source "%val{config}/visual.kak"
 source "%val{config}/mappings.kak"
 
-require-module goto-definition
+try %{ source %val{config}/options.kak }
 
-try %{
-    require-module tmux-repl
-}
+try %{ require-module tmux-repl }
 
 echo -debug "loaded modules"
 
 # General options.
+
+# Command options.
 
 set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
 
@@ -26,78 +26,31 @@ set-option global tabstop 4
 set-option global indentwidth 0
 set-option global aligntab false
 
-# Styles and hooks for all windows.
+# Hooks for all windows.
+
 hook global WinCreate .* %{
 	modeline-parse
-	ctags-enable-autoinfo
 	try %{ editorconfig-load }
 	git show-diff
 	hook -group tabs-to-spaces buffer InsertChar \t %{ try %{
 		execute-keys -draft h %opt{indentwidth}@
 	} }
-	auto-pairs-enable
+	ctags-enable-window
+	jump-to-last-enable
+	add-highlighter window/wrapping wrap
 }
 
-hook global BufWritePost .* %{
+hook -group git-update-diffs global BufWritePost .* %{
 	git update-diff
-	ctags-update-tags
 }
 
-hook global ClientCreate .* %{
-	setup-jump-client
-}
+# Enable my simple explorer.
+simple-explorer-enable
 
-## Filetype-specific hooks
-
-hook global BufCreate .*\.js4$ %{
-	set-option buffer filetype javascript
-}
-
-hook global WinSetOption filetype=c %{
-	add-highlighter buffer/enum_struct regex '\b(struct\|enum) \(\w+\)\b' 2:type
-}
-
-hook global WinSetOption filetype=kak %{
-	map buffer user s \
-        -docstring "Source this kak file" \
-        <esc>:source<space>%reg{%}<ret>
-}
-
-hook global WinSetOption filetype=makefile %{
-	remove-hooks buffer tabs-to-spaces
-}
-
-hook global WinSetOption filetype=zig %{
-	set buffer indentwidth 4
-	hook -group tabs-to-spaces buffer InsertChar \t %{
-        try %{
-            execute-keys -draft h %opt{indentwidth}@
-        }
-	}
-}
-
-hook global WinSetOption filetype=(scheme|lisp|clojure|fennel) %{
-    set-option buffer indentwidth 2
-    map -docstring "Send selection to repl window" buffer user e <esc>:send-text<ret> 
-    map -docstring "Send current paragraph to repl window" buffer user E <esc><a-i>p:send-text<ret> 
-}
-
-hook global WinSetOption filetype=php %{
-	remove-hooks buffer tabs-to-spaces
-	define-command -override phpunit-this-file %{
-		set-option buffer makecmd "vendor/bin/phpunit %reg{%}"
-	}
-}
-
-## Commands.
-
-try %{
-	evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
-	lsp-start
-	hook global KakEnd .* %{ lsp-exit }
-	hook global WinSetOption filetype=php %{ lsp-enable-window }
-}
+# Language server protocol support.
+try %{ evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session } }
 
 # Local kakrc sourcing for custom project commands and tools
 try %{ source .kakrc.local }
+
 
