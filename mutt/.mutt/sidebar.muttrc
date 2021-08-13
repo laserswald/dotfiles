@@ -1,0 +1,4 @@
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+set sidebar_visible = yes
