@@ -33,7 +33,9 @@ map -docstring "Open fuzzy finder mode" \
 	global user , \
 	": fzf-mode<ret>"
 
-
+map -docstring "Open a new note" \
+	global user , \
+	": zk-new-note<ret>"
 
 # Go to mappings
 map -docstring "your kakrc file" \
@@ -67,3 +69,7 @@ map -docstring "goto reference for viewing" \
 map -docstring "the scratch buffer" \
 	global goto s \
     "<esc>: buffer *scratch*<ret>"
+
+map -docstring "your notes index" \
+	global goto s \
+    "<esc>: edit! ~/org/index.md<ret>"

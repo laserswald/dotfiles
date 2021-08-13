@@ -19,3 +19,8 @@ define-command git-merge-right %{
 	execute-keys "<a-/><<<<<<<?=======<a-x>d/>>>>>>>xd"
 }
 
+define-command zk-new-note %{
+	evaluate-commands %sh{
+		printf 'wiki %s.md\n' $(date +%Y-%m-%d-%H-%M-%S)
+	}
+}
