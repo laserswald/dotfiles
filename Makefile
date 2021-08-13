@@ -5,7 +5,42 @@ MULTIPLEXER := tmux
 
 STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
-MODULES := bash bin bspwm dunst dvtm dzen emacs git i3 irssi kak lemonbar mutt mail ncmpcpp newsbeuter polybar sh st sxhkd termite tig tmux todotxt uzbl vim vis weechat xdg xmonad xorg zsh kitty alacritty
+MODULES := \
+	alacritty \
+        awesome \
+	bash \
+	bin \
+	bspwm \
+	dunst \
+	dvtm \
+	dzen \
+	emacs \
+	git \
+	i3 \
+	irssi \
+	kak \
+	kitty \
+	lemonbar \
+	mail \
+	mutt \
+	ncmpcpp \
+	newsbeuter \
+	polybar \
+	sh \
+	st \
+	sxhkd \
+	termite \
+	tig \
+	tmux \
+	todotxt \
+	uzbl \
+	vim \
+	vis \
+	weechat \
+	xdg \
+	xmonad \
+	xorg \
+	zsh \
 
 .PHONY: $(MODULES) core desktop server
 
@@ -35,6 +70,7 @@ vis: bin
 bspwm: sxhkd xorg
 i3: xorg
 xmonad: xorg
+awesome: xorg
 
 # desktop environment
 dunst: xorg

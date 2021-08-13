@@ -162,3 +162,8 @@ ctags-disable-window %{
 	remove-hooks window ctags
 }
 
+define-command zk-new-note %{
+	evaluate-commands %sh{
+		printf 'wiki %s.md\n' $(date +%Y-%m-%d-%H-%M-%S)
+	}
+}
