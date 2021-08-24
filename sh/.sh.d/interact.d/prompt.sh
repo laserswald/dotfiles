@@ -68,7 +68,7 @@ shorten () {
     str=$2
     if [ ${#str} -gt $len ]; then
         truncation=$(expr $len - 3)
-        printf "%s..." "$(expr substr "$str" 1 $truncation)"
+        printf "%s..." "$(echo "$str" | cut -c 1-$truncation)"
     else
         printf "%s" $str
     fi

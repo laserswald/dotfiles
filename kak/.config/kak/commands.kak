@@ -46,21 +46,14 @@ delete-other-buffers-force %{
     evaluate-commands %sh{
         for buf in $kak_buflist
         do
-<<<<<<< HEAD
-            case "$buf" in
-                "$kak_bufname") : ;; # current buffer, don't do anything  
-                "\**\*") : ;; # UI buffer, don't do anything.
-                *) printf "delete-buffer! '%s'\n" "$buf" ;;
-            esac
-=======
             if ! [ "$buf" = "$kak_bufname" ] && ! echo $buf | egrep -q '\*[^*]+\*'
             then 
                 printf "echo -debug 'delete-other-buffers!: deleting %s'\n" $buf
                 printf "delete-buffer! %s\n" $buf
             fi
->>>>>>> d57010fbe86fb9a1266348468000e85f6742e585
         done
     }
+    echo "Extra buffers deleted without saving."
 }
 alias global "delete-other-buffers!" delete-other-buffers-force
 
@@ -74,8 +67,6 @@ define-command \
 enable-lsp %{
     echo -debug "Enabling LSP..."
     lsp-enable-window
-
-    debug options
 
     echo -debug "Removing LSP keybinds..."
     unmap window goto d '<esc>: lsp-definition<ret>'

@@ -1,6 +1,14 @@
 
 try %{ declare-user-mode git }
 
+define-command -hidden -override git-switch-branch %{
+   nop %sh{
+	   git pick-branch
+   }
+   edit '*scratch*'
+   delete-other-buffers
+}
+
 map -docstring "Add this file to the current commit." \
     global git a %{: git add<ret>}
 
@@ -10,9 +18,6 @@ map -docstring "Open the status view." \
 map -docstring "Open the log." \
     global git c %{: terminal GIT_EDITOR=kak-jump tig <ret>}
 
-
-hook -group git-status-binds window W
-
-map -docstring "Jump to the file in the status window."
-
+map -docstring "Switch branches." \
+    global git S %{: git-switch-branch<ret>}
 
