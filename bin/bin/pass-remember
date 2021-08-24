@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ -z "$(secret-tool lookup 'pass-remember' "$1")" ]
+then
+    pass "$1" | secret-tool store --label "pass-remember:$1" 'pass-remember' "$1"
+fi
+
+secret-tool lookup 'pass-remember' "$1"

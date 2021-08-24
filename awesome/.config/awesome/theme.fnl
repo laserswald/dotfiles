@@ -1,13 +1,61 @@
-(load "colors/gruvbox.fnl")
 
-(fn opacitize [color-string]
-  (.. color-string 
-      (string.format "%X" general-opacity)))
+(local font "Fira Code 9")
 
-(let [t []]
-  ;; Default variables
+(local opacity 0.5)
+
+(local gruvbox 
+  { :dark0_hard       "#1d2021"
+    :dark0            "#282828"
+    :dark0_soft       "#32302f"
+    :dark1            "#3c3836"
+    :dark2            "#504945"
+    :dark3            "#665c54"
+    :dark4            "#7c6f64"
+    :gray_245         "#928374"
+    :gray_244         "#928374"
+    :light0_hard      "#f9f5d7"
+    :light0           "#fbf1c7"
+    :light0_soft      "#f2e5bc"
+    :light1           "#ebdbb2"
+    :light2           "#d5c4a1"
+    :light3           "#bdae93"
+    :light4           "#a89984"
+    :bright_red       "#fb4934"
+    :bright_green     "#b8bb26"
+    :bright_yellow    "#fabd2f"
+    :bright_blue      "#83a598"
+    :bright_purple    "#d3869b"
+    :bright_aqua      "#8ec07c"
+    :bright_orange    "#fe8019"
+    :neutral_red      "#cc241d"
+    :neutral_green    "#98971a"
+    :neutral_yellow   "#d79921"
+    :neutral_blue     "#458588"
+    :neutral_purple   "#b16286"
+    :neutral_aqua     "#689d6a"
+    :neutral_orange   "#d65d0e"
+    :faded_red        "#9d0006"
+    :faded_green      "#79740e"
+    :faded_yellow     "#b57614"
+    :faded_blue       "#076678"
+    :faded_purple     "#8f3f71"
+    :faded_aqua       "#427b58"
+    :faded_orange     "#af3a03" }) 
+
+(fn aclr [n]
+  (.. (. gruvbox n) 
+      (string.format "%X" (math.floor (* 255 opacity)))))
+
+(fn clr [n]
+  (. gruvbox n))
+
+(local foc (clr :neutral_blue))
+
+(local theme { ;; Default variables
   ;; theme.font = nil
+  : font
   ;; theme.wallpaper = nil
+  :wallpaper "/home/ben/seashore.jpg"
 
   ;; arcchart
   ;; theme.arcchart_border_color = nil
@@ -20,23 +68,27 @@
   ;; theme.awesome_icon = nil
 
   ;; bg\
-  ;; theme.bg_normal = nil
-  ;; theme.bg_normal = nil
-  ;; theme.bg_normal = nil
-  ;; theme.bg_focus = nil
-  ;; theme.bg_urgent = nil
-  ;; theme.bg_minimize = nil
-  ;; theme.bg_systray = nil
-  ;; theme.bg_normal = nil
-  ;; theme.bg_systray = nil
+  :fg_focus (clr :neutral_blue)
+  :bg_focus (aclr :faded_blue)
+
+  :fg_minimize (clr :gray_245)
+  :bg_minimize (aclr :dark0)
+
+  :fg_normal (clr :light0)
+  :bg_normal (aclr :dark0)
+
+  :fg_urgent (clr :neutral_orange)
+  :bg_urgent (aclr :dark0)
+
+  :bg_systray (aclr :dark0)
 
   ;; border\
-  ;; theme.border_marked = nil
-  ;; theme.border_width = nil
-  ;; theme.border_normal = nil
+  :border_focus (clr :neutral_blue)
+  :border_marked "#ff0000"
+  :border_normal "#ffffff"
+  :border_width 0
   ;; theme.border_focus = nil
   ;; theme.border_marked = nil
-  ;; theme.border_focus = nil
   ;; theme.border_normal = nil
   ;; theme.border_width = nil
 
@@ -71,13 +123,10 @@
   ;; theme.enable_spawn_cursor = nil
 
   ;; fg\
-  ;; theme.fg_normal = nil
-  ;; theme.fg_normal = nil
-  ;; theme.fg_normal = nil
   ;; theme.fg_focus = nil
-  ;; theme.fg_urgent = nil
   ;; theme.fg_minimize = nil
   ;; theme.fg_normal = nil
+  ;; theme.fg_urgent = nil
 
   ;; fullscreen\
   ;; theme.fullscreen_hide_border = nil
@@ -427,5 +476,7 @@
   ;; theme.wibar_bgimage = nil
   ;; theme.wibar_fg = nil
   ;; theme.wibar_shape = nil
+  })
 
-  t)
+theme
+

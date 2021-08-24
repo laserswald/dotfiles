@@ -52,4 +52,3 @@ plug "kak-lsp/kak-lsp" config %{
 }
 
 
-echo -debug "loaded plugins"

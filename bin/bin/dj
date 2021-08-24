@@ -8,30 +8,31 @@ mpv_send_key () {
 
 cmd=$1
 
-case $cmd in 
+case $cmd in
+	notify-send 'DJ' "$cmd"
     toggle) 
-        if pgrep mpv >/dev/null; then
+        if xdotool search --class mpv >/dev/null; then
 	        mpv_send_key 'p'
         elif pgrep mpd >/dev/null; then
 	        mpc toggle
         fi
     ;;
     next) 
-        if pgrep mpv >/dev/null; then 
+        if xdotool search --class mpv >/dev/null; then
 	        mpv_send_key 'greater'
         elif pgrep mpd >/dev/null; then
 	        mpc next
         fi
     ;;
     prev) 
-        if pgrep mpv >/dev/null; then 
+        if xdotool search --class mpv >/dev/null; then
 	        mpv_send_key 'less'
         elif pgrep mpd >/dev/null; then
 	        mpc prev
         fi
     ;;
     stop)
-        if pgrep mpv >/dev/null; then 
+        if xdotool search --class mpv >/dev/null; then
 	        mpv_send_key 'q'
         elif pgrep mpd >/dev/null; then
 	        mpc stop

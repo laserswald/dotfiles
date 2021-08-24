@@ -5,8 +5,8 @@ static const char scratchpadname[] = "scratchpad";
 
 // static const char *dmenucmd[]       = { "/bin/sh", "-c", "rofi -show run", NULL };
 static const char *dmenucmd[]      = { "/bin/sh", "-c", "dmenu_run", NULL };
-static const char *termcmd[]       = { TERMINAL_BIN, NULL };
-static const char *browsercmd[]    = { "firefox" , NULL };
+static const char *termcmd[]       = { "/usr/local/bin/tabbed", "st", "-w", NULL };
+static const char *browsercmd[]    = { "/usr/local/bin/tabbed", "surf", "-e", NULL };
 static const char *chatcmd[]       = INST_CMD("wee");
 static const char *fmcmd[]         = INST_CMD("ranger");
 static const char *lockcmd[]       = { "light-locker-command", "-l", NULL };
