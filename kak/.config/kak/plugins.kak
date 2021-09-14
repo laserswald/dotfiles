@@ -44,7 +44,7 @@ plug "jjk96/kakoune-rainbow"
 
 plug "notes" load-path "~/src/kak/kak-goal"
 
-source "~/src/kak/kakoune-todo.txt/todotxt.kak"
+# source "~/src/kak/kakoune-todo.txt/todotxt.kak"
 
 plug "kak-lsp/kak-lsp" config %{
     # Language server protocol support.
