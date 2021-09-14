@@ -6,7 +6,6 @@ mpd &
 redshift &
 battnotifyd &
 
+xautolock -locker "$HOME/bin/locktool" &
 
-# xautolock -locker "$HOME/bin/locktool" &
-
-light-locker &
+# light-locker &

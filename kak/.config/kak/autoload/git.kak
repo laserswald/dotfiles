@@ -10,9 +10,6 @@ map -docstring "Open the status view." \
 map -docstring "Open the log." \
     global git c %{: terminal GIT_EDITOR=kak-jump tig <ret>}
 
-
-hook -group git-status-binds window W
-
-map -docstring "Jump to the file in the status window."
-
+map -docstring "Pick an existing branch." \
+    global git b %{:nop %sh{git pick-branch}<ret>}
 
