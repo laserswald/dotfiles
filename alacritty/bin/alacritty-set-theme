@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sed -i 's/^\(colors: \*\).*$/\1'$1'/g' $HOME/.config/alacritty/alacritty.yml
