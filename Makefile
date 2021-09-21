@@ -1,5 +1,5 @@
-WM := dwm
-TERMINAL := st
+WM := river
+TERMINAL := alacritty
 EDITOR := kak
 MULTIPLEXER := tmux
 
@@ -7,7 +7,7 @@ STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
 MODULES := \
 	alacritty \
-        awesome \
+    awesome \
 	bash \
 	bin \
 	bspwm \
@@ -26,6 +26,7 @@ MODULES := \
 	ncmpcpp \
 	newsbeuter \
 	polybar \
+	river \
 	sh \
 	st \
 	sxhkd \
@@ -71,6 +72,7 @@ bspwm: sxhkd xorg
 i3: xorg
 xmonad: xorg
 awesome: xorg
+river: core
 
 # desktop environment
 dunst: xorg
@@ -81,14 +83,16 @@ sxhkd: xorg
 uzbl: xorg
 
 # terminals
+alacritty: xorg
 st: xorg
 termite: xorg
 kitty: xorg
 
 # terminal applications
 dvtm: core
-tmux:
-irssi:
+tmux: core sh
+irssi: core
+weechat: core
 mutt: mail
 ncmpcpp:
 newsbeuter:
