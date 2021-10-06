@@ -12,3 +12,4 @@ vim/.vim/.netrwhist
 kak/.config/kak/autoload/autoload
 weechat/.weechat/logs/*
 weechat/.weechat/*.log
+**/.*.kak.*

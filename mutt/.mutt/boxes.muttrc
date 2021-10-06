@@ -1,8 +1,8 @@
 # Mailboxes.
 
 ## Generalized mailboxes from Notmuch.
-virtual-mailboxes "Inbox" "notmuch://?query=tag:inbox"
-virtual-mailboxes "Unread" "notmuch://?query=tag:unread"
+virtual-mailboxes "Global Inbox" "notmuch://?query=tag:inbox"
+virtual-mailboxes "Global Unread" "notmuch://?query=tag:unread"
 virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
 virtual-mailboxes "Mailing Lists" "notmuch://?query=tag:lists"
 

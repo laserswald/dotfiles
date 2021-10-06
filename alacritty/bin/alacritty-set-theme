@@ -1,0 +1,10 @@
+#!/bin/sh
+
+file="$HOME/.config/alacritty/alacritty.yml"
+
+if [ -L "$file" ]
+then
+	file=$(realpath $file)
+fi
+
+sed -i -e "s/^\(colors: \*\).*$/\1$1/g" "$file"

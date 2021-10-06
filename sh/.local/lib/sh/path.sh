@@ -2,7 +2,10 @@
 # vim:ft=sh
 
 insert_path() {
-    export PATH="${1}:${PATH}"
+	if ! (echo "$PATH" | grep -q $1)
+	then
+	    export PATH="${1}:${PATH}"
+    fi
 }
 
 source_dir() {

@@ -1,0 +1,68 @@
+#!/bin/sh
+# Custom "do" with recurrence
+
+# returns the number of real days in the future that the real business day is.
+business_days () {
+    bdays=$1
+    days=0
+
+    while (( bdays > 0 )); do
+        # %u gives us day of week, monday is 1, friday is 5
+        if (( $(date --date="$days day" +%u) <= 5 )); then
+            bdays=((bdays - 1))
+        fi
+        days=((days + 1))
+    done
+
+    echo $days
+}
+
+next_recur_date () {
+    echo $1 | sed 's/\([0-9]+\)\([dwmyb]\)/\1 \2/g' | read number unit
+
+    case $unit in
+        d)  
+            unit="day"
+            ;;
+		w) 
+            unit="week"
+            ;;
+		m) 
+            unit="month"
+            ;;
+		y) 
+            unit="year"
+            ;;
+		b) 
+            unit="day"
+            number=$(business_days $number)
+        *) 
+            echo "Error: Unknown unit $unit."
+            exit 1
+            ;;
+    esac
+
+    echo $(date --date="$number $unit" +%Y-%m-%d)
+}
+
+action=$1
+shift
+
+if [ "$action" == "usage" ]; then
+    exit
+fi
+
+for i in echo $@ | tr ',' ' '; do
+    todo=$(sed "$i!d" "$TODO_FILE")
+	if echo "$todo" | grep -qv 'rec:[0-9]+[dwmyb]' >/dev/null; then
+	    ${TODO_FULL_SH} command do $@
+	else
+        todo=$(echo $todo | sed 's/due:[0-9]{4}-[0-9]{2}-[0-9]{2}//g')
+	fi
+
+done
+
+
+if [ $TODOTXT_AUTO_ARCHIVE = 1 ]; then
+    ${TODO_FULL_SH} archive
+fi

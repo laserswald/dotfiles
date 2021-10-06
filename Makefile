@@ -1,6 +1,5 @@
-WM := dwm
-DWM_DIR := $(HOME)/src/c/xdwm
-TERMINAL := st
+WM := river
+TERMINAL := alacritty
 EDITOR := kak
 MULTIPLEXER := tmux
 
@@ -8,7 +7,7 @@ STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
 MODULES := \
 	alacritty \
-        awesome \
+    awesome \
 	bash \
 	bin \
 	bspwm \
@@ -27,6 +26,7 @@ MODULES := \
 	ncmpcpp \
 	newsbeuter \
 	polybar \
+	river \
 	sh \
 	st \
 	sxhkd \
@@ -72,6 +72,7 @@ bspwm: sxhkd xorg
 i3: xorg
 xmonad: xorg
 awesome: xorg
+river: core
 
 # desktop environment
 dunst: xorg
@@ -82,14 +83,16 @@ sxhkd: xorg
 uzbl: xorg
 
 # terminals
+alacritty: xorg
 st: xorg
 termite: xorg
 kitty: xorg
 
 # terminal applications
 dvtm: core
-tmux:
-irssi:
+tmux: core sh
+irssi: core
+weechat: core
 mutt: mail
 ncmpcpp:
 newsbeuter:
@@ -99,9 +102,12 @@ tig: git
 $(MODULES):
 	$(STOW_CMD) $@
 
-dwm: git xorg
-	[ -d $(DWM_DIR) ] || git clone gitolite@lazr.space:xdwm $(DWM_DIR)
-	rm -f $(DWM_DIR)/config.mk
+dwm: xorg
+	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
+	@cd ~/src/c/dwm; \
+		patchdir patches \
+	cd -
+	rm -f ~/src/c/dwm/config.mk
 	stow $@
 
 core: core/install

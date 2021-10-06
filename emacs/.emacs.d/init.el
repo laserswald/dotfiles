@@ -52,8 +52,9 @@
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
+(package-refresh-contents)
+
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 
 ;;; Core packages.
@@ -119,6 +120,8 @@
   :ensure t
   :config
   (setf inferior-lisp-program "/usr/bin/sbcl"))
+
+(use-package geiser-chibi :ensure t)
 
 (use-package undo-tree :ensure t)
 

@@ -4,7 +4,7 @@
 set sidebar_visible
 
 # Set the format of each sidebar entry.
-set sidebar_format = "%B %?F? [%F]? %* %?N?%N/?%S"
+set sidebar_format = "%D %?F? [%F]? %* %?N?%N/?%S"
 
 set sidebar_folder_indent
 

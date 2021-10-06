@@ -15,15 +15,15 @@
 
 (define (check-batteries)
   (let ((batteries (get-batteries)))
-	(and (system-has-low-charge? batteries)
-	     (not (any is-charging? batteries)))))
+    (and (system-has-low-charge? batteries)
+         (not (any is-charging? batteries)))))
 
 (define (main)
   (if (check-batteries)
     (send-notification 
       "Battery"
       (string-append "Battery levels at approximately "
-                     (number->string (approximate-percentage (get-batteries)))
+                     (number->string (floor (approximate-percentage (get-batteries))))
                      "%")
       "critical"))
   (sleep "5")

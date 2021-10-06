@@ -45,9 +45,11 @@ provide-module villain %{
     }
 
     define-command villain-repl %{
-        tmux-repl-vertical %opt{villain_repl_cmd}
-        villain-select-library-name
-        villain-eval "%opt{villain_within_lib_cmd} %val{selection}"
+        tmux-repl-vertical "%opt{villain_repl_cmd}"
+        try %{
+	        villain-select-library-name
+	        villain-eval "%opt{villain_within_lib_cmd} %val{selection}"
+        }
     }
 
     #

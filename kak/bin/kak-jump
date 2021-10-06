@@ -7,4 +7,4 @@ if ! [ "$(kak -l | grep -x $session_name)" ]; then
     exit 1
 fi
 
-echo "eval -try-client %opt{jumpclient} %{ edit $1 }" | kak -p "$session_name"
+echo "eval -try-client %opt{jumpclient} %{ edit $1; focus }" | kak -p "$session_name"
