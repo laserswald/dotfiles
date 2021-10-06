@@ -1,4 +1,5 @@
 WM := dwm
+DWM_DIR := $(HOME)/src/c/xdwm
 TERMINAL := st
 EDITOR := kak
 MULTIPLEXER := tmux
@@ -98,12 +99,9 @@ tig: git
 $(MODULES):
 	$(STOW_CMD) $@
 
-dwm: xorg
-	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
-	@cd ~/src/c/dwm; \
-		patchdir patches \
-	cd -
-	rm -f ~/src/c/dwm/config.mk
+dwm: git xorg
+	[ -d $(DWM_DIR) ] || git clone gitolite@lazr.space:xdwm $(DWM_DIR)
+	rm -f $(DWM_DIR)/config.mk
 	stow $@
 
 core: core/install
