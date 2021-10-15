@@ -62,7 +62,6 @@ bash: sh
 zsh: sh
 
 # editors
-kak: sh $(MULTIPLEXER)
 emacs:
 vim:
 vis: bin
@@ -114,3 +113,6 @@ core: core/install
 	exec ./core/install
 	$(STOW_CMD) $@
 
+kak: sh $(MULTIPLEXER)
+	$(STOW_CMD) $@
+	@ln -s /usr/share/kak/rc $(HOME)/.config/kak/autoload/standard-libs

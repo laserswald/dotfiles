@@ -45,14 +45,17 @@ prompt_fg () {
 # Different prompt components
 
 prompt_host () {
+	if
 	host=$(hostname)
 	hostcolor=$fblue
-	if [ $host = "adev02" ]; then
-		hostcolor=$fgreen
-	elif [ $host = "afs03" ]; then
+	if [ $host = "betelgeuse" ]; then
 		hostcolor=$fred
+	elif [ $host = "gargantua" ]; then
+		hostcolor=$fgreen
+	elif [ $host = "vega" ]; then
+		hostcolor=$fwhite
 	fi
-	printf "%s" "$(prompt_fg ${hostcolor} $(hostname))"
+	printf "%s" "$(prompt_fg ${hostcolor} $host)"
 }
 
 prompt_dir () {
