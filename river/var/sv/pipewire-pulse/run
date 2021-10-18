@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sv check ../pipewire || exit 1
+
+exec pipewire-pulse
