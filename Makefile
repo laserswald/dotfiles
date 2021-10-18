@@ -5,9 +5,11 @@ MULTIPLEXER := tmux
 
 STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
-MODULES := \
+SCRIPT_MODULES := core vim tmux sh git
+
+STOW_MODULES := \
 	alacritty \
-    awesome \
+	awesome \
 	bash \
 	bin \
 	bspwm \
@@ -27,27 +29,25 @@ MODULES := \
 	newsbeuter \
 	polybar \
 	river \
-	sh \
 	st \
 	sxhkd \
 	termite \
 	tig \
-	tmux \
 	todotxt \
 	uzbl \
-	vim \
 	vis \
 	weechat \
 	xdg \
 	xmonad \
 	xorg \
-	zsh \
+	zsh
 
-.PHONY: $(MODULES) core desktop server
+MODULES := $(SCRIPT_MODULES) $(STOW_MODULES)
 
-desktop: core sh git xdg $(TERMINAL) $(EDITOR) dunst irssi mutt ncmpcpp newsbeuter todotxt
+.PHONY: $(MODULES) desktop server
 
-server: core sh git $(EDITOR) $(MULTIPLEXER) tig
+server: sh git vim tmux
+desktop: server xdg $(TERMINAL) $(EDITOR) dunst irssi mutt ncmpcpp newsbeuter todotxt
 
 # primary stuff
 bin: core sh
@@ -57,14 +57,12 @@ xorg: core
 xdg: xorg
 
 # shells
-sh:  
+sh:
 bash: sh
 zsh: sh
 
 # editors
-kak: sh $(MULTIPLEXER)
 emacs:
-vim:
 vis: bin
 
 # window managers
@@ -99,8 +97,11 @@ newsbeuter:
 todotxt:
 tig: git
 
-$(MODULES):
+$(STOW_MODULES):
 	$(STOW_CMD) $@
+
+$(SCRIPT_MODULES):
+	env RC_DIR=$(HOME)/etc ./$@/install
 
 dwm: xorg
 	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
@@ -109,8 +110,4 @@ dwm: xorg
 	cd -
 	rm -f ~/src/c/dwm/config.mk
 	stow $@
-
-core: core/install
-	exec ./core/install
-	$(STOW_CMD) $@
 

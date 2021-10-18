@@ -360,7 +360,7 @@ lazr-schemes:
       cyan:    '0x009a8a'
       white:   '0x282828'
 
-colors: *selenized-dark
+colors: *selenized-black
 
 # Bell
 #
