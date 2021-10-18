@@ -185,6 +185,7 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	yambar --config $XDG_CONFIG_HOME/yambar/config.yml &
 	yambar --config $XDG_CONFIG_HOME/yambar/displayport.yml &
 	Xwayland -rootless &
+	kanshi &
 	swayidle -w \
 	    timeout 300 'waylock' \
 	    before-sleep 'waylock' &

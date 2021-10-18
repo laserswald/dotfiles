@@ -45,8 +45,12 @@ prompt_fg () {
 # Different prompt components
 
 prompt_host () {
-	if
-	host=$(hostname)
+	if which hostname >/dev/null 2>&1
+	then
+		host=$(hostname)
+	else
+		host=$(hostnamectl hostname)
+	fi
 	hostcolor=$fblue
 	if [ $host = "betelgeuse" ]; then
 		hostcolor=$fred
