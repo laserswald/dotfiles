@@ -169,7 +169,7 @@ done
 
 # Set repeat rate
 riverctl set-repeat 50 300
-
+		before-sleep 'swaylock -f -c 000000' &
 # Set app-ids of views which should float
 riverctl float-filter-add app-id "float"
 riverctl float-filter-add app-id "popup"
@@ -185,9 +185,8 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	yambar --config $XDG_CONFIG_HOME/yambar/config.yml &
 	yambar --config $XDG_CONFIG_HOME/yambar/displayport.yml &
 	Xwayland -rootless &
-	swayidle -w \
-	    timeout 300 'waylock' \
-	    before-sleep 'waylock' &
+	swayidle -w timeout 300 'swaylock -f -c 1c1c1c &' &
+	runsvdir $HOME/var/service &
 fi
 
 # Set and exec into the default layout generator, rivertile.
