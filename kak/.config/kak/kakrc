@@ -48,7 +48,7 @@ hook -group git-update-diffs global BufWritePost .* %{
 simple-explorer-enable
 
 # Language server protocol support.
-try %{ evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session } }
+# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
 
 # Local kakrc sourcing for custom project commands and tools
 try %{ source .kakrc.local }
