@@ -1,0 +1,83 @@
+selenized:
+    primary:
+      background: &background '181818ff'
+      foreground: &foreground 'b9b9b9ff'
+    normal:
+      black:   '252525ff'
+      red:     'ed4a46ff'
+      green:   '70b433ff'
+      yellow:  'dbb32dff'
+      blue:    '368aebff'
+      magenta: 'eb6eb7ff'
+      cyan:    '3fc5b7ff'
+      white:   '777777ff'
+    bright:
+      black:  &tag-unfocused '3b3b3bff'
+      red:     'ff5e56ff'
+      green:   '83c746ff'
+      yellow:  'efc541ff'
+      blue:   &tag-invisible '4f9cfeff'
+      magenta: 'ff81caff'
+      cyan:   &tag-focused '56d8c9ff'
+      white:   'dededeff'
+
+bar:
+    height: 24
+    location: top
+    background: *background
+    foreground: *foreground
+    font: "Fira Code Retina:size=15"
+    monitor: eDP-1
+    left:
+        - river:
+            title: {empty: {}}
+            content:
+                map:
+                    tag: occupied
+                    values:
+                        false: {empty: {}}
+                        true:
+                            map:
+                                tag: state
+                                default:
+                                    string:
+                                        margin: 5
+                                        text: "{id}"
+                                        foreground: *foreground
+                                values:
+                                    unfocused:
+                                        string:
+                                            margin: 5
+                                            text: "{id}"
+                                            foreground: *tag-unfocused
+                                    focused:
+                                        string:
+                                            margin: 5
+                                            text: "{id}"
+                                            foreground: *tag-focused
+                                    invisible:
+                                        string:
+                                            margin: 5
+                                            text: "{id}"
+                                            foreground: *tag-invisible
+    center:
+        - river:
+            title: {string: { text: "{title}"}}
+            content: {empty: {}}
+    right:
+        - battery:
+            name: BAT0
+            poll-interval: 30
+            content:
+                string: {text: "BAT0 {capacity} "}
+        - battery:
+            name: BAT1
+            poll-interval: 30
+            content:
+                string: {text: "BAT1 {capacity} "}
+        - clock:
+            content:
+                string:
+                    text: "{date} - {time}"
+
+
