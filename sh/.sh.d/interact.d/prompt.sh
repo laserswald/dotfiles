@@ -45,7 +45,6 @@ prompt_fg () {
 # Different prompt components
 
 prompt_host () {
-	if
 	host=$(hostname)
 	hostcolor=$fblue
 	if [ $host = "betelgeuse" ]; then
