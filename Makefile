@@ -1,11 +1,11 @@
-WM := river
+WM := sway
 TERMINAL := alacritty
 EDITOR := kak
 MULTIPLEXER := tmux
 
 STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
-SCRIPT_MODULES := core vim tmux sh git
+SCRIPT_MODULES := core vim tmux sh git dwm
 
 STOW_MODULES := \
 	alacritty \
@@ -30,6 +30,7 @@ STOW_MODULES := \
 	polybar \
 	river \
 	st \
+	sway \
 	sxhkd \
 	termite \
 	tig \
@@ -47,7 +48,7 @@ MODULES := $(SCRIPT_MODULES) $(STOW_MODULES)
 .PHONY: $(MODULES) desktop server
 
 server: sh git vim tmux
-desktop: server xdg $(TERMINAL) $(EDITOR) dunst irssi mutt ncmpcpp newsbeuter todotxt
+desktop: server xdg $(TERMINAL) $(EDITOR) tig dunst irssi mutt ncmpcpp newsbeuter todotxt
 
 # primary stuff
 bin: core sh
@@ -71,6 +72,7 @@ i3: xorg
 xmonad: xorg
 awesome: xorg
 river: core
+sway: core
 
 # desktop environment
 dunst: xorg
@@ -96,18 +98,11 @@ ncmpcpp:
 newsbeuter:
 todotxt:
 tig: git
+dwm: xorg
 
 $(STOW_MODULES):
 	$(STOW_CMD) $@
 
 $(SCRIPT_MODULES):
 	env RC_DIR=$(HOME)/etc ./$@/install
-
-dwm: xorg
-	[ -d ~/src/c/dwm ] || git clone https://git.suckless.org/dwm ~/src/c/dwm
-	@cd ~/src/c/dwm; \
-		patchdir patches \
-	cd -
-	rm -f ~/src/c/dwm/config.mk
-	stow $@
 

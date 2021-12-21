@@ -1,5 +1,5 @@
 
-if ! which todo.sh >/dev/null 2>&1
+if ! [ command -e todo.sh >/dev/null 2>&1 ]
 then
     return
 fi

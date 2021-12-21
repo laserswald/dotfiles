@@ -1,12 +1,11 @@
 #!/bin/sh
 # Daemons.
 
-syncthing --no-browser > .syncthing.log &
 mpd &
 redshift &
 battnotifyd &
-pipewire &
-pipewire-pulse &
+
+runsvdir "$HOME/var/service" &
 
 xautolock -locker "$HOME/bin/locktool" &
 

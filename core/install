@@ -3,7 +3,7 @@
 . "$(dirname "$0")/.local/lib/sh/df.sh"
 
 # Basic path system
-PATHS="bin:src:var:doc:org:desk:img:lib:pkg:vid"
+PATHS="bin:src:var:var/sv:var/service:doc:org:desk:img:lib:pkg:vid"
 IFS=:; for p in $PATHS; do
     mkdir -p "$HOME/$p"
 done

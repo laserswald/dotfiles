@@ -119,7 +119,7 @@ font:
     style: Italic
 
   # Point size
-  size: 12.0
+  size: 11.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -360,7 +360,7 @@ lazr-schemes:
       cyan:    '0x009a8a'
       white:   '0x282828'
 
-colors: *selenized-black
+colors: *selenized-dark
 
 # Bell
 #

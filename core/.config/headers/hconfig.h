@@ -9,8 +9,8 @@
 #include "themes/selenized-dark.htheme"
 
 /* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
-/* #define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true" */
-#define HTHEME_FONT "Fira Code Medium Nerd Font Complete:pointsize=10:antialias=true:style=Medium"
+#define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"
+/* #define HTHEME_FONT "Fira Code Medium Nerd Font Complete:pointsize=10:antialias=true:style=Medium" */
 /* #define HTHEME_FONT "Monoid:pixelsize=12:antialias=true" */
 
 /* #define HTHEME_FONT "Fixed:style=regular:pixelsize=10" */

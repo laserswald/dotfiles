@@ -4,6 +4,7 @@
 
 define-command \
     -docstring "Enable my simple explorer." \
+    -override \
 simple-explorer-enable %{
     require-module simple-explorer
     map global normal <minus> ': explore-up<ret>'
@@ -11,6 +12,7 @@ simple-explorer-enable %{
 
 define-command \
     -docstring "Disable my simple explorer." \
+    -override \
 simple-explorer-disable %{
     remove-hooks buffer explore-hooks
     remove-hooks global explore-hooks
@@ -22,6 +24,7 @@ provide-module simple-explorer %{
 
 declare-option -hidden str sfm_dir
 declare-option -hidden str sfm_temp_dir
+declare-option -hidden bool sfm_show_dots false
 
 add-highlighter shared/sfm regions
 add-highlighter shared/sfm/default default-region group
@@ -69,7 +72,12 @@ explore -params 1..1 %{ evaluate-commands %sh{
     # Open a fifo and pump the output of `ls` into it.
     output=$(mktemp -d "${TMPDIR:-/tmp}"/kak-explore.XXXXXXXX)/fifo
     mkfifo ${output}
-    (ls -F -1 -p "$dir" >${output} 2>&1) > /dev/null < /dev/null 2>&1 &
+    if [ $kak_opt_sfm_show_dots == "true" ]
+    then 
+	    (ls -a -F -1 -p "$dir" >${output} 2>&1) > /dev/null < /dev/null 2>&1 &
+    else
+		(ls -F -1 -p "$dir" >${output} 2>&1) > /dev/null < /dev/null 2>&1 &
+	fi
 
     # Open that file as a fifo.
     printf %s\\n "
@@ -92,6 +100,7 @@ hook global -group explore-hooks WinSetOption filetype=explore %{
     map window normal 'q' ': explore-close<ret>'
     map window normal 'o' ': explore-new-file<ret>'
     map window normal 'm' ': explore-make-directory<ret>'
+    map window normal 'z' ': explore-toggle-dots<ret>'
     map window normal '/' '/(?i)'
 
     add-highlighter window/ ref sfm
@@ -108,6 +117,27 @@ define-command explore-new-file %{
 define-command -override explore-make-directory %{
 	prompt "Create directory: " %{ nop %sh{ mkdir "$kak_opt_sfm_dir/$kak_text" } }
 	explore %opt{sfm_dir}
+}
+
+define-command -override explore-show-dots %{
+	set-option global sfm_show_dots true
+	explore %opt{sfm_dir}
+}
+
+define-command -override explore-hide-dots %{
+	set-option global sfm_show_dots false
+	explore %opt{sfm_dir}
+}
+
+define-command -override explore-toggle-dots %{
+	evaluate-commands %sh{
+	    if [ $kak_opt_sfm_show_dots == "true" ]
+	    then
+	        printf %s\\n "explore-hide-dots"
+	    else
+	        printf %s\\n "explore-show-dots"
+		fi
+	}
 }
 
 define-command explore-up %{ evaluate-commands %sh{

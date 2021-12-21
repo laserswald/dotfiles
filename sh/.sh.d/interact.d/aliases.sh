@@ -7,3 +7,4 @@ alias tmux="tmux -2"
 alias wall="~/.fehbg"
 alias xm="xrdb -merge ~/.xrdb.d/main"
 alias clocksum="hledger -f $HOME/org/work.timedot"
+

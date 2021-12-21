@@ -1,4 +1,4 @@
-#define TERMINAL_BIN "/usr/bin/kitty"
+#define TERMINAL_BIN "/usr/bin/alacritty"
 #define INST_CMD(cmd) { TERMINAL_BIN, "-T", cmd, cmd, NULL }
 
 static const char scratchpadname[] = "scratchpad";
