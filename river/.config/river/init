@@ -8,28 +8,39 @@
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete
 # documentation.
 
+run_services()
+{
+	services=$1
+
+	echo "Attempting to run $services"
+
+	if ! ps -e | grep -v grep | grep -q "runsvdir $services"
+	then
+		runsvdir $services &
+	fi
+}
+
 # Use the "logo" key as the primary modifier
 mod="Mod4"
 
-term="kitty"
-
+term="$HOME/bin/favorite-terminal"
 term_instance () {
-	echo $term '--title' $1 $1
+	echo $term '-c' $1 $1
 }
 
 hyper="Mod4+Shift+Mod1+Control"
 meh="Shift+Mod1+Control"
 
-menucmd="wofi --show run"
+menucmd="bemenu-run"
 browsercmd="web"
+lockcmd="waylock"
+searchcmd="web-search"
+screenshotcmd="grim"
+
 chatcmd=$(term_instance "wee")
 fmcmd=$(term_instance "ranger")
-lockcmd="waylock"
 scratchpadcmd=$(term_instance "scratchpad")
-searchcmd="web-search"
 mailcmd=$(term_instance "neomutt")
-screenshotcmd="grim"
-toolscmd=
 
 riverctl map normal $mod P spawn "$menucmd"
 riverctl map normal $hyper P spawn "$menucmd"
@@ -42,7 +53,7 @@ riverctl map normal $hyper Return spawn "$term"
 riverctl map normal $mod C close
 
 # Mod+E to exit river
-riverctl map normal $mod+Shift E exit
+riverctl map normal $mod+Shift E spawn "pkill --signal SIGHUP runsvdir; riverctl exit"
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod J focus-view next
@@ -169,7 +180,7 @@ done
 
 # Set repeat rate
 riverctl set-repeat 50 300
-		before-sleep 'swaylock -f -c 000000' &
+
 # Set app-ids of views which should float
 riverctl float-filter-add app-id "float"
 riverctl float-filter-add app-id "popup"
@@ -187,7 +198,8 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	Xwayland -rootless &
 	swayidle -w timeout 300 'swaylock -f -c 1c1c1c &' &
 	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
-	runsvdir $HOME/var/service &
+	run_services $HOME/var/service
+	run_services $HOME/var/pw-service
 fi
 
 # Set and exec into the default layout generator, rivertile.
