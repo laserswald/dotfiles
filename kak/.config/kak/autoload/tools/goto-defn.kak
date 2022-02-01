@@ -40,17 +40,23 @@ define-command -override -hidden select-symbol %{
 
 define-command \
 	-override \
-	-hidden \
-lazr-use-lsp %{
+lazr-use-lsp-gotos %{
 	 set-option window lazr_defn_handler 'lsp-definition'
 	 set-option window lazr_refs_handler 'lsp-references'
+}
+
+define-command \
+    -override \
+lazr-use-default-gotos %{
+	 set-option window lazr_defn_handler 'ctags-goto-definition'
+	 set-option window lazr_refs_handler 'grep-find-references'
 }
 
 define-command -override -params 1..1 lazr-autodetect-lsp \
 %{ evaluate-commands %sh{
 	if command -v "$1" >/dev/null 2>&1
 	then
-		 printf '%s\n' "lazr-use-lsp"
+		 printf '%s\n' "lazr-use-lsp-gotos"
 		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: enabling lsp jumping'"
 	else
 		 printf '%s\n' "echo -debug 'lazr-autodetect-lsp: could not find lsp server $1'"

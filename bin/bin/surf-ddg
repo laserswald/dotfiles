@@ -4,7 +4,7 @@
 SEARCH_HISTORY=$HOME/.search-history
 touch $SEARCH_HISTORY
 
-query=$(dmenu -p "web search:" <$SEARCH_HISTORY)
+query=$(graphical-menu -p "web search:" <$SEARCH_HISTORY)
 if [ $? -ne 0 ]; then 
     exit
 fi
@@ -12,5 +12,5 @@ fi
 printf %s\\n "$query" >> $SEARCH_HISTORY
 sort $SEARCH_HISTORY | uniq >${SEARCH_HISTORY}.tmp && mv ${SEARCH_HISTORY}.tmp ${SEARCH_HISTORY}
 
-surf "duckduckgo.com/?q=$(echo $query | tr ' ' '+')"
+web "duckduckgo.com/?q=$(echo $query | tr ' ' '+')"
 

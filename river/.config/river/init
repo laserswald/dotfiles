@@ -180,7 +180,6 @@ done
 
 # Set repeat rate
 riverctl set-repeat 50 300
-
 # Set app-ids of views which should float
 riverctl float-filter-add app-id "float"
 riverctl float-filter-add app-id "popup"

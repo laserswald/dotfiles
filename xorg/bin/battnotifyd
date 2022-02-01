@@ -7,6 +7,8 @@
         (lazr battery)
         (lazr notify))
 
+(define override-battery-check #f)
+
 (define (system-has-low-charge? batteries)
   (< (approximate-percentage batteries) 15))
 
@@ -14,9 +16,11 @@
   (system "sleep" n))
 
 (define (check-batteries)
-  (let ((batteries (get-batteries)))
+  (or 
+   override-battery-check
+   (let ((batteries (get-batteries)))
     (and (system-has-low-charge? batteries)
-         (not (any is-charging? batteries)))))
+         (not (any is-charging? batteries))))))
 
 (define (main)
   (if (check-batteries)
