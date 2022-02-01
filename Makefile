@@ -1,11 +1,11 @@
-WM := river
+WM := sway
 TERMINAL := alacritty
 EDITOR := kak
 MULTIPLEXER := tmux
 
 STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
-SCRIPT_MODULES := core vim tmux sh git
+SCRIPT_MODULES := core vim tmux sh git dwm
 
 STOW_MODULES := \
 	alacritty \
