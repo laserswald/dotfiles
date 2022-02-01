@@ -18,7 +18,7 @@ echo -debug "loaded modules"
 
 # Command options.
 
-set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
+# set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
 
 # Alignment
 

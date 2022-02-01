@@ -19,8 +19,8 @@ Path ~/var/mail/bdr/
 Inbox ~/var/mail/bdr/Inbox
 
 Channel bdr
-Master :bdr-remote:
-Slave :bdr-local:
+Far :bdr-remote:
+Near :bdr-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything
@@ -50,8 +50,8 @@ Path ~/var/mail/lazr/
 Inbox ~/var/mail/lazr/Inbox
 
 Channel lazr
-Master :lazr-remote:
-Slave :lazr-local:
+Far :lazr-remote:
+Near :lazr-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything

@@ -55,7 +55,6 @@ set-face global block cyan+b
 
 set-face global link blue
 
-
 #
 # LSP highlighting
 #
