@@ -5,9 +5,21 @@
 (import (scheme small)
         (chibi process))
 
+(define-record-type <display-preferences>
+  (make-display-preferences disp)
+  display-preferences? 
+  (name display-name)
+  (resolution display-resolution))
+
 (define (main args)
   (let ((preferences (read-hydra-prefs)))
-    (apply-monitor-configuration)))
+    (apply-preferences (read-hydra-prefs))))
 
-(define (apply-monitor-configuration preferences)
-  )
+(define (apply-preferences prefs)
+  (execute 
+   (cons 'xrandr
+         (for-each build-display-args 
+                   (displays prefs)))))
+
+(define (build-display-args disp)
+  ())

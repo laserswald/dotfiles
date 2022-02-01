@@ -1,9 +1,11 @@
 
-declare-option str villain_repl_cmd
-declare-option str villain_within_lib_cmd
 
-provide-module villain %{
+provide-module -override villain %{
     require-module scheme
+
+	declare-option str villain_repl_cmd
+	declare-option str villain_within_lib_cmd
+	declare-option str villain_load_file_cmd
 
     define-command villain-funcinfo -docstring "Display information about a selected function" %{
         evaluate-commands -draft %{
@@ -31,7 +33,7 @@ provide-module villain %{
     define-command villain-disable-autoinfo -docstring "Disable automatic ctags information displaying" %{ remove-hooks window villain-autoinfo }
 
     define-command villain-eval -params 0..1  %{
-        send-text "%arg{1}"
+        repl-send-text "%arg{1}"
         nop %sh{
             # Fix for silliness
             tmux send-keys -t "$kak_opt_tmux_repl_id" Enter
@@ -40,8 +42,7 @@ provide-module villain %{
 
     define-command villain-select-library-name %{
         # Find the library declaration, if any
-        execute-keys "<esc>gG/\(define-library <ret>"
-        execute-keys "f(m"
+        villain-select-form-named "define-library"
     }
 
     define-command villain-repl %{
@@ -50,6 +51,10 @@ provide-module villain %{
 	        villain-select-library-name
 	        villain-eval "%opt{villain_within_lib_cmd} %val{selection}"
         }
+    }
+
+    define-command villain-load %{
+        villain-eval "%opt{villain_load_file_cmd} %val{buffile}"
     }
 
     #
@@ -74,9 +79,11 @@ provide-module villain %{
         set-option window villain_within_lib_cmd "@in"
     }
 
-    define-command villain-enable-funcinfo %{
+    define-command villain-enable-gauche %{
+		set-option window villain_repl_cmd "gosh"
+        set-option window villain_within_lib_cmd ",use"
+        set-option window villain_load_file_cmd ",load"
     }
-
 } # provide-module
 
 provide-module scheme-fancy-highlighting %{
@@ -91,7 +98,7 @@ hook global WinSetOption filetype=scheme %{
     rainbow-enable
 
     require-module villain
-    villain-enable-chibi
+    villain-enable-gauche
 
     map -docstring "Send selection to repl window" \
     	buffer user s '<esc>: villain-eval<ret>'

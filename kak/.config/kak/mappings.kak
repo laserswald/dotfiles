@@ -53,18 +53,20 @@ map -docstring "Git mode" \
     global user G \
     ": enter-user-mode git<ret>"
 
+#
 # Go to mappings
+# 
 map -docstring "your kakrc file" \
 	global goto K \
 	"<esc>: edit! ~/.config/kak/kakrc<ret>"
 
 map -docstring "fuzzy finder" \
     global goto f \
-    "<esc>: fzf-mode<ret>"
+    "<esc>: require-module fzf-file; fzf-file<ret>"
 
 map -docstring "another open buffer" \
 	global goto b \
-	"<esc>: fzf-buffer<ret>"
+	"<esc>: require-module fzf-buffer; fzf-buffer<ret>"
 
 map -docstring "symbol definition" \
 	global goto d \

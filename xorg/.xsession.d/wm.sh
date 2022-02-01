@@ -7,7 +7,8 @@ wm_notify() {
 }
 
 wm_bg() {
-    ~/.screenlayout/$(hostname).sh
+	hostname=$(cat /etc/hostname)
+    ~/.screenlayout/$hostname.sh
 
     ## Set the cursor to the left arrow pointer.
     xsetroot -cursor_name left_ptr &

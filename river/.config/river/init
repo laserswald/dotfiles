@@ -11,7 +11,7 @@
 # Use the "logo" key as the primary modifier
 mod="Mod4"
 
-term="alacritty"
+term="kitty"
 
 term_instance () {
 	echo $term '--title' $1 $1
@@ -184,8 +184,8 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	yambar --config $XDG_CONFIG_HOME/yambar/config.yml &
 	yambar --config $XDG_CONFIG_HOME/yambar/displayport.yml &
 	Xwayland -rootless &
-	kanshi &
 	swayidle -w timeout 300 'swaylock -f -c 1c1c1c &' &
+	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
 	runsvdir $HOME/var/service &
 fi
 

@@ -5,6 +5,10 @@ source "$HOME/.shrc"
 source_dir "$HOME/.sh.d/interact.d"
 setopt PROMPT_SUBST
 
+# zsh specifics: completion
+autoload -U compinit
+compinit
+
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,

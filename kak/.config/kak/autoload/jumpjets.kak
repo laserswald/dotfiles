@@ -54,7 +54,7 @@ new-jumpable-window %{
 		if [ "$@" ]; then
 		    startup="$startup;$@"
 		fi
-        printf "%s %s\n" "$cmd" "kak -c $kak_session -e '$startup'"
+        printf "%s %s\n" "$cmd" "$SHELL -c \"kak -c $kak_session -e \'$startup\'\""
 	}
 }
 
@@ -67,10 +67,11 @@ new-nonjumpable-window %{
 	evaluate-commands %sh{
 		cmd=$1
 		shift
+
 		if [ "$@" ]; then
-	        printf "%s %s\n" "$cmd" "kak -c $kak_session -e '$startup'"
+	        printf "%s %s\n" "$cmd" "$SHELL -c \"kak -c $kak_session -e \'$@\'\""
 	    else 
-	        printf "%s %s\n" "$cmd" "kak -c $kak_session"
+	        printf "%s %s\n" "$cmd" "$SHELL -c 'kak -c $kak_session'"
 		fi
 	}
 }

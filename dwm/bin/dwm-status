@@ -2,23 +2,40 @@
 
 SEPERATOR="\uE0B3"
 
+ETHERNET_ICON="\uF700"
+ETHERNET_DISABLED_ICON="\uF701"
 WIFI_ICON="\uFAA8"
 WIFI_DISABLED_ICON="\uFAA9"
 
-wifi_status () {
-    ssid=$(wpa_cli -i wlp3s0 status | grep ^ssid | sed 's/.*=//g')
-    if [ "$ssid" == "" ]; then
-	    printf '%s' $WIFI_DISABLED_ICON
-	else
-	    printf '%s %s' $WIFI_ICON $ssid
-    fi
+net_status () {
+	# ssid=$(wpa_cli -i wlp3s0 status | grep ^ssid | sed 's/.*=//g')
+	active_conns=$(nmcli -f "name,active,type" -t connection | grep "yes")
+
+	echo "$active_conns" | while IFS= read conn
+	do
+		printf " $SEPERATOR "
+		ssid=$(echo $conn | cut -d: -f1)
+		conn_type=$(echo $conn | cut -d: -f3)
+
+		if [ "$ssid" == "" ]; then
+			printf '%s' $WIFI_DISABLED_ICON
+		elif [ "$conn_type" == '802-11-wireless' ]; then
+			printf '%s %s' $WIFI_ICON $ssid
+		elif [ "$conn_type" == '802-3-ethernet' ]; then
+			printf '%s %s' $ETHERNET_ICON "ethernet"
+		elif [ "$conn_type" == 'tun' ]; then
+			printf '%s %s' $ETHERNET_ICON "vpn"
+		else
+			printf 'no connection'
+		fi
+	done
 }
 
 dwm_status () {
-	wifi=$(wifi_status)
+	net=$(net_status)
 	date=$(date)
 	# batt=$(multi_batt_status)
-    printf " $batt $SEPERATOR $wifi $SEPERATOR $date"
+    printf " $batt $net $SEPERATOR $date"
 }
 
 while true; do
