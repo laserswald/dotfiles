@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. "$HOME/.local/lib/sh/df.sh"
+
+DWMDIR="$HOME/pkg/xdwm"
+DWMREPO="gitolite@lazr.space:xdwm"
+
+if ! [ -d "$DWMDIR" ]
+then
+	git clone $DWMREPO "$DWMDIR"
+fi
+
+ln -s "$HOME/etc/dwm/pkg/xdwm/applications.h" "$DWMDIR/applications.h"
+ln -s "$HOME/etc/dwm/pkg/xdwm/config.h" "$DWMDIR/config.h"
+ln -s "$HOME/etc/dwm/pkg/xdwm/config.mk" "$DWMDIR/config.mk"
+ln -s "$HOME/etc/dwm/pkg/xdwm/env_settings.h" "$DWMDIR/env_settings.h"
+ln -s "$HOME/etc/dwm/pkg/xdwm/genapps.sh" "$DWMDIR/genapps.sh"
+
+ln -s "$HOME/etc/dwm/pkg/xdwm/themes" "$DWMDIR/themes"
+ln -s "$HOME/etc/dwm/pkg/xdwm/patches" "$DWMDIR/patches"
+
+cd $DWMDIR
+patchdir patches
+cd -
