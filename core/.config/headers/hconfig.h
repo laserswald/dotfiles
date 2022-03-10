@@ -6,10 +6,10 @@
  * of my programs to allow for a shared theme system.
  */
 
-#include "themes/selenized-dark.htheme"
+#include "themes/gruvbox-dark.htheme"
 
 /* #define HTHEME_FONT "Hack:pixelsize=14:antialias=true" */
-#define HTHEME_FONT "Fira Code:pixelsize=14:antialias=true"
+#define HTHEME_FONT "Fira Code:pointsize=10:antialias=true"
 /* #define HTHEME_FONT "Fira Code Medium Nerd Font Complete:pointsize=10:antialias=true:style=Medium" */
 /* #define HTHEME_FONT "Monoid:pixelsize=12:antialias=true" */
 

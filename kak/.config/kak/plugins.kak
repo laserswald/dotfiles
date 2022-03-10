@@ -7,6 +7,9 @@ source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 plug "robertmeta/plug.kak" noload
 
+plug "kakounedotcom/prelude.kak"
+plug "kakounedotcom/connect.kak"
+
 # Fuzzy finder. 
 plug "andreyorst/fzf.kak" config %{
 	require-module fzf
@@ -40,7 +43,15 @@ plug "eraserhd/parinfer-rust" do %{
 }
 
 plug "occivink/kakoune-snippets"
-plug "jjk96/kakoune-rainbow"
+
+
+plug "listentolist/kakoune-rainbow" domain "gitlab.com" config %{
+ require-module rainbow
+ # suggested mapping
+ # map global user r ": rainbow<ret>" -docstring "rainbow brackets"
+ # map global user R ": rmhl window/ranges_rainbow_specs<ret>" \
+ #     -docstring "remove rainbow highlighter"
+}
 
 plug "notes" load-path "~/src/kak/kak-goal"
 

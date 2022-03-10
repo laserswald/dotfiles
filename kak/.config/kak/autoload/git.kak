@@ -2,11 +2,16 @@
 try %{ declare-user-mode git }
 
 define-command -hidden -override git-switch-branch %{
-   nop %sh{
+	nop %sh{
 	   git pick-branch
-   }
-   edit '*scratch*'
-   delete-other-buffers
+	}
+	edit '*scratch*'
+	delete-other-buffers
+}
+
+define-command -hidden -override lazr-git-push %{
+	nop %sh{ git push }
+	echo "Successfully pushed branch."
 }
 
 map -docstring "Add this file to the current commit." \
@@ -20,4 +25,7 @@ map -docstring "Open the status view." \
 
 map -docstring "Switch branches." \
     global git S %{: git-switch-branch<ret>}
+
+map -docstring "Push branch changes." \
+    global git p %{: lazr-git-push<ret>}
 

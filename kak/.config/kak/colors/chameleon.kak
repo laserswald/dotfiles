@@ -32,7 +32,7 @@ set-face global keyword    bright-red
 set-face global builtin    bright-white+b
 set-face global operator   default
 
-set-face global function   bright-white+b
+set-face global function   green
 set-face global variable   bright-blue
 set-face global identifier bright-magenta
 set-face global attribute  bright-cyan

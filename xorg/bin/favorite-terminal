@@ -1,4 +1,30 @@
-#! /bin/sh
-# favorite-terminal WINDOW_CLASS COMMAND
+#!/bin/sh
+# favorite-terminal [-c WINDOW_CLASS] [COMMAND]
+#
+# Abstract away differences between terminals for launching programs
 
-alacritty -n $1 -e $2 
+WINDOW_CLASS=
+
+while getopts 'c:' arg; do
+	case $arg in
+		c)
+			WINDOW_CLASS=$OPTARG
+			;;
+		*) 
+			echo "Unknown option"
+            exit 1
+            ;; 
+	esac
+done
+shift $((OPTIND-1))
+
+COMMAND=$1
+
+if [ "$WINDOW_CLASS" ]
+then
+	kitty --class "$WINDOW_CLASS" "$COMMAND"
+	# alacritty -n $WINDOW_CLASS -e $COMMAND
+else
+	kitty "$COMMAND"
+	# alacritty -e $COMMAND
+fi

@@ -73,6 +73,9 @@
 ;;;; Scheme
 (use-package geiser-chibi :ensure t)
 
+(use-package go-mode :ensure t)
+
+
 (use-package smart-tabs-mode
   :ensure t
   :config

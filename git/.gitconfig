@@ -1,6 +1,6 @@
 [user]
 	name = Ben Davenport-Ray
-	email = ben.davenportray@gmail.com
+	email = ben.davenport-ray@meraki.net
 
 [mergetool]
 	vimdiff = true
@@ -15,6 +15,7 @@
 	unmerged = !git ls-files --unmerged | cut -f2 | uniq
 	pick-branch = !git-pick-branch
 	force-pull = !git-force-pull
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
 
 [core]
 	excludesFile = ~/.gitignore

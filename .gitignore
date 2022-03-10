@@ -10,6 +10,8 @@ vim/.vim/.netrwhist
 **/tags
 **/.kak_find_cache
 kak/.config/kak/autoload/autoload
+kak/.config/kak/plugins/*
+!kak/.config/kak/plugins/plug.kak/
 weechat/.weechat/logs/*
 weechat/.weechat/*.log
 **/.*.kak.*

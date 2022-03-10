@@ -1,5 +1,3 @@
-
-
 provide-module -override villain %{
     require-module scheme
 
@@ -84,6 +82,7 @@ provide-module -override villain %{
         set-option window villain_within_lib_cmd ",use"
         set-option window villain_load_file_cmd ",load"
     }
+
 } # provide-module
 
 provide-module scheme-fancy-highlighting %{

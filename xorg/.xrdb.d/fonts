@@ -1,27 +1,33 @@
-
-#define UUSHI 1
+#define FIRA_CODE 1
 
 #if   FIRA_CODE
-URxvt.font: xft:Fira Code:pixelsize=11:style=Regular
-URxvt.boldFont: xft:Fira Code Medium:pixelsize=11
+URxvt.font: xft:Fira Code:size=11:style=Regular
+st.font: Fira Code:size=11:style=Regular
+URxvt.boldFont: xft:Fira Code Medium:size=11
+st.boldFont: xft:Fira Code Medium:size=11
 
 #elif UUSHI
 URxvt.font: xft:uushi:pixelsize=13
+st.font: xft:uushi:pixelsize=13
 URxvt.boldFont: xft:uushi:pixelsize=13
+st.boldFont: xft:uushi:pixelsize=13
 
 #elif LEMON
 URxvt.font: xft:lemon:pixelsize=13
+st.font: xft:lemon:pixelsize=13
 URxvt.boldFont: xft:lemon:pixelsize=13
+st.boldFont: xft:lemon:pixelsize=13
 
 #elif TAMZEN
 URxvt.font: xft:Tamzen:pixelsize=12
+st.font: xft:Tamzen:pixelsize=12
 URxvt.boldFont: xft:Tamzen:pixelsize=12
+st.boldFont: xft:Tamzen:pixelsize=12
 
 #elif MONOID
-URxvt.font: xft:Monoid:pixelsize=12
+URxvt.font: xft:Monoid:size=12
+st.font: xft:Monoid:size=12
 #else
 
 #endif
-
-
 ! vim:ft=xdefaults

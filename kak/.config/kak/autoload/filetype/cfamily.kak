@@ -29,7 +29,7 @@ provide-module c-fancy-highlighting %{
 
 	# Highlight identifiers being called as function name, also highlights function declarations
 	# (Added optional space inbetween function identifier name and the open parenthesis)
-	add-highlighter shared/c/code/function_call regex '\b([a-zA-Z_][a-zA-Z0-9_]+)\b\s?\(' 1:function
+	add-highlighter shared/c/code/function_call regex '\b([a-zA-Z_][a-zA-Z0-9_]+)\b\(' 1:function
 
 	# Highlight UPPER_SNAKE_CASE as a constant value
 	add-highlighter shared/c/code/upper_snake regex '[A-Z][A-Z0-9_]+' 0:value

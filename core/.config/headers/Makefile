@@ -1,5 +1,5 @@
-PROJECTS = dwm st surf tabbed dmenu
-PROJECT_CONTAINING_DIR = ${HOME}/src/c/
+PROJECTS = xdwm xst xdmenu
+PROJECT_CONTAINING_DIR = ${HOME}/pkg/
 
 PROJECT_DIRS = $(patsubst %,$(PROJECT_CONTAINING_DIR)%,$(PROJECTS))
 

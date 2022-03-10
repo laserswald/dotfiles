@@ -50,7 +50,7 @@ map -docstring "Choose right side of merge block" \
     ": git-merge-right<ret>"
 
 map -docstring "Git mode" \
-    global user G \
+    global user g \
     ": enter-user-mode git<ret>"
 
 #

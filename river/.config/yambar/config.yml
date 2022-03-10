@@ -22,11 +22,11 @@ selenized:
       white:   'dededeff'
 
 bar:
-    height: 24
+    height: 32
     location: top
     background: *background
     foreground: *foreground
-    font: "Fira Code Retina:size=15"
+    font: "Fira Code Retina:size=24"
     monitor: eDP-1
     left:
         - river:

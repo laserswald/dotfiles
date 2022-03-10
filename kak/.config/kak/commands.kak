@@ -1,3 +1,5 @@
+
+# vim: ft=kak
 ####
 #### My custom commands.
 ####
@@ -153,8 +155,29 @@ ctags-disable-window %{
 	remove-hooks window ctags
 }
 
-define-command zk-new-note %{
+define-command zk-new-note -override %{
 	evaluate-commands %sh{
 		printf 'wiki %s.md\n' $(date +%Y-%m-%d-%H-%M-%S)
 	}
+}
+
+define-command \
+    -docstring "Add a modeline with buffer-specific details to the buffer" \
+    -override \
+insert-modeline %{
+	# Save registers
+    evaluate-commands -save-regs m %{
+	    # Save the modeline
+        set-register m "vim: ft=%opt{filetype}"
+
+		# Go to top of buffer
+        execute-keys "gk"
+
+		# Insert the modeline
+        execute-keys %{\O<esc>"mp}
+
+		# Comment the modeline
+        execute-keys 'X'
+        comment-line
+    }
 }

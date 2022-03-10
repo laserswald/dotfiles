@@ -46,3 +46,10 @@ map -docstring "Paste from system clipboard before cursor" \
 	global user P \
 	"<esc>: clipboard-paste-before<ret>"
 
+evaluate-commands %sh{
+	# Try to figure out what system we are working on
+	if [ $WAYLAND_DISPLAY ]
+	then
+	    printf %s\\n "clipboard-enable-wayland"
+	fi
+}
