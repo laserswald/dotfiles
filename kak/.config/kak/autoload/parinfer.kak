@@ -1,0 +1,1 @@
+/home/lazr/etc/kak/.config/kak/plugins/parinfer-rust/rc/parinfer.kak
