@@ -5,7 +5,7 @@
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 ;; Fonts
-(let ((font-size 11)
+(let ((font-size 12)
       (font-face "Fira Code Retina"))
   (add-to-list 'default-frame-alist
 	       (cons 'font (concat font-face "-" (number-to-string font-size)))))
@@ -24,5 +24,5 @@
   (set-face-foreground 'font-lock-variable-name-face "blue")
   (set-face-foreground 'elscreen-tab-control-face "blue"))
 
-(load-theme 'selenized-dark t)
+(load-theme 'doom-gruvbox t)
 

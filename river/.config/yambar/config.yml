@@ -21,45 +21,59 @@ selenized:
       cyan:   &tag-focused '56d8c9ff'
       white:   'dededeff'
 
+
+shared: 
+	on-tag-click: &shared-on-tag-click
+		left: sh -c 'riverctl set-focused-tags $((1 << ({id} - 1)))'
+		right: sh -c 'riverctl toggle-focused-tags $((1 << ({id} - 1)))'
+
+	river-tags: &shared-river-tags
+	    map:
+	        tag: occupied
+	        values:
+	            false: {empty: {}}
+	            true:
+	                map:
+	                    tag: state
+	                    default:
+	                        string:
+	                            margin: 5
+	                            text: "{id}"
+	                            foreground: *foreground
+	                            on-click: *on-tag-click 
+	                    values:
+	                        unfocused:
+	                            string:
+	                                margin: 5
+	                                text: "{id}"
+	                                foreground: *tag-unfocused
+	                                on-click: *on-tag-click
+	                        focused:
+	                            string:
+	                                margin: 5
+	                                text: "{id}"
+	                                foreground: *tag-focused
+	                                on-click: *on-tag-click
+	                        invisible:
+	                            string:
+	                                margin: 5
+	                                text: "{id}"
+	                                foreground: *tag-invisible
+	                                on-click: *on-tag-click
+    
+
+
 bar:
     height: 32
     location: top
-    background: *background
-    foreground: *foreground
+    background: *foreground
+    foreground: *background
     font: "Fira Code Retina:size=24"
     monitor: eDP-1
     left:
         - river:
             title: {empty: {}}
-            content:
-                map:
-                    tag: occupied
-                    values:
-                        false: {empty: {}}
-                        true:
-                            map:
-                                tag: state
-                                default:
-                                    string:
-                                        margin: 5
-                                        text: "{id}"
-                                        foreground: *foreground
-                                values:
-                                    unfocused:
-                                        string:
-                                            margin: 5
-                                            text: "{id}"
-                                            foreground: *tag-unfocused
-                                    focused:
-                                        string:
-                                            margin: 5
-                                            text: "{id}"
-                                            foreground: *tag-focused
-                                    invisible:
-                                        string:
-                                            margin: 5
-                                            text: "{id}"
-                                            foreground: *tag-invisible
+            content: *shared-river-tags
     center:
         - river:
             title: {string: { text: "{title}"}}
@@ -69,15 +83,13 @@ bar:
             name: BAT0
             poll-interval: 30
             content:
-                string: {text: "BAT0 {capacity} "}
-        - battery:
-            name: BAT1
-            poll-interval: 30
-            content:
-                string: {text: "BAT1 {capacity} "}
+                string: {text: "battery {capacity}%"}
+        - alsa:
+            card: PipeWire
+            mixer: Master
+            content: {string: {text: "vol {volume}"}}
         - clock:
             content:
                 string:
-                    text: "{date} - {time}"
-
+                    text: "| {date} - {time}"
 
