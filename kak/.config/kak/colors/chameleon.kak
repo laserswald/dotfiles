@@ -7,8 +7,8 @@ set-face global SecondarySelection black,white
 set-face global PrimaryCursor default+r
 set-face global SecondaryCursor default+r
 
-set-face global LineNumbers bright-black+f
-set-face global LineNumberCursor blue+b
+set-face global LineNumbers bright-black,black+f
+set-face global LineNumberCursor blue,black+b
 set-face global LineNumbersWrapped bright-black+b
 
 set-face global MenuForeground cyan,black
@@ -30,9 +30,9 @@ set-face global error      yellow,bright-red
 
 set-face global keyword    bright-red
 set-face global builtin    bright-white+b
-set-face global operator   default
+set-face global operator   yellow
 
-set-face global function   green
+set-face global function   bright-blue+b
 set-face global variable   bright-blue
 set-face global identifier bright-magenta
 set-face global attribute  bright-cyan
@@ -61,3 +61,6 @@ set-face global link blue
 set-face global DiagnosticWarning yellow,default+ufi
 set-face global DiagnosticError red,default+ufi
 
+try %{
+	set-option global rainbow_colors red yellow green cyan blue magenta
+}

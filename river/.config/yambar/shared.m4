@@ -41,13 +41,43 @@ shared:
             name: BAT0
             poll-interval: 30
             content:
-                string: {text: "battery {capacity}%"}
+                list:
+                    items:
+                        - string:
+                            text: "BAT "
+                            foreground: *status-indicator
+                        - progress-bar: 
+                            tag: capacity
+                            length: 10
+                            start: {string: {text: ""}}
+                            end: {string: {text: ""}}
+                            indicator: {string: {text: ""}}
+                            fill: {string: {text: "━"}}
+                            empty: {string: {text: "─"}}
+                        - string:
+                            text: " │ "
         - alsa:
             card: PipeWire
             mixer: Master
-            content: {string: {text: " | vol {volume}"}}
+            content: 
+                list:
+                    items:
+                        - string:
+                            text: "VOL "
+                            foreground: *status-indicator
+                        - string: 
+                            text: "{volume}"
+                        - string:
+                            text: " │ "
+                    on-click:
+                       left: pavucontrol
         - clock:
             content:
-                string:
-                    text: " | {date} - {time}"
+                list:
+                    items:
+                        - string:
+                            text: "DTM "
+                            foreground: *status-indicator
+                        - string: 
+                            text: "{date} - {time}"
 

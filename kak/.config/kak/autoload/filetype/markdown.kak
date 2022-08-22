@@ -12,7 +12,7 @@ remove-highlighter shared/markdown/codeblock
 
 # Shotgun surgery if I've ever seen it
 evaluate-commands %sh{
-  languages="scheme"
+  languages="scheme todotxt"
   for lang in ${languages}; do
 	printf 'add-highlighter shared/markdown/%s region -match-capture ^(\h*)```\h*%s\\b   ^(\h*)``` regions\n' "${lang}" "${lang}"
     printf 'add-highlighter shared/markdown/%s/ default-region fill meta\n' "${lang}"

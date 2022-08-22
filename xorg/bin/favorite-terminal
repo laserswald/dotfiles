@@ -3,7 +3,10 @@
 #
 # Abstract away differences between terminals for launching programs
 
+TERM="alacritty"
+
 WINDOW_CLASS=
+TERMINAL_CMD=$TERM
 
 while getopts 'c:' arg; do
 	case $arg in
@@ -18,13 +21,20 @@ while getopts 'c:' arg; do
 done
 shift $((OPTIND-1))
 
-COMMAND=$1
+COMMAND=$@
 
+# Install window class
 if [ "$WINDOW_CLASS" ]
 then
-	kitty --class "$WINDOW_CLASS" "$COMMAND"
-	# alacritty -n $WINDOW_CLASS -e $COMMAND
-else
-	kitty "$COMMAND"
-	# alacritty -e $COMMAND
+	# kitty --class "$WINDOW_CLASS" "$COMMAND"
+	TERMINAL_CMD="$TERMINAL_CMD -n '$WINDOW_CLASS'"
 fi
+
+# Install command
+if [ "$COMMAND" ]
+then
+	TERMINAL_CMD="$TERMINAL_CMD --command $COMMAND"
+fi
+
+$TERMINAL_CMD
+

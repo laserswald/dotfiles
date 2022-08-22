@@ -63,7 +63,11 @@ vnoremap jk <esc>
 
 if NVIM()
     tnoremap <esc> <C-\><C-n>
+    lua require "lspconfig".gopls.setup{}
 endif
+
+let g:conjure#client#scheme#stdio#command = "gosh"
+let g:conjure#client#scheme#stdio#prompt_pattern = "\ngosh> "
 
 " My own custom functions."{{{
 function! SwitchColors()

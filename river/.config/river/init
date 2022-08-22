@@ -197,6 +197,7 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	Xwayland -rootless &
 	swayidle -w timeout 300 'swaylock -f -c 1c1c1c &' &
 	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
+	systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 	run_services $HOME/var/service
 	run_services $HOME/var/pw-service
 fi

@@ -1,8 +1,6 @@
-# # http://common-common-lisp.net
-# # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-hook global BufCreate .*[.](lisp|asd|lsp) %{
-  set-option buffer filetype common-lisp
+hook global BufCreate .*\.(lisp|asd) %{
+	hook -once buffer NormalIdle '' "set-option buffer filetype common-lisp"
 }
 
 # Initialization
@@ -10,23 +8,22 @@ hook global BufCreate .*[.](lisp|asd|lsp) %{
 
 hook global WinSetOption filetype=common-lisp %{
     require-module lisp
-
     hook window ModeChange pop:insert:.* -group lisp-trim-indent  lisp-trim-indent
     hook window InsertChar \n -group lisp-indent lisp-indent-on-new-line
-    hook -once -always window WinSetOption filetype=.* %{ remove-hooks window lisp-.+ }
 
     require-module common-lisp
     set-option buffer extra_word_chars '_' '+' '-' '*' '/' '@' '$' '%' '^' '&' '_' '=' '<' '>' '~' '.'
 }
 
 hook -group common-lisp-highlight global WinSetOption filetype=common-lisp %{
+    require-module common-lisp
     add-highlighter window/common-lisp ref common-lisp
     hook -once -always window WinSetOption filetype=.* %{ remove-highlighter window/common-lisp }
 }
 
 provide-module common-lisp %{
 
-remove-highlighter shared/common-lisp
+remove-highlighter shared/common_lisp
 
 add-highlighter shared/common-lisp regions
 add-highlighter shared/common-lisp/code default-region group
@@ -132,7 +129,10 @@ evaluate-commands %sh{ exec awk -f - <<'EOF'
         return "'" s "'";
     }
     function add_highlighter(regex, highlight) {
-        printf("add-highlighter shared/common_lisp/code/ regex %s %s\n", kak_escape(regex), highlight);
+        printf("add-highlighter shared/common-lisp/code/ regex %s %s\n", kak_escape(regex), highlight);
+    }
+    function add_named_highlighter(name, regex, highlight) {
+        printf("add-highlighter shared/common-lisp/code/" name " regex %s %s\n", kak_escape(regex), highlight);
     }
     function quoted_join(words, quoted, first) {
         first=1
@@ -152,7 +152,7 @@ evaluate-commands %sh{ exec awk -f - <<'EOF'
     }
 
     BEGIN {
-        printf("declare-option str-list common-lisp_static_words ");
+        printf("declare-option str-list common_lisp_static_words ");
         print_words(global_variables);
         print_words(flow_control);
         print_words(definitions);
@@ -171,8 +171,11 @@ evaluate-commands %sh{ exec awk -f - <<'EOF'
         add_word_highlighter(types, "type");
         add_word_highlighter(attributes, "attribute");
 
-        add_highlighter(non_word_chars "+('" identifier_chars ")", "1:attribute");
+        add_highlighter(non_word_chars "+('" identifier_chars ")", "1:value");
         add_highlighter("\\(defun\\W+(" identifier_chars ")\\W+\\(", "1:function");
+        add_highlighter("\\((defclass|define-condition)\\W+(" identifier_chars ")\\W+", "2:type");
+
+        add_named_highlighter("keyword", non_word_chars "(#?:" identifier_chars ")", "1:variable");
 
         # unprefixed decimals
         add_highlighter("(?<![" normal_identifiers "])(\\d+(\\.\\d*)?|\\.\\d+)(?:[esfdlESFDL][-+]?\\d+)?(?![" normal_identifiers "])", "0:value");
@@ -185,9 +188,7 @@ EOF
 
 # add-highlighter shared/common-lisp/code/ regex (#?(['`:]|,@?))?\b[a-zA-Z][\w!$%&*+./:<=>?@^_~-]* 0:variable
 # add-highlighter shared/common-lisp/code/ regex \*[a-zA-Z][\w!$%&*+./:<=>?@^_~-]*\* 0:variable
-add-highlighter shared/common-lisp/code/keywords regex \b[:][a-zA-Z][\w!$%&*+./:<=>?@^_~-]*\b 0:variable
 add-highlighter shared/common-lisp/code/special-symbols regex \b(nil|t)\b 0:value
-add-highlighter shared/common-lisp/code/ regex (((\Q***\E)|(///)|(\Q+++\E)){1,3})|(1[+-])|(<|>|<=|=|>=) 0:operator
 add-highlighter shared/common-lisp/code/numbers regex (\b\d+)?\.\d+([eEsSfFdDlL]\d+)?\b 0:value
 
 }

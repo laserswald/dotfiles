@@ -1,5 +1,6 @@
 # Mappings
 
+
 # User mappings
 map -docstring "Comment the selection, block style" \
 	global user C \
@@ -12,6 +13,10 @@ map -docstring "Comment the selection" \
 map -docstring "Delete this buffer." \
 	global user d \
 	": delete-buffer<ret>"
+
+map -docstring "Evaluate selection in the REPL." \
+	global user e \
+	": repl-send-text<ret>"
 
 map -docstring "Make the current project" \
 	global user m \

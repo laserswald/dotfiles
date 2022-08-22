@@ -24,8 +24,8 @@ provide-module c-fancy-highlighting %{
 	# Highlight verbose struct types as also a user-defined type
 	add-highlighter shared/c/code/verbose_struct regex 'struct\s+\b([a-zA-Z_][a-zA-Z0-9_]+)\b' 1:type
 
-	# Highlight identifiers ending in underscore t as types as well
-	add-highlighter shared/c/code/underscore_t_types regex '\b([a-zA-Z_][a-zA-Z0-9_]+_t)\b' 1:type
+	# Highlight identifiers ending in underscore t and underscore s as types as well
+	add-highlighter shared/c/code/underscore_t_types regex '\b([a-zA-Z_][a-zA-Z0-9_]+_[st])\b' 1:type
 
 	# Highlight identifiers being called as function name, also highlights function declarations
 	# (Added optional space inbetween function identifier name and the open parenthesis)

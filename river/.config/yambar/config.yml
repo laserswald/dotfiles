@@ -1,6 +1,7 @@
 selenized:
     primary:
-      background: &background '181818ff'
+      background: '181818ff'
+      background-transparent: &background '18181899'
       foreground: &foreground 'b9b9b9ff'
     normal:
       black:   '252525ff'
@@ -17,57 +18,101 @@ selenized:
       green:   '83c746ff'
       yellow:  'efc541ff'
       blue:   &tag-invisible '4f9cfeff'
-      magenta: 'ff81caff'
+      magenta: &status-indicator 'ff81caff'
       cyan:   &tag-focused '56d8c9ff'
       white:   'dededeff'
 
 
 shared: 
-	on-tag-click: &shared-on-tag-click
-		left: sh -c 'riverctl set-focused-tags $((1 << ({id} - 1)))'
-		right: sh -c 'riverctl toggle-focused-tags $((1 << ({id} - 1)))'
+    on-tag-click: &shared-on-tag-click
+        left: sh -c 'riverctl set-focused-tags $((1 << ({id} - 1)))'
+        right: sh -c 'riverctl toggle-focused-tags $((1 << ({id} - 1)))'
 
-	river-tags: &shared-river-tags
-	    map:
-	        tag: occupied
-	        values:
-	            false: {empty: {}}
-	            true:
-	                map:
-	                    tag: state
-	                    default:
-	                        string:
-	                            margin: 5
-	                            text: "{id}"
-	                            foreground: *foreground
-	                            on-click: *on-tag-click 
-	                    values:
-	                        unfocused:
-	                            string:
-	                                margin: 5
-	                                text: "{id}"
-	                                foreground: *tag-unfocused
-	                                on-click: *on-tag-click
-	                        focused:
-	                            string:
-	                                margin: 5
-	                                text: "{id}"
-	                                foreground: *tag-focused
-	                                on-click: *on-tag-click
-	                        invisible:
-	                            string:
-	                                margin: 5
-	                                text: "{id}"
-	                                foreground: *tag-invisible
-	                                on-click: *on-tag-click
-    
+    river-tags: &shared-river-tags
+        map:
+            tag: occupied
+            values:
+                false: {empty: {}}
+                true:
+                    map:
+                        tag: state
+                        default:
+                            string:
+                                margin: 5
+                                text: "{id}"
+                                foreground: *foreground
+                                on-click: *shared-on-tag-click 
+                        values:
+                            unfocused:
+                                string:
+                                    margin: 5
+                                    text: "{id}"
+                                    foreground: *tag-unfocused
+                                    on-click: *shared-on-tag-click
+                            focused:
+                                string:
+                                    margin: 5
+                                    text: "{id}"
+                                    foreground: *tag-focused
+                                    on-click: *shared-on-tag-click
+                            invisible:
+                                string:
+                                    margin: 5
+                                    text: "{id}"
+                                    foreground: *tag-invisible
+                                    on-click: *shared-on-tag-click
+    status: &shared-status    
+        - battery:
+            name: BAT0
+            poll-interval: 30
+            content:
+                list:
+                    items:
+                        - string:
+                            text: "BAT "
+                            foreground: *status-indicator
+                        - progress-bar: 
+                            tag: capacity
+                            length: 10
+                            start: {string: {text: ""}}
+                            end: {string: {text: ""}}
+                            indicator: {string: {text: ""}}
+                            fill: {string: {text: "━"}}
+                            empty: {string: {text: "─"}}
+                        - string:
+                            text: " │ "
+        - alsa:
+            card: PipeWire
+            mixer: Master
+            content: 
+                list:
+                    items:
+                        - string:
+                            text: "VOL "
+                            foreground: *status-indicator
+                        - string: 
+                            text: "{volume}"
+                        - string:
+                            text: " │ "
+                    on-click:
+                       left: pavucontrol
+        - clock:
+            content:
+                list:
+                    items:
+                        - string:
+                            text: "DTM "
+                            foreground: *status-indicator
+                        - string: 
+                            text: "{date} - {time}"
+
 
 
 bar:
     height: 32
     location: top
-    background: *foreground
-    foreground: *background
+    background: *background
+    foreground: *foreground
     font: "Fira Code Retina:size=24"
     monitor: eDP-1
     left:
@@ -78,18 +123,4 @@ bar:
         - river:
             title: {string: { text: "{title}"}}
             content: {empty: {}}
-    right:
-        - battery:
-            name: BAT0
-            poll-interval: 30
-            content:
-                string: {text: "battery {capacity}%"}
-        - alsa:
-            card: PipeWire
-            mixer: Master
-            content: {string: {text: "vol {volume}"}}
-        - clock:
-            content:
-                string:
-                    text: "| {date} - {time}"
-
+    right: *shared-status

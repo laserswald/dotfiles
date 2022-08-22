@@ -97,10 +97,18 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
+    # family: CMU Typewriter Text
     family: Fira Code
+    # family: Go Mono
+    # family: Hack
+    # family: IBM Plex Mono
+    # family: Iosevka Nerd Font
+    # family: Latin Modern Mono Light
+    # family: Monoid
+    # family: Proggy Vector
 
     # The `style` can be specified to pick a specific face.
-    style: Retina
+    style: Normal
 
   # Bold font face
   bold:
@@ -125,7 +133,7 @@ font:
     style: Italic
 
   # Point size
-  size: 13.0
+  size: 16
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -157,7 +165,7 @@ font:
   use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 lazr-schemes:
 
@@ -366,7 +374,8 @@ lazr-schemes:
       cyan:    '0x009a8a'
       white:   '0x282828'
 
-colors: *selenized-white
+colors: *selenized-dark
+
 
 # Bell
 #
@@ -391,7 +400,7 @@ colors: *selenized-white
 # Specifying a `duration` of `0` will disable the visual bell.
 bell:
   animation: EaseOutExpo
-  duration: 0
+  duration: 30
   color: '0xffffff'
 
 

@@ -1,6 +1,7 @@
 selenized:
     primary:
-      background: &background '181818ff'
+      background: '181818ff'
+      background-transparent: &background '18181899'
       foreground: &foreground 'b9b9b9ff'
     normal:
       black:   '252525ff'
@@ -17,7 +18,7 @@ selenized:
       green:   '83c746ff'
       yellow:  'efc541ff'
       blue:   &tag-invisible '4f9cfeff'
-      magenta: 'ff81caff'
+      magenta: &status-indicator 'ff81caff'
       cyan:   &tag-focused '56d8c9ff'
       white:   'dededeff'
 

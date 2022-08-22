@@ -51,5 +51,7 @@ evaluate-commands %sh{
 	if [ $WAYLAND_DISPLAY ]
 	then
 	    printf %s\\n "clipboard-enable-wayland"
+	elif [ $DISPLAY ]
+	    printf %s\\n "clipboard-enable-xorg"
 	fi
 }

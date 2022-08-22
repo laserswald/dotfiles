@@ -1,5 +1,3 @@
-
-# vim: ft=kak
 ####
 #### My custom commands.
 ####
@@ -75,8 +73,8 @@ enable-lsp %{
     unmap window goto r '<esc>: lsp-references<ret>'
     unmap window goto y '<esc>: lsp-type-definition<ret>'
 
-    # echo -debug "Enabling LSP auto hover..."
-    # lsp-auto-hover-enable
+    echo -debug "Enabling LSP auto hover..."
+    lsp-auto-hover-enable
 
     echo -debug "Enabling LSP diagnostic lines..."
     try %{ lsp-diagnostic-lines-enable window }

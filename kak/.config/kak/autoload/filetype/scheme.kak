@@ -46,13 +46,18 @@ provide-module -override villain %{
     define-command villain-repl %{
         tmux-repl-vertical "%opt{villain_repl_cmd}"
         try %{
-	        villain-select-library-name
-	        villain-eval "%opt{villain_within_lib_cmd} %val{selection}"
+	        villain-switch-library
         }
     }
 
     define-command villain-load %{
-        villain-eval "%opt{villain_load_file_cmd} %val{buffile}"
+        %opt{villain_load_file_cmd} "%val{buffile}"
+    }
+
+    define-command villain-switch-library %{
+	    villain-select-library-name
+	    execute-keys "mf(m"
+        %opt{villain_within_lib_cmd} %val{selection}
     }
 
     #
@@ -69,24 +74,39 @@ provide-module -override villain %{
 
     define-command -params 1..1 villain-eval-form-named %{
         villain-select-form-named %arg{1}
-        villain-eval
+        villain-eval %val{selection}
     }
 
     define-command villain-enable-chibi %{
 		set-option window villain_repl_cmd "rlwrap -t dumb -pblue chibi-scheme -R -I ."
         set-option window villain_within_lib_cmd "@in"
+        set-option window villain_load_file_cmd 'villain-load-file-r7rs'
     }
 
     define-command villain-enable-gauche %{
-		set-option window villain_repl_cmd "gosh"
-        set-option window villain_within_lib_cmd ",use"
-        set-option window villain_load_file_cmd ",load"
+		set-option window villain_repl_cmd "rlwrap -t dumb -pblue gosh -r7 -A ."
+        set-option window villain_within_lib_cmd "villain-switch-library-gauche"
+        set-option window villain_load_file_cmd 'villain-load-file-r7rs'
+    }
+
+    define-command -hidden -params 1..1 villain-switch-library-gauche %{
+	    villain-eval "(select-module r7rs.user)"
+	    villain-load
+	    evaluate-commands %sh{
+		    libname=$(echo "$1" | tr -d "()" | tr " " ".")
+		    printf "%s\n" "villain-eval %{(select-module $libname)}"
+	    }
+	    villain-eval ",use gauche.base"
+    }
+
+    define-command -hidden -params 1..1 villain-load-file-r7rs %{
+	    villain-eval "(import (scheme base) (scheme load)) (load ""%arg{1}"")"
     }
 
 } # provide-module
 
 provide-module scheme-fancy-highlighting %{
-	add-highlighter shared/scheme/custom-defines regex '\bdefine-[\w-]+\b' 0:keyword
+	add-highlighter shared/scheme/custom-defines regex 'define-[\w-]+' 0:keyword
 } # provide-module scheme-fancy-highlighting
 
 hook global WinSetOption filetype=scheme %{
@@ -94,10 +114,13 @@ hook global WinSetOption filetype=scheme %{
     set-option buffer tabstop 2
 
     parinfer-enable-window -smart
-    rainbow-enable
+    rainbow-enable-window
 
     require-module villain
     villain-enable-gauche
+
+    map -docstring "Open a Scheme repl." \
+	   	buffer user R '<esc>: villain-repl<ret>'
 
     map -docstring "Send selection to repl window" \
     	buffer user s '<esc>: villain-eval<ret>'
@@ -105,8 +128,11 @@ hook global WinSetOption filetype=scheme %{
     map -docstring "Send current definition to repl window" \
     	buffer user S '<esc>: villain-eval-form-named define<ret>'
 
-    map -docstring "Open a Scheme repl." \
-	   	buffer user R '<esc>: villain-repl<ret>'
+    map -docstring "Load this file" \
+    	buffer user l '<esc>: villain-load<ret>'
+
+    map -docstring "Switch to this library" \
+    	buffer user S '<esc>: villain-switch-library<ret>'
 
 	require-module scheme-fancy-highlighting
 }

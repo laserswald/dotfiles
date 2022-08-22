@@ -13,5 +13,15 @@ hook -group go-lsp-support global WinSetOption filetype=go %{
 
 hook -group gofmt global WinSetOption filetype=go %{
 	set buffer formatcmd "gofmt"
-	hook buffer BufWritePre * %{ format }
+	hook buffer BufWritePre .* %{ format }
 }
+
+hook -group go-fancy-highlighting global WinSetOption filetype=go %{
+	require-module go-fancy-highlighting
+}
+
+provide-module -override go-fancy-highlighting %{
+	require-module go
+	add-highlighter shared/go/code/ regex "\b(\w+)\(" 1:function
+}
+

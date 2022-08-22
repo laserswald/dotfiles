@@ -46,35 +46,7 @@
 (use-package persp-mode
   :ensure t)
 
-;;;
-;;; Language support.
-;;;
-
-;; Add some more languages and stuff
-(use-package yaml-mode :ensure t)
-
-(use-package lsp-mode :ensure t
-  :hook '((php-mode . lsp)
-	  (c-mode . lsp)
-	  (c++-mode . lsp))
-  :commands lsp)
-
-(use-package lsp-ivy :ensure t
-  :commands lsp-ivy-workspace-symbol)
-
-(use-package lsp-ui :ensure t)
-
-;;;; Common Lisp
-(use-package slime
-  :ensure t
-  :config
-  (setf inferior-lisp-program "/usr/bin/sbcl"))
-
-;;;; Scheme
-(use-package geiser-chibi :ensure t)
-
-(use-package go-mode :ensure t)
-
+(lz/load "languages.el")
 
 (use-package smart-tabs-mode
   :ensure t

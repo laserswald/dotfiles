@@ -5,7 +5,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 " Snippets
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 
@@ -23,6 +23,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'inkarkat/SyntaxAttr.vim'
 Plug 'jaxbot/semantic-highlight.vim'
 " Plug 'tpope/vim-flagship'
+Plug 'jeffkreeftmeijer/vim-dim', { 'branch': 'main' }
 Plug 'laserswald/chameleon.vim'
 Plug 'fxn/vim-monochrome'
 Plug 'morhetz/gruvbox'

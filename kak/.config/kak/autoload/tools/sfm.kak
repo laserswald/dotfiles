@@ -84,7 +84,7 @@ explore -params 1..1 %{ evaluate-commands %sh{
         edit! -readonly -fifo ${output} '$dir'
         set-option window filetype explore
         set-option window sfm_dir '$dir'
-        hook -always -once buffer BufCloseFifo '' %(nop %sh(rm --recursive ${output}))
+        hook -always -once buffer BufCloseFifo '.*' %sh{rm --recursive ${output}}
     "
 }}
 
