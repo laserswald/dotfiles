@@ -31,6 +31,10 @@
 
 ;;; Lisp family.
 
+(use-package parinfer-rust-mode
+  :ensure t
+  :hook (emacs-lisp-mode scheme-mode common-lisp-mode clojure-mode))
+
 ;; Common Lisp
 (use-package slime
   :ensure 
@@ -50,4 +54,5 @@
 
 (use-package yaml-mode :ensure t)
 
-(provide 'languages)
+;;; Python.
+(add-hook 'python-mode-hook #'lsp)

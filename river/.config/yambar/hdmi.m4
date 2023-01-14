@@ -6,8 +6,8 @@ bar:
     location: top
     background: *background
     foreground: *foreground
-    font: "Fira Code:size=24"
-    monitor: eDP-1
+    font: "Fira Code Retina:size=12"
+    monitor: HDMI-A-2
     left:
         - river:
             title: {empty: {}}

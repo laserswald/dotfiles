@@ -82,6 +82,9 @@ enable-lsp %{
     echo -debug "Enabling LSP signature help..."
     lsp-auto-signature-help-enable
 
+    echo -debug "Disabling 'dumb' word completion"
+    set-option -remove window completers 'word=all'
+
     echo -debug "LSP enabled."
 }
 

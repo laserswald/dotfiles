@@ -13,5 +13,4 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-(provide 'package-setup)
-
+(provide 'lazr-package-setup)

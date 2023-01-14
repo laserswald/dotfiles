@@ -17,8 +17,7 @@ echo -debug "loaded modules"
 # General options.
 
 # Command options.
-
-# set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
+set-option global grepcmd 'ag --ignore=tags --ignore=.git* --column'
 
 # Alignment
 
@@ -48,7 +47,7 @@ hook -group git-update-diffs global BufWritePost .* %{
 simple-explorer-enable
 
 # Language server protocol support.
-# evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
 
 # Local kakrc sourcing for custom project commands and tools
 try %{ source .kakrc.local }

@@ -113,7 +113,7 @@ bar:
     location: top
     background: *background
     foreground: *foreground
-    font: "Fira Code Retina:size=24"
+    font: "Fira Code:size=24"
     monitor: eDP-1
     left:
         - river:

@@ -27,7 +27,9 @@ plug "andreyorst/tagbar.kak" config %{
 # TODO: make sure this gets configured properly before enabling
 plug "alexherbo2/auto-pairs.kak" 
 
-plug "andreyorst/powerline.kak" config %{
+plug "andreyorst/powerline.kak" defer powerline %{
+	powerline-format global 'git bufname filetype mode_info lsp line_column position'
+} config %{
 	powerline-start
 }
 

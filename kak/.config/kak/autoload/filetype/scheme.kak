@@ -132,7 +132,7 @@ hook global WinSetOption filetype=scheme %{
     	buffer user l '<esc>: villain-load<ret>'
 
     map -docstring "Switch to this library" \
-    	buffer user S '<esc>: villain-switch-library<ret>'
+    	buffer user L '<esc>: villain-switch-library<ret>'
 
 	require-module scheme-fancy-highlighting
 }

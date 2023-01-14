@@ -31,11 +31,12 @@ term_instance () {
 hyper="Mod4+Shift+Mod1+Control"
 meh="Shift+Mod1+Control"
 
-menucmd="bemenu-run"
+menucmd="$HOME/bin/graphical-menu"
 browsercmd="web"
-lockcmd="waylock"
+lockcmd="gtklock"
 searchcmd="web-search"
 screenshotcmd="grim"
+secretscmd="passmenu --type"
 
 chatcmd=$(term_instance "wee")
 fmcmd=$(term_instance "ranger")
@@ -45,6 +46,7 @@ mailcmd=$(term_instance "neomutt")
 riverctl map normal $mod P spawn "$menucmd"
 riverctl map normal $hyper P spawn "$menucmd"
 riverctl map normal $meh Space spawn "$lockcmd"
+riverctl map normal $meh S spawn "$secretscmd"
 
 riverctl map normal $mod+Shift Return spawn "$term"
 riverctl map normal $hyper Return spawn "$term"
@@ -142,6 +144,12 @@ riverctl map normal $mod Right set-layout-value rivertile "main-location right"
 riverctl map normal $mod Down  set-layout-value rivertile "main-location bottom"
 riverctl map normal $mod Left  set-layout-value rivertile "main-location left"
 
+riverctl map normal $mod+Shift Up    set-layout-value rivertile "view-padding +1"
+riverctl map normal $mod+Shift Down  set-layout-value rivertile "view-padding -1"
+riverctl map normal $mod+Shift Left  set-layout-value rivertile "outer-padding +1"
+riverctl map normal $mod+Shift Right set-layout-value rivertile "outer-padding -1"
+
+
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
 riverctl declare-mode passthrough
@@ -192,12 +200,12 @@ riverctl csd-filter-remove app-id "nwggrid"
 riverctl focus-follows-cursor normal
 
 if ! [ $RIVERCTL_RELOADING ]; then
-	yambar --config $XDG_CONFIG_HOME/yambar/config.yml &
-	yambar --config $XDG_CONFIG_HOME/yambar/displayport.yml &
-	Xwayland -rootless &
-	swayidle -w timeout 300 'swaylock -f -c 1c1c1c &' &
-	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
-	systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
+	systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+
+	swayidle -w timeout 300 'gtklock' &
+	waybar &
+
 	run_services $HOME/var/service
 	run_services $HOME/var/pw-service
 fi

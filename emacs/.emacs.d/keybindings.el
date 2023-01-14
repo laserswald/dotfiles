@@ -53,7 +53,8 @@
   "c" 'comment-line
   "C" 'comment-box
   ;;; "d" 'delete-buffer
-  "m" 'make
+  "m" 'recompile
+  "M" 'compile
   "R" 'lazr-reload-config)
 
 ;; Fuzzy finding

@@ -6,6 +6,7 @@ ETHERNET_ICON="\uF700"
 ETHERNET_DISABLED_ICON="\uF701"
 WIFI_ICON="\uFAA8"
 WIFI_DISABLED_ICON="\uFAA9"
+BATTERY_ICON="\uF578"
 
 net_status () {
 	# ssid=$(wpa_cli -i wlp3s0 status | grep ^ssid | sed 's/.*=//g')
@@ -25,20 +26,31 @@ net_status () {
 			printf '%s %s' $ETHERNET_ICON "ethernet"
 		elif [ "$conn_type" == 'tun' ]; then
 			printf '%s %s' $ETHERNET_ICON "vpn"
+		elif [ "$conn_type" == 'bridge' ]; then
+			printf '%s %s' $ETHERNET_ICON "bridge"
 		else
 			printf 'no connection'
 		fi
 	done
 }
 
+batt_status () {
+	printf "$BATTERY_ICON %s%%" $(cat /sys/class/power_supply/BAT0/capacity)
+}
+
 dwm_status () {
 	net=$(net_status)
+	batt=$(batt_status)
 	date=$(date)
 	# batt=$(multi_batt_status)
-    printf " $batt $net $SEPERATOR $date"
+    echo -e " $batt$net $SEPERATOR $date"
 }
 
 while true; do
-    xsetroot -name "$(dwm_status)"
+	if [ $XSETROOT_MODE ]; then
+	    xsetroot -name "$(dwm_status)"
+	else
+		printf "%s\n" "$(dwm_status)"
+	fi
     sleep 1
 done
