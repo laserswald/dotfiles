@@ -7,7 +7,7 @@ install_link "sh/.sh.d" ".sh.d"
 install_link "sh/.profile" ".profile"
 install_link "sh/.dircolors" ".dircolors"
 
-install_link "sh/.local/bin/sh/path.sh" ".local/bin/sh/path.sh"
-install_link "sh/.local/bin/sh/preferred_app.sh" ".local/bin/sh/preferred_app.sh"
+install_link "sh/.local/lib/sh/path.sh" ".local/lib/sh/path.sh"
+install_link "sh/.local/lib/sh/preferred_app.sh" ".local/lib/sh/preferred_app.sh"
 
 
