@@ -9,7 +9,8 @@ insert_path() {
 }
 
 source_dir() {
-	for file in $1/*.sh ; do
-	    . $file
+	for file in $(find $1 -maxdepth 1 -name '*.sh')
+	do
+		. $file
 	done
 }
