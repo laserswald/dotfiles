@@ -24,6 +24,10 @@
   (interactive)
   (lz/load "core.el"))
 
+;;;
+;;; Roots of the leader mapping trees.
+;;;
+
 (general-create-definer lazr-leader-map
   :states 'normal
   :prefix "SPC")
@@ -47,6 +51,10 @@
  "F" 'counsel-find-file
  "f" 'projectile-find-file
  "r" 'xref-find-references)
+
+;;;
+;;; Local leader.
+;;;
 
 (lazr-local-leader-map
   "w" 'lazr-save-buffer
@@ -94,11 +102,18 @@
   "n" 'persp-next)
   
 ;;; File type specific tools
+
+;; PHP
 (lazr-local-leader-map :keymaps 'php-mode-map
   "ta" 'phpunit-current-project
   "tt" 'phpunit-current-test
   "tc" 'phpunit-current-class)
 
-(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map "eb" 'lazr-eval-buffer)
+;; Emacs Lisp
+(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
+  "eb" 'lazr-eval-buffer)
+
+;; Org mode
 (lazr-local-leader-map :keymaps 'org-mode-map "t" 'org-todo)
+
 (general-nmap dired-mode-map "-" 'dired-up-directory)
