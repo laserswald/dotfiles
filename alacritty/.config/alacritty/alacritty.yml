@@ -131,7 +131,8 @@ font:
     style: Italic
 
   # Point size
-  size: 12
+  size: 10
+
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -169,10 +170,12 @@ import:
   # - '~/.config/alacritty/catppuccin/catppuccin-latte.yml'
   # - '~/.config/alacritty/catppuccin/catppuccin-frappe.yml'
   # - '~/.config/alacritty/catppuccin/catppuccin-macchiato.yml'
-  - '~/.config/alacritty/catppuccin/catppuccin-mocha.yml'
+  # - '~/.config/alacritty/catppuccin/catppuccin-mocha.yml'
+  # - '~/.config/alacritty/gruvbox-dark-soft.yml'
   # - '~/.config/alacritty/selenized-black.yml'
   # - '~/.config/alacritty/selenized-dark.yml'
   # - '~/.config/alacritty/selenized-light.yml'
+  - '~/.config/alacritty/tomorrow-night-bright.yml'
   # - '~/.config/alacritty/selenized-white.yml'
 
 # Bell
