@@ -89,8 +89,8 @@ case $WM in
     dwm)
         wm_notify
         wm_bg
-        wm_composite
-        ~/bin/bar &
+        # wm_composite
+        ~/bin/dwm-status &
         ;;
     ?)
         ### Unrecognized WM.

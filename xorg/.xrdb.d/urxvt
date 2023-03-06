@@ -4,3 +4,6 @@ URxvt.url-select.launcher: /usr/bin/qutebrowser
 URxvt.url-select.underline: true
 Urxvt.url-select.button:1
 URxvt.kuake.hotkey: F10
+! URxvt.font: -*-terminesspowerline-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: -*-anonymouspro-medium-r-*-*-14-*-*-*-*-*-*-*
+! URxvt.font: xft:Anonymous Pro for Powerline:pixelsize=13:antialias=1

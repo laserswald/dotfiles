@@ -188,6 +188,7 @@ done
 
 # Set repeat rate
 riverctl set-repeat 50 300
+
 # Set app-ids of views which should float
 riverctl float-filter-add app-id "float"
 riverctl float-filter-add app-id "popup"
@@ -196,6 +197,7 @@ riverctl float-filter-add app-id "popup"
 riverctl csd-filter-add app-id "gedit"
 riverctl csd-filter-add app-id "epiphany"
 riverctl csd-filter-remove app-id "nwggrid"
+riverctl csd-filter-remove app-id "emacs"
 
 riverctl focus-follows-cursor normal
 
@@ -205,9 +207,10 @@ if ! [ $RIVERCTL_RELOADING ]; then
 
 	swayidle -w timeout 300 'gtklock' &
 	waybar &
+	nm-applet --indicator &
 
 	run_services $HOME/var/service
-	run_services $HOME/var/pw-service
+	# run_services $HOME/var/pw-service
 fi
 
 # Set and exec into the default layout generator, rivertile.

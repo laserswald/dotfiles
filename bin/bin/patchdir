@@ -1,62 +1,56 @@
-#!/bin/sh
+#!/usr/bin/env -S gosh -r7
+# vim: ft=scheme
 
-REVERSE=0
+(import (scheme base) 
+        (gauche process))
 
-patchcmd='patch --force -p1 --quiet'
+(define reverse-patches #f)
 
-can_apply_patch () {
-    $patchcmd --dry-run -i $1 >/dev/null
-    return $?
-}
+(define patchcmd '(patch --force -p1 --quiet))
 
-can_reverse_patch () {
-    $patchcmd --reverse --dry-run -i $1 >/dev/null
-    return $?
-}
+(define (can-apply? patch)
+  (if reverse-patches
+      (do-process (append patchcmd `(--dry-run --reverse "-i" ,patch)))
+      (do-process (append patchcmd `(--dry-run "-i" ,patch)))))
+               
+(define (apply-patch! patch)
+  (or (do-process (append patchcmd `("-i" ,patch)))
+      (error "Could not apply patch")))
 
-apply_patch () {
-    $patchcmd -i $1 >/dev/null
-    if ! [ $? -eq 0 ]
-    then
-        echo "Could not apply patch: $1"
-        exit 1
-    fi
-}
+; reverse_patch () {
+;     $patchcmd --reverse -i $1 >/dev/null
+;     if ! [ $? -eq 0 ]
+;     then
+;         echo "Could not apply patch: $1"
+;         exit 1
+;     fi
+; }
 
-reverse_patch () {
-    $patchcmd --reverse -i $1 >/dev/null
-    if ! [ $? -eq 0 ]
-    then
-        echo "Could not apply patch: $1"
-        exit 1
-    fi
-}
+; while getopts "r" opt
+; do
+; 	case $opt in
+;         	r) REVERSE=1 ;;
+; 	esac
+; done
+; shift $(($OPTIND - 1))
 
-while getopts "r" opt
-do
-	case $opt in
-        	r) REVERSE=1 ;;
-	esac
-done
-shift $(($OPTIND - 1))
+; patchfiles=$(find -L $1 -iname "*.diff" | sort);
 
-patchfiles=$(find -L $1 -iname "*.diff" | sort);
+; if [ $REVERSE -eq 1 ]; then
+; 	patchfiles=$(echo "$patchfiles" | sort -r)
+; fi
 
-if [ $REVERSE -eq 1 ]; then
-	patchfiles=$(echo "$patchfiles" | sort -r)
-fi
-
-for pf in $patchfiles
-do
-	if can_apply_patch $pf && ! can_reverse_patch $pf; then
-		apply_patch $pf
-	elif ! can_apply_patch $pf && can_reverse_patch $pf; then
-		echo "Already applied: $pf"
-        else
-		echo "Cannot apply $pf"
-                patch --force -s -p1 -i "$pf"
-                exit 1
-	fi
-done
+; for pf in $patchfiles
+; do
+; 	if can_apply_patch $pf && ! can_reverse_patch $pf; then
+; 		apply_patch $pf
+; 	elif ! can_apply_patch $pf && can_reverse_patch $pf; then
+; 		echo "Already applied: $pf"
+;     else
+; 		echo "Cannot apply $pf"
+;         patch --force -s -p1 -i "$pf"
+;         exit 1
+; 	fi
+; done
 
 

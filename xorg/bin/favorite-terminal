@@ -3,7 +3,8 @@
 #
 # Abstract away differences between terminals for launching programs
 
-TERM="alacritty"
+# TERM="alacritty"
+TERM="xst"
 
 WINDOW_CLASS=
 TERMINAL_CMD=$TERM
