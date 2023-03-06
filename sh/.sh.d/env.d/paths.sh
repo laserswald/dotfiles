@@ -1,4 +1,5 @@
 
+insert_path "/opt/homebrew/bin"
 insert_path "$HOME/.local/bin"
 insert_path "$HOME/bin"
 

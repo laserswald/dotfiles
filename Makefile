@@ -49,6 +49,7 @@ MODULES := $(SCRIPT_MODULES) $(STOW_MODULES)
 
 server: sh git vim tmux
 desktop: server xdg $(TERMINAL) $(EDITOR) tig dunst irssi mutt ncmpcpp newsbeuter todotxt
+macos: $(TERMINAL) $(EDITOR) tig irssi mutt ncmpcpp newsbeuter todotxt
 
 # primary stuff
 bin: core sh

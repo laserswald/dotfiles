@@ -18,4 +18,12 @@
 (dolist (path lazr-paths)
   (add-to-list 'exec-path path))
 
-(provide 'shell)
+(setq explicit-shell-file-name "/bin/zsh"
+      shell-file-name "zsh"
+      explicit-zsh-args '("--login" "--interactive"))
+
+(defun zsh-shell-mode-setup ()
+  "Set up Zsh when launched as an inferior shell."
+  (setq-local comint-process-echoes t))
+
+(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)

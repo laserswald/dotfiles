@@ -93,10 +93,10 @@ font:
   # Normal (roman) font face
   normal:
     # family: CMU Typewriter Text
-    # family: Fira Code
+    family: FiraCode Nerd Font
     # family: Go Mono
     # family: Hack
-    family: IBM Plex Mono
+    # family: IBM Plex Mono
     # family: Iosevka Nerd Font
     # family: Inconsolata Nerd Font
     # family: Latin Modern Mono
@@ -106,7 +106,7 @@ font:
     # family: TerminessTTF NF
 
     # The `style` can be specified to pick a specific face.
-    style: Normal
+    style: Regular
 
   # Bold font face
   bold:
@@ -131,7 +131,7 @@ font:
     style: Italic
 
   # Point size
-  size: 10
+  size: 12
 
 
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -174,8 +174,8 @@ import:
   # - '~/.config/alacritty/gruvbox-dark-soft.yml'
   # - '~/.config/alacritty/selenized-black.yml'
   # - '~/.config/alacritty/selenized-dark.yml'
-  # - '~/.config/alacritty/selenized-light.yml'
-  - '~/.config/alacritty/tomorrow-night-bright.yml'
+  - '~/.config/alacritty/selenized-light.yml'
+  # - '~/.config/alacritty/tomorrow-night-bright.yml'
   # - '~/.config/alacritty/selenized-white.yml'
 
 # Bell

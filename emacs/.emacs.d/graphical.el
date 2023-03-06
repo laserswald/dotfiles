@@ -6,8 +6,8 @@
   (scroll-bar-mode -1))
 
 ;; Fonts
-(let ((font-size 9)
-      (font-face "Fira Code Retina"))
+(let ((font-size 12)
+      (font-face "FiraCode Nerd Font"))
   (add-to-list 'default-frame-alist
 	       (cons 'font (concat font-face "-" (number-to-string font-size)))))
 
@@ -25,5 +25,4 @@
   (set-face-foreground 'font-lock-variable-name-face "blue")
   (set-face-foreground 'elscreen-tab-control-face "blue"))
 
-(load-theme 'doom-tomorrow-night t)
 

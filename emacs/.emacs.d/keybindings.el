@@ -43,7 +43,9 @@
 		    "C-l" 'evil-window-right)
 
 ;; Go to ...
-(general-define-key :states 'normal :prefix "g"
+(general-define-key
+ :states 'normal
+ :prefix "g"
  "a" 'evil-switch-to-windows-last-buffer ; alternate
  "b" 'ivy-switch-buffer ; buffer
  "B" 'counsel-bookmark ; Bookmark
@@ -114,6 +116,7 @@
   "eb" 'lazr-eval-buffer)
 
 ;; Org mode
-(lazr-local-leader-map :keymaps 'org-mode-map "t" 'org-todo)
+(lazr-local-leader-map :keymaps 'org-mode-map
+  "t" 'org-todo)
 
 (general-nmap dired-mode-map "-" 'dired-up-directory)
