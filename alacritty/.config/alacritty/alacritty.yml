@@ -169,14 +169,14 @@ draw_bold_text_with_bright_colors: false
 import:
   # - '~/.config/alacritty/catppuccin/catppuccin-latte.yml'
   # - '~/.config/alacritty/catppuccin/catppuccin-frappe.yml'
-  # - '~/.config/alacritty/catppuccin/catppuccin-macchiato.yml'
+  - '~/.config/alacritty/catppuccin/catppuccin-macchiato.yml'
   # - '~/.config/alacritty/catppuccin/catppuccin-mocha.yml'
   # - '~/.config/alacritty/gruvbox-dark-soft.yml'
-  # - '~/.config/alacritty/selenized-black.yml'
-  # - '~/.config/alacritty/selenized-dark.yml'
-  - '~/.config/alacritty/selenized-light.yml'
+  # - '~/.config/alacritty/selenized/black.yml'
+  # - '~/.config/alacritty/selenized/dark.yml'
+  # - '~/.config/alacritty/selenized/light.yml'
+  # - '~/.config/alacritty/selenized/white.yml'
   # - '~/.config/alacritty/tomorrow-night-bright.yml'
-  # - '~/.config/alacritty/selenized-white.yml'
 
 # Bell
 #
