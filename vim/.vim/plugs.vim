@@ -47,12 +47,6 @@ Plug 'gcmt/taboo.vim'
 " Filetype specific plugins"{{{
 
 " PHP {{{
-Plug 'afternoon/vim-phpunit', {'for' : 'php'}
-Plug 'laserswald/php.vim', {'for' : 'php'}
-Plug 'joonty/vdebug', {'for': 'php'}
-Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
-Plug 'jwalton512/vim-blade', {'for': 'php'}
 " }}}
 
 " Web stuff {{{
@@ -66,8 +60,6 @@ Plug 'jpalardy/vim-slime'
 
 Plug 'chrisbra/csv.vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'shawncplus/phpcomplete.vim', {'for' : 'php'}
-Plug 'swekaj/php-foldexpr.vim', {'for' : 'php'}
 
 " Plug 'davidoc/taskpaper.vim'
 " }}}
