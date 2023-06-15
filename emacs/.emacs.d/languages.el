@@ -4,30 +4,34 @@
 
 ;;; Meta packages.
 
-(use-package lsp-mode :ensure t)
-(use-package lsp-ivy :ensure t)
-(use-package lsp-ui :ensure t)
+;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
+(require 'ansi-color)
+(defun endless/colorize-compilation ()
+  "Colorize from `compilation-filter-start' to `point'."
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region
+     compilation-filter-start (point))))
 
-;;;
-;;; Algol family.
-;;;
-
-;; C
-(add-hook 'c-mode-hook #'lsp)
-
-;; C++
-(add-hook 'c++-mode-hook #'lsp)
-
-;; PHP
-(add-hook 'php-mode-hook #'lsp)
+(add-hook 'compilation-filter-hook
+          #'endless/colorize-compilation)
 
 ;; Go
 (use-package go-mode :ensure t)
-(add-hook 'go-mode-hook #'lsp)
 
 ;; Rust
 (use-package rust-mode :ensure t)
-(add-hook 'rust-mode-hook #'lsp)
+
+(use-package eglot
+  :commands eglot-ensure
+  :ensure t
+  :init
+  (dolist (hook-mode '(c-mode-hook
+                       go-mode-hook
+                       rust-mode-hook
+                       python-mode-hook))
+    (add-hook hook-mode #'eglot-ensure)))
+
+(use-package flycheck-eglot :ensure t)
 
 ;;; Lisp family.
 
@@ -55,6 +59,7 @@
 ;;; Data configuration languages.
 
 (use-package yaml-mode :ensure t)
+(use-package terraform-mode :ensure t)
 
 ;;; Template configuration languages.
 
@@ -64,9 +69,16 @@
   (add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode)))
  
 ;;; Python.
-(add-hook 'python-mode-hook #'lsp)
 
 (use-package deft
   :ensure t
   :config
   (setq deft-directory "~/org/"))
+
+(use-package feature-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode)))
+
+(use-package dockerfile-mode
+  :ensure t)

@@ -5,7 +5,8 @@
 
   :init
   (setq evil-want-integration t
-	evil-want-keybinding nil)
+	evil-want-keybinding nil
+	evil-undo-system 'undo-redo)
 
   :config
   (evil-mode 1)
@@ -27,7 +28,7 @@
   :after evil
 
   :init
-  (setq evil-collection-mode-list '(dired magit))
+  (setq evil-collection-mode-list '(dired magit process-menu))
 
   :config
   (evil-collection-init))

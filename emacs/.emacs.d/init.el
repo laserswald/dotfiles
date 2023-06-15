@@ -22,6 +22,7 @@
 (lz/load "shell.el")
 
 (global-display-line-numbers-mode)
+(desktop-save-mode 1)
 
 ;;; Core packages.
 
@@ -48,12 +49,6 @@
 
 (lz/load "languages.el")
 
-(use-package smart-tabs-mode
-  :ensure t
-  :config
-  (smart-tabs-insinuate 'c 'javascript)
-  (add-hook 'php-mode-hook 'smart-tabs-mode-enable))
-
 (use-package company
   :ensure t
   :config (global-company-mode))
@@ -66,6 +61,9 @@
   
   :config
   (projectile-mode))
+
+(use-package ag :ensure t)
+(use-package ripgrep :ensure t)
 
 (use-package magit :ensure t)
 
@@ -116,10 +114,36 @@
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+(use-package password-store :ensure t)
+
+(eval-after-load 'tramp '(progn (setenv "SHELL" "/bin/bash")
+				(setenv "TERM" "ansi")))
 
 (lz/load "keybindings.el")
 (lz/load "custom.el")
+
+(defvar lz/theme-pair
+  (cons 'modus-operandi 'modus-vivendi))
+
+(defvar lz/theme-shade 'light)
+
+(defun lz/apply-theme ()
+  "Apply the theme shade"
+  (load-theme
+   (funcall
+    (if (eq lz/theme-shade 'light) #'car #'cdr)
+    lz/theme-pair)))
+
+(defun lz/switch-theme-bg ()
+  "Switch theme shade from light to dark to light..."
+  (interactive)
+  (setf lz/theme-shade
+	(cond
+	 ((eq lz/theme-shade 'light) 'dark)
+	 ((eq lz/theme-shade 'dark)  'light)
+	 (t
+	  (error "Some SHIT happened"))))
+  (lz/apply-theme))
 
 (provide 'init)
 ;;; init.el ends here

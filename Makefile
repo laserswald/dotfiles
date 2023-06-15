@@ -5,7 +5,7 @@ MULTIPLEXER := tmux
 
 STOW_CMD := stow --ignore=install --ignore=tags --ignore='\.kak.*'
 
-SCRIPT_MODULES := core vim tmux sh git dwm
+SCRIPT_MODULES := core vim sh git dwm
 
 STOW_MODULES := \
 	alacritty \
@@ -34,6 +34,7 @@ STOW_MODULES := \
 	sxhkd \
 	termite \
 	tig \
+	tmux \
 	todotxt \
 	uzbl \
 	vis \

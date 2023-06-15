@@ -49,6 +49,8 @@ simple-explorer-enable
 # Language server protocol support.
 evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
 
+evaluate-commands %sh{ kak-tree-sitter --kakoune }
+
 # Local kakrc sourcing for custom project commands and tools
 try %{ source .kakrc.local }
 

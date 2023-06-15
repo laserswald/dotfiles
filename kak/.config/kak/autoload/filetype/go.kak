@@ -9,7 +9,7 @@ hook -group go-lsp-support global WinSetOption filetype=go %{
 	    lazr-autodetect-lsp "gopls"
 	    echo -debug "go: detected gopls, setting mappings..."
 
-		hook buffer BufWritePre .* %{ lsp-formatting }
+		# hook buffer BufWritePre .* %{ lsp-formatting }
     }
 }
 

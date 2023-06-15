@@ -19,5 +19,9 @@
 
 [core]
 	excludesFile = ~/.gitignore
+
 [init]
 	defaultBranch = main
+
+[rerere]
+    enabled = true

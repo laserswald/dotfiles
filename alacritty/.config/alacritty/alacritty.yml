@@ -78,6 +78,14 @@ window:
   # The value `0.0` is completely transparent and `1.0` is opaque.
   opacity: 1.0
 
+
+  # Make `Option` key behave as `Alt` (macOS only):
+  #   - OnlyLeft
+  #   - OnlyRight
+  #   - Both
+  #   - None (default)
+  option_as_alt: OnlyLeft
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -92,9 +100,9 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    # family: CMU Typewriter Text
     family: FiraCode Nerd Font
-    # family: Go Mono
+    # family: CMU Typewriter Text
+    # family: FiraCode Nerd Font
     # family: Hack
     # family: IBM Plex Mono
     # family: Iosevka Nerd Font
@@ -118,17 +126,6 @@ font:
 
     # The `style` can be specified to pick a specific face.
     style: Bold
-
-  # Italic font face
-  italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
-    #family: monospace
-
-    # The `style` can be specified to pick a specific face.
-    style: Italic
 
   # Point size
   size: 12
@@ -167,16 +164,7 @@ font:
 draw_bold_text_with_bright_colors: false
 
 import:
-  # - '~/.config/alacritty/catppuccin/catppuccin-latte.yml'
-  # - '~/.config/alacritty/catppuccin/catppuccin-frappe.yml'
-  - '~/.config/alacritty/catppuccin/catppuccin-macchiato.yml'
-  # - '~/.config/alacritty/catppuccin/catppuccin-mocha.yml'
-  # - '~/.config/alacritty/gruvbox-dark-soft.yml'
-  # - '~/.config/alacritty/selenized/black.yml'
-  # - '~/.config/alacritty/selenized/dark.yml'
-  # - '~/.config/alacritty/selenized/light.yml'
-  # - '~/.config/alacritty/selenized/white.yml'
-  # - '~/.config/alacritty/tomorrow-night-bright.yml'
+  - "~/.config/alacritty/selenized/white.yml"
 
 # Bell
 #
@@ -258,7 +246,7 @@ mouse:
     modifiers: None
 
 selection:
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+  semantic_escape_chars: ",│|:\" ()[]{}<>"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: false
@@ -309,9 +297,6 @@ working_directory: None
 # Alacritty will fall back to the WinPTY automatically if the ConPTY
 # backend cannot be initialized.
 enable_experimental_conpty_backend: false
-
-# Send ESC (\x1b) before characters when alt is pressed.
-alt_send_esc: true
 
 debug:
   # Display the time it takes to redraw each frame.
@@ -621,16 +606,3 @@ key_bindings:
   - { key: Key8,      mods: Alt,       chars: "\x1b8"                       }
   - { key: Key9,      mods: Alt,       chars: "\x1b9"                       }
   - { key: Key0,      mods: Alt,       chars: "\x1b0"                       }
-  - { key: Space,     mods: Control,   chars: "\x00"                        } # Ctrl + Space
-  - { key: Grave,     mods: Alt,       chars: "\x1b`"                       } # Alt + `
-  - { key: Grave,     mods: Alt|Shift, chars: "\x1b~"                       } # Alt + ~
-  - { key: Period,    mods: Alt,       chars: "\x1b."                       } # Alt + .
-  - { key: Key8,      mods: Alt|Shift, chars: "\x1b*"                       } # Alt + *
-  - { key: Key3,      mods: Alt|Shift, chars: "\x1b#"                       } # Alt + #
-  - { key: Period,    mods: Alt|Shift, chars: "\x1b>"                       } # Alt + >
-  - { key: Comma,     mods: Alt|Shift, chars: "\x1b<"                       } # Alt + <
-  - { key: Minus,     mods: Alt|Shift, chars: "\x1b_"                       } # Alt + _
-  - { key: Key5,      mods: Alt|Shift, chars: "\x1b%"                       } # Alt + %
-  - { key: Key6,      mods: Alt|Shift, chars: "\x1b^"                       } # Alt + ^
-  - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
-  - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |

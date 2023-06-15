@@ -9,7 +9,7 @@ if [ ! "$SSH_AGENT_PID" -o ! "$SSH_AUTH_SOCK" ]; then
     eval $(<~/.ssh/agent_cmds.sh)
 fi
 
-EXTRA_KEYS=~/.ssh/ahi_rs
+EXTRA_KEYS=
 
 ssh_add_extras() {
     set -x

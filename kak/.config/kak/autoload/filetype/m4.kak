@@ -18,6 +18,7 @@ add-highlighter shared/m4/default/ regex '\b(divnum)\b' 1:value
 add-highlighter shared/m4/default/ regex '\b(define|pushdef|defn)\b' 1:function
 add-highlighter shared/m4/default/ regex '\b(undefine|popdef)\b' 1:type
 add-highlighter shared/m4/default/ regex '\b(include|sinclude)\b' 1:meta
+add-highlighter shared/m4/default/ regex '\b(ifdef|ifelse|shift)\b' 1:meta
 add-highlighter shared/m4/default/ regex '\b(len|index|regexp|substr|translit|patsubst|format|incr|decr|divert|undivert)\b' 1:builtin
 add-highlighter shared/m4/default/ regex '\$\d+' 0:variable
 

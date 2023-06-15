@@ -28,7 +28,7 @@ plug "andreyorst/tagbar.kak" config %{
 plug "alexherbo2/auto-pairs.kak" 
 
 plug "andreyorst/powerline.kak" defer powerline %{
-	powerline-format global 'git bufname filetype mode_info lsp line_column position'
+	powerline-format global 'git bufname filetype mode_info lsp line_column position client session'
 } config %{
 	powerline-start
 }
@@ -52,6 +52,7 @@ plug "occivink/kakoune-snippets" config %{
     map global normal <tab> ": snippets-select-next-placeholders<ret>"
 }
 plug "andreyorst/kakoune-snippet-collection"
+
 plug "eraserhd/rep"
 
 plug "crizan/kak-rainbower" config %{
