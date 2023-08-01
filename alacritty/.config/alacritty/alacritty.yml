@@ -100,7 +100,7 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: FiraCode Nerd Font
+    family: CMUTypewriter NF
     # family: CMU Typewriter Text
     # family: FiraCode Nerd Font
     # family: Hack
@@ -128,7 +128,7 @@ font:
     style: Bold
 
   # Point size
-  size: 12
+  size: 16
 
 
   # Offset is the extra space around each character. `offset.y` can be thought of

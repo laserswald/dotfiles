@@ -1,8 +1,10 @@
 #define FIRA_CODE 1
+#define FONT Blex Mono Nerd Font:size=12:antialias=true:autohint=true
+
 
 #if   FIRA_CODE
 URxvt.font: xft:Fira Code:size=11:style=Regular
-st.font: Fira Code:size=11:style=Regular
+st.font: FONT
 URxvt.boldFont: xft:Fira Code Medium:size=11
 st.boldFont: xft:Fira Code Medium:size=11
 

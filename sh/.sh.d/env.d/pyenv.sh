@@ -1,3 +1,4 @@
+. "$HOME/.local/lib/sh/path.sh"
 
 PYENV_ROOT="$HOME/pkg/pyenv"
 

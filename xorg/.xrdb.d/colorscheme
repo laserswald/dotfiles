@@ -1,1 +1,7 @@
-#include "colors/base16-dark"
+#define APPLICATION st
+#include "colors/lunardark3"
+#undef APPLICATION
+
+#define APPLICATION urxvt
+#include "colors/lunardark3"
+#undef APPLICATION

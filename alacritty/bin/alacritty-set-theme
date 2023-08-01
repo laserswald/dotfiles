@@ -18,23 +18,15 @@ while getopts "dlf:s:t:" flag;
 do
 	case $flag in
 		d)
-			definitions="$definitions--define=SHADE=\"dark\" "
+			definitions="$definitions-D _SHADE=dark "
 			;;
 		l)
-			definitions="$definitions--define=SHADE=\"light\" "
-			;;
-		f)
-			definitions="$definitions\"-D_FONT=${OPTARG}\" "
-			;;
-		s)
-			definitions="$definitions\"-D_FONT_SIZE=${OPTARG}\" "
+			definitions="$definitions-D _SHADE=light "
 			;;
 		t)
-			definitions="$definitions\"-DCURRENT_THEME=theme_${OPTARG}\" "
+			definitions="$definitions-D _THEME_NAME=${OPTARG} "
 			;;
 	esac
 done
 
-echo m4 "$definitions" "$theme" "$file"
-m4 -d "$definitions" "$theme" "$file" >"$dir/alacritty.yml"
-
+m4 -d $definitions "$theme" "$file" >"$dir/alacritty.yml"

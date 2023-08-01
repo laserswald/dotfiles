@@ -6,14 +6,10 @@
         (chibi process))
 
 (define-record-type <display-preferences>
-  (make-display-preferences disp)
+  (make-display-preferences name resolution)
   display-preferences? 
   (name display-name)
   (resolution display-resolution))
-
-(define (main args)
-  (let ((preferences (read-hydra-prefs)))
-    (apply-preferences (read-hydra-prefs))))
 
 (define (apply-preferences prefs)
   (execute 
@@ -21,5 +17,6 @@
          (for-each build-display-args 
                    (displays prefs)))))
 
-(define (build-display-args disp)
-  ())
+(define (main args)
+  (let ((preferences (read-hydra-prefs)))
+    (apply-preferences (read-hydra-prefs))))

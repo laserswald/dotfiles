@@ -1,8 +1,8 @@
-! #include "colorscheme"
+#include "colorscheme"
 #include "urxvt"
 #include "xst"
 #include "fonts"
 #include "gnuplot"
 
-Xft.dpi: 192
+Xft.dpi: 96
 

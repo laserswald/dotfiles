@@ -9,10 +9,9 @@ st.termname:     xst-256color
 st.borderless:        0
 
 ! --- The following options options can be reloaded via USR1 signal. ---
-! st.font:              Liberation Mono:pixelsize=12:antialias=true:autohint=true;
 
 ! Font2 fallback, each font can be separated by comma ","
-! st.font_fallback:     Fira Code Nerd Font Mono:style=Regular:pixelsize=13:antialias=true,Material\\-Design\\-Iconic\\-Font:style=Design-Iconic-Font:pixelsize=13,JoyPixels:pixelsize=13
+st.font_fallback:     Fira Code Nerd Font Mono:style=Regular:pixelsize=13:antialias=true,Material\\-Design\\-Iconic\\-Font:style=Design-Iconic-Font:pixelsize=13,JoyPixels:pixelsize=13
 
 ! window padding
 st.borderpx:          10
@@ -93,27 +92,3 @@ st.undercurl_shape: 1
 st.undercurl_thickness_threshold: 28
 
 ! colors -- this is the base16-twilight colorscheme.
-st.foreground:   #a7a7a7
-st.background:   #1e1e1e
-st.color0:       #1e1e1e
-st.color1:       #cf6a4c
-st.color2:       #8f9d6a
-st.color3:       #f9ee98
-st.color4:       #7587a6
-st.color5:       #9b859d
-st.color6:       #afc4db
-st.color7:       #a7a7a7
-st.color8:       #5f5a60
-st.color9:       #cf6a4c
-st.color10:      #8f9d6a
-st.color11:      #f9ee98
-st.color12:      #7587a6
-st.color13:      #9b859d
-st.color14:      #afc4db
-st.color15:      #ffffff
-st.color16:      #cda869
-st.color17:      #9b703f
-st.color18:      #323537
-st.color19:      #464b50
-st.color20:      #838184
-st.color21:      #c3c3c3

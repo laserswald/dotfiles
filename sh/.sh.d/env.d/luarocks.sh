@@ -1,4 +1,5 @@
 #!/bin/sh
+. "$HOME/.local/lib/sh/path.sh"
 
 # luarocks.sh: enable executing LuaRocks installed programs and modules
 

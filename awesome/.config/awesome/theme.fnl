@@ -55,7 +55,7 @@
   ;; theme.font = nil
   : font
   ;; theme.wallpaper = nil
-  :wallpaper "/home/ben/seashore.jpg"
+  :wallpaper "/home/ben/Telegram Desktop/landscapething.png"
 
   ;; arcchart
   ;; theme.arcchart_border_color = nil

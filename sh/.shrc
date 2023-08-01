@@ -11,7 +11,7 @@ esac
 
 
 # Before we do anything, we are going to load our path manipulation stuff.
-source "$HOME/.local/lib/sh/path.sh"
+. "$HOME/.local/lib/sh/path.sh"
 
 # Set up environment variables.
 source_dir "$HOME/.sh.d/env.d"

@@ -2,7 +2,7 @@
 
 . "$HOME/.local/lib/sh/df.sh"
 
-DWMDIR="$HOME/pkg/xdwm"
+DWMDIR="$HOME/src/lazr/xdwm"
 DWMREPO="gitolite@lazr.space:xdwm"
 
 if ! [ -d "$DWMDIR" ]

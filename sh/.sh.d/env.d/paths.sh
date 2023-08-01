@@ -1,3 +1,4 @@
+. "$HOME/.local/lib/sh/path.sh"
 
 insert_path "/opt/homebrew/bin"
 insert_path "$HOME/.local/bin"

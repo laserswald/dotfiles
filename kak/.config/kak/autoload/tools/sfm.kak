@@ -70,7 +70,7 @@ explore -params 1..1 %{ evaluate-commands %sh{
     fi
 
     # Open a fifo and pump the output of `ls` into it.
-    output=$(mktemp -d -t kak-explore)/fifo
+    output=$(mktemp -d)/fifo
     mkfifo ${output}
     if [ $kak_opt_sfm_show_dots == "true" ]
     then 

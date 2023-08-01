@@ -1,6 +1,5 @@
 if ! command -v todo.sh >/dev/null 2>&1
 then
-	echo "Returning early"
     return
 fi
 

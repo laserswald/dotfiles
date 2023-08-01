@@ -1,5 +1,5 @@
-PROJECTS = xdwm xst xdmenu
-PROJECT_CONTAINING_DIR = ${HOME}/pkg/
+PROJECTS = xdwm xdmenu
+PROJECT_CONTAINING_DIR = ${HOME}/src/lazr/
 
 PROJECT_DIRS = $(patsubst %,$(PROJECT_CONTAINING_DIR)%,$(PROJECTS))
 

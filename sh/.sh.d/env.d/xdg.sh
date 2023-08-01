@@ -4,4 +4,5 @@ if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
     # shellcheck source=/dev/null
     . "$XDG_CONFIG_HOME/user-dirs.dirs"
 fi
-export XDG_RUNTIME_DIR="$HOME/.local/share"
+: ${XDG_RUNTIME_DIR:="$HOME/.local/share"}
+export XDG_RUNTIME_DIR

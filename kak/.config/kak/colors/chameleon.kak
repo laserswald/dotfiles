@@ -25,7 +25,8 @@ set-face global Information bright-white,bright-black+i
 #
 # Code highlighting
 # 
-set-face global comment    bright-black+i
+set-face global comment    white+i
+set-face global documentation bright-white+bi
 set-face global error      yellow,bright-red
 
 set-face global keyword    bright-red

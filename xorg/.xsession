@@ -3,4 +3,4 @@
 
 [ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
-# exec dbus-launch --exit-with-session "$WM" 2>>.xsession-errors >>.xsession.log
+exec dbus-run-session "$WM" 2>>.xsession-errors >>.xsession.log

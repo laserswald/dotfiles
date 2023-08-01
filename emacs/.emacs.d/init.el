@@ -4,6 +4,8 @@
 
 ;;;; Code:
 
+(require 'cl-lib)
+
 (defvar lz/emacsd-root
   (file-name-directory load-file-name))
 
