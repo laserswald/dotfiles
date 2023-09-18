@@ -100,7 +100,7 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: CMUTypewriter NF
+    family: FiraCode Nerd Font
     # family: CMU Typewriter Text
     # family: FiraCode Nerd Font
     # family: Hack
@@ -128,7 +128,7 @@ font:
     style: Bold
 
   # Point size
-  size: 16
+  size: 13
 
 
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -164,7 +164,7 @@ font:
 draw_bold_text_with_bright_colors: false
 
 import:
-  - "~/.config/alacritty/selenized/white.yml"
+  - "~/.config/alacritty/selenized/black.yml"
 
 # Bell
 #

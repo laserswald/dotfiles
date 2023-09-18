@@ -4,6 +4,11 @@
 
 ;;;; Code:
 
+(setq gc-cons-threshold 10000000
+      byte-compile-warnings '(not obsolete)
+      warning-suppress-log-types '((comp) (bytecomp))
+      native-comp-async-report-warnings-errors 'silent)
+
 (require 'cl-lib)
 
 (defvar lz/emacsd-root
@@ -17,6 +22,9 @@
 (setq inhibit-startup-message t
       vc-follow-symlinks t
       custom-file "~/.emacs.d/custom.el")
+
+;; Move up here so themes can stop bugging me
+(lz/load "custom.el")
 
 (lz/load "package-setup.el")
 (lz/load "core.el")
@@ -118,11 +126,11 @@
 
 (use-package password-store :ensure t)
 
+
 (eval-after-load 'tramp '(progn (setenv "SHELL" "/bin/bash")
 				(setenv "TERM" "ansi")))
 
 (lz/load "keybindings.el")
-(lz/load "custom.el")
 
 (defvar lz/theme-pair
   (cons 'modus-operandi 'modus-vivendi))

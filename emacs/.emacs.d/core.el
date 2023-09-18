@@ -11,6 +11,7 @@
   :config
   (evil-mode 1)
   (evil-set-initial-state 'dired-mode 'normal)
+  (evil-set-initial-state 'vterm-mode 'emacs)
   ;; Vim-vinegar replacement
   (define-key evil-normal-state-map (kbd "-")
     #'(lambda ()

@@ -35,8 +35,8 @@ ifelse(
 # define_default(`_THEME', `THEME_HOME/tomorrow_night_bright.yml')
 
 
-# define_font(`FiraCode Nerd Font', `13')
+define_font(`FiraCode Nerd Font', `13')
 # define_font(`Monoid Nerd Font Retina', `13')
-define_font(`CMUTypewriter NF', `16')
+# define_font(`CMUTypewriter NF', `16')
 
 divert(0)dnl

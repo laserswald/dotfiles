@@ -10,13 +10,14 @@
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
-(defvar lz/theme-pair (cons 'modus-operandi 'modus-vivendi)
+(defvar lz/theme-pair (cons 'doom-tomorrow-day 'doom-tomorrow-night)
   "A pair of light and dark themes for switching.")
 
 (defvar lz/theme-shade 'dark)
 
 (defun lz/apply-theme ()
   "Apply the theme shade."
+  (interactive)
   (load-theme
    (funcall
     (if (eq lz/theme-shade 'light) #'car #'cdr)
@@ -37,15 +38,16 @@
 (defun font-candidate (&rest fonts)
   "Return the first font in FONTS that exists on the system."
   (cl-find-if (lambda (f)
-	        (find-font (font-spec :name f)))
-	      fonts))
+                (find-font (font-spec :name f)))
+              fonts))
 
 (let ((font-size 16)
-      (font-face (font-candidate "CMUTypewriter NF:style=Regular"
-				 "FiraCode Nerd Font")))
-
+      (font-face (font-candidate "BlexMono Nerd Font"
+                                 "FiraCode Nerd Font")))
+  
   (add-to-list 'default-frame-alist
          (cons 'font (concat font-face ":size=" (number-to-string font-size))))
+
   (set-frame-font font-face t))
 
 ;; Themes
@@ -54,6 +56,11 @@
 (use-package modus-themes :ensure t :config (lz/apply-theme))
 (use-package ef-themes :ensure t)
 (use-package doom-modeline :ensure t :config (doom-modeline-mode 1))
+
+(when (display-graphic-p)
+  (context-menu-mode))
+
+(pixel-scroll-mode)
 
 (unless (display-graphic-p)
   (set-face-background 'default "background")
