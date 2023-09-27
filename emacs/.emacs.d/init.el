@@ -155,5 +155,13 @@
 	  (error "Some SHIT happened"))))
   (lz/apply-theme))
 
+(defvar lz/open-terminal-count 0)
+(defun lz/open-terminal ()
+  "Open a new terminal instance."
+  (interactive)
+  (term explicit-shell-file-name)
+  (rename-buffer (format "*terminal-%d*" lz/open-terminal-count))
+  (setq lz/open-terminal-count (+ lz/open-terminal-count 1)))
+
 (provide 'init)
 ;;; init.el ends here

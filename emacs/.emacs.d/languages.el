@@ -2,22 +2,31 @@
 ;;;; Language support.
 ;;;;
 
+(defvar lz/smart-language-hooks
+  '(rust-mode-hook
+    python-mode-hook
+    go-mode-hook
+    c-mode-hook
+    shell-script-mode-hook))
+
 (use-package eglot
   :commands eglot-ensure
   :ensure t
   :init
-  (dolist (hook-mode '(c-mode-hook
-                       go-mode-hook
-                       rust-mode-hook
-                       python-mode-hook
-                       shell-script-mode-hook))
+  (dolist (hook-mode lz/smart-language-hooks)
     (add-hook hook-mode #'eglot-ensure)))
 
 (use-package flycheck-eglot :ensure t)
-(use-package tree-sitter :ensure t)
-(use-package tree-sitter-langs :ensure t)
 
-;;; Meta packages.
+(use-package tree-sitter :ensure t
+  :config
+  (dolist (hook-mode lz/smart-language-hooks)
+     (add-hook hook-mode #'tree-sitter-mode)))
+
+(use-package tree-sitter-langs :ensure t
+  :config
+  (dolist (hook-mode lz/smart-language-hooks)
+     (add-hook hook-mode #'tree-sitter-hl-mode)))
 
 ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
 (require 'ansi-color)
@@ -36,6 +45,9 @@
 ;;; Algol family.
 ;;;
 
+;; C.
+(setq c-default-style "bsd")
+
 ;; Go
 (use-package go-mode :ensure t
   :config
@@ -47,7 +59,6 @@
   (tree-sitter-require 'rust))
 
 ;; Shell scripts.
-
 (reformatter-define shell-script-format
   :program "shfmt"
   :args '("--simplify" "--case-indent" "--func-next-line" "-"))
@@ -59,7 +70,6 @@
 (use-package elpy :ensure t
   :config
   (elpy-enable))
-
 
 ;;;
 ;;; Lisp family.
@@ -79,7 +89,6 @@
   (setf inferior-lisp-program "/usr/bin/sbcl"))
 
 ;; Scheme
-
 (use-package geiser :ensure t)
 (use-package geiser-chez :ensure t)
 (use-package geiser-chibi :ensure t)
@@ -104,8 +113,6 @@
   :ensure t
   :config 
   (add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode)))
- 
-
 
 (use-package feature-mode
   :ensure t
@@ -116,9 +123,16 @@
 
 (use-package protobuf-mode :ensure t)
 
+;;;
+;;; Prose and notes and such
+;;;
+
+(use-package org-roam :ensure t)
+
 (use-package deft
   :ensure t
   :config
   (setq deft-directory "~/org/"))
+
 (use-package markdown-mode :ensure t)
-(use-package org-roam :ensure t)
+
