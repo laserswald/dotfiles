@@ -10,4 +10,4 @@ export ENV="$HOME/.shrc"
 
 # Say something funny.
 command -v fortune >/dev/null 2>&1 && fortune
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

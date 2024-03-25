@@ -3,7 +3,7 @@ IMAPAccount bdr
 Host imap.gmail.com
 Port 993
 User ben.davenportray@gmail.com
-PassCmd "pass email/ben.davenportray@gmail.com"
+PassCmd "pass email/ben.davenportray@gmail.com | head -1"
 SSLType IMAPS
 # The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
 CertificateFile /etc/ssl/certs/ca-certificates.crt

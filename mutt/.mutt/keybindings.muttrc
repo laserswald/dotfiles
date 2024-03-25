@@ -8,7 +8,7 @@ bind pager gg top
 bind index G last-entry
 bind pager G bottom
 
-macro index o "<shell-escape>fdm fetch >/dev/null 2>&1 &<enter>" "Sync email."
+macro index o "<shell-escape>notmuch new >/dev/null 2>&1 &<enter>" "Sync email."
 macro index zM "<limit>all\n" "show all messages (undo limit)"
 bind index <space> tag-entry
 

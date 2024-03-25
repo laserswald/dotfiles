@@ -3,16 +3,19 @@
 #
 # Abstract away differences between terminals for launching programs
 
-# TERM="alacritty"
-TERM="xst"
+TERM="alacritty"
+# TERM="xst"
 
 WINDOW_CLASS=
 TERMINAL_CMD=$TERM
 
-while getopts 'c:' arg; do
+while getopts 'c:t:' arg; do
 	case $arg in
 		c)
 			WINDOW_CLASS=$OPTARG
+			;;
+		t)
+			WINDOW_TITLE=$OPTARG
 			;;
 		*) 
 			echo "Unknown option"
@@ -38,6 +41,8 @@ then
 	TERMINAL_CMD="$TERMINAL_CMD --command $COMMAND"
 	# TERMINAL_CMD="$TERMINAL_CMD $COMMAND"
 fi
+
+# Install title
 
 $TERMINAL_CMD
 

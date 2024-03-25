@@ -17,6 +17,12 @@
 (use-package tree-sitter :ensure t)
 (use-package tree-sitter-langs :ensure t)
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (scheme . t)
+   (python . t)))
+
 ;;; Meta packages.
 
 ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
@@ -61,6 +67,11 @@
   (elpy-enable))
 
 
+(use-package php-mode
+  :ensure t)
+
+(use-package web-mode :ensure t)
+
 ;;;
 ;;; Lisp family.
 ;;;
@@ -85,9 +96,16 @@
 (use-package geiser-chibi :ensure t)
 (use-package geiser-gauche :ensure t)
 (add-to-list 'auto-mode-alist '("\\.sld" . scheme-mode))
+(setq geiser-active-implementations '(gauche))
 
 ;; Elixir (It's a Lisp, fite me)
 (use-package elixir-mode :ensure t)
+
+;;;
+;;; ML family.
+;;;
+
+(use-package haskell-mode :ensure t)-
 
 ;;;
 ;;; Data configuration languages.
@@ -105,8 +123,6 @@
   :config 
   (add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode)))
  
-
-
 (use-package feature-mode
   :ensure t
   :config
@@ -120,5 +136,8 @@
   :ensure t
   :config
   (setq deft-directory "~/org/"))
+
 (use-package markdown-mode :ensure t)
+
 (use-package org-roam :ensure t)
+(us-package nix-mode :ensure t)
