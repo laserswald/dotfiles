@@ -1,4 +1,3 @@
-
 (require 'package)
 
 ;;;; Package setup.

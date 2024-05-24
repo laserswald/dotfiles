@@ -65,7 +65,7 @@ bash: sh
 zsh: sh
 
 # editors
-emacs:
+emacs: STOW_CMD := $(STOW_CMD) --ignore='elpa'
 vis: bin
 
 # window managers

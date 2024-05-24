@@ -30,7 +30,6 @@
 ;;; Roots of the leader mapping trees.
 ;;;
 
-
 ;; Window movement with C-hjkl
 (general-define-key "C-h" 'evil-window-left
 		    "C-j" 'evil-window-down
@@ -49,13 +48,13 @@
  "b" 'counsel-buffer-or-recentf
 
  ; Bookmark
- "B" 'counsel-bookmark ; Bookmark
+ "B" 'counsel-bookmark
 
  ; File
  "F" 'counsel-find-file
 
  ; Project file
- "f" 'projectile-find-file
+ "f" 'project-find-file
 
  ; Definition
  "d" 'xref-find-definitions
@@ -66,6 +65,8 @@
  ; Configuration.
  "C" 'lazr-open-config
 
+ ; Projects
+ "p" 'project-switch-project
  )
 
 ;;;
@@ -77,23 +78,29 @@
   :prefix "SPC")
 
 (lazr-leader-map
+  "a" 'org-agenda
+  "c" 'org-capture
   "R" 'lazr-reload-config
-  "s" 'multi-vterm-dedicated-toggle)
+  "s" 'multi-vterm-dedicated-toggle
+  "C" 'comment-dwim
+  "w" 'lazr-save-buffer)
+
+(lazr-leader-map :infix "p"
+  "f" 'project-find-file
+  "g" 'project-search
+  "G" 'project-replace
+  "d" 'project-dired
+  "v" 'project-vc-dir
+  "s" 'project-shell
+  "e" 'project-eshell
+  "c" 'project-compile
+  )
 
 ;; Fuzzy finding
 (lazr-leader-map :infix "f"
   "c" 'counsel-cd
   "t" 'xref-find-apropos
   "f" 'counsel-find-file)
-
-;; 'W'indow manipulation
-(lazr-leader-map :infix "w"
-  "c" 'kill-buffer
-  "j" 'split-window-vertically
-  "l" 'split-window-horizontally)
-
-;;; 'P'roject tools
-(lazr-leader-map "p" 'projectile-command-map)
 
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
@@ -103,9 +110,6 @@
 
 ;;; 'O'rg mode
 (lazr-leader-map :infix "o"
-  "l" 'org-store-link
-  "a" 'org-agenda
-  "c" 'org-capture
   "p" 'org-pomodoro)
 
 ;;; X for perspective mode because too many things start with P
@@ -140,7 +144,17 @@
   "tt" 'phpunit-current-test
   "tc" 'phpunit-current-class)
 
-;; Emacs Lisp
+;;; Lisp and friends
+
+(defmacro lazr-define-lisp-keybinds (mode
+                                     eval-defun
+                                     eval-buffer
+                                     open-repl)
+  "Define Lisp keybindings in a consistent manner."
+  `(lazr-local-leader-map :keymaps ,mode
+     "e" ,eval-defun
+     "E" ,eval-buffer
+     "r" ,open-repl))
 
 (defun lazr-eval-buffer ()
   "Evaluate a buffer and say something about it."
@@ -148,12 +162,34 @@
   (eval-buffer)
   (message "Evaluated."))
 
-(lazr-local-leader-map :keymaps 'emacs-lisp-mode-map
-  "eb" 'lazr-eval-buffer)
+(lazr-define-lisp-keybinds 'emacs-lisp-mode-map
+  'eval-defun
+  'lazr-eval-buffer
+  'ielm)
+
+(lazr-define-lisp-keybinds 'scheme-mode-map
+  'geiser-eval-definition
+  'geiser-eval-buffer
+  'geiser)
+
+(lazr-define-lisp-keybinds 'lisp-mode-map
+  'slime-eval-defun
+  'slime-compile-and-load-file
+  'slime)
 
 ;;; Org mode
 
 (lazr-local-leader-map :keymaps 'org-mode-map
-  "t" 'org-todo)
+  "t" 'org-todo
+  "c" 'org-ctrl-c-ctrl-c
+  "l" 'org-store-link
+  "p" 'org-insert
+  "o" 'org-open-at-point
+  "e" 'org-babel-eval)
 
 (general-nmap dired-mode-map "-" 'dired-up-directory)
+
+(lazr-local-leader-map :keymaps 'todotxt-mode-map
+  "c" 'todotxt-complete-toggle)
+
+(provide 'lazr-keybindings)

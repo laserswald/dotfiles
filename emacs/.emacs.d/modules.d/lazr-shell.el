@@ -18,8 +18,7 @@
 (dolist (path lazr-paths)
   (add-to-list 'exec-path path))
 
-(setq explicit-shell-file-name "/bin/zsh"
-      shell-file-name "zsh"
+(setq shell-file-name "zsh"
       explicit-zsh-args '("--login" "--interactive"))
 
 (defun zsh-shell-mode-setup ()
@@ -60,3 +59,5 @@
   (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+
+(provide 'lazr-shell)
