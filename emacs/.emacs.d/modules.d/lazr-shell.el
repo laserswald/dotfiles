@@ -21,6 +21,9 @@
 (setq shell-file-name "zsh"
       explicit-zsh-args '("--login" "--interactive"))
 
+(use-package multi-term
+  :ensure t)
+
 (defun zsh-shell-mode-setup ()
   "Set up Zsh when launched as an inferior shell."
   (setq-local comint-process-echoes t))
