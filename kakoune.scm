@@ -1,44 +1,66 @@
-(use-modules (srfi srfi-9))
+(use-modules
+ (srfi srfi-9)
+ (srfi srfi-1))
+
+;;;
+;;; Plugins.
+;;;
 
 (load "kakoune-plugins.scm")
 
-(define-configuration kakoune-plugin-configuration
+(define-maybe/no-serialization package)
+
+;;;
+;;; Configuration for a kakoune plugin.
+;;;
+(define-configuration/no-serialization kakoune-plugin-configuration
   (package
-   (text-config '())
-   "Package to use for the plugin.")
+   (maybe-package)
+   "Package(s) to use for the plugin.")
 
   (commands  
    (text-config '())
    "Extra Kakoune commands to evaluate after the plugin is loaded."))
 
-(define (build-plugin-load-file dir)
+(define (build-plugin-load-file plugin-package)
+  (with-imported-modules '((ice-9 ftw))
+    #~(begin
+       (use-modules (ice-9 ftw))
 
-  (define (enter? name stat result)
-    ;; Ignore version control directories.
-    (not (member (basename name) '(".git" ".svn" "CVS"))))
-  
-  (define (leaf name stat result)
-    (if (string-suffix? ".kak" name)
-      (string-append result "source \"" name "\"\n")
-      result))
-
-  (define (down name stat result) result)
-  (define (up name stat result) result)
-  (define (skip name stat result) result)
-  (define (err name stat errno result) result)
-
-  (file-system-fold enter? leaf down up skip err "" dir))                 
+       (letrec 
+         ((enter?
+           (lambda (name stat result)
+             ;; Ignore version control directories.
+             (not (member (basename name) '(".git" ".svn" "CVS")))))
+          (leaf
+           (lambda (name stat result)
+             (if (string-suffix? ".kak" name)
+                 (string-append result "source \"" name "\"\n")
+                 result)))
+          (continue
+           (lambda (name stat result) 
+             result))
+          (err
+           (lambda (name stat errno result)
+             result)))
+           
+         (file-system-fold enter? leaf continue continue continue err "" #$plugin-package)))))
 
 (define kakoune-plugin-loader-dir "kak/autoload/guix/")
 
 (define (kakoune-plugin-xdg-configuration-files config)
   (let ((package (kakoune-plugin-configuration-package config)))
-    `((,(string-append kakoune-plugin-loader-dir package ".kak")
-       ,(mixed-text-file "kak-guix-plugin-loader"
-                         (build-plugin-load-file package))))))
+    (if (maybe-value-set? package)
+        `((,(string-append kakoune-plugin-loader-dir (package-name package) ".kak")
+           ,(mixed-text-file (string-append (package-name package) "-plugin-loader")
+                             (build-plugin-load-file package))))
+        '())))
 
 (define (kakoune-plugin-package config)
-  (list (kakoune-plugin-configuration-package config)))
+  (let ((package (kakoune-plugin-configuration-package config)))
+    (if (maybe-value-set? package)
+        (list package)
+        (list))))
 
 (define kakoune-plugin-service-type
   (service-type
@@ -51,24 +73,9 @@
           (service-extension home-profile-service-type
                              kakoune-plugin-package)))))
 
-(define-packages-service lazr-kakoune-packages-service
-  (parinfer-rust
-   sed 
-   findutils
-
-   kakoune-prelude
-   kakoune-connect))
-
-#|
-(define-record-type <home-kakoune-configuration>
-  (make-home-kakoune-configuration package scripts plugins)
-  home-kakoune-configuration?
-  (package home-kakoune-configuration-package)
-  (scripts home-kakoune-configuration-scripts)
-  (plugins home-kakoune-configuration-plugins))
-
-(define home-kakoune-configuration)
-|#
+;;;
+;;; Home configuration for Kakoune.
+;;;
 
 (define-configuration home-kakoune-configuration
   (package
@@ -76,7 +83,7 @@
    "Package to use for Kakoune.")
 
   ;; Any scripts to install into the ~/.config/kak directory.
-  #;(scripts
+  (scripts
    (text-config '())
    "Scripts to install into the user's configuration directory.")
   
@@ -89,16 +96,39 @@
   (define (directory? path)
     (eq? 'directory (stat:type (stat path))))
 
-  (map (lambda (path)
-         (list (string-append "kak/" name)
-               (local-file (string-append "kak/.config/kak/" name)
-                           #:recursive? (directory? (string-append "kak/.config/kak/" name)))))
-       (home-kakoune-configuration-scripts configuration)))
+  (append (list (list "kak/autoload/standard-libs"
+                      (file-append kakoune "/share/kak/autoload")))
+          ;; Scripts
+          (map (lambda (name)
+                        (list (string-append "kak/" name)
+                              (local-file (string-append "kak/.config/kak/" name)
+                                          #:recursive? (directory? (string-append "kak/.config/kak/" name)))))
+                      (home-kakoune-configuration-scripts configuration))
+
+          ;; plugins
+          (append-map kakoune-plugin-xdg-configuration-files
+                      (home-kakoune-configuration-plugins configuration))))
 
 (define (home-kakoune-packages configuration)
   (append (list (home-kakoune-configuration-package configuration))
-          (map kakoune-plugin-package
+          (map kakoune-plugin-configuration-package
                (home-kakoune-configuration-plugins configuration))))
+
+(define (home-kakoune-plugins configuration)
+  (home-kakoune-configuration-plugins configuration))
+
+(define (home-kakoune-configuration-extend configuration extensions)
+  (fold 
+   (lambda (configuration extension)
+     (home-kakoune-configuration
+      (package (or (home-kakoune-configuration-package extension)
+                   (home-kakoune-configuration-package configuration)))
+      (scripts (lset-union (home-kakoune-configuration-scripts extension)
+                           (home-kakoune-configuration-scripts configuration)))
+      (plugins (lset-union (home-kakoune-configuration-plugins extension)
+                           (home-kakoune-configuration-plugins configuration)))))
+   configuration
+   extensions))
 
 ;;;
 ;;; A Guix Home service for configuring the Kakoune text editor.
@@ -110,7 +140,7 @@
     "A service for configuring the Kakoune text editor.")
    (default-value (home-kakoune-configuration))
    (compose concatenate)
-   (extend append)
+   (extend home-kakoune-configuration-extend)
    (extensions
     (list (service-extension home-xdg-configuration-files-service-type
                              home-kakoune-xdg-configuration-files)
@@ -125,33 +155,37 @@
 ;;; Lazr's personal Kakoune configuration.
 ;;;
 (define lazr-kakoune-config-service
-  (service home-xdg-configuration-files-service-type
-           (list (kak-script "kakrc")
-                 (kak-script "commands.kak")
-                 (kak-script "mappings.kak")
-                 (kak-script "plugins.kak")
-                 (kak-script "visual.kak")
-                 (kak-script-dir "colors")
-                 (kak-script-dir "snippets")
+  (service home-kakoune-service-type
+           (home-kakoune-configuration
+            (plugins
+             (list (kakoune-plugin-configuration (package kakoune-prelude))
+                   (kakoune-plugin-configuration (package kakoune-connect))
+                   (kakoune-plugin-configuration (package kakoune-powerline))
+                   (kakoune-plugin-configuration (package kakoune-fzf))))
 
-                 ;; Autoloads (have to be manually placed)
-                 (kak-script "autoload/git.kak")
-                 (kak-script "autoload/jumpjets.kak")
-                 (kak-script "autoload/visibility-hl.kak")
-                 (kak-script-dir "autoload/basic")
-                 (kak-script-dir "autoload/filetype")
-                 (kak-script-dir "autoload/lang")
-                 (kak-script-dir "autoload/tools")
-                 (kak-script-dir "autoload/windowing")
+            (scripts
+             (list "kakrc"
+                   "commands.kak"
+                   "mappings.kak"
+                   "plugins.kak"
+                   "visual.kak"
+                   "colors"
+                   "snippets"
 
-                 (list "kak/autoload/standard-libs" (file-append kakoune "/share/kak/autoload")))))
-;;;
-;;; The main Kakoune service list. Add here to enable things!
-;;;
+                   ;; Autoloads (have to be manually placed)
+                   "autoload/git.kak"
+                   "autoload/jumpjets.kak"
+                   "autoload/visibility-hl.kak"
+                   "autoload/basic"
+                   "autoload/filetype"
+                   "autoload/lang"
+                   "autoload/tools"
+                   "autoload/windowing")))))
+
+
+(define-packages-service lazr-kakoune-packages-service
+  (parinfer-rust sed findutils))
+
 (define lazr-kakoune-services
   (list lazr-kakoune-packages-service
-        (lazr-kakoune-config-service)
-        (service kakoune-plugin-service-type
-                 (kakoune-plugin-configuration 
-                  (package kakoune-prelude)))))
-
+        lazr-kakoune-config-service))

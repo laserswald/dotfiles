@@ -4,6 +4,8 @@
 
              (gnu home)
              (gnu home services)
+             (gnu home services shepherd)
+             (gnu home services syncthing)
              (gnu home services shells)
              (gnu services)
              (gnu services configuration)
@@ -12,6 +14,8 @@
              (gnu packages audio)
              (gnu packages base)
              (gnu packages gimp)
+             (gnu packages emacs)
+             (gnu packages emacs-xyz)
              (gnu packages inkscape)
              (gnu packages kde)
              (gnu packages linux)
@@ -54,8 +58,42 @@
 (define-packages-service lazr-scheme-packages-service
   (gauche akku mit-scheme))
 
+(define-packages-service lazr-emacs-packages-service
+  (emacs emacs-guix))
+
+(define (emacs-server-shepherd-service config)
+  (list (shepherd-service
+         (documentation "Emacs server.")
+         (provision '(emacs-server))
+         (start #~(make-forkexec-constructor
+                   (list #$(file-append emacs "/bin/emacs")
+                         "--fg-daemon")))
+         (stop #~(make-kill-destructor)))))
+
+(define home-emacs-server-service-type
+  (service-type
+   (name 'home-emacs-server)
+   (extensions (list (service-extension home-shepherd-service-type
+                                        emacs-server-shepherd-service)))
+   (default-value #f)
+   (description "Run Emacs in server mode.")))
+
+(define lazr-emacs-config-service
+  (simple-service 'lazr-emacs-config-service
+                  home-files-service-type
+                  `((".emacs.d/init.el" ,(local-file "emacs/.emacs.d/init.el" "emacs-init-el"))
+                    (".emacs.d/custom.el" ,(local-file "emacs/.emacs.d/custom.el" "emacs-custom-el"))
+                    (".emacs.d/modules.d" ,(local-file "emacs/.emacs.d/modules.d" "emacs-modules-d" #:recursive? #t)))))
+                     
+
+(define lazr-emacs-services
+  (list lazr-emacs-packages-service
+        (service home-emacs-server-service-type)
+        lazr-emacs-config-service))
+  
 (define lazr-development-services
   (append lazr-kakoune-services
+          lazr-emacs-services
           (list lazr-scheme-packages-service)))
 
 ;;;
@@ -98,14 +136,18 @@
 ;;; My main home for workstations.
 ;;;
 
+(define lazr-misc-services
+  (list (service home-syncthing-service-type)))
+
 (define lazr-workstation-home 
   (home-environment
    (packages
-    (list jq grep ncurses procps openssh password-store))
+    (list jq grep ncurses procps password-store))
    (services
     (append lazr-shell-services
             lazr-development-services
             lazr-creative-services
-            lazr-communications-services))))
+            lazr-communications-services
+            lazr-misc-services))))
 
 lazr-workstation-home

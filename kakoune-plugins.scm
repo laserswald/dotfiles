@@ -1,26 +1,4 @@
 
-(define kakoune-plug
-  (let ((plugin-uri "https://github.com/andreyorst/plug.kak"))
-    (package
-     (name "kakoune-plug")
-     (synopsis "Plugin manager for Kakoune")
-     (description "")
-     (license unlicense)
-     (version "master")
-     (home-page plugin-uri)
-     (source (origin 
-              (method git-fetch)
-              (uri (git-reference 
-                    (url plugin-uri)
-                    (commit "master")))
-              (sha256
-               (base32 "01raqyzgc4iqz0msxcl7lrx2d17mg18jbf2vskbbd0zsldasgxpi"))))
-     (inputs (list kakoune))
-     (build-system copy-build-system)
-     (arguments
-      (list
-       #:install-plan #~'(("rc" "rc")))))))
-
 (define kakoune-prelude
   (package
    (name "kakoune-prelude")
@@ -63,7 +41,7 @@
    (arguments
     (list
      #:install-plan #~'(("rc" "rc"))))))
-#|
+
 (define kakoune-auto-pairs
   (package
     (name "kakoune-auto-pairs")
@@ -103,8 +81,8 @@
                (commit "master")))
         (sha256
           (base32
-            "12zfvyxqgy18l96sg2xng20vfm6b9py6bxmx1rbpbpxr8szknyh6"))))
-    (inputs (list kakoune))
+            "1hlals4d9x5i4mwigxjlx4f9xgc9rw15yzvbvc64cminxic2i3i8"))))
+    (inputs (list kakoune fzf))
     (build-system copy-build-system)
     (arguments (list #:install-plan #~'(("rc" "rc"))))))
 
@@ -277,29 +255,7 @@
                (commit "master")))
         (sha256
           (base32
-            "18sm0l8jd1fgwvsyd6nbxrn629wgqqp97sr7v3k7qyl1gjz9zcbq"))))
-    (inputs (list kakoune))
-    (build-system copy-build-system)
-    (arguments (list #:install-plan #~'(("rc" "rc"))))))
-
-(define kakoune-prelude
-  (package
-    (name "kakoune-prelude")
-    (synopsis "")
-    (description "")
-    (license unlicense)
-    (version "master")
-    (home-page
-      "https://github.com/kakounedotcom/prelude.kak")
-    (source
-      (origin
-        (method git-fetch)
-        (uri (git-reference
-               (url "https://github.com/kakounedotcom/prelude.kak")
-               (commit "master")))
-        (sha256
-          (base32
-            "1pncr8azqvl2z9yvzhc68p1s9fld8cvak8yz88zgrp5ypx2cxl8c"))))
+            "1lshlnz5xrxzafxmb6w05g2i6nvi49aqyd8852k9l0lmzqryp7l2"))))
     (inputs (list kakoune))
     (build-system copy-build-system)
     (arguments (list #:install-plan #~'(("rc" "rc"))))))
@@ -346,4 +302,3 @@
     (inputs (list kakoune))
     (build-system copy-build-system)
     (arguments (list #:install-plan #~'(("rc" "rc"))))))
-|#
