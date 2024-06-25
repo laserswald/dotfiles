@@ -40,12 +40,6 @@ in {
   home.packages = with pkgs; [
     prismlauncher
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
     (python3.pkgs.llm.withPlugins [
       llm-gpt4all
     ])
