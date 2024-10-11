@@ -26,6 +26,12 @@
   (interactive)
   (find-file "~/.emacs.d"))
 
+(defun lazr-open-repl ()
+  (interactive)
+  (let ((repl-window (split-window-below)))
+    (select-window repl-window)
+    (ielm)))
+
 ;;;
 ;;; Roots of the leader mapping trees.
 ;;;
@@ -161,6 +167,11 @@
   (interactive)
   (eval-buffer)
   (message "Evaluated."))
+
+(lazr-define-lisp-keybinds 'lisp-interaction-mode-map
+  'eval-defun
+  'lazr-eval-buffer
+  'ielm)
 
 (lazr-define-lisp-keybinds 'emacs-lisp-mode-map
   'eval-defun

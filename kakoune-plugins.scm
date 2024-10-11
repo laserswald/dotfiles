@@ -82,7 +82,7 @@
         (sha256
           (base32
             "1hlals4d9x5i4mwigxjlx4f9xgc9rw15yzvbvc64cminxic2i3i8"))))
-    (inputs (list kakoune fzf))
+    (inputs (list kakoune))
     (build-system copy-build-system)
     (arguments (list #:install-plan #~'(("rc" "rc"))))))
 

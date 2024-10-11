@@ -1,24 +1,10 @@
 
-(defvar lazr-paths
-  (list "/Users/bdavenport-ray/.cargo/bin"
-	"/Users/bdavenport-ray/.config/composer/vendor/bin/"
-	"/Users/bdavenport-ray/.local/bin"
-	"/Users/bdavenport-ray/.luarocks/bin"
-	"/Users/bdavenport-ray/bin"
-	"/Users/bdavenport-ray/src/go/bin"
-	"/bin"
-	"/go/bin"
-	"/sbin"
-	"/usr/bin"
-	"/usr/local/bin"
-	"/usr/local/lib/ruby/gems/2.7.0/bin"
-	"/usr/local/opt/ruby/bin"
-	"/usr/sbin"))
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
 
-(dolist (path lazr-paths)
-  (add-to-list 'exec-path path))
-
-(setq shell-file-name "zsh"
+(setq explicit-shell-file-name "bash"
       explicit-zsh-args '("--login" "--interactive"))
 
 (use-package multi-term
@@ -62,5 +48,7 @@
   (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+
+
 
 (provide 'lazr-shell)

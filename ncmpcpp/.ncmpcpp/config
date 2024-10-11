@@ -91,7 +91,7 @@ visualizer_sync_interval = 30
 #
 ## Available values: spectrum, wave.
 ##
-visualizer_type = spectrum
+# visualizer_type = spectrum
 #
 visualizer_look = *▮
 #

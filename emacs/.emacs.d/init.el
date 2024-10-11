@@ -37,7 +37,7 @@
 (require 'lazr-keybindings)
 (require 'lazr-languages)
 
-(eval-after-load 'tramp '(progn (setenv "SHELL" "/bin/bash")
-                                (setenv "TERM" "ansi")))
+(eval-after-load 'tramp
+  '(progn (setenv "TERM" "ansi")))
 
 (put 'dired-find-alternate-file 'disabled nil)

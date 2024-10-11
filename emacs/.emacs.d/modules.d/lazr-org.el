@@ -26,11 +26,11 @@
    `(
      ("t" "To-do item" entry
       (file+datetree ,lazr-org-agenda-file)
-      "* TODO %?\n  %i\n  %a")
+      "* TODO %?\n  %T\n  %i\n  %a")
 
      ("e" "Calendar event" entry
       (file+datetree ,lazr-org-agenda-file)
-      "* %?\n"
+      "* %?\n  %T\n  %i"
       :time-prompt t)
 
      ("j" "Journal entry" entry

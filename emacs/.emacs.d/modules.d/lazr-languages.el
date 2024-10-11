@@ -225,4 +225,6 @@
 
 (use-package todotxt :ensure t)
 
+(use-package emacs-guix :ensure t)
+
 (provide 'lazr-languages)
