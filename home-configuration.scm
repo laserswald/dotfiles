@@ -1,5 +1,7 @@
 ;;;; -*- geiser-scheme-implementation: guile -*-
 
+(install-r7rs!)
+
 (use-modules (ice-9 ftw)
 
              (gnu home)
@@ -26,6 +28,7 @@
              (gnu packages shells)
              (gnu packages ssh)
              (gnu packages text-editors)
+             (gnu packages terminals)
              (gnu packages tmux)
              (gnu packages toys)
              (gnu packages video)
@@ -36,24 +39,18 @@
              (guix packages)
              (guix licenses)
              (guix git-download)
-             (guix build-system copy))
-
-(define-syntax define-packages-service
-  (syntax-rules ()
-    ((_ name (packages ...))
-     (define name
-       (simple-service 'name
-                       home-profile-service-type
-                       (list packages ...))))))
-
-;; Spread me out
-(load "shells.scm")
+             (guix build-system copy)
+             
+             (lazr base)
+             (lazr executable-file)
+             (lazr kakoune)
+             (lazr shells)
+             (lazr kakoune-plugins))
 
 ;;;
 ;;; Development tools.
 ;;;
 
-(load "kakoune.scm")
 
 (define-packages-service lazr-scheme-packages-service
   (gauche akku mit-scheme))
@@ -81,9 +78,9 @@
 (define lazr-emacs-config-service
   (simple-service 'lazr-emacs-config-service
                   home-files-service-type
-                  `((".emacs.d/init.el" ,(local-file "emacs/.emacs.d/init.el" "emacs-init-el"))
-                    (".emacs.d/custom.el" ,(local-file "emacs/.emacs.d/custom.el" "emacs-custom-el"))
-                    (".emacs.d/modules.d" ,(local-file "emacs/.emacs.d/modules.d" "emacs-modules-d" #:recursive? #t)))))
+                  `((".emacs.d/init.el" ,(local-file (lazr-config-file "emacs/.emacs.d/init.el") "emacs-init-el"))
+                    (".emacs.d/custom.el" ,(local-file (lazr-config-file "emacs/.emacs.d/custom.el") "emacs-custom-el"))
+                    (".emacs.d/modules.d" ,(local-file (lazr-config-file "emacs/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
                      
 
 (define lazr-emacs-services
@@ -136,8 +133,14 @@
 ;;; My main home for workstations.
 ;;;
 
+(define lazr-scripts-service
+  (simple-service 'lazr-scripts-service
+                  home-files-service-type
+                  `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders")))))
+
 (define lazr-misc-services
-  (list (service home-syncthing-service-type)))
+  (list (service home-syncthing-service-type)
+        lazr-scripts-service))
 
 (define lazr-workstation-home 
   (home-environment
@@ -151,3 +154,5 @@
             lazr-misc-services))))
 
 lazr-workstation-home
+
+

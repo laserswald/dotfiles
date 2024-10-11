@@ -108,3 +108,12 @@ $(STOW_MODULES):
 $(SCRIPT_MODULES):
 	env RC_DIR=$(HOME)/etc ./$@/install
 
+GUIX_HOME = $(HOME)/.config/guix/current/bin/guix home -L guix-modules
+
+.PHONY: reconfigure
+reconfigure:
+	$(GUIX_HOME) reconfigure home-configuration.scm
+
+.PHONY: container
+container:
+	$(GUIX_HOME) container home-configuration.scm
