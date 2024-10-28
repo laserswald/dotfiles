@@ -9,6 +9,8 @@
              (gnu home services shepherd)
              (gnu home services syncthing)
              (gnu home services shells)
+             (gnu home services dotfiles)
+
              (gnu services)
              (gnu services configuration)
 
@@ -51,7 +53,6 @@
 ;;; Development tools.
 ;;;
 
-
 (define-packages-service lazr-scheme-packages-service
   (gauche akku mit-scheme))
 
@@ -79,7 +80,6 @@
   (simple-service 'lazr-emacs-config-service
                   home-files-service-type
                   `((".emacs.d/init.el" ,(local-file (lazr-config-file "emacs/.emacs.d/init.el") "emacs-init-el"))
-                    (".emacs.d/custom.el" ,(local-file (lazr-config-file "emacs/.emacs.d/custom.el") "emacs-custom-el"))
                     (".emacs.d/modules.d" ,(local-file (lazr-config-file "emacs/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
                      
 
@@ -108,7 +108,7 @@
 ;;;
 
 (define-packages-service lazr-email-packages-service
-  (neomutt notmuch isync))
+  (neomutt notmuch isync msmtp abook emacs-notmuch))
 
 (define lazr-neomutt-service
   (simple-service
@@ -117,16 +117,10 @@
    `((".mutt" ,(local-file "mutt/.mutt"
                            "mutt-dir"
                            #:recursive? #true)))))
-
-(define lazr-mbsync-service
-  (simple-service 'lazr-mbsync-service
-                  home-files-service-type
-                  `((".mbsyncrc" ,(local-file "mail/.mbsyncrc" "mbsyncrc")))))
                                               
 
 (define lazr-communications-services
   (list lazr-email-packages-service
-        lazr-mbsync-service
         lazr-neomutt-service))
 
 ;;;
@@ -140,6 +134,11 @@
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
+        (service home-dotfiles-service-type
+                 (home-dotfiles-configuration
+                  (layout 'stow)
+                  (directories (list lazr-config-directory))
+                  (packages (list "alacritty" "vim" "mail" "hypr"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 

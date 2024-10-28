@@ -22,7 +22,7 @@ Channel bdr
 Far :bdr-remote:
 Near :bdr-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred"
 # Or include everything
 #Patterns *
 # Automatically create missing mailboxes, both locally and on the server

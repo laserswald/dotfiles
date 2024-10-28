@@ -13,10 +13,11 @@ macro index zM "<limit>all\n" "show all messages (undo limit)"
 bind index <space> tag-entry
 
 bind index , noop
-macro index ,dm "<delete-pattern>~s 'Pull request' ~(=B 'has been accepted') ~f pullrequests-reply@bitbucket.org<enter>" "Delete merged bitbucket threads"
+macro index ,d "<modify-labels>-inbox -unread<enter>"
 
 bind pager k previous-line
 bind pager j next-line
+
 bind pager R group-reply
 bind attach <return> view-mailcap
 

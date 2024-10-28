@@ -1,4 +1,0 @@
-#!/bin/sh
-
-mbsync -a
-exit 0

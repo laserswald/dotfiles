@@ -5,6 +5,7 @@ virtual-mailboxes "Global Inbox" "notmuch://?query=tag:inbox"
 virtual-mailboxes "Global Unread" "notmuch://?query=tag:unread"
 virtual-mailboxes "Tickets" "notmuch://?query=tag:tickets"
 virtual-mailboxes "Mailing Lists" "notmuch://?query=tag:lists"
+virtual-mailboxes "Job Search" "notmuch://?query=tag:job_search"
 
 named-mailboxes "Lazr" =lazr/Inbox
 

@@ -24,16 +24,27 @@ color quoted4    blue          default
 color quoted5    magenta          default
 
 # Index colors
-color index blue default "~N"
-color index blue default "~O"
-color index red default ~F
-color index black brightblack ~=
-color index brightwhite default ~T
-color index brightblue default ~T~N
-color index brightred default ~T~F
-color index brightblack black ~D
+color index_subject blue default "~N"
+color index_subject blue default "~O"
+color index_subject red default ~F
+color index_subject black brightblack ~=
+color index_subject brightwhite default ~T
+color index_subject brightblue default ~T~N
+color index_subject brightred default ~T~F
+color index_subject brightblack black ~D
+
+color index_flags blue default "~N"
+color index_flags blue default "~O"
+color index_flags red default ~F
+color index_flags black brightblack ~=
+color index_flags brightwhite default ~T
+color index_flags brightblue default ~T~N
+color index_flags brightred default ~T~F
+color index_flags brightblack black ~D
 
 color index_author brightwhite default '.*'
+color index_tags brightyellow default '.*'
+color index_size white default '.*'
 
 # color body brightwhite black '\*+[^*]+\*+'
 # color body brightwhite black '_+[^_]+_+'

@@ -26,6 +26,7 @@ set beep_new
 set pipe_decode
 set crypt_autosign
 set edit_headers = yes
+set editor = 'kak %s'
 
 # set imap_check_subscribed
 
@@ -34,39 +35,37 @@ set alias_file=$my_muttdir/aliases
 source $my_muttdir/aliases
 
 ### Viewing mail
-set sort=reverse-threads
-set sort_aux=last-date-received
+set sort = reverse-threads
+set sort_aux = last-date-received
 set pager_index_lines = 10
-auto_view text/html
-alternative_order text/plain text/enriched text/html
 set read_inc = 1000
 set nm_db_limit = 5000
+auto_view text/html
+alternative_order text/plain text/enriched text/html
 
 source $my_muttdir/check.muttrc
 
-### Sending mail
+### Set the correct settings depending on where the mail is going to and from
 
-set sendmail="msmtp --read-envelope-from"
+reply-hook "~t ben.davenportray@gmail.com" 'set from="Ben Davenport-Ray <ben.davenportray@gmail.com>"'
+send2-hook "~f ben.davenportray@gmail.com" 'set sendmail="msmtp --read-envelope-from -a ben"'
+
+reply-hook "~t me@lazr.space" 'set from="Ben Davenport-Ray <me@lazr.space>"'
+send2-hook "~f me@lazr.space" 'set sendmail="msmtp --read-envelope-from -a lazr"'
 
 source $my_muttdir/keybindings.muttrc
 source $my_muttdir/sidebar.muttrc
 
 ### Colorscheme
+
+set index_format = "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) [%J] %s"
+
 source $my_muttdir/colors/laserlight.colors
 
-
-
 ## Mailboxes.
+
 set mbox_type = Maildir
 source $my_muttdir/boxes.muttrc
-
-folder-hook ahi "set sendmail=\"msmtp -a ahi\"; \
-set from=\"ben.davenportray@azaleahealth.com\" \
-"
-
-folder-hook lazr "set sendmail=\"msmtp -a lazr\"; \
-set from=\"me@lazr.space\" \
-"
 
 
 lists schemecomm Schemecomm schemeweb '~lazr/gnot.club' '~sircmpwn/sr.ht-announce'
