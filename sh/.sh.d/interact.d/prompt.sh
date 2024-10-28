@@ -57,8 +57,8 @@ prompt_host () {
 		hostcolor=$fred
 	elif [ $host = "gargantua" ]; then
 		hostcolor=$fgreen
-	elif [ $host = "vega" ]; then
-		hostcolor=$fwhite
+	elif [ $host = "polaris" ]; then
+		hostcolor=$fred
 	fi
 	printf "%s" "$(prompt_fg ${hostcolor} $host)"
 }
@@ -94,6 +94,14 @@ prompt_git () {
 	unset git_status
 }
 
+prompt_environ () {
+    if [ -n "$GUIX_ENVIRONMENT" ]; then
+	printf " [%s]" $(prompt_fg $fmagenta "guix")
+    elif [ -n "$IN_NIX_SHELL" ]; then
+	printf " [%s]" $(prompt_fg $fmagenta "nix")
+    fi
+}
+
 prompt_status_color () {
 	if [ "$?" -eq 0 ]; then
 		_nonprint $fgreen
@@ -106,7 +114,7 @@ prompt_status_color () {
 
 prompt () {
 	statusc=$(prompt_status_color)
-	printf '%s' "$(prompt_host) $(prompt_dir)$(prompt_git) ${statusc}\$$(_nonprint $normal) "
+	printf '%s' "$(prompt_host) $(prompt_dir)$(prompt_git)$(prompt_environ) ${statusc}\$$(_nonprint $normal) "
 }
 
 case $SHELL in

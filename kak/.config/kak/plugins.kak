@@ -2,62 +2,47 @@
 # Plugins.
 #
 
-# Fuzzy finder. 
-# plug "andreyorst/fzf.kak" config %{
-# 	require-module fzf
-# 	set-option global fzf_file_command "ag -l -f --hidden --one-device --ignore .git"
-# }
+try %{
+    require-module fzf
+    set-option global fzf_file_command "ag -l -f --hidden --one-device --ignore .git"
+}
 
-# plug "andreyorst/tagbar.kak" config %{
-# 	hook global WinSetOption filetype=tagbar %{
-# 		remove-highlighter window/wrap
-# 	}
-# }
+try %{
+    require-module tagbar
+    hook global WinSetOption filetype=tagbar %{
+    	remove-highlighter window/wrap
+    }
+}
 
-# # TODO: make sure this gets configured properly before enabling
-# plug "alexherbo2/auto-pairs.kak" 
+try %{
+    require-module powerline
+    powerline-format global 'git bufname filetype mode_info lsp line_column position client session'
+    powerline-enable
+}
 
-# plug "andreyorst/powerline.kak" defer powerline %{
-# 	powerline-format global 'git bufname filetype mode_info lsp line_column position client session'
-# } config %{
-# 	powerline-start
-# }
+# wiki-setup %sh{ echo "$HOME/org" }
 
-# plug "TeddyDD/kakoune-wiki" config %{
-#     wiki-setup %sh{ echo "$HOME/org" }
-# }
+# parinfer
+hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
+    try %{
+        parinfer-enable-window -indent
+        auto-pairs-disable
+    }
+}
 
-# plug "eraserhd/parinfer-rust" do %{
-# 	cargo install --force --path .
-# } config %{
-# 	hook global WinSetOption filetype=(clojure|lisp|scheme|racket) %{
-# 		parinfer-enable-window -indent
-# 		auto-pairs-disable
-# 	}
-# }
+# set-option -add global snippets_directories "%opt{plug_install_dir}/kakoune-snippet-collection/snippets"
+# set-option global snippets_auto_expand false
+# map global normal <tab> ": snippets-select-next-placeholders<ret>"
 
-# plug "occivink/kakoune-snippets" config %{
-#     set-option -add global snippets_directories "%opt{plug_install_dir}/kakoune-snippet-collection/snippets"
-#     set-option global snippets_auto_expand false
-#     map global normal <tab> ": snippets-select-next-placeholders<ret>"
-# }
-# plug "andreyorst/kakoune-snippet-collection"
+try %{
+    require-module rainbower
+    rainbower-compile
+    set-option global rainbow_mode 0
+}
 
-# plug "eraserhd/rep"
-
-# plug "crizan/kak-rainbower" config %{
-# 	rainbower-compile
-# 	set-option global rainbow_mode 0
-# }
-
-# plug "notes" load-path "~/src/kak/kak-goal"
-
-# # source "~/src/kak/kakoune-todo.txt/todotxt.kak"
-
-# plug "kak-lsp/kak-lsp" config %{
-#     # Language server protocol support.
-#     set-option global lsp_hover_anchor true
-#     set-option global lsp_hover_max_lines 10
-# }
-
-
+## Language server protocol support.
+try %{
+    require-module lsp
+    set-option global lsp_hover_anchor true
+    set-option global lsp_hover_max_lines 10
+}

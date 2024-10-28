@@ -1,8 +1,9 @@
-#!/bin/sh
+#! /usr/bin/env sh
 # Use a per-project kakoune session.
 kak -clear
 session_name="$(basename $PWD)"
-if ! [ "$(kak -l | grep -x $session_name)" ]; then
+if ! [ $(kak -l | grep -x "$session_name") ]
+then
     kak -d -s "$session_name" &
 fi
-exec kak -c "$session_name" $@
+exec kak -c "$session_name" "$@"

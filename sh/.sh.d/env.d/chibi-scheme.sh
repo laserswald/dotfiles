@@ -19,3 +19,6 @@ CHEZSCHEMELIBDIRS="$HOME/.local/lib/r6rs:$CHEZSCHEMELIBDIRS"
 
 CHEZSCHEMELIBDIRS="/usr/local/lib/r6rs:$CHEZSCHEMELIBDIRS"
 export CHEZSCHEMELIBDIRS
+
+SRFI_HOME="$HOME/src/scheme-requests-for-implementation"
+export SRFI_HOME
