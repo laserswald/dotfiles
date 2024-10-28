@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notmuch tag --batch --input="$HOME/etc/mail/notmuch-tag-batch"

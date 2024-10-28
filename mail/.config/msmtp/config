@@ -1,0 +1,29 @@
+# msmtp configuration
+
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+logfile        ~/.msmtp.log
+
+
+# Gmail
+account        ben
+host           smtp.gmail.com
+port           465
+tls_starttls   off
+from           ben.davenportray@gmail.com
+user           ben.davenportray
+passwordeval   "pass show email/ben.davenportray@gmail.com | head -n 1"
+
+
+account        lazr
+host           mail.gandi.net
+port           587
+from           me@lazr.space
+user           me@lazr.space
+passwordeval   "pass show email/me@lazr.space | head -n 1"
+
+
+# Set a default account
+account default: ben

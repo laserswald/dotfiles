@@ -1,0 +1,23 @@
+#!/bin/sh
+
+move_search ()
+{
+	query=$1; shift
+	destination=$1; shift
+
+	mkdir -p "$destination"/{cur,new,tmp}
+	
+	notmuch search --output=files --format=text0 "$query" | xargs -r0 mv -t "$destination/cur"
+}
+
+delete_search()
+{
+	query=$1; shift
+	
+	notmuch search --output=files --format=text0 "$query" | xargs -r0 rm
+}
+
+move_search "tag:job_search AND NOT folder:'Job Searches'" "$HOME/var/mail/bdr/Job Searches"
+move_search "tag:news AND NOT folder:'News'" "$HOME/var/mail/bdr/News"
+
+delete_search "tag:deleted"
