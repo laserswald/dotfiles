@@ -10,3 +10,6 @@
 [submodule "tmux/.config/tmux/plugins/tpm"]
 	path = tmux/.config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "emacs/.emacs.d/modules.d/dnd-mode"]
+	path = emacs/.emacs.d/modules.d/dnd-mode
+	url = https://github.com/WMaxZimmerman/dnd-mode.git
