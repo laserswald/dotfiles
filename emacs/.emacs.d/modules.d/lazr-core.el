@@ -113,6 +113,9 @@
   (add-hook 'dired-mode-hook
             (lambda () (dired-omit-mode))))
 
+(use-package notmuch :ensure t)
+(use-package counsel-notmuch :ensure t)
+
 (provide 'lazr-core)
 
 ;;; lazr-core.el ends here

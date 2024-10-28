@@ -10,6 +10,7 @@
       lazr-org-journal-file (lazr-org-file "/journal.org"))
 
 (use-package org 
+
   :init
   (setq
    org-pretty-entities t
@@ -23,8 +24,7 @@
    org-archive-location (concat lazr-org-directory "/archive.org::")
 
    org-capture-templates
-   `(
-     ("t" "To-do item" entry
+   `(("t" "To-do item" entry
       (file+datetree ,lazr-org-agenda-file)
       "* TODO %?\n  %T\n  %i\n  %a")
 
@@ -37,8 +37,10 @@
       (file+olp+datetree ,lazr-org-agenda-file)))
 
    org-todo-keywords
-    '((sequence "TODO" "|" "DONE" "WAIT" "CANCEL")
+    '((sequence "TODO" "NEXT" "|" "DONE" "WAIT" "CANCEL")
       (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
+
+  :hook (org-mode . org-indent-mode)
 
   :config
   (add-to-list 'org-modules 'org-habit))
@@ -79,10 +81,15 @@
 ;; Keybindings
 
 (lazr-local-leader-map :keymaps 'org-mode-map
+  "." 'org-time-stamp
   "t" 'org-todo
   "c" 'org-ctrl-c-ctrl-c
   "l" 'org-store-link
   "p" 'org-insert)
+
+(require 'dnd "./dnd-mode/dnd-mode.el")
+(setq dnd-srd-dir "~/org/fun/rpg/dnd/org-dnd-srd-main/"
+      dnd-snippet-dir "./dnd-mode/snippets")
 
 (message "Loaded lazr-org.")
 

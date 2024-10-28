@@ -1,12 +1,10 @@
 ;;;; lazr-languages --- Provide support for programming languages -*- lexical-binding: t; -*-
 
 ;;; Commentary:
+;;; Packages that are used by many languages.
 
 ;;; Code:
 
-;;;
-;;; Packages that are used by many languages.
-;;;
 
 ;; Have the compilation buffer properly show ANSI color escape sequences.
 ;;
@@ -36,10 +34,11 @@
   :ensure t
   :hook (cc-mode
          java-mode
-         go-mode 
+         go-mode
          rust-mode
          javascript-mode
-         php-mode))
+         php-mode
+         lua-mode))
 
 ;;
 ;; Language server support.
@@ -52,15 +51,9 @@
            go-mode
            rust-mode
            python-mode
-           php-mode
-          
+           php-mode 
            shell-script-mode) . eglot-ensure)))
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs
-               '(web-mode . ("phpactor" "language-server")))
-  (add-to-list 'eglot-server-programs
-               '(php-mode . ("phpactor" "language-server"))))
 
 ;; Register LSP checks with flycheck.
 (use-package flycheck-eglot
@@ -85,12 +78,10 @@
 ;;
  
 ;; Go
-(use-package go-mode :ensure t
-  :config)
+(use-package go-mode :ensure t)
 
 ;; Rust
-(use-package rust-mode :ensure t
-  :config)
+(use-package rust-mode :ensure t)
 
 ;; Shell scripts.
 
@@ -102,8 +93,8 @@
 
   :hook
   '(shell-script-mode . shell-script-format-on-save-mode))
-  
-  
+
+
 ;; Python.
 
 (use-package elpy :ensure t
@@ -115,17 +106,19 @@
 
 ;;;; PHP and other Web shenanigans.
 
-(use-package web-mode
-  :ensure t
+(use-package web-mode :ensure t
   :init
   (setf web-mode-enable-engine-detection t
         web-mode-markup-indent-offset 2))
 
-(use-package php-mode
-  :ensure t)
+(use-package php-mode :ensure t)
+(use-package phpunit :ensure t)
 
-(use-package phpunit
-  :ensure t)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(web-mode . ("phpactor" "language-server")))
+  (add-to-list 'eglot-server-programs
+               '(php-mode . ("phpactor" "language-server"))))
 
 ;;;
 ;;; Lisp family.
@@ -194,16 +187,21 @@
 ;;;
 
 (use-package haskell-mode :ensure t)
-
 (require 'ob-haskell)
 
 ;;;
-;;; Data configuration languages.
+;;; Data storage and configuration languages.
 ;;;
 
 (use-package yaml-mode :ensure t)
+(use-package toml-mode :ensure t)
 (use-package terraform-mode :ensure t)
 (use-package nix-mode :ensure t)
+(use-package todotxt :ensure t)
+(use-package rec-mode :ensure t)
+(use-package protobuf-mode :ensure t)
+(use-package emacs-guix :ensure t)
+(use-package dockerfile-mode :ensure t)
 
 ;;;
 ;;; Template configuration languages.
@@ -219,12 +217,5 @@
   :config
   (add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode)))
 
-(use-package dockerfile-mode :ensure t)
-
-(use-package protobuf-mode :ensure t)
-
-(use-package todotxt :ensure t)
-
-(use-package emacs-guix :ensure t)
 
 (provide 'lazr-languages)

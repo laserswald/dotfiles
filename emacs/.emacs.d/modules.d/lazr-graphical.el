@@ -58,8 +58,10 @@
 
 ;; Automatically detect my favorite fonts, then set all the frames to use them.
 (let ((font-size 16)
-      (font-face (lazr-font-candidate "Iosevka Nerd Font"
-                                      "FiraCode Nerd Font")))
+      (font-face (lazr-font-candidate "VictorMono Nerd Font"
+                                      "Victor Mono"
+                                      "FiraCode Nerd Font"
+                                      "Fira Code")))
 
   ;; Add to the settings that new frames will follow
   (add-to-list 'default-frame-alist
