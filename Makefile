@@ -117,3 +117,4 @@ reconfigure:
 .PHONY: container
 container:
 	$(GUIX_HOME) container home-configuration.scm
+

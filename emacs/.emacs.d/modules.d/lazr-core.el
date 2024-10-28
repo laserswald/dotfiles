@@ -108,6 +108,11 @@
   :config
   (editorconfig-mode 1))
 
+(use-package dired
+  :config
+  (add-hook 'dired-mode-hook
+            (lambda () (dired-omit-mode))))
+
 (provide 'lazr-core)
 
 ;;; lazr-core.el ends here

@@ -14,9 +14,11 @@
   "Set up Zsh when launched as an inferior shell."
   (setq-local comint-process-echoes t))
 
-(add-hook 'shell-mode-hook #'zsh-shell-mode-setup)
+(add-hook 'shell-mode-hook
+          #'zsh-shell-mode-setup)
 
 (use-package vterm :ensure t)
+
 (use-package multi-vterm :ensure t
   :config
   (add-hook 'vterm-mode-hook
@@ -48,7 +50,5 @@
   (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
-
-
 
 (provide 'lazr-shell)

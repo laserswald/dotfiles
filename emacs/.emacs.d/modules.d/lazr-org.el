@@ -55,7 +55,6 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-  
 
 (use-package org-pomodoro
   :ensure t
