@@ -1,3 +1,6 @@
+;;; lazr-shell: Configuring Emacs shell and virtual terminals.
+
+(require 'lazr-package-setup)
 
 (use-package exec-path-from-shell
   :ensure t

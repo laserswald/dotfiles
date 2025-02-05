@@ -8,7 +8,6 @@
 
 ;;; Code:
 
-
 ;;;
 ;;; Core settings.
 ;;;
@@ -25,34 +24,68 @@
 
 (require 'lazr-package-setup)
 
-;; Provide a tree of undo-states.
-(use-package undo-tree
-  :ensure t)
+;; Provide a tree of undo-states. Needed for Evil.
+(use-package undo-tree :ensure t)
+
+;;; Extensible VI Layer.
+;;;
+;;; Evil makes Emacs work like Vim does, because I will not be able to unlearn the
+;;; Vi keybindings.
+(use-package evil
+  :ensure t
+
+  :init
+
+  (setq
+   evil-want-integration t
+   evil-want-keybinding nil
+   evil-undo-system 'undo-redo)
+
+  :config
+
+  ;; Enable Evil everywhere we can.
+  (evil-mode 1)
+
+  ;; Ensure some modes are in specific Evil states.
+  (evil-set-initial-state 'dired-mode 'normal) ; Dired basically works like Evil, but this makes it even more evil-ish
+
+  (evil-set-initial-state 'vterm-mode 'emacs) 
+
+  ;; Vim-vinegar replacement
+  (define-key evil-normal-state-map (kbd "-")
+    #'(lambda ()
+        (interactive)
+        (find-file "."))))
+
+;;; Expressive leader package for Evil.
+;;;
+;;; In Vim, there's a concept of a "leader", a key that is entirely dedicated to the user for whatever
+;;; shortcuts the user wants to configure. This package provides that, and an easy way to add more shortcuts
+;;; to the tree of shortcuts.
+(use-package general :ensure t :config (general-evil-setup))
+
+;;; Configurations for common Emacs packages to ensure that Evil works relatively consistently.
+(use-package evil-collection
+  :ensure t
+
+  :after evil
+
+  :init
+  ;; The list of modes to enable configuration for.
+  (setq evil-collection-mode-list '(dired magit process-menu))
+
+  :config
+  (evil-collection-init))
 
 ;; Provide a better interactive choice dialog than the normal Emacs one.
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1))
+(use-package ivy :ensure t :config (ivy-mode 1))
+(use-package company :ensure t :config (global-company-mode))
+(use-package flycheck :ensure t :config (global-flycheck-mode))
 
-(use-package company
-  :ensure t
-  :config (global-company-mode))
-
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode))
-
-(use-package ag
-  :ensure t)
-
-(use-package ripgrep
-  :ensure t)
-
-(use-package magit
-  :ensure t)
-
+;;;; Searching and navigating text documents.
+(use-package ag :ensure t)
+(use-package ripgrep :ensure t)
+(use-package magit :ensure t)
 
 (use-package treemacs-evil
   :ensure t
@@ -68,40 +101,6 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (use-package password-store :ensure t)
-;;; Evil configuration
-(use-package evil
-  :ensure t
-
-  :init
-  (setq evil-want-integration t
-	evil-want-keybinding nil
-	evil-undo-system 'undo-redo)
-
-  :config
-  (evil-mode 1)
-  (evil-set-initial-state 'dired-mode 'normal)
-  (evil-set-initial-state 'vterm-mode 'emacs)
-  ;; Vim-vinegar replacement
-  (define-key evil-normal-state-map (kbd "-")
-    #'(lambda ()
-        (interactive)
-        (find-file "."))))
-
-(use-package general
-  :ensure t
-  :config
-  (general-evil-setup))
-
-(use-package evil-collection
-  :ensure t
-
-  :after evil
-
-  :init
-  (setq evil-collection-mode-list '(dired magit process-menu))
-
-  :config
-  (evil-collection-init))
 
 (use-package editorconfig
   :ensure t

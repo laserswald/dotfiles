@@ -24,9 +24,10 @@
 (defun lazr-open-config ()
   "Open my configuration directory."
   (interactive)
-  (find-file "~/.emacs.d"))
+  (find-file "~/etc/emacs/.emacs.d"))
 
 (defun lazr-open-repl ()
+  "Open a REPL session for the current filetype."
   (interactive)
   (let ((repl-window (split-window-below)))
     (select-window repl-window)
@@ -114,15 +115,6 @@
   "a" 'magit-stage-file
   "c" 'magit-commit)
 
-;;; 'O'rg mode
-(lazr-leader-map :infix "o"
-  "p" 'org-pomodoro)
-
-;;; X for perspective mode because too many things start with P
-(lazr-leader-map :infix "x"
-  "x" 'persp-switch
-  "p" 'persp-prev
-  "n" 'persp-next)
 
 ;;;
 ;;; Local leader. This should act on the current file.
@@ -187,16 +179,6 @@
   'slime-eval-defun
   'slime-compile-and-load-file
   'slime)
-
-;;; Org mode
-
-(lazr-local-leader-map :keymaps 'org-mode-map
-  "t" 'org-todo
-  "c" 'org-ctrl-c-ctrl-c
-  "l" 'org-store-link
-  "p" 'org-insert
-  "o" 'org-open-at-point
-  "e" 'org-babel-eval)
 
 (general-nmap dired-mode-map "-" 'dired-up-directory)
 

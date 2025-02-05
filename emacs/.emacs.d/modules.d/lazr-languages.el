@@ -17,6 +17,7 @@
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region
      compilation-filter-start (point))))
+
 (add-hook 'compilation-filter-hook
           #'endless/colorize-compilation)
 
@@ -125,8 +126,8 @@
 ;;;
 
 (defun lazr-disable-tabs ()
-  "Disable tabs in this mode."
-  (setq indent-tabs-mode nil))
+ "Disable tabs in this mode."
+ (setq indent-tabs-mode nil))
 
 (dolist (lisp '(emacs-lisp-mode-hook
                 scheme-mode-hook
@@ -157,16 +158,17 @@
 ;; Enable common lisp for org babel.
 (require 'ob-lisp)
 
-;;
-;; Scheme
-;;
+;;;
+;;; Scheme
+;;;
 
 ;; Use the Geiser interaction mode for Scheme.
 (use-package geiser
   :ensure t
   :mode (("\\.sld" . scheme-mode))
   :config
-  (setq geiser-active-implementations '(guile gauche chez)))
+  (setq geiser-active-implementations
+        '(guile gauche chez)))
 
 (use-package geiser-chez :ensure t)
 (use-package geiser-gauche :ensure t)
@@ -216,6 +218,5 @@
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode)))
-
 
 (provide 'lazr-languages)

@@ -70,22 +70,36 @@
 (use-package markdown-mode
   :ensure t)
 
-(use-package org-roam
-  :ensure t)
+(use-package org-roam :ensure t)
+(use-package org-super-agenda :ensure t
+  :init
+  (setf org-super-agenda-groups
+        '((:name "Today"
+                 :time-grid t)
+           
+          ;; Anything that absolutely must be done as soon as possible.
+          (:name "High priority"
+           :priority "A")))
+  :config (org-super-agenda-mode))
 
-(use-package org-modern
-  :ensure t
-  :config
-  (global-org-modern-mode))
+(use-package org-modern :ensure t :config (global-org-modern-mode))
 
 ;; Keybindings
 
+;;; 'O'rg global stuff.
+(lazr-leader-map :infix "o"
+  "p" 'org-pomodoro)
+
+;;; Org mode
+
 (lazr-local-leader-map :keymaps 'org-mode-map
-  "." 'org-time-stamp
-  "t" 'org-todo
   "c" 'org-ctrl-c-ctrl-c
+  "e" 'org-babel-eval
   "l" 'org-store-link
-  "p" 'org-insert)
+  "o" 'org-open-at-point
+  "." 'org-time-stamp
+  "p" 'org-insert
+  "t" 'org-todo )
 
 (require 'dnd "./dnd-mode/dnd-mode.el")
 (setq dnd-srd-dir "~/org/fun/rpg/dnd/org-dnd-srd-main/"
