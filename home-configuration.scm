@@ -134,14 +134,11 @@
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
-<<<<<<< HEAD
         (service home-dotfiles-service-type
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
                   (packages (list "alacritty" "vim" "mail" "hypr"))))
-=======
->>>>>>> 87ef2c8 (Move Guix setup into R7RS modules)
         lazr-scripts-service))
 
 (define lazr-workstation-home 
