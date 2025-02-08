@@ -130,7 +130,8 @@
 (define lazr-scripts-service
   (simple-service 'lazr-scripts-service
                   home-files-service-type
-                  `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders")))))
+                  `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders"))
+                    (".local/bin/sync-etc" ,(executable-file "bin/bin/sync-etc" "sync-etc")))))
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
