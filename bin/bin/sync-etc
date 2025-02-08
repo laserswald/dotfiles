@@ -1,0 +1,13 @@
+#!/bin/sh
+# Synchronize the etc directory with the git repository.
+set -eu
+
+# Go to the etc directory
+cd ~/etc || exit
+# If we need to save data, go ahead and do that now
+git commit --quiet --all --message "sync-etc: automatic commit on $(date)" || exit
+git pull --rebase
+git push
+make reconfigure
+
+cd -
