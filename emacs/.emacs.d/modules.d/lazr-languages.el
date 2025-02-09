@@ -5,21 +5,18 @@
 
 ;;; Code:
 
+(require 'ansi-color)
 
 ;; Have the compilation buffer properly show ANSI color escape sequences.
 ;;
 ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
-
-(require 'ansi-color)
-
 (defun endless/colorize-compilation ()
   "Colorize from `compilation-filter-start' to `point'."
   (let ((inhibit-read-only t))
-    (ansi-color-apply-on-region
-     compilation-filter-start (point))))
+    (ansi-color-apply-on-region compilation-filter-start (point))))
 
-(add-hook 'compilation-filter-hook
-          #'endless/colorize-compilation)
+; Add the colorization to the compilation filter.
+(add-hook 'compilation-filter-hook #'endless/colorize-compilation)
 
 ;;
 ;; Define commands that run reformatters on the current buffer.
@@ -42,31 +39,31 @@
          lua-mode))
 
 ;;
-;; Language server support.
+;; Language-specific services and clients.
 ;;
 
-(use-package eglot
+; Install the built-in Emacs language server client.
+(use-package eglot :ensure t
   :commands eglot-ensure
-  :ensure t
   :hook (((c-mode
            go-mode
            rust-mode
            python-mode
-           php-mode 
+           php-mode
            shell-script-mode) . eglot-ensure)))
 
 
-;; Register LSP checks with flycheck.
+; Registers LSP checks with flycheck.
 (use-package flycheck-eglot
   :ensure t)
 
-;; Enable ultra-smart syntax awareness using Tree-Sitter.
+; Enable ultra-smart syntax awareness using Tree-Sitter.
 (use-package tree-sitter
   :ensure t
   :config
   (global-tree-sitter-mode))
 
-;; Add as many tree-sitter languages as possible. 
+; Add as many tree-sitter languages as possible.
 (use-package tree-sitter-langs
   :ensure t)
 
@@ -78,13 +75,20 @@
 ;; C and C++ modes
 ;;
  
+;;
 ;; Go
+;;
 (use-package go-mode :ensure t)
 
+;;
 ;; Rust
+;;
+
 (use-package rust-mode :ensure t)
 
+;;
 ;; Shell scripts.
+;;
 
 (use-package shell-script-mode
   :init
@@ -95,26 +99,27 @@
   :hook
   '(shell-script-mode . shell-script-format-on-save-mode))
 
-
+;;
 ;; Python.
-
+;;
 (use-package elpy :ensure t
   :config
   (elpy-enable))
 
-;; Make python available with Org-Babel.
+; Make python available with Org-Babel.
 (require 'ob-python)
 
-;;;; PHP and other Web shenanigans.
+;; Web technologies
 
+; Enables web page template highlighting, including PHP
 (use-package web-mode :ensure t
   :init
   (setf web-mode-enable-engine-detection t
         web-mode-markup-indent-offset 2))
 
+; PHP 
 (use-package php-mode :ensure t)
 (use-package phpunit :ensure t)
-
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '(web-mode . ("phpactor" "language-server")))
@@ -135,10 +140,11 @@
                 clojure-mode-hook))
   (add-hook lisp 'lazr-disable-tabs))
 
-(use-package parinfer-rust-mode
-  :ensure t
-  :init
-  (setq parinfer-rust-auto-download t)
+(use-package parinfer-rust-mode :ensure t
+  :init (setq parinfer-rust-auto-download t)
+  :hook (emacs-lisp-mode scheme-mode common-lisp-mode clojure-mode))
+
+(use-package rainbow-delimiters :ensure t
   :hook (emacs-lisp-mode scheme-mode common-lisp-mode clojure-mode))
 
 ;;
@@ -171,7 +177,10 @@
         '(guile gauche chez)))
 
 (use-package geiser-chez :ensure t)
+
 (use-package geiser-gauche :ensure t)
+
+(use-package geiser-racket :ensure t)
 
 (use-package geiser-guile :ensure t
   :config
@@ -197,10 +206,13 @@
 
 (use-package yaml-mode :ensure t)
 (use-package toml-mode :ensure t)
+
 (use-package terraform-mode :ensure t)
 (use-package nix-mode :ensure t)
+
 (use-package todotxt :ensure t)
 (use-package rec-mode :ensure t)
+
 (use-package protobuf-mode :ensure t)
 (use-package emacs-guix :ensure t)
 (use-package dockerfile-mode :ensure t)

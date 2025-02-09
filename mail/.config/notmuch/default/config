@@ -9,8 +9,10 @@
 # Notmuch will store its database within a sub-directory of the path
 # configured here named ".notmuch".
 #
+
 [database]
 path=/home/ben/var/mail
+
 # User configuration
 #
 # Here is where you can let notmuch know how you would like to be
@@ -26,9 +28,11 @@ path=/home/ben/var/mail
 # recipient list of replies, and will set the From address based on the
 # address to which the original email was addressed.
 #
+
 [user]
 primary_email=me@lazr.space
 other_email=ben.davenportray@gmail.com
+
 # Configuration for "notmuch new"
 #
 # The following options are supported here:
@@ -56,6 +60,9 @@ other_email=ben.davenportray@gmail.com
 #
 
 [search]
+exclude_tags=deleted;spam;junk
+
+
 # Maildir compatibility configuration
 #
 # The following option is supported here:

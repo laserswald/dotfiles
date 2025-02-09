@@ -1,15 +1,10 @@
-subscribe ~lazr/.*@lists.sr.ht
 
+set hostname = "lazr.space"
+set from  = "me@lazr.space"
 set my_username = "me@lazr.space"
 set my_password = "`pass email/me@lazr.space`"
-set my_imap_url = "imaps://$my_username:$my_password@mail.gandi.net"
 set my_smtp_url = "smtps://$my_username@mail.gandi.net/"
 
 mailboxes $my_imap_url $my_imap_url/Drafts
 
-source $my_muttdir/accounts/imap.muttrc
-
-unset my_username;
-unset my_password;
-unset my_imap_url;
-unset my_smtp_url;
+subscribe ~lazr/.*@lists.sr.ht

@@ -1,14 +1,14 @@
-;;; lazr-shell: Configuring Emacs shell and virtual terminals.
+;;;; lazr-shell: Using the Unix shell from Emacs.
 
 (require 'lazr-package-setup)
+
+(setq explicit-shell-file-name "bash"
+      explicit-zsh-args '("--login" "--interactive"))
 
 (use-package exec-path-from-shell
   :ensure t
   :config
   (exec-path-from-shell-initialize))
-
-(setq explicit-shell-file-name "bash"
-      explicit-zsh-args '("--login" "--interactive"))
 
 (use-package multi-term
   :ensure t)
@@ -53,5 +53,7 @@
   (evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
   (evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+
+
 
 (provide 'lazr-shell)

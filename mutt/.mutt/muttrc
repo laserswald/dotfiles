@@ -45,7 +45,9 @@ alternative_order text/plain text/enriched text/html
 
 source $my_muttdir/check.muttrc
 
+###
 ### Set the correct settings depending on where the mail is going to and from
+###
 
 reply-hook "~t ben.davenportray@gmail.com" 'set from="Ben Davenport-Ray <ben.davenportray@gmail.com>"'
 send2-hook "~f ben.davenportray@gmail.com" 'set sendmail="msmtp --read-envelope-from -a ben"'

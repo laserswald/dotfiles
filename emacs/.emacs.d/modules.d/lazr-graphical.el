@@ -1,21 +1,84 @@
-;;; -*- lexical-binding: t -*-
+;;;; -*- lexical-binding: t -*-
+;;;;
+;;;; lazr-graphical.el - Graphics, UI, etc.
+
 
 (require 'cl-lib)
 (require 'lazr-package-setup)
 
+;;
+;; User interface components: turning things on and off to look nice
+;;
+
+; Disable the toolbar.
+(tool-bar-mode -1)
+
+; Disable the menu bar.
+(menu-bar-mode -1)
+
+; If the scroll bar is available, disable it.
+(when (boundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+; Show line numbers for every buffer. All of them. No exceptions.
+(global-display-line-numbers-mode)
+
+;; Modeline.
+(use-package doom-modeline :ensure t
+  :init (setf doom-modeline-height 32)
+  :config (doom-modeline-mode 1))
+
+; Icons for the modeline.
 (use-package all-the-icons :ensure t)
 
+; User interface for quickly browsing hierarchies in code and files.
 (use-package treemacs :ensure t)
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(when (boundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
+; Use evil mode bindings for Treemacs.
+(use-package treemacs-evil :ensure t
+  :after evil treemacs)
+
+; Integrate Magit with Treemacs
+(use-package treemacs-magit :ensure t
+  :after treemacs magit
+  :config)
+
+;;;
+;;; Themes
+;;;
+
+(use-package doom-themes :ensure t)
+(use-package modus-themes :ensure t)
+(use-package ef-themes :ensure t)
+
+(defun lazr-setup-graphical ()
+  "Configure and enable modes and settings used during dedicated windows."
+
+  ; Enable scrolling that allows for views unbound by character cells
+  (pixel-scroll-mode)
+
+  ; Enable the right-click menu.
+  (context-menu-mode)
+
+  (lazr-setup-fonts
+   "Iosevka Nerd Font"
+   "VictorMono Nerd Font"
+   "FiraCode Nerd Font")
+
+  ; Apply my theme.
+  (lazr-apply-theme))
+
+(defun lazr-setup-terminal ()
+  "Set up Emacs for use within a terminal."
+
+  (load-theme 'chameleon)
+
+  (xterm-mouse-mode 1))
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
 (let ((lazr-custom-theme nil))
   (defun lazr-switch-theme (theme)
+    "Save and switch to the given theme."
     (if lazr-custom-theme
         (disable-theme lazr-custom-theme))
     (setf lazr-custom-theme theme)
@@ -43,64 +106,26 @@
   (setf lazr-theme-shade
         (cond ((eq lazr-theme-shade 'light) 'dark)
               ((eq lazr-theme-shade 'dark)  'light)
-              (t                          (error "Some SHIT happened"))))
+              (t                            (error "Some SHIT happened"))))
   (lazr-apply-theme))
 
 ;;;
 ;;; Fonts
 ;;;
 
-(defun lazr-font-candidate (&rest fonts)
-  "Return the first font in FONTS that exists on the system."
-  (cl-find-if (lambda (f)
-                (find-font (font-spec :name f)))
-              fonts))
+(defun lazr-setup-fonts (&rest fonts)
+  "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
+  (let ((font-size 16)
+        (font-face (cl-find-if (lambda (f)
+                                 (find-font (font-spec :name f)))
+                               fonts)))
 
-;; Automatically detect my favorite fonts, then set all the frames to use them.
-(let ((font-size 16)
-      (font-face (lazr-font-candidate "VictorMono Nerd Font"
-                                      "Victor Mono"
-                                      "FiraCode Nerd Font"
-                                      "Fira Code")))
+    ;; Add to the settings that new frames will follow
+    (add-to-list 'default-frame-alist
+      `(font ,(concat font-face "-" (number-to-string font-size) ":weight=medium")))
 
-  ;; Add to the settings that new frames will follow
-  (add-to-list 'default-frame-alist
-               (cons 'font (concat font-face "-" (number-to-string font-size)
-                                   ":weight=medium")))
-
-  ;; Set the current frame's font as well.
-  (set-frame-font font-face t))
-
-;; Themes
-
-(use-package doom-themes :ensure t)
-(use-package modus-themes :ensure t)
-(use-package ef-themes :ensure t)
-(use-package doom-modeline :ensure t
-  :init (setf doom-modeline-height 32)
-  :config (doom-modeline-mode 1))
-
-(defun lazr-setup-graphical ()
-  "Configure and enable modes and settings used during dedicated windows."
-
-  ;; Enable scrolling that allows for views unbound by character cells
-  (pixel-scroll-mode)
-
-  ;; Enable the right-click menu.
-  (context-menu-mode)
-
-  (lazr-apply-theme))
-
-
-(defun lazr-setup-terminal ()
-  "Set up Emacs for use within a terminal."
-
-  ;; Fix some strangeness with faces in the terminal.
-  (set-face-background 'default "background")
-  (set-face-foreground 'font-lock-keyword-face "green")
-  (set-face-foreground 'font-lock-comment-face "black")
-  (set-face-foreground 'font-lock-variable-name-face "blue")
-  (set-face-foreground 'elscreen-tab-control-face "blue"))
+    ;; Set the current frame's font as well.
+    (set-frame-font font-face t)))
 
 (if (display-graphic-p)
     (lazr-setup-graphical)

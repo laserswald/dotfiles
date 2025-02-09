@@ -79,6 +79,8 @@
 ;;;
 ;;; Main leader.
 ;;;
+;;; The "space" leader involves commands to the entire Emacs session.
+;;;
 
 (general-create-definer lazr-leader-map
   :states 'normal
@@ -90,7 +92,8 @@
   "R" 'lazr-reload-config
   "s" 'multi-vterm-dedicated-toggle
   "C" 'comment-dwim
-  "w" 'lazr-save-buffer)
+  "w" 'lazr-save-buffer
+  )
 
 (lazr-leader-map :infix "p"
   "f" 'project-find-file
@@ -103,7 +106,7 @@
   "c" 'project-compile
   )
 
-;; Fuzzy finding
+;; 'F'uzzy finding
 (lazr-leader-map :infix "f"
   "c" 'counsel-cd
   "t" 'xref-find-apropos
@@ -115,6 +118,9 @@
   "a" 'magit-stage-file
   "c" 'magit-commit)
 
+;;; 'O'rg mode
+(lazr-leader-map :infix "o"
+  "p" 'org-pomodoro)
 
 ;;;
 ;;; Local leader. This should act on the current file.

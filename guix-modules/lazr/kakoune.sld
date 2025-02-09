@@ -204,8 +204,11 @@
                        "autoload/windowing")))))
     
     
-    (define-packages-service lazr-kakoune-packages-service
-      (parinfer-rust sed findutils))
+    (define lazr-kakoune-packages-service
+      (packages-service 'kakoune-extra-packages-service 
+                        parinfer-rust 
+                        sed 
+                        findutils))
     
     (define lazr-kakoune-scripts-service 
       (simple-service

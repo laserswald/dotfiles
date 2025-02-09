@@ -1,21 +1,52 @@
+;;;; -*- lexical-binding: t; -*-
+
 (require 'lazr-keybindings)
 
-(defvar lazr-org-directory
-  "~/org")
+(defvar lazr-org-directory "~/org"
+  "Directory where my org mode files live.")
 
-(defun lazr-org-file (file)
+(defun lazr-org-dir (file)
+  "Get the path of the FILE in my org directory."
   (concat lazr-org-directory file))
 
 (setf lazr-org-agenda-file (lazr-org-file "/agenda/main.org")
       lazr-org-journal-file (lazr-org-file "/journal.org"))
 
-(use-package org 
+(use-package org
 
   :init
-  (setq
+  (setf
+
+   ;;
+   ;; Set some variables to modify how Org buffers look
+   ;;
+
+   ; Entities (timestamps, etc) should look nice
    org-pretty-entities t
+
+   ; Don't show the leading stars
+   org-hide-leading-stars t
+
+   ; Don't show emphasis or bold markers
    org-hide-emphasis-markers t
+
+   ; Always indent headlines
+   org-startup-indented t
+
+   ; Fold as much as possible so I don't get overwhelmed
+   org-startup-folded t
+
+   ;;
+   ;; Refiling
+   ;;
+
+   ; Use file paths when refiling
+   org-refile-use-outline-path t
+
+   ; Allow me to select a destination in steps
+   org-outline-path-complete-in-steps t
    
+
    org-default-notes-file (concat lazr-org-directory "/index.org")
 
    org-agenda-files (list (lazr-org-file "/agenda")
@@ -24,31 +55,54 @@
    org-archive-location (concat lazr-org-directory "/archive.org::")
 
    org-capture-templates
-   `(("t" "To-do item" entry
+   `(("t"
+      "To-do item"
+      entry
       (file+datetree ,lazr-org-agenda-file)
       "* TODO %?\n  %T\n  %i\n  %a")
 
-     ("e" "Calendar event" entry
+     ("e"
+      "Calendar event"
+      entry
       (file+datetree ,lazr-org-agenda-file)
       "* %?\n  %T\n  %i"
       :time-prompt t)
 
-     ("j" "Journal entry" entry
+     ("j"
+      "Journal entry"
+      entry
       (file+olp+datetree ,lazr-org-agenda-file)))
 
    org-todo-keywords
     '((sequence "TODO" "NEXT" "|" "DONE" "WAIT" "CANCEL")
       (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
 
-  :hook (org-mode . org-indent-mode)
-
   :config
   (add-to-list 'org-modules 'org-habit))
 
+(defvar lazr-org-refresh-agenda-time-seconds 30)
+(defvar lazr-org-refresh-agenda-timer nil)
 
-(use-package evil-org
-  :ensure t
+(defun lazr-org-refresh-agenda ()
+  "Refreshes the org agenda buffer when idle."
+  (when lazr-refresh-org-agenda-timer
+    (cancel-timer lazr-refresh-org-agenda-timer))
 
+  (org-agenda nil "a")
+  (message "refreshed agenda")
+
+  (setf lazr-org-refresh-agenda-timer
+        (run-with-idle-timer
+         (time-add (current-idle-time) lazr-org-refresh-agenda-time-seconds)
+         nil
+         'lazr-org-refresh-agenda)))
+
+(run-with-idle-timer lazr-org-refresh-agenda-time-seconds
+                     t
+                     'lazr-org-refresh-agenda)
+  
+
+(use-package evil-org :ensure t
   :after evil org
 
   :hook
@@ -58,53 +112,64 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-(use-package org-pomodoro
-  :ensure t
+(use-package org-pomodoro :ensure t
   :after org)
 
-(use-package deft
-  :ensure t
-  :config
-  (setq deft-directory lazr-org-directory))
+(use-package deft :ensure t
+  :config (setq deft-directory lazr-org-directory))
 
-(use-package markdown-mode
-  :ensure t)
+(use-package markdown-mode :ensure t)
 
-(use-package org-roam :ensure t)
-(use-package org-super-agenda :ensure t
-  :init
-  (setf org-super-agenda-groups
-        '((:name "Today"
-                 :time-grid t)
-           
-          ;; Anything that absolutely must be done as soon as possible.
-          (:name "High priority"
-           :priority "A")))
-  :config (org-super-agenda-mode))
+(use-package org-roam :ensure t
+  :after org)
 
-(use-package org-modern :ensure t :config (global-org-modern-mode))
+(use-package org-modern :ensure t
+  :config (global-org-modern-mode))
+
+(use-package org-caldav :ensure t
+  :after org)
 
 ;; Keybindings
 
-;;; 'O'rg global stuff.
-(lazr-leader-map :infix "o"
-  "p" 'org-pomodoro)
-
-;;; Org mode
-
 (lazr-local-leader-map :keymaps 'org-mode-map
-  "c" 'org-ctrl-c-ctrl-c
-  "e" 'org-babel-eval
-  "l" 'org-store-link
-  "o" 'org-open-at-point
+  "," 'org-ctrl-c-ctrl-c
   "." 'org-time-stamp
+  "A" 'org-archive-all-old
+  "a" 'org-archive-subtree
+  "l" 'org-store-link
   "p" 'org-insert
-  "t" 'org-todo )
+  "r" 'org-refile
+  "t" 'org-todo)
+
+;; For some reason, this is overridden somewhere.
+;; Ensure that Tab can open/close outlines
+(general-define-key :states 'normal
+                    :keymaps 'org-mode-map
+  "<TAB>" 'org-cycle)
+
+;;; Setup for Dungeons and Dragons
+;;;
+;;; 
 
 (require 'dnd "./dnd-mode/dnd-mode.el")
+
 (setq dnd-srd-dir "~/org/fun/rpg/dnd/org-dnd-srd-main/"
       dnd-snippet-dir "./dnd-mode/snippets")
 
-(message "Loaded lazr-org.")
+(lazr-local-leader-map :keymaps 'dnd-mode-map
+  "r" 'rtd
+  "E" 'dnd-eval-charsheet
+  "s" 'dnd-select-session-target)
+
+;;; Set up the Insidious Big Brother Database
+;;;
+;;; This is a contact list that is integrated within Emacs.
+
+(use-package bbdb :ensure t
+  :init
+  (setf bbdb-file "~/org/contacts.bbdb"))
+
+;; Provide import and export via vCard for BBDB contacts.
+(use-package bbdb-vcard :ensure t)
 
 (provide 'lazr-org)

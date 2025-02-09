@@ -2,59 +2,63 @@
 
 (install-r7rs!)
 
-(use-modules (ice-9 ftw)
+(use-modules 
+  (ice-9 ftw)
 
-             (gnu home)
-             (gnu home services)
-             (gnu home services shepherd)
-             (gnu home services syncthing)
-             (gnu home services shells)
-             (gnu home services dotfiles)
+  (gnu home)
+  (gnu home services)
+  (gnu home services shepherd)
+  (gnu home services syncthing)
+  (gnu home services shells)
+  (gnu home services dotfiles)
 
-             (gnu services)
-             (gnu services configuration)
+  (gnu services)
+  (gnu services configuration)
 
-             (gnu packages admin)
-             (gnu packages audio)
-             (gnu packages base)
-             (gnu packages gimp)
-             (gnu packages emacs)
-             (gnu packages emacs-xyz)
-             (gnu packages inkscape)
-             (gnu packages kde)
-             (gnu packages linux)
-             (gnu packages ncurses)
-             (gnu packages package-management)
-             (gnu packages password-utils)
-             (gnu packages scheme)
-             (gnu packages shells)
-             (gnu packages ssh)
-             (gnu packages text-editors)
-             (gnu packages terminals)
-             (gnu packages tmux)
-             (gnu packages toys)
-             (gnu packages video)
-             (gnu packages web)
-             (gnu packages mail)
+  (gnu packages admin)
+  (gnu packages audio)
+  (gnu packages base)
+  (gnu packages emacs)
+  (gnu packages emacs-xyz)
+  (gnu packages gimp)
+  (gnu packages inkscape)
+  (gnu packages kde)
+  (gnu packages linux)
+  (gnu packages mail)
+  (gnu packages ncurses)
+  (gnu packages package-management)
+  (gnu packages password-utils)
+  (gnu packages racket)
+  (gnu packages scheme)
+  (gnu packages shells)
+  (gnu packages ssh)
+  (gnu packages syndication)
+  (gnu packages terminals)
+  (gnu packages text-editors)
+  (gnu packages tmux)
+  (gnu packages toys)
+  (gnu packages video)
+  (gnu packages web)
 
-             (guix gexp)
-             (guix packages)
-             (guix licenses)
-             (guix git-download)
-             (guix build-system copy)
-             
-             (lazr base)
-             (lazr executable-file)
-             (lazr kakoune)
-             (lazr shells)
-             (lazr kakoune-plugins))
+  (guix gexp)
+  (guix packages)
+  (guix licenses)
+  (guix git-download)
+  (guix build-system copy)
+
+  (lazr base)
+  (lazr executable-file)
+  (lazr kakoune)
+  (lazr kakoune-plugins)
+  (lazr shells)
+  (lazr mail))
 
 ;;;
 ;;; Development tools.
 ;;;
 
 (define-packages-service lazr-scheme-packages-service
-  (gauche akku mit-scheme))
+  (gauche akku mit-scheme racket))
 
 (define-packages-service lazr-emacs-packages-service
   (emacs emacs-guix))
@@ -64,8 +68,7 @@
          (documentation "Emacs server.")
          (provision '(emacs-server))
          (start #~(make-forkexec-constructor
-                   (list #$(file-append emacs "/bin/emacs")
-                         "--fg-daemon")))
+                   (list #$(file-append emacs "/bin/emacs") "--fg-daemon")))
          (stop #~(make-kill-destructor)))))
 
 (define home-emacs-server-service-type
@@ -79,8 +82,12 @@
 (define lazr-emacs-config-service
   (simple-service 'lazr-emacs-config-service
                   home-files-service-type
-                  `((".emacs.d/init.el" ,(local-file (lazr-config-file "emacs/.emacs.d/init.el") "emacs-init-el"))
-                    (".emacs.d/modules.d" ,(local-file (lazr-config-file "emacs/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
+                  `((".emacs.d/init.el"
+                     ,(local-file
+                       (lazr-config-file "emacs/.emacs.d/init.el") "emacs-init-el"))
+                    (".emacs.d/modules.d"
+                     ,(local-file
+                       (lazr-config-file "emacs/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
                      
 
 (define lazr-emacs-services
@@ -104,26 +111,6 @@
   (list lazr-creative-packages-service))
 
 ;;;
-;;; Communications packages. 
-;;;
-
-(define-packages-service lazr-email-packages-service
-  (neomutt notmuch isync msmtp abook emacs-notmuch))
-
-(define lazr-neomutt-service
-  (simple-service
-   'lazr-neomutt-service
-   home-files-service-type
-   `((".mutt" ,(local-file "mutt/.mutt"
-                           "mutt-dir"
-                           #:recursive? #true)))))
-                                              
-
-(define lazr-communications-services
-  (list lazr-email-packages-service
-        lazr-neomutt-service))
-
-;;;
 ;;; My main home for workstations.
 ;;;
 
@@ -139,7 +126,7 @@
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "alacritty" "vim" "mail" "hypr"))))
+                  (packages (list "alacritty" "vim" "hypr"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 
@@ -150,9 +137,8 @@
     (append lazr-shell-services
             lazr-development-services
             lazr-creative-services
-            lazr-communications-services
+            communications-services
             lazr-misc-services))))
 
 lazr-workstation-home
-
 

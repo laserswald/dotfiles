@@ -17,3 +17,6 @@ weechat/.weechat/*.log
 **/.*.kak.*
 */var/sv/*/supervise
 */var/sv/*/log
+\#*\#
+*~
+

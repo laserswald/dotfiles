@@ -1,1 +1,13 @@
-/gnu/store/q9nbnwhdnm8iwznf7hm7v61lawvi9mjh-home-dotfiles--config-alacritty-Makefile
+M4 := m4
+M4_DEFINITIONS =
+ALACRITTY_CONF = alacritty.toml
+ALACRITTY_CONF_M4 = $(ALACRITTY_CONF).m4
+
+.PHONY: light
+light: $(ALACRITTY_CONF)
+
+.PHONY: dark
+dark: M4_DEFINITIONS="-D _DARK_MODE=1" $(ALACRITTY_CONF)
+
+$(ALACRITTY_CONF): theme.m4 $(ALACRITTY_CONF_M4)
+	$(M4) $(M4_DEFINITIONS) $^ > $@

@@ -1,4 +1,4 @@
-;;; selenized-dark-theme.el --- Theme 
+;;; selenized-dark-theme.el --- Theme
 
 ;; Copyright (C) 2016 , Jan Warchoł
 

@@ -1,7 +1,14 @@
-alias Me Ben Davenport-Ray <ben.davenportray@gmail.com>
-alias Mariah Mariah Kelly <mjkelly94@gmail.com>
-alias Dad Robert Davenport-Ray <robdraynp@gmail.com>
-alias Mom Gina Davenport-Ray <gina.davenportray@gmail.com>
-alias rocx Dave <rocx@rocx.rocks>
-alias gnotclub The Gnot Club mailing list <~lazr/gnot.club@lists.sr.ht>
-alias TomChapman Thomas Chapman <cooling@bhosted.net>
+
+# Family
+alias Dad             Robert Davenport-Ray <robdraynp@gmail.com>
+alias Mom             Gina Davenport-Ray <gina.davenportray@gmail.com>
+alias Miriam          Miriam Davenport-Ray <mimmzydray@gmail.com>
+alias Jules           Julia Irvin <jujugrety@gmail.com>
+
+alias family	      Mom, Dad, Jules, Miriam
+
+# Friends
+alias Chloe           Chloe Henderson <chloeh.pem@gmail.com>
+alias Lazr            Ben Davenport-Ray <me@lazr.space>
+
+alias TomChapman      Thomas Chapman <cooling@bhosted.net>
