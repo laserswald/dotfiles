@@ -50,8 +50,8 @@
   (lazr executable-file)
   (lazr kakoune)
   (lazr kakoune-plugins)
-  (lazr shells)
-  (lazr mail))
+  (lazr shells))
+  ;(lazr mail))
 
 ;;;
 ;;; Development tools.
@@ -126,7 +126,7 @@
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "alacritty" "vim" "hypr"))))
+                  (packages (list "alacritty" "hypr"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 
@@ -137,7 +137,7 @@
     (append lazr-shell-services
             lazr-development-services
             lazr-creative-services
-            communications-services
+            ;; communications-services
             lazr-misc-services))))
 
 lazr-workstation-home
