@@ -1,32 +1,117 @@
 
+;;; Code:
+
+(require 'cl-lib)
+
 (deftheme chameleon
   "Lazr's preferred terminal-based theme.")
 
-;; Fix some strangeness with faces in the terminal.
-(set-face-background 'default "background")
 
-(set-face-foreground 'font-lock-comment-face "brightblack")
-(set-face-foreground 'font-lock-comment-delimiter-face "brightblack")
-(set-face-foreground 'font-lock-doc-face "brightwhite")
-(set-face-foreground 'font-lock-doc-markup-face "brightmagenta")
 
-(set-face-foreground 'font-lock-keyword-face "red")
-(set-face-foreground 'font-lock-builtin-face "brightyellow")
-(set-face-foreground 'font-lock-operator-face "yellow")
+(let ((class '((class color))))
+  (custom-theme-set-faces
+   'chameleon
 
-(set-face-foreground 'font-lock-function-name-face "brightblue")
-(set-face-foreground 'font-lock-variable-name-face "brightblue")
-(set-face-foreground 'font-lock-variable-use-face "blue")
-(set-face-foreground 'font-lock-type-face "brightyellow")
-(set-face-foreground 'font-lock-constant-face "brightred")
-(set-face-foreground 'font-lock-preprocessor-face "magenta")
+   ;; :bold :underline :foreground :background :
 
-(set-face-foreground 'font-lock-string-face "green")
-(set-face-foreground 'font-lock-escape-face "brightgreen")
+   ;; Fix some strangeness with faces in the terminal.
+   `(default
+     ((,class
+       (:background "background"
+        :foreground "foreground"))))
 
-(set-face-foreground 'font-lock-property-name-face "brightcyan")
-(set-face-foreground 'font-lock-property-use-face "cyan")
+   `(tab-bar
+     ((,class
+       (:foreground "cyan"))))
 
-; (set-face-foreground 'elscreen-tab-control-face "blue")
+   `(font-lock-comment-face
+     ((,class
+       (:foreground "white"
+        :italic t))))
+   `(font-lock-comment-delimiter-face
+     ((,class
+       (:foreground "white"
+        :italic t))))
+   `(font-lock-doc-face
+     ((,class
+       (:foreground "brightwhite"
+        :italic t))))
+   `(font-lock-doc-markup-face
+     ((,class
+       (:foreground "brightmagenta"
+        :italic t))))
+   `(font-lock-keyword-face
+     ((,class
+       (:foreground "red"))))
+   `(font-lock-builtin-face
+     ((,class
+       (:foreground "brightyellow"))))
+   `(font-lock-operator-face
+     ((,class
+       (:foreground "yellow"))))
+   `(font-lock-function-name-face
+     ((,class
+       (:foreground "brightblue"))))
+   `(font-lock-variable-name-face
+     ((,class
+       (:foreground "brightblue"))))
+   `(font-lock-variable-use-face
+     ((,class
+       (:foreground "blue"))))
+   `(font-lock-type-face
+     ((,class
+       (:foreground "brightyellow"))))
+   `(font-lock-constant-face
+     ((,class
+       (:foreground "brightred"))))
+   `(font-lock-preprocessor-face
+     ((,class
+       (:foreground "magenta"))))
 
-(provide-theme chameleon)
+   `(font-lock-string-face
+     ((,class
+       (:foreground "green"))))
+   `(font-lock-escape-face
+     ((,class
+       (:foreground "brightgreen"))))
+
+   `(font-lock-property-name-face
+     ((,class
+       (:foreground "brightcyan"))))
+   `(font-lock-property-use-face
+     ((,class
+       (:foreground "cyan"))))
+
+   ;;; Outlining and Org mode
+
+   `(outline-1
+     ((,class
+       (:foreground "magenta"))))
+   `(outline-2
+     ((,class
+       (:foreground "blue"))))
+   `(outline-3
+     ((,class
+       (:foreground "cyan"))))
+   `(outline-4
+     ((,class
+       (:foreground "green"))))
+   `(outline-5
+     ((,class
+       (:foreground "yellow"))))
+   `(outline-6
+     ((,class
+       (:foreground "red"))))
+   `(outline-7
+     ((,class
+       (:foreground "magenta"))))
+   `(outline-8
+     ((,class
+       (:foreground "blue"))))
+
+
+   `(org-hide
+     ((,class
+       (:foreground "black"))))))
+(provide-theme 'chameleon)
+
