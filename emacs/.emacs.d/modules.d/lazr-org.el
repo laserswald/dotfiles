@@ -5,7 +5,7 @@
 (defvar lazr-org-directory "~/org"
   "Directory where my org mode files live.")
 
-(defun lazr-org-dir (file)
+(defun lazr-org-file (file)
   "Get the path of the FILE in my org directory."
   (concat lazr-org-directory file))
 

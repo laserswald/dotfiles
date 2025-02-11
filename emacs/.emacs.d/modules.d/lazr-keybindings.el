@@ -1,12 +1,7 @@
 
-(use-package counsel
-  :ensure t
-  :config (ivy-mode 1))
+(require 'lazr-package-setup)
 
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
+(use-package which-key :ensure t :config (which-key-mode))
 
 ;;; Custom functions that should be bound to keys
 
@@ -36,12 +31,6 @@
 ;;;
 ;;; Roots of the leader mapping trees.
 ;;;
-
-;; Window movement with C-hjkl
-(general-define-key "C-h" 'evil-window-left
-		    "C-j" 'evil-window-down
-		    "C-k" 'evil-window-up
-		    "C-l" 'evil-window-right)
 
 ;; Go to ...
 (general-define-key
@@ -140,53 +129,6 @@
   "/" 'swiper
   "?" 'swiper-backward)
  
-;;; File type specific tools
-
-;; PHP
-(lazr-local-leader-map :keymaps 'php-mode-map
-  "ta" 'phpunit-current-project
-  "tt" 'phpunit-current-test
-  "tc" 'phpunit-current-class)
-
-;;; Lisp and friends
-
-(defmacro lazr-define-lisp-keybinds (mode
-                                     eval-defun
-                                     eval-buffer
-                                     open-repl)
-  "Define Lisp keybindings in a consistent manner."
-  `(lazr-local-leader-map :keymaps ,mode
-     "e" ,eval-defun
-     "E" ,eval-buffer
-     "r" ,open-repl))
-
-(defun lazr-eval-buffer ()
-  "Evaluate a buffer and say something about it."
-  (interactive)
-  (eval-buffer)
-  (message "Evaluated."))
-
-(lazr-define-lisp-keybinds 'lisp-interaction-mode-map
-  'eval-defun
-  'lazr-eval-buffer
-  'ielm)
-
-(lazr-define-lisp-keybinds 'emacs-lisp-mode-map
-  'eval-defun
-  'lazr-eval-buffer
-  'ielm)
-
-(lazr-define-lisp-keybinds 'scheme-mode-map
-  'geiser-eval-definition
-  'geiser-eval-buffer
-  'geiser)
-
-(lazr-define-lisp-keybinds 'lisp-mode-map
-  'slime-eval-defun
-  'slime-compile-and-load-file
-  'slime)
-
-(general-nmap dired-mode-map "-" 'dired-up-directory)
 
 (lazr-local-leader-map :keymaps 'todotxt-mode-map
   "c" 'todotxt-complete-toggle)

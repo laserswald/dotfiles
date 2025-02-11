@@ -29,15 +29,12 @@
 ;; Move up here so themes can stop bugging me
 (load custom-file)
 
-(require 'lazr-package-setup)
 (require 'lazr-core)
+
 (require 'lazr-graphical)
 (require 'lazr-shell)
 (require 'lazr-org)
-(require 'lazr-keybindings)
+(require 'lazr-prog)
 (require 'lazr-languages)
+(require 'lazr-project)
 
-(eval-after-load 'tramp
-  '(progn (setenv "TERM" "ansi")))
-
-(put 'dired-find-alternate-file 'disabled nil)

@@ -8,7 +8,8 @@
 
 ;;; Code:
 
-(require 'lazr-package-setup)
+(require 'lazr-package-setup "./lazr-package-setup.el")
+(require 'lazr-keybindings "./lazr-keybindings.el")
 
 ;;
 ;; Built-in Emacs packages
@@ -16,34 +17,34 @@
 
 ; Directory editor
 (use-package dired
+  :after evil
   :config
   (add-hook 'dired-mode-hook
-            (lambda () (dired-omit-mode))))
+	    (lambda () (dired-omit-mode))))
+  (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
+  ; When in Dired, use normal mode, since dired has pretty good keybindings already
+  (evil-set-initial-state 'dired-mode 'normal)
+  (put 'dired-find-alternate-file 'disabled nil)
+
+; Remote file editing
+(use-package tramp
+  :config
+  (setenv "TERM" "ansi"))
 
 ; Provide a better interactive choice dialog than the normal Emacs one.
 (use-package ivy :ensure t
   :config
   (ivy-mode 1))
 
-; Completion framework
-(use-package company :ensure t
+;; Snippets management
+(use-package yasnippet :ensure t
   :config
-  (global-company-mode))
-
-; On-the-fly checking.
-(use-package flycheck :ensure t
-  :config
-  (global-flycheck-mode))
-
-; Git integration.
-(use-package magit :ensure t)
-
-; Per-project configurations for indentation, etc.
-(use-package editorconfig :ensure t
-  :config
-  (editorconfig-mode 1))
+  (yas-global-mode 1))
 
 ;; Searching and navigating.
+
+(use-package counsel :ensure t
+  :config (ivy-mode 1))
 
 ; Search quickly
 (use-package ripgrep :ensure t)
@@ -55,44 +56,6 @@
 
 ; Interface to the `pass` password vault.
 (use-package password-store :ensure t)
-
-;;
-;; Extensible Vi Layer.
-;;
-
-; Configure the Evil layer.
-(use-package evil :ensure t
-
-  :init
-  (setq evil-want-integration t
-	evil-want-keybinding  nil
-	evil-undo-system      'undo-redo)
-
-  :config
-
-  ; Enable vi keybindings.
-  (evil-mode 1)
-
-  ; When in Dired, use normal mode, since dired has pretty good keybindings already
-  (evil-set-initial-state 'dired-mode 'normal)
-
-  ; Use Emacs mode for vterms.
-  (evil-set-initial-state 'vterm-mode 'emacs)
-
-  ; Vim-vinegar replacement
-  (define-key evil-normal-state-map (kbd "-")
-    #'(lambda () (find-file "."))))
-
-; Provide a tree of undo-states. Needed by Evil.
-(use-package undo-tree :ensure t)
-
-; Extra keybindings for default Evil stuff.
-(use-package evil-collection :ensure t
-  :after evil
-  :init
-  (setq evil-collection-mode-list '(dired magit process-menu notmuch))
-  :config
-  (evil-collection-init))
 
 ;;
 ;; Communication tools.
@@ -111,5 +74,6 @@
 ; Save the current configuration of windows, buffers, etc.
 (desktop-save-mode -1)
 
+;; Tab shenanigans
 (provide 'lazr-core)
 ;;; lazr-core.el ends here
