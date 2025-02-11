@@ -60,9 +60,8 @@
   (context-menu-mode)
 
   (lazr-setup-fonts
-   "Iosevka Nerd Font"
-   "VictorMono Nerd Font"
-   "FiraCode Nerd Font")
+   "Fira Code Nerd Font"
+   "Victor Mono Nerd Font")
 
   ; Apply my theme.
   (lazr-apply-theme))
@@ -120,9 +119,12 @@
                                  (find-font (font-spec :name f)))
                                fonts)))
 
+    (unless font-face
+      (error "Could not find a font"))
+
     ;; Add to the settings that new frames will follow
     (add-to-list 'default-frame-alist
-      `(font ,(concat font-face "-" (number-to-string font-size) ":weight=medium")))
+      `(font ,(concat font-face " " (number-to-string font-size))))
 
     ;; Set the current frame's font as well.
     (set-frame-font font-face t)))

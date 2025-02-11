@@ -1,5 +1,6 @@
 ;;;; -*- lexical-binding: t; -*-
 
+(require 'lazr-core)
 (require 'lazr-keybindings)
 
 (defvar lazr-org-directory "~/org"

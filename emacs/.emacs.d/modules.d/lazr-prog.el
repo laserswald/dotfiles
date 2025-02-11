@@ -145,14 +145,6 @@
   "Get the mode hook for the language SYM."
   (lz/symcat-soft sym 'mode))
 
-(defun lazr-eval-buffer ()
-  "Evaluate a buffer and say something about it."
-  (interactive)
-  (eval-buffer)
-  (message "Evaluated."))
-
-
-        
 (use-package parinfer-rust-mode :ensure t
   :init (setq parinfer-rust-auto-download t)
   :hook (mapcar lz/sym-mode lz/lisps))
@@ -163,6 +155,12 @@
 ;;
 ;; Emacs Lisp
 ;;
+
+(defun lazr-eval-buffer ()
+  "Evaluate a buffer and say something about it."
+  (interactive)
+  (eval-buffer)
+  (message "Evaluated."))
 
 (lazr-define-lisp-keybinds 'emacs-lisp-mode-map
   'eval-defun

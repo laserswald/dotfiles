@@ -37,4 +37,5 @@
 (require 'lazr-prog)
 (require 'lazr-languages)
 (require 'lazr-project)
+(require 'lazr-layout)
 

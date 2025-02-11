@@ -41,7 +41,7 @@
  "a" 'evil-switch-to-windows-last-buffer
 
  ; A buffer or recent file.
- "b" 'counsel-buffer-or-recentf
+ "b" 'counsel-switch-buffer
 
  ; Bookmark
  "B" 'counsel-bookmark
