@@ -14,7 +14,7 @@
 (defun lazr-reload-config ()
   "Reload my configuration."
   (interactive)
-  (lz/load "core.el"))
+  (load user-init-file))
 
 (defun lazr-open-config ()
   "Open my configuration directory."

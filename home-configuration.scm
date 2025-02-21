@@ -2,7 +2,7 @@
 
 (install-r7rs!)
 
-(use-modules 
+(import
   (ice-9 ftw)
 
   (gnu home)
@@ -47,6 +47,7 @@
   (guix build-system copy)
 
   (lazr base)
+  (lazr packages)
   (lazr executable-file)
   (lazr kakoune)
   (lazr kakoune-plugins)
@@ -58,7 +59,13 @@
 ;;;
 
 (define-packages-service lazr-scheme-packages-service
-  (gauche akku mit-scheme racket))
+  (gauche
+   guile
+   akku
+   mit-scheme
+   racket
+   slib
+   r7rs-small-texinfo))
 
 (define-packages-service lazr-emacs-packages-service
   (emacs emacs-guix))

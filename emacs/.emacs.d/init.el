@@ -38,4 +38,5 @@
 (require 'lazr-languages)
 (require 'lazr-project)
 (require 'lazr-layout)
+(require 'lazr-ai)
 

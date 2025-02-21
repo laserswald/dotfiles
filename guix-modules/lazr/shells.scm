@@ -5,7 +5,10 @@
 
   (import (scheme base)
           (lazr base)
+	  (lazr packages)
           (gnu services)
+          (gnu packages shells)
+          (gnu packages shellutils)
           (gnu home services)
           (gnu home services shells)
           (guix gexp))
@@ -29,19 +32,30 @@
                (home-shell-profile-configuration
                 (profile (list (local-file "sh/.profile" "lazr-posix-profile"))))))
 
-    (define lazr-fish-service
-      (service home-fish-service-type
-               (home-fish-configuration)))
+    (define lazr-zsh-services
+      (services
+       (packages-service 'lazr-zsh-packages-service
+			 zsh-completions
+			 zsh-syntax-highlighting
+			 zsh-autosuggestions
+			 oh-my-zsh)
 
-    (define lazr-zsh-service
-      (service home-zsh-service-type
-               (home-zsh-configuration
-                (zshenv   (list (local-file (lazr-config-file "zsh/.zshenv") "lazr-zshenv")))
-                (zprofile (list (local-file (lazr-config-file "zsh/.zprofile") "lazr-zprofile")))
-                (zshrc    (list (local-file (lazr-config-file "zsh/.zshrc") "lazr-zshrc"))))))
+       (service home-zsh-service-type
+		(home-zsh-configuration
+		 (zshenv   (list (local-file (lazr-config-file "zsh/.zshenv") "lazr-zshenv")))
+		 (zprofile (list (local-file (lazr-config-file "zsh/.zprofile") "lazr-zprofile")))
+		 (zshrc    (list (local-file (lazr-config-file "zsh/.zshrc") "lazr-zshrc")
+				 (mixed-text-file "lazr-zshrc-postlude.zsh"
+						  "source \"" zsh-autosuggestions "/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh\"\n"
+						  "source \"" zsh-syntax-highlighting "/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n"
+						  "fpath=(" zsh-completions "/share/zsh/site-functions $fpath)"
+						  )))))
+
+       (simple-service 'lazr-zsh-config-service
+		       home-files-service-type
+		       `((".zsh"         ,(local-file (lazr-config-file "zsh/.zsh") "lazr-zsh-dir" #:recursive? #t))))))
 
     (define lazr-shell-services
-      (list lazr-posix-shell-service
-            ; lazr-posix-shell-profile-service
-            lazr-fish-service
-            lazr-zsh-service))))
+      (services
+       lazr-posix-shell-service
+       lazr-zsh-services))))

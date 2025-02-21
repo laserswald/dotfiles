@@ -51,12 +51,6 @@ myFont = "terminesspowerline:size=10"
 --myLeftBar = "~/dotfiles/dzen/left.sh"
 --myRightBar = "~/dotfiles/dzen/right.sh"
 
-<<<<<<< HEAD
--- Startup programs.
------------------------------------------------------------------------
-
-=======
->>>>>>> cbc7bf997c2af4ef98cdaec03b376a2ab2937bf7
 -- Management hooks.
 -----------------------------------------------------------------------
 myManageHook = composeAll
@@ -67,7 +61,6 @@ myManageHook = composeAll
     , className =? "irssi" --> doShift "chat"
     ]
 
-<<<<<<< HEAD
 -- Log hook settings..
 -----------------------------------------------------------------------
 myLogHook proc = dynamicLogWithPP $ def
@@ -90,8 +83,6 @@ myLayout n
     | n == "Mirror Tall" = dzenIcon "mirrortall.xbm"
     | n == "Tabbed Simplest" = dzenIcon "tabs.xbm"
     | otherwise = n
-=======
->>>>>>> cbc7bf997c2af4ef98cdaec03b376a2ab2937bf7
 
 dmenuCustom = "dmenu_run -i -p ':' -b -fn terminesspowerline:size=10"
 

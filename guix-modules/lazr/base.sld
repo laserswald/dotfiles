@@ -2,6 +2,7 @@
 (define-library (lazr base)
   (export define-packages-service
           packages-service
+	  services
           lazr-config-file
           lazr-config-directory)
 
@@ -18,6 +19,20 @@
     ;;; Extra service types and macros
     ;;;
 
+    (define (flatten list-of-lists)
+      (cond ((null? list-of-lists)
+	     '())
+	    ((list? (car list-of-lists))
+	     (append (flatten (car list-of-lists))
+		     (flatten (cdr list-of-lists))))
+	    (else
+	     (cons (car list-of-lists)
+		   (flatten (cdr list-of-lists))))))
+
+    ;; Group of services, so I can organize them how I like 
+    (define (services . services) (flatten services))
+
+    ;;; Define a service that just installs a set of packages. 
     (define (packages-service name . packages)
       (unless (symbol? name)
               (error "packages-service: name must be a symbol, but got " name))
@@ -30,7 +45,6 @@
       (syntax-rules ()
         ((_ name (packages ...))
          (define name (packages-service 'name packages ...)))))
-    
    
     (define lazr-config-directory
       (string-append 

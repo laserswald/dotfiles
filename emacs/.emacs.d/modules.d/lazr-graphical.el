@@ -60,8 +60,8 @@
   (context-menu-mode)
 
   (lazr-setup-fonts
-   "Fira Code Nerd Font"
-   "Victor Mono Nerd Font")
+   "Victor Mono Nerd Font"
+   "Fira Code Nerd Font")
 
   ; Apply my theme.
   (lazr-apply-theme))
@@ -81,7 +81,7 @@
     (if lazr-custom-theme
         (disable-theme lazr-custom-theme))
     (setf lazr-custom-theme theme)
-    (load-theme lazr-custom-theme t)))
+    (load-theme lazr-custom-theme)))
 
 (defvar lazr-theme-pair
   '(doom-solarized-light . doom-solarized-dark)
