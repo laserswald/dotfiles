@@ -1,0 +1,2 @@
+
+alias zreload="source ~/.zshrc"

@@ -39,6 +39,7 @@
   (gnu packages toys)
   (gnu packages video)
   (gnu packages web)
+  (gnu packages guile)
 
   (guix gexp)
   (guix packages)
@@ -60,7 +61,6 @@
 
 (define-packages-service lazr-scheme-packages-service
   (gauche
-   guile
    akku
    mit-scheme
    racket
@@ -125,6 +125,9 @@
   (simple-service 'lazr-scripts-service
                   home-files-service-type
                   `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders"))
+                    (".local/bin/favorite-terminal" ,(executable-file "xorg/bin/favorite-terminal" "favorite-terminal"))
+                    (".local/bin/favorite-browser" ,(executable-file "xorg/bin/favorite-browser" "favorite-browser"))
+                    (".local/bin/graphical-menu" ,(executable-file "xorg/bin/graphical-menu" "graphical-menu"))
                     (".local/bin/sync-etc" ,(executable-file "bin/bin/sync-etc" "sync-etc")))))
 
 (define lazr-misc-services

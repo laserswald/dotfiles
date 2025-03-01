@@ -8,8 +8,9 @@ function aa {
 }
 
 function search {
-    query=$(echo "$@" | tr ' ' +)
+    query=$(echo $@ | tr ' ' +)
     w3m "https://duckduckgo.com/?q=$query"
 }
+
 alias ddg=search
 

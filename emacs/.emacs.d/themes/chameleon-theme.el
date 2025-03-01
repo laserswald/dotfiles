@@ -6,9 +6,12 @@
 (deftheme chameleon
   "Lazr's preferred terminal-based theme.")
 
+(let ((class '((class color)))
+      (contrast "white")
+      (brightcontrast "brightwhite")
+      (similar "black")
+      (brightsimilar "brightblack"))
 
-
-(let ((class '((class color))))
   (custom-theme-set-faces
    'chameleon
 
@@ -22,24 +25,64 @@
 
    `(tab-bar
      ((,class
-       (:foreground "cyan"))))
+       (:foreground ,similar
+	:background ,brightsimilar))))
+
+   `(region
+     ((,class (:background ,brightsimilar))))
+   `(highlight
+     ((,class (:foreground ,contrast
+	       :background ,similar))))
+   `(hl-line
+     ((,class (:background ,similar))))
+   `(fringe
+     ((,class (:background ,contrast
+	       :foreground ,similar))))
+   `(cursor
+     ((,class (:background ,contrast))))
+   `(show-paren-match-face
+     ((,class (:background "brightcyan"))))
+   `(isearch
+     ((,class (:bold t :foreground "brightmagenta" :background ,brightsimilar))))
+
+   `(vertical-border
+     ((,class (:background ,similar
+	       :foreground ,similar))))
+   `(mode-line
+     ((,class (:box (:line-width 1 :color nil) :bold t
+		    :background ,brightsimilar
+		    :foreground ,brightcontrast))))
+   `(mode-line-inactive
+     ((,class (:box (:line-width 1 :color nil :style pressed-button)
+		    :background ,similar
+		    :foreground ,contrast
+		    :weight normal))))
+   `(mode-line-buffer-id
+     ((,class (:bold t :foreground "cyan" :background nil))))
+   `(mode-line-highlight
+     ((,class (:foreground "red" :box nil :weight bold))))
+   `(mode-line-emphasis
+     ((,class (:foreground ,contrast))))
+
+   `(minibuffer-prompt
+     ((,class (:bold t :foreground "red"))))
 
    `(font-lock-comment-face
      ((,class
        (:foreground "white"
-        :italic t))))
+		    :italic t))))
    `(font-lock-comment-delimiter-face
      ((,class
        (:foreground "white"
-        :italic t))))
+		    :italic t))))
    `(font-lock-doc-face
      ((,class
        (:foreground "brightwhite"
-        :italic t))))
+		    :italic t))))
    `(font-lock-doc-markup-face
      ((,class
        (:foreground "brightmagenta"
-        :italic t))))
+		    :italic t))))
    `(font-lock-keyword-face
      ((,class
        (:foreground "red"))))
@@ -113,5 +156,8 @@
    `(org-hide
      ((,class
        (:foreground "black"))))))
+
 (provide-theme 'chameleon)
+
+(enable-theme 'chameleon)
 
