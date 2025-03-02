@@ -48,12 +48,19 @@
 				 (mixed-text-file "lazr-zshrc-postlude.zsh"
 						  "source \"" zsh-autosuggestions "/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh\"\n"
 						  "source \"" zsh-syntax-highlighting "/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n"
-						  "fpath=(" zsh-completions "/share/zsh/site-functions $fpath)"
+						  "fpath=(" zsh-completions "/share/zsh/site-functions $fpath) \n"
+						  "export ZSH=\"" oh-my-zsh "/share/zsh/oh-my-zsh\" \n"
+						  "source $ZSH/oh-my-zsh.sh \n"
 						  )))))
 
-       (simple-service 'lazr-zsh-config-service
-		       home-files-service-type
-		       `((".zsh"         ,(local-file (lazr-config-file "zsh/.zsh") "lazr-zsh-dir" #:recursive? #t))))))
+       (simple-service
+	'lazr-zsh-xdg-service
+	home-xdg-configuration-files-service-type
+	`(
+	  ("zsh/functions.zsh"         ,(local-file (lazr-config-file "zsh/.config/zsh/functions.zsh") "lazr-zsh-functions" #:recursive? #t))
+	  ("zsh/aliases.zsh"         ,(local-file (lazr-config-file "zsh/.config/zsh/aliases.zsh") "lazr-zsh-aliases" #:recursive? #t))
+	  ("zsh/plugins"         ,(local-file (lazr-config-file "zsh/.config/zsh/plugins") "lazr-zsh-plugins-dir" #:recursive? #t))
+	  ("zsh/themes"         ,(local-file (lazr-config-file "zsh/.config/zsh/themes") "lazr-zsh-themes-dir" #:recursive? #t))))))
 
     (define lazr-shell-services
       (services
