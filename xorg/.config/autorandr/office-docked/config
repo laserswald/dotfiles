@@ -1,0 +1,43 @@
+output DP2
+off
+output DP2-1
+off
+output DP2-3
+off
+output HDMI1
+off
+output HDMI2
+off
+output VIRTUAL1
+off
+output DP2-2
+crtc 2
+mode 3840x2160
+pos 0x0
+rate 30.00
+rotate left
+x-prop-audio auto
+x-prop-broadcast_rgb Automatic
+x-prop-max_bpc 12
+x-prop-non_desktop 0
+output DP1
+crtc 1
+mode 3840x2160
+pos 2160x1024
+rate 60.00
+x-prop-audio auto
+x-prop-broadcast_rgb Automatic
+x-prop-colorspace Default
+x-prop-max_bpc 12
+x-prop-non_desktop 0
+output eDP1
+crtc 0
+mode 1920x1080
+pos 6000x2104
+primary
+rate 60.01
+x-prop-broadcast_rgb Automatic
+x-prop-colorspace Default
+x-prop-max_bpc 12
+x-prop-non_desktop 0
+x-prop-scaling_mode Full aspect
