@@ -5,7 +5,7 @@
           lazr-kakoune-services)
 
   (import (scheme base)
-          (guile)
+          (except (guile) map)
 
           (gnu home)
           (gnu home services)
@@ -120,11 +120,11 @@
       (append (list (list "kak/autoload/standard-libs"
                           (file-append kakoune "/share/kak/autoload")))
               ;; Scripts
-              (map (lambda (name)
-                            (list (string-append "kak/" name)
-                                  (local-file (string-append "kak/.config/kak/" name)
-                                              #:recursive? (directory? (string-append "kak/.config/kak/" name)))))
-                          (home-kakoune-configuration-scripts configuration))
+	      (map (lambda (name)
+		     (list (string-append "kak/" name)
+			   (local-file (string-append lazr-config-directory "/kak/.config/kak/" name)
+				       #:recursive? (directory? (string-append "kak/.config/kak/" name)))))
+		   (home-kakoune-configuration-scripts configuration))
     
               ;; plugins
               (append-map kakoune-plugin-xdg-configuration-files

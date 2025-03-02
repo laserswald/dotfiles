@@ -39,6 +39,7 @@
   (gnu packages toys)
   (gnu packages video)
   (gnu packages web)
+  (gnu packages guile)
 
   (guix gexp)
   (guix packages)
@@ -121,13 +122,39 @@
 ;;; My main home for workstations.
 ;;;
 
+(define script-install-dir ".local/bin/")
+(define (script name where)
+  (list (string-append script-install-dir name)
+	(executable-file
+	 (string-append where name)
+	 (string-append "lazr-scripts-" name))))
+
 (define lazr-scripts-service
   (simple-service 'lazr-scripts-service
                   home-files-service-type
-                  `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders"))
-                    (".local/bin/sync-etc" ,(executable-file "bin/bin/sync-etc" "sync-etc"))
-                    (".local/bin/skel"     ,(executable-file "bin/bin/skel" "skel"))
-		    )))
+		  (list
+		   (script "256colors" "bin/bin/")
+		   (script "invaders" "bin/bin/")
+
+		   (script "skel" "bin/bin/")
+		   (script "sync-etc" "bin/bin/")
+		   (script "tidyhome" "bin/bin/")
+		   (script "pass-remember" "bin/bin/")
+
+		   (script "audioctl" "bin/bin/")
+		   (script "bfg" "bin/bin/")
+		   (script "patchdir" "bin/bin/")
+		   (script "phptags" "bin/bin/")
+		   (script "scheme-tags" "bin/bin/")
+		   (script "srcmv" "bin/bin/")
+		   (script "surf-ddg" "bin/bin/")
+
+		   (script "dj" "bin/bin/")
+		   (script "favorite-terminal" "xorg/bin/")
+		   (script "favorite-browser" "xorg/bin/")
+		   (script "graphical-menu" "xorg/bin/")
+		   )))
+
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)

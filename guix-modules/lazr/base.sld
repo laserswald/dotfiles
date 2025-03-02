@@ -19,6 +19,7 @@
     ;;; Extra service types and macros
     ;;;
 
+    ;; Flatten a list of lists into a single top level list
     (define (flatten list-of-lists)
       (cond ((null? list-of-lists)
 	     '())
@@ -41,6 +42,7 @@
               (error "packages-service: `packages` must be a list of packages, but got " name))
       (simple-service name home-profile-service-type packages))
 
+    ;; Define 
     (define-syntax define-packages-service
       (syntax-rules ()
         ((_ name (packages ...))
@@ -51,11 +53,10 @@
        (or (get-environment-variable "HOME")
            (string-append "/home/" (get-environment-variable "USER")))
        "/etc"))
-   
+
+    ;; Quickly refer to a file in my configuration.
     (define (lazr-config-file file-path)
-      (string-append lazr-config-directory
-                     "/"
-                     file-path))
-   
-   ))
+      (string-append lazr-config-directory "/" file-path))
+
+    ))
 
