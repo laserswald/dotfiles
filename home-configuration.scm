@@ -60,7 +60,6 @@
 
 (define-packages-service lazr-scheme-packages-service
   (gauche
-   guile
    akku
    mit-scheme
    racket
@@ -68,7 +67,8 @@
    r7rs-small-texinfo))
 
 (define-packages-service lazr-emacs-packages-service
-  (emacs emacs-guix))
+  (emacs
+   emacs-guix))
 
 (define (emacs-server-shepherd-service config)
   (list (shepherd-service
@@ -125,7 +125,9 @@
   (simple-service 'lazr-scripts-service
                   home-files-service-type
                   `((".local/bin/invaders" ,(executable-file "bin/bin/invaders" "invaders"))
-                    (".local/bin/sync-etc" ,(executable-file "bin/bin/sync-etc" "sync-etc")))))
+                    (".local/bin/sync-etc" ,(executable-file "bin/bin/sync-etc" "sync-etc"))
+                    (".local/bin/skel"     ,(executable-file "bin/bin/skel" "skel"))
+		    )))
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
@@ -143,7 +145,7 @@
    (services
     (append lazr-shell-services
             lazr-development-services
-            lazr-creative-services
+            ;; lazr-creative-services
             ;; communications-services
             lazr-misc-services))))
 
