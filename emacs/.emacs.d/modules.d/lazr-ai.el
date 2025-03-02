@@ -2,13 +2,15 @@
 (require 'lazr-core)
 
 (use-package gptel :ensure t
-  :init  
-  (setq
-   gptel-model 'deepseek-chat
-   gptel-backend (gptel-make-openai "DeepSeek"
-		   :host "api.deepseek.com"
-		   :endpoint "/chat/completions"
-		   :stream t
-		   :models '(deepseek-chat deepseek-coder))))
+  :init
+  (setq gptel-model 'deepseek-r1
+	gptel-backend (gptel-make-ollama "Ollama"
+			:host "localhost:11434"
+			:stream t
+			:models '(deepseek-r1))))
+
+(defun llm-send-project ()
+  (interactive)
+  (message "Not ready yet."))
 
 (provide 'lazr-ai)

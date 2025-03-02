@@ -86,22 +86,24 @@
 
 (defun lazr-org-refresh-agenda ()
   "Refreshes the org agenda buffer when idle."
-  (when lazr-refresh-org-agenda-timer
-    (cancel-timer lazr-refresh-org-agenda-timer))
-
-  (org-agenda nil "a")
-  (message "refreshed agenda")
+  (when lazr-org-refresh-agenda-timer
+    (cancel-timer lazr-org-refresh-agenda-timer))
+  (save-window-excursion
+    (save-excursion
+      (dolist (buffer (buffer-list))
+	(with-current-buffer buffer
+	  (if (derived-mode-p 'org-agenda-mode)
+	    (org-agenda-redo t))))))
 
   (setf lazr-org-refresh-agenda-timer
         (run-with-idle-timer
-         (time-add (current-idle-time) lazr-org-refresh-agenda-time-seconds)
+         (time-add (current-idle-time)
+		   lazr-org-refresh-agenda-time-seconds)
          nil
          'lazr-org-refresh-agenda)))
 
-(run-with-idle-timer lazr-org-refresh-agenda-time-seconds
-                     t
-                     'lazr-org-refresh-agenda)
-  
+;; Start the timer when we first load this file
+(run-with-idle-timer lazr-org-refresh-agenda-time-seconds t 'lazr-org-refresh-agenda)
 
 (use-package evil-org :ensure t
   :after evil org
@@ -172,5 +174,7 @@
 
 ;; Provide import and export via vCard for BBDB contacts.
 (use-package bbdb-vcard :ensure t)
+
+(use-package telega :ensure t)
 
 (provide 'lazr-org)
