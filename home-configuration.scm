@@ -162,13 +162,21 @@
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "alacritty" "hypr"))))
+                  (packages (list "alacritty" 
+                                  "sway"
+                                  "hypr"
+                                  ))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 
   (home-environment
    (packages
-    (list jq grep ncurses procps password-store))
+    (list 
+     jq
+     grep
+     ncurses
+     procps
+     password-store))
    (services
     (append lazr-shell-services
             lazr-development-services

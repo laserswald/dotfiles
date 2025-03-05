@@ -17,8 +17,8 @@ set $up k
 set $right l
 
 set $mod Mod4
-set $terminal "$HOME/bin/favorite-terminal"
-set $menu "$HOME/bin/graphical-menu"
+set $terminal "$HOME/.local/bin/favorite-terminal"
+set $menu "$HOME/.local/bin/graphical-menu"
 # }}}
 
 # use Mouse+$mod to drag floating windows to their wanted position
