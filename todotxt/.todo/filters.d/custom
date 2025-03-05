@@ -1,5 +1,0 @@
-#/bin/sh
-
-source $TODOTXT_CFG_FILE
-
-$TODO_FILTERS_DIR/futureTasks | grep -v "h:1"
