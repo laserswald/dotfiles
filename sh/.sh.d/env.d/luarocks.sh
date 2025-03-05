@@ -1,11 +1,12 @@
 #!/bin/sh
 . "$HOME/.local/lib/sh/path.sh"
+. "$HOME/.local/lib/sh/command_exists.sh"
 
 # luarocks.sh: enable executing LuaRocks installed programs and modules
 
-if command -v 'luarocks-5.1' >/dev/null; then
+if command_exists luarocks-5.1; then
     eval $(luarocks-5.1 path --bin)
-elif command -v 'luarocks' >/dev/null; then
+elif command_exists 'luarocks'; then
     eval $(luarocks path --bin)
 fi
 

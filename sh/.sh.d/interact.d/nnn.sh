@@ -1,3 +1,7 @@
 #!/bin/sh
+. "$HOME/.local/lib/sh/command_exists.sh"
 
-alias nnn="nnn -e"
+if command_exists nnn
+then
+    alias nnn="nnn -e"
+fi

@@ -1,40 +1,44 @@
 # My massive alias file. Viewer beware.
 
+command_exists () {
+    command -V '$1' >/dev/null 2>&1
+}
+
 alias e="$EDITOR"
 alias edit="$EDITOR"
 alias tm="tmux"
 alias tmux="tmux -2"
 alias tns="tmux new-session -s -A "
 
-alias journal="$EDITOR ~/org/journal.txt"
-alias clocksum="hledger -f $HOME/org/work.timedot"
-
 alias ping="ping -c 3"
 
-alias pomo="sleep 10m && notify-send 'Pomodoro done!'"
+alias clocksum="hledger -f $HOME/org/work.timedot"
 
 
 # OS and package manager specifics.
 
-if command -V 'systemctl' >/dev/null
-then
+## Service supervision.
+
+# Systemd.
+if command_exists systemctl; then
     alias daemons="systemctl list-units"
 fi
 
-if command -V 'pacman' >/dev/null
-then
+## Package management.
+
+# Pacman (and Arch in general)
+if command_exists pacman; then
     alias pacupd="sudo pacman -Syu && notify-send 'Pacman' 'System update was successful.'"
 fi
-
-if command -V 'netctl' >/dev/null
-then
+if command_exists netctl; then
     alias nctl="netctl"
 fi
 
 # Xorg.
-
 alias xm="xrdb -merge ~/.xrdb.d/main"
-alias nwall="feh --random --bg-fill ~/usr/img/wall"
-alias rwall="feh --random --bg-fill ~/usr/img/wall"
+
+# Feh.
+alias randwall="feh --random --bg-fill ~/usr/img/wall"
 alias wall="~/.fehbg"
 
+unset command_exists
