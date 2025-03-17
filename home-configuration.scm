@@ -162,8 +162,7 @@
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "alacritty" 
-                                  "sway"
+                  (packages (list "sway"
                                   "hypr"
 				  "term"
 				  "vc"))))
