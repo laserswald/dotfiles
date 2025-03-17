@@ -1,18 +1,13 @@
 Laserswald's Dotfiles
 =====================
 
-You need GNU Stow in order to install these. Just put these in a subdirectory of ~, go into that directory and execute
+This is a Guix Home configuration. To install, invoke 
 
-    ./install [package]
+```
+make
+```
 
-for any package you want.
-
-The packages you probably want include
-
-- *core* : Basic home directory structure and environment setup.
-- *sh* : Core shell script directory; compatible with any POSIX shell.
-- *vim* or *emacs* : Editors.
-- *xorg* : X configuration.
+in the main directory.
 
 Special thanks goes to:
     arcetera for his ideas on how to structure my files.
