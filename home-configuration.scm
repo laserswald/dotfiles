@@ -52,8 +52,8 @@
   (lazr executable-file)
   (lazr kakoune)
   (lazr kakoune-plugins)
-  (lazr shells))
-  ;(lazr mail))
+  (lazr shells)
+  (lazr mail))
 
 ;;;
 ;;; Development tools.
@@ -181,7 +181,7 @@
     (append lazr-shell-services
             lazr-development-services
             ;; lazr-creative-services
-            ;; communications-services
+            communications-services
             lazr-misc-services))))
 
 lazr-workstation-home
