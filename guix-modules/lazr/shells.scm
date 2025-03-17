@@ -42,9 +42,9 @@
 
        (service home-zsh-service-type
 		(home-zsh-configuration
-		 (zshenv   (list (local-file (lazr-config-file "zsh/.zshenv") "lazr-zshenv")))
-		 (zprofile (list (local-file (lazr-config-file "zsh/.zprofile") "lazr-zprofile")))
-		 (zshrc    (list (local-file (lazr-config-file "zsh/.zshrc") "lazr-zshrc")
+		 (zshenv   (list (local-file (lazr-config-file "sh/.zshenv") "lazr-zshenv")))
+		 (zprofile (list (local-file (lazr-config-file "sh/.zprofile") "lazr-zprofile")))
+		 (zshrc    (list (local-file (lazr-config-file "sh/.zshrc") "lazr-zshrc")
 				 (mixed-text-file "lazr-zshrc-postlude.zsh"
 						  "source \"" zsh-autosuggestions "/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh\"\n"
 						  "source \"" zsh-syntax-highlighting "/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n"
@@ -57,10 +57,10 @@
 	'lazr-zsh-xdg-service
 	home-xdg-configuration-files-service-type
 	`(
-	  ("zsh/functions.zsh"         ,(local-file (lazr-config-file "zsh/.config/zsh/functions.zsh") "lazr-zsh-functions" #:recursive? #t))
-	  ("zsh/aliases.zsh"         ,(local-file (lazr-config-file "zsh/.config/zsh/aliases.zsh") "lazr-zsh-aliases" #:recursive? #t))
-	  ("zsh/plugins"         ,(local-file (lazr-config-file "zsh/.config/zsh/plugins") "lazr-zsh-plugins-dir" #:recursive? #t))
-	  ("zsh/themes"         ,(local-file (lazr-config-file "zsh/.config/zsh/themes") "lazr-zsh-themes-dir" #:recursive? #t))))))
+	  ("zsh/functions.zsh"         ,(local-file (lazr-config-file "sh/.config/zsh/functions.zsh") "lazr-zsh-functions" #:recursive? #t))
+	  ("zsh/aliases.zsh"         ,(local-file (lazr-config-file "sh/.config/zsh/aliases.zsh") "lazr-zsh-aliases" #:recursive? #t))
+	  ("zsh/plugins"         ,(local-file (lazr-config-file "sh/.config/zsh/plugins") "lazr-zsh-plugins-dir" #:recursive? #t))
+	  ("zsh/themes"         ,(local-file (lazr-config-file "sh/.config/zsh/themes") "lazr-zsh-themes-dir" #:recursive? #t))))))
 
     (define lazr-shell-services
       (services
