@@ -92,10 +92,10 @@
                   home-files-service-type
                   `((".emacs.d/init.el"
                      ,(local-file
-                       (lazr-config-file "emacs/.emacs.d/init.el") "emacs-init-el"))
+                       (lazr-config-file "editor/.emacs.d/init.el") "emacs-init-el"))
                     (".emacs.d/modules.d"
                      ,(local-file
-                       (lazr-config-file "emacs/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
+                       (lazr-config-file "editor/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
                      
 
 (define lazr-emacs-services

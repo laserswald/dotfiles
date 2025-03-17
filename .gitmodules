@@ -8,5 +8,5 @@
 	path = term/.config/tmux/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule "emacs/.emacs.d/modules.d/dnd-mode"]
-	path = emacs/.emacs.d/modules.d/dnd-mode
+	path = editor/.emacs.d/modules.d/dnd-mode/dnd-mode
 	url = https://github.com/WMaxZimmerman/dnd-mode.git

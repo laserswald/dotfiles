@@ -114,23 +114,29 @@
 
 (defun lazr-setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
-  (let ((font-size 16)
-        (font-face (cl-find-if (lambda (f)
-                                 (find-font (font-spec :name f)))
-                               fonts)))
+  (let* ((font-size 16)
+         (font-face (cl-find-if (lambda (f)
+                                  (find-font (font-spec :name f)))
+                                fonts))
+	 (found-font-str (concat font-face " " (number-to-string font-size))))
 
     (unless font-face
       (error "Could not find a font"))
 
+    (message "lazr-setup-fonts: found font " found-font-str)
+
     ;; Add to the settings that new frames will follow
     (add-to-list 'default-frame-alist
-      `(font ,(concat font-face " " (number-to-string font-size))))
+      `(font ,found-font-str))
 
     ;; Set the current frame's font as well.
-    (set-frame-font font-face t)))
+    (set-frame-font found-font-str t t)))
 
-(if (display-graphic-p)
-    (lazr-setup-graphical)
-  (lazr-setup-terminal))
+(add-hook 'after-make-frame-functions
+	  (lambda ()
+	    (if (display-graphic-p)
+		(lazr-setup-graphical)
+	      (lazr-setup-terminal))))
+
 
 (provide 'lazr-graphical)

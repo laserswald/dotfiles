@@ -30,7 +30,6 @@
 (load custom-file)
 
 (require 'lazr-core)
-
 (require 'lazr-graphical)
 (require 'lazr-shell)
 (require 'lazr-org)
