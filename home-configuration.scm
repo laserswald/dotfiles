@@ -165,7 +165,8 @@
 				  "xorg"
 				  "term"
 				  "vc"
-				  "chat"))))
+				  "chat"
+				  "news"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 
@@ -182,6 +183,7 @@
             lazr-development-services
             ;; lazr-creative-services
             communications-services
+
             lazr-misc-services))))
 
 lazr-workstation-home
