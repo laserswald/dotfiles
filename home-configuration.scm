@@ -164,7 +164,8 @@
                   (packages (list "wayland"
 				  "xorg"
 				  "term"
-				  "vc"))))
+				  "vc"
+				  "chat"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 
