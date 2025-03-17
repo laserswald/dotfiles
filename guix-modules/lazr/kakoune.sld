@@ -122,8 +122,8 @@
               ;; Scripts
 	      (map (lambda (name)
 		     (list (string-append "kak/" name)
-			   (local-file (string-append lazr-config-directory "/kak/.config/kak/" name)
-				       #:recursive? (directory? (string-append "kak/.config/kak/" name)))))
+			   (local-file (string-append lazr-config-directory "/editor/.config/kak/" name)
+				       #:recursive? (directory? (string-append "editor/.config/kak/" name)))))
 		   (home-kakoune-configuration-scripts configuration))
     
               ;; plugins
@@ -214,8 +214,8 @@
       (simple-service
        'lazr-kakoune-scripts-service
        home-files-service-type
-       `((".local/bin/kakp" ,(executable-file "kak/bin/kakp" "kakp"))
-         (".local/bin/kak-jump" ,(executable-file "kak/bin/kak-jump" "kak-jump"))
+       `((".local/bin/kakp" ,(executable-file "editor/bin/kakp" "kakp"))
+         (".local/bin/kak-jump" ,(executable-file "editor/bin/kak-jump" "kak-jump"))
          )))
     
     (define lazr-kakoune-services

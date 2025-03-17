@@ -1,5 +1,5 @@
 [submodule "kak/.config/kak/plugins/plug.kak"]
-	path = kak/.config/kak/plugins/plug.kak
+	path = editor/.config/kak/plugins/plug.kak/plug.kak
 	url = https://github.com/andreyorst/plug.kak
 [submodule "alacritty/.config/alacritty/catppuccin"]
 	path = term/.config/alacritty/catppuccin
