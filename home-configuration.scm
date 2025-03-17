@@ -165,7 +165,8 @@
                   (packages (list "alacritty" 
                                   "sway"
                                   "hypr"
-                                  ))))
+				  "term"
+				  "vc"))))
         lazr-scripts-service))
 
 (define lazr-workstation-home 

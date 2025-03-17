@@ -5,7 +5,7 @@
 	path = alacritty/.config/alacritty/catppuccin
 	url = http://github.com/catppuccin/alacritty
 [submodule "tmux/.config/tmux/plugins/tpm"]
-	path = tmux/.config/tmux/plugins/tpm
+	path = term/.config/tmux/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule "emacs/.emacs.d/modules.d/dnd-mode"]
 	path = emacs/.emacs.d/modules.d/dnd-mode

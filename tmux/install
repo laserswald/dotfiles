@@ -1,7 +1,0 @@
-#!/bin/sh
-
-. "$HOME/.local/lib/sh/df.sh"
-
-install_link "tmux/.tmux.conf" ".tmux.conf"
-install_link "tmux/.confi" ".tmux.conf"
-
