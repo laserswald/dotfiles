@@ -2,7 +2,7 @@
 	path = kak/.config/kak/plugins/plug.kak
 	url = https://github.com/andreyorst/plug.kak
 [submodule "alacritty/.config/alacritty/catppuccin"]
-	path = alacritty/.config/alacritty/catppuccin
+	path = term/.config/alacritty/catppuccin
 	url = http://github.com/catppuccin/alacritty
 [submodule "tmux/.config/tmux/plugins/tpm"]
 	path = term/.config/tmux/tmux/plugins/tpm
