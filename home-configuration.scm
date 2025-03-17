@@ -21,10 +21,13 @@
   (gnu packages emacs)
   (gnu packages emacs-xyz)
   (gnu packages gimp)
+  (gnu packages guile)
   (gnu packages inkscape)
   (gnu packages kde)
   (gnu packages linux)
   (gnu packages mail)
+  (gnu packages mpd)
+  (gnu packages music)
   (gnu packages ncurses)
   (gnu packages package-management)
   (gnu packages password-utils)
@@ -39,7 +42,6 @@
   (gnu packages toys)
   (gnu packages video)
   (gnu packages web)
-  (gnu packages guile)
 
   (guix gexp)
   (guix packages)
@@ -155,6 +157,18 @@
 		   )))
 
 
+(define lazr-media-services
+  (services
+   (packages-service 'lazr-media-packages
+		     mpd
+		     beets
+		     ncmpcpp)
+   (service home-dotfiles-service-type
+	    (home-dotfiles-configuration
+	     (layout 'stow)
+	     (directories (list lazr-config-directory))
+	     (packages (list "media"))))))
+
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
         (service home-dotfiles-service-type
@@ -167,7 +181,8 @@
 				  "vc"
 				  "chat"
 				  "news"))))
-        lazr-scripts-service))
+        lazr-scripts-service
+	))
 
 (define lazr-workstation-home 
   (home-environment
@@ -183,7 +198,7 @@
             lazr-development-services
             ;; lazr-creative-services
             communications-services
-
+	    lazr-media-services
             lazr-misc-services))))
 
 lazr-workstation-home
