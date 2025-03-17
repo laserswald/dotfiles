@@ -180,7 +180,8 @@
 				  "term"
 				  "vc"
 				  "chat"
-				  "news"))))
+				  "news"
+				  "core"))))
         lazr-scripts-service
 	))
 

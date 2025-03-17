@@ -25,7 +25,9 @@
        `((".shrc"         ,(local-file (lazr-config-file "sh/.shrc") "lazr-posix-shell-shrc"))
          (".sh.d"         ,(local-file (lazr-config-file "sh/.sh.d") "lazr-posix-shell-dir" #:recursive? #t))
          (".dircolors"    ,(local-file (lazr-config-file "sh/.dircolors") "lazr-posix-shell-dircolors"))
-         (".local/lib/sh" ,(local-file (lazr-config-file "sh/.local/lib/sh") "lazr-posix-shell-lib" #:recursive? #t)))))
+         (".local/lib/sh/path.sh" ,(local-file (lazr-config-file "sh/.local/lib/sh/path.sh") "lazr-posix-shell-lib-path" #:recursive? #t))
+         (".local/lib/sh/preferred_app.sh" ,(local-file (lazr-config-file "sh/.local/lib/sh/preferred_app.sh") "lazr-posix-shell-lib-preferred-app" #:recursive? #t))
+         (".local/lib/sh/command_exists.sh" ,(local-file (lazr-config-file "sh/.local/lib/sh/command_exists.sh") "lazr-posix-shell-lib-command-exists" #:recursive? #t)))))
 
     (define lazr-posix-shell-profile-service 
       (service home-shell-profile-service-type
