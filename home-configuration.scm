@@ -145,7 +145,6 @@
 		   (script "bfg" "bin/bin/")
 		   (script "patchdir" "bin/bin/")
 		   (script "phptags" "bin/bin/")
-		   (script "scheme-tags" "bin/bin/")
 		   (script "srcmv" "bin/bin/")
 		   (script "surf-ddg" "bin/bin/")
 
