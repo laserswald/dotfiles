@@ -1,6 +1,0 @@
-#!/bin/sh
-
-. "$HOME/.local/lib/sh/df.sh"
-
-install_link "git/.gitconfig" ".gitconfig"
-
