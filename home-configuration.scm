@@ -161,8 +161,8 @@
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "sway"
-                                  "hypr"
+                  (packages (list "wayland"
+				  "xorg"
 				  "term"
 				  "vc"))))
         lazr-scripts-service))
