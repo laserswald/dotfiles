@@ -5,20 +5,29 @@
 **/*.hi
 xmonad/xmonad
 procmailrc
-vim/.vim/bundle/*
-vim/.vim/.netrwhist
-**/tags
-**/.kak_find_cache
-kak/.config/kak/autoload/autoload
-kak/.config/kak/plugins/*
-!kak/.config/kak/plugins/plug.kak/
-weechat/.weechat/logs/*
-weechat/.weechat/*.log
+
+# Editor bullhonkey.
+
+## Vim
+
 **/.*.kak.*
-*/var/sv/*/supervise
-*/var/sv/*/log
 \#*\#
 *~
 
-/emacs/.emacs.d/.#init.el
-/emacs/.emacs.d/bookmarks
+editor/.vim/bundle/*
+editor/.vim/.netrwhist
+editor/.config/kak/autoload/autoload
+editor/.emacs.d/.#init.el
+editor/.emacs.d/bookmarks
+editor/.config/kak/autoload/autoload
+editor/.config/kak/plugins/*
+!editor/.config/kak/plugins/plug.kak/
+
+**/tags
+**/.kak_find_cache
+
+weechat/.weechat/logs/*
+weechat/.weechat/*.log
+*/var/sv/*/supervise
+*/var/sv/*/log
+

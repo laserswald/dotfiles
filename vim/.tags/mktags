@@ -1,3 +1,0 @@
-#!/bin/sh
-INCLUDE="/usr/include"
-ctags -f libc.tags $INCLUDE/std*.h $INCLUDE/assert.h $INCLUDE/complex.h $INCLUDE/ctype.h $INCLUDE/errno.h $INCLUDE/fenv.h $INCLUDE/float.h $INCLUDE/inttypes.h $INCLUDE/iso646.h $INCLUDE/limits.h $INCLUDE/locale.h $INCLUDE/math.h $INCLUDE/setjmp.h $INCLUDE/signal.h $INCLUDE/string.h $INCLUDE/tgmath.h $INCLUDE/threads.h $INCLUDE/time.h $INCLUDE/uchar.h $INCLUDE/wchar.h $INCLUDE/wctype.h
