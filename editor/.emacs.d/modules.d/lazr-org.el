@@ -150,8 +150,24 @@
                     :keymaps 'org-mode-map
   "<TAB>" 'org-cycle)
 
-;;; Setup for Dungeons and Dragons
+(defun lz/choose-randomly (sequence)
+  "Choose one item randomly out of the SEQUENCE."
+  (elt sequence (random (length sequence))))
+
+;;
+(defun lz/org-after-todo-state-change (&optional state)
+  "Play a silly sound when a TODO state has been set to one of the DONE states."
+  (when (member (if (boundp 'org-state) org-state state) (list "DONE" "COMPLETE"))
+    (message "Good job!")
+    (start-process-shell-command
+     "org-done-sound-effect" nil
+     (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\.mp3"))))))
+
+(add-hook 'org-after-todo-state-change-hook 'org-clock-out-if-current)
+(add-hook 'org-after-todo-state-change-hook 'lz/org-after-todo-state-change)
+
 ;;;
+;;; Setup for Dungeons and Dragons
 ;;; 
 
 (require 'dnd "./dnd-mode/dnd-mode.el")
