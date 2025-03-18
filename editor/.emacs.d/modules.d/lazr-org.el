@@ -161,7 +161,7 @@
     (message "Good job!")
     (start-process-shell-command
      "org-done-sound-effect" nil
-     (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\.mp3"))))))
+     (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\.\(mp3\|ogg\|wav\)"))))))
 
 (add-hook 'org-after-todo-state-change-hook 'org-clock-out-if-current)
 (add-hook 'org-after-todo-state-change-hook 'lz/org-after-todo-state-change)
