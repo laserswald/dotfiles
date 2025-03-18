@@ -22,7 +22,7 @@ plugins=(
     # Stuff I find useful everywhere.
     direnv
     tmux
-    emacs
+    # emacs
     pass
     vi-mode
     git

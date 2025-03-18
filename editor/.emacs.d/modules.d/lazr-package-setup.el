@@ -21,8 +21,8 @@
 
   :init
   (setf evil-want-integration t)
-	(setf evil-want-keybinding  nil)
-	(setf evil-undo-system      'undo-redo)
+  (setf evil-want-keybinding  nil)
+  (setf evil-undo-system      'undo-redo)
 
   :config
 

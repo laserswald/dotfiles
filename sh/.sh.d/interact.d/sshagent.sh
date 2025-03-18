@@ -1,7 +1,15 @@
 #!/bin/sh
 # Start up an SSH agent so I don't have to write the keys all the time
 
-if ! pgrep -u $USER ssh-agent > /dev/null; then
+command_exists () {
+    command -V '$1' >/dev/null 2>&1
+}
+
+if ! command_exists "ssh-agent"; then
+    return 0
+fi
+
+if ! pgrep -u "$(whoami)" ssh-agent > /dev/null; then
     unset SSH_AGENT_PID SSH_AUTH_SOCK
     ssh-agent -s > ~/.ssh/agent_cmds.sh
 fi

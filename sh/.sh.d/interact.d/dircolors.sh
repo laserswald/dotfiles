@@ -2,7 +2,7 @@
 # Set up colors in `ls`
 
 if [ $(uname) = "Linux" ]; then
-    test -r "$HOME/.dircolors" && eval "$(dircolors "$HOME/.dircolors")"
+    test -r "$HOME/.dircolors" && eval "$(dircolors --sh "$HOME/.dircolors")"
     alias ls="ls --color=auto"
 else
     alias ls="ls -G"

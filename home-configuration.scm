@@ -95,9 +95,13 @@
                   `((".emacs.d/init.el"
                      ,(local-file
                        (lazr-config-file "editor/.emacs.d/init.el") "emacs-init-el"))
+		    ("var/sound-effects"
+                     ,(local-file
+                       (lazr-config-file "editor/var/sound-effects") "sound-effects" #:recursive? #t))
                     (".emacs.d/modules.d"
                      ,(local-file
-                       (lazr-config-file "editor/.emacs.d/modules.d") "emacs-modules-d" #:recursive? #t)))))
+                       (lazr-config-file "editor/.emacs.d/modules.d")
+		       "emacs-modules-d" #:recursive? #t)))))
                      
 
 (define lazr-emacs-services
@@ -193,7 +197,8 @@
      grep
      ncurses
      procps
-     password-store))
+     password-store
+     libiconv))
    (services
     (append lazr-shell-services
             lazr-development-services

@@ -8,7 +8,9 @@
 	  (lazr packages)
           (gnu services)
           (gnu packages shells)
+          (gnu packages bash)
           (gnu packages shellutils)
+          (gnu packages tmux)
           (gnu home services)
           (gnu home services shells)
           (guix gexp))
@@ -37,9 +39,13 @@
     (define lazr-zsh-services
       (services
        (packages-service 'lazr-zsh-packages-service
+			 zsh
 			 zsh-completions
 			 zsh-syntax-highlighting
 			 zsh-autosuggestions
+			 direnv
+			 bash
+			 tmux
 			 oh-my-zsh)
 
        (service home-zsh-service-type
