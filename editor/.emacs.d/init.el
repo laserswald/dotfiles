@@ -23,11 +23,14 @@
 
 ;; Stop annoying me about stuff.
 (setf inhibit-startup-message t
-      vc-follow-symlinks t
-      custom-file "~/.emacs.d/custom.el")
+      vc-follow-symlinks t)
+
+(setf custom-file "~/.emacs.d/custom.el")
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
 
 ;; Move up here so themes can stop bugging me
-(load custom-file)
+(load custom-file 'noerr)
 
 (require 'lazr-core)
 (require 'lazr-graphical)
