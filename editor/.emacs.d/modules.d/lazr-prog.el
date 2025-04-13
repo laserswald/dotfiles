@@ -1,6 +1,6 @@
 ;;;; lazr-prog --- Programming language specific settings. -*- lexical-binding: t -*-
 
-(require 'lazr-core)
+(require 'lazr-core "./lazr-core.el")
 
 ;;;
 ;;; Intelligent code completion and such using LSP and tree-sitter

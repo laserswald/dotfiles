@@ -36,6 +36,7 @@ plugins=(
     lein
 )
 
-# Use my universal shell theme, so don't load any fancy omz themes.
-ZSH_THEME=""
+# This shell theme is really similar to my standard shell theme.
+# Let's just use it for a while.
+ZSH_THEME="ys"
 

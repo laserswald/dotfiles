@@ -73,6 +73,26 @@ button:hover {
     background-color: #eb4d4b;
 }
 
+#tags button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: @fg_0;
+}
+
+#tags button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#tags button.focused {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px @fg_0;
+}
+
+#tags button.urgent {
+    background-color: #eb4d4b;
+}
+
+
 #mode {
     background-color: #64727D;
     box-shadow: inset 0 -3px @fg_0;

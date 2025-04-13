@@ -1,4 +1,5 @@
-import = ["~/.config/alacritty/selenized/dark.toml"]
+[general]
+import = ["~/.config/alacritty/selenized/black.toml"]
 live_config_reload = true
 working_directory = "None"
 

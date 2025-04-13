@@ -139,16 +139,15 @@ riverctl map normal $mod Space toggle-float
 riverctl map normal $mod F toggle-fullscreen
 
 # Mod+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal $mod Up set-layout-value rivertile "main-location top"
-riverctl map normal $mod Right set-layout-value rivertile "main-location right"
-riverctl map normal $mod Down  set-layout-value rivertile "main-location bottom"
-riverctl map normal $mod Left  set-layout-value rivertile "main-location left"
+riverctl map normal $mod Up    send-layout-cmd rivertile "main-location top"
+riverctl map normal $mod Right send-layout-cmd rivertile "main-location right"
+riverctl map normal $mod Down  send-layout-cmd rivertile "main-location bottom"
+riverctl map normal $mod Left  send-layout-cmd rivertile "main-location left"
 
-riverctl map normal $mod+Shift Up    set-layout-value rivertile "view-padding +1"
-riverctl map normal $mod+Shift Down  set-layout-value rivertile "view-padding -1"
-riverctl map normal $mod+Shift Left  set-layout-value rivertile "outer-padding +1"
-riverctl map normal $mod+Shift Right set-layout-value rivertile "outer-padding -1"
-
+riverctl map normal $mod+Shift Up    send-layout-cmd rivertile "view-padding +1"
+riverctl map normal $mod+Shift Down  send-layout-cmd rivertile "view-padding -1"
+riverctl map normal $mod+Shift Left  send-layout-cmd rivertile "outer-padding +1"
+riverctl map normal $mod+Shift Right send-layout-cmd rivertile "outer-padding -1"
 
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
@@ -190,14 +189,14 @@ done
 riverctl set-repeat 50 300
 
 # Set app-ids of views which should float
-riverctl float-filter-add app-id "float"
-riverctl float-filter-add app-id "popup"
+riverctl rule-add -app-id "float" float
+riverctl rule-add -app-id "popup" float
 
 # Set app-ids of views which should use client side decorations
-riverctl csd-filter-add app-id "gedit"
-riverctl csd-filter-add app-id "epiphany"
-riverctl csd-filter-remove app-id "nwggrid"
-riverctl csd-filter-remove app-id "emacs"
+riverctl rule-add -app-id "gedit" csd
+riverctl rule-add -app-id "epiphany" csd
+riverctl rule-del -app-id "nwggrid" csd
+riverctl rule-del -app-id "emacs" csd
 
 riverctl focus-follows-cursor normal
 
@@ -206,8 +205,6 @@ if ! [ $RIVERCTL_RELOADING ]; then
 	systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
 
 	swayidle -w timeout 300 'gtklock' &
-	waybar &
-	nm-applet --indicator &
 
 	run_services $HOME/var/service
 	# run_services $HOME/var/pw-service

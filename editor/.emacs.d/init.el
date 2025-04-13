@@ -25,6 +25,7 @@
 (setf inhibit-startup-message t
       vc-follow-symlinks t)
 
+;; Don't annoy me about the customizations file.
 (setf custom-file "~/.emacs.d/custom.el")
 (unless (file-exists-p custom-file)
   (write-region "" nil custom-file))

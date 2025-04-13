@@ -128,7 +128,6 @@
   "w" 'lazr-save-buffer
   "/" 'swiper
   "?" 'swiper-backward)
- 
 
 (lazr-local-leader-map :keymaps 'todotxt-mode-map
   "c" 'todotxt-complete-toggle)

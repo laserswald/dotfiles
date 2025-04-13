@@ -8,6 +8,9 @@ reconfigure:
 	$(GUIX_HOME) reconfigure home-configuration.scm
 	# Hot reload my emacs configuration.
 	emacsclient -e '(lazr-reload-config)'
+	# Restart some services
+	sv restart $(HOME)/var/sv/waybar
+	river-reload
 
 .PHONY: container
 container:

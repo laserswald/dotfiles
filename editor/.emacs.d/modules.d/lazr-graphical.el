@@ -10,16 +10,16 @@
 ;; User interface components: turning things on and off to look nice
 ;;
 
-; Disable the toolbar.
+					; Disable the toolbar.
 (tool-bar-mode -1)
 
-; Disable the menu bar.
+					; Disable the menu bar.
 (menu-bar-mode -1)
 
-; If the scroll bar is available, disable it.
+					; If the scroll bar is available, disable it.
 (when (boundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-; Show line numbers for every buffer. All of them. No exceptions.
+					; Show line numbers for every buffer. All of them. No exceptions.
 (global-display-line-numbers-mode)
 
 ;; Modeline.
@@ -27,17 +27,17 @@
   :init (setf doom-modeline-height 32)
   :config (doom-modeline-mode 1))
 
-; Icons for the modeline.
+					; Icons for the modeline.
 (use-package all-the-icons :ensure t)
 
-; User interface for quickly browsing hierarchies in code and files.
+					; User interface for quickly browsing hierarchies in code and files.
 (use-package treemacs :ensure t)
 
-; Use evil mode bindings for Treemacs.
+					; Use evil mode bindings for Treemacs.
 (use-package treemacs-evil :ensure t
   :after evil treemacs)
 
-; Integrate Magit with Treemacs
+					; Integrate Magit with Treemacs
 (use-package treemacs-magit :ensure t
   :after treemacs magit
   :config)
@@ -49,29 +49,6 @@
 (use-package doom-themes :ensure t)
 (use-package modus-themes :ensure t)
 (use-package ef-themes :ensure t)
-
-(defun lazr-setup-graphical ()
-  "Configure and enable modes and settings used during dedicated windows."
-
-  ; Enable scrolling that allows for views unbound by character cells
-  (pixel-scroll-mode)
-
-  ; Enable the right-click menu.
-  (context-menu-mode)
-
-  (lazr-setup-fonts
-   "Victor Mono Nerd Font"
-   "Fira Code Nerd Font")
-
-  ; Apply my theme.
-  (lazr-apply-theme))
-
-(defun lazr-setup-terminal ()
-  "Set up Emacs for use within a terminal."
-
-  (load-theme 'chameleon)
-
-  (xterm-mouse-mode 1))
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
@@ -112,31 +89,42 @@
 ;;; Fonts
 ;;;
 
+(defvar lazr-fonts
+  '("Victor Mono Nerd Font" "Fira Code Nerd Font"))
+
 (defun lazr-setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
   (let* ((font-size 16)
          (font-face (cl-find-if (lambda (f)
-                                  (find-font (font-spec :name f)))
-                                fonts))
-	 (found-font-str (concat font-face " " (number-to-string font-size))))
+                                  (find-font (font-spec :name f
+							:size font-size
+							:weight 'normal
+							:slant 'normal)))
+                                fonts)))
+    ;; Set the current frame's font and all future frames.
+    (set-frame-font font-face t t)))
 
-    (unless font-face
-      (error "Could not find a font"))
+(defun lazr/setup-frame (frame)
+  "Set up the FRAME after it has been created"
+  (if (display-graphic-p)
+      (progn ; Graphical frames
+	;; Enable scrolling that allows for views unbound by character cells
+	(pixel-scroll-mode)
+	;; Enable the right-click menu.
+	(context-menu-mode)
+	(apply 'lazr-setup-fonts lazr-fonts)
+	(set-frame-size frame 300 60)
+	;; Apply my theme.
+	(lazr-apply-theme))
+    (progn
+      ;; Terminal frames.
+      (load-theme 'chameleon)
+      (xterm-mouse-mode 1))))
 
-    (message "lazr-setup-fonts: found font " found-font-str)
+;; Apply to the initial frame.
+(lazr/setup-frame (selected-frame))
 
-    ;; Add to the settings that new frames will follow
-    (add-to-list 'default-frame-alist
-      `(font ,found-font-str))
-
-    ;; Set the current frame's font as well.
-    (set-frame-font found-font-str t t)))
-
-(add-hook 'after-make-frame-functions
-	  (lambda ()
-	    (if (display-graphic-p)
-		(lazr-setup-graphical)
-	      (lazr-setup-terminal))))
-
+;; Apply to all future frames
+(add-hook 'after-make-frame-functions 'lazr/setup-frame)
 
 (provide 'lazr-graphical)

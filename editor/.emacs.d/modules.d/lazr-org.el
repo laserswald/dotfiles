@@ -146,9 +146,7 @@
 
 ;; For some reason, this is overridden somewhere.
 ;; Ensure that Tab can open/close outlines
-(general-define-key :states 'normal
-                    :keymaps 'org-mode-map
-  "<TAB>" 'org-cycle)
+(general-define-key :states 'normal :keymaps 'org-mode-map "<TAB>" 'org-cycle)
 
 (defun lz/choose-randomly (sequence)
   "Choose one item randomly out of the SEQUENCE."
@@ -156,14 +154,13 @@
 
 ;;
 (defun lz/org-after-todo-state-change (&optional state)
-  "Play a silly sound when a TODO state has been set to one of the DONE states."
+  "Play a silly sound when an org todo STATE (also could be given manually to test) has been set to one of the DONE states."
   (when (member (if (boundp 'org-state) org-state state) (list "DONE" "COMPLETE"))
     (message "Good job!")
     (start-process-shell-command
      "org-done-sound-effect" nil
      (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\.\(mp3\|ogg\|wav\)"))))))
 
-(add-hook 'org-after-todo-state-change-hook 'org-clock-out-if-current)
 (add-hook 'org-after-todo-state-change-hook 'lz/org-after-todo-state-change)
 
 ;;;

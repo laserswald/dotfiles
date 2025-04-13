@@ -38,7 +38,7 @@
 (use-package rec-mode :ensure t)
 
 (use-package protobuf-mode :ensure t)
-(use-package guix :ensure t)
+; (use-package guix :ensure t)
 (use-package dockerfile-mode :ensure t)
 
 ;;;

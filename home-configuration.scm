@@ -3,59 +3,59 @@
 (install-r7rs!)
 
 (import
-  (ice-9 ftw)
+ (ice-9 ftw)
 
-  (gnu home)
-  (gnu home services)
-  (gnu home services shepherd)
-  (gnu home services syncthing)
-  (gnu home services shells)
-  (gnu home services dotfiles)
-
-  (gnu services)
-  (gnu services configuration)
-
-  (gnu packages admin)
-  (gnu packages audio)
-  (gnu packages base)
-  (gnu packages emacs)
-  (gnu packages emacs-xyz)
-  (gnu packages gimp)
-  (gnu packages guile)
-  (gnu packages inkscape)
-  (gnu packages kde)
-  (gnu packages linux)
-  (gnu packages mail)
-  (gnu packages mpd)
-  (gnu packages music)
-  (gnu packages ncurses)
-  (gnu packages package-management)
-  (gnu packages password-utils)
-  (gnu packages racket)
-  (gnu packages scheme)
-  (gnu packages shells)
-  (gnu packages ssh)
-  (gnu packages syndication)
-  (gnu packages terminals)
-  (gnu packages text-editors)
-  (gnu packages tmux)
-  (gnu packages toys)
-  (gnu packages video)
-  (gnu packages web)
-
-  (guix gexp)
-  (guix packages)
-  (guix licenses)
-  (guix git-download)
-  (guix build-system copy)
-
-  (lazr base)
-  (lazr packages)
-  (lazr executable-file)
-  (lazr kakoune)
-  (lazr kakoune-plugins)
-  (lazr shells)
-  (lazr mail))
+ (gnu home)
+ (gnu home services)
+ (gnu home services shepherd)
+ (gnu home services syncthing)
+ (gnu home services shells)
+ (gnu home services dotfiles)
+ 
+ (gnu services)
+ (gnu services configuration)
+ 
+ (gnu packages admin)
+ (gnu packages audio)
+ (gnu packages base)
+ (gnu packages emacs)
+ (gnu packages emacs-xyz)
+ (gnu packages gimp)
+ (gnu packages guile)
+ (gnu packages inkscape)
+ (gnu packages kde)
+ (gnu packages linux)
+ (gnu packages mail)
+ (gnu packages mpd)
+ (gnu packages music)
+ (gnu packages ncurses)
+ (gnu packages package-management)
+ (gnu packages password-utils)
+ (gnu packages racket)
+ (gnu packages scheme)
+ (gnu packages shells)
+ (gnu packages ssh)
+ (gnu packages syndication)
+ (gnu packages terminals)
+ (gnu packages text-editors)
+ (gnu packages tmux)
+ (gnu packages toys)
+ (gnu packages video)
+ (gnu packages web)
+ 
+ (guix gexp)
+ (guix packages)
+ (guix licenses)
+ (guix git-download)
+ (guix build-system copy)
+ 
+ (lazr base)
+ (lazr packages)
+ (lazr executable-file)
+ (lazr kakoune)
+ (lazr kakoune-plugins)
+ (lazr shells)
+ (lazr mail))
 
 ;;;
 ;;; Development tools.
@@ -68,6 +68,7 @@
    racket
    slib
    r7rs-small-texinfo))
+
 
 (define-packages-service lazr-emacs-packages-service
   (emacs
@@ -94,14 +95,23 @@
                   home-files-service-type
                   `((".emacs.d/init.el"
                      ,(local-file
-                       (lazr-config-file "editor/.emacs.d/init.el") "emacs-init-el"))
-		    ("var/sound-effects"
+                       (lazr-config-file "editor/.emacs.d/init.el")
+                       "emacs-init-el"))
+                    ("var/sound-effects"
                      ,(local-file
-                       (lazr-config-file "editor/var/sound-effects") "sound-effects" #:recursive? #t))
+                       (lazr-config-file "editor/var/sound-effects")
+                       "sound-effects"
+                       #:recursive? #t))
                     (".emacs.d/modules.d"
                      ,(local-file
                        (lazr-config-file "editor/.emacs.d/modules.d")
-		       "emacs-modules-d" #:recursive? #t)))))
+                       "emacs-modules-d"
+                       #:recursive? #t))
+                    (".emacs.d/themes"
+                     ,(local-file
+                       (lazr-config-file "editor/.emacs.d/themes")
+                       "emacs-themes"
+                       #:recursive? #t)))))
                      
 
 (define lazr-emacs-services
@@ -113,6 +123,7 @@
   (append lazr-kakoune-services
           lazr-emacs-services
           (list lazr-scheme-packages-service)))
+                
 
 ;;;
 ;;; Creative packages, mostly media editing, etc
@@ -128,50 +139,44 @@
 ;;; My main home for workstations.
 ;;;
 
-(define script-install-dir ".local/bin/")
-(define (script name where)
-  (list (string-append script-install-dir name)
-	(executable-file
-	 (string-append where name)
-	 (string-append "lazr-scripts-" name))))
 
 (define lazr-scripts-service
   (simple-service 'lazr-scripts-service
                   home-files-service-type
-		  (list
-		   (script "256colors" "bin/bin/")
-		   (script "invaders" "bin/bin/")
+                  (list
+                   (script "256colors" "bin/bin/")
+                   (script "invaders" "bin/bin/")
 
-		   (script "skel" "bin/bin/")
-		   (script "sync-etc" "bin/bin/")
-		   (script "tidyhome" "bin/bin/")
-		   (script "pass-remember" "bin/bin/")
+                   (script "skel" "bin/bin/")
+                   (script "sync-etc" "bin/bin/")
+                   (script "tidyhome" "bin/bin/")
+                   (script "pass-remember" "bin/bin/")
 
-		   (script "audioctl" "bin/bin/")
-		   (script "bfg" "bin/bin/")
-		   (script "patchdir" "bin/bin/")
-		   (script "phptags" "bin/bin/")
-		   (script "srcmv" "bin/bin/")
-		   (script "surf-ddg" "bin/bin/")
+                   (script "audioctl" "bin/bin/")
+                   (script "bfg" "bin/bin/")
+                   (script "patchdir" "bin/bin/")
+                   (script "phptags" "bin/bin/")
+                   (script "srcmv" "bin/bin/")
+                   (script "surf-ddg" "bin/bin/")
 
-		   (script "dj" "bin/bin/")
-		   (script "favorite-terminal" "xorg/bin/")
-		   (script "favorite-browser" "xorg/bin/")
-		   (script "graphical-menu" "xorg/bin/")
-		   )))
+                   (script "dj" "bin/bin/")
+                   (script "favorite-terminal" "xorg/bin/")
+                   (script "favorite-browser" "xorg/bin/")
+                   (script "graphical-menu" "xorg/bin/"))))
+                   
 
 
 (define lazr-media-services
   (services
    (packages-service 'lazr-media-packages
-		     mpd
-		     beets
-		     ncmpcpp)
+                     mpd
+                     beets
+                     ncmpcpp)
    (service home-dotfiles-service-type
-	    (home-dotfiles-configuration
-	     (layout 'stow)
-	     (directories (list lazr-config-directory))
-	     (packages (list "media"))))))
+            (home-dotfiles-configuration
+             (layout 'stow)
+             (directories (list lazr-config-directory))
+             (packages (list "media"))))))
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
@@ -180,14 +185,14 @@
                   (layout 'stow)
                   (directories (list lazr-config-directory))
                   (packages (list "wayland"
-				  "xorg"
-				  "term"
-				  "vc"
-				  "chat"
-				  "news"
-				  "core"))))
-        lazr-scripts-service
-	))
+                                  "xorg"
+                                  "term"
+                                  "vc"
+                                  "chat"
+                                  "news"
+                                  "core"))))
+        lazr-scripts-service))
+        
 
 (define lazr-workstation-home 
   (home-environment
@@ -204,7 +209,7 @@
             lazr-development-services
             ;; lazr-creative-services
             communications-services
-	    lazr-media-services
+            lazr-media-services
             lazr-misc-services))))
 
 lazr-workstation-home
