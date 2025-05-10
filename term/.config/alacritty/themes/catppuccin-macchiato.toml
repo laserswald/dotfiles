@@ -1,0 +1,132 @@
+["colors"]
+["colors"."dim"]
+"white" = "#B8C0E0"
+
+"cyan" = "#8BD5CA"
+
+"magenta" = "#F5BDE6"
+
+"blue" = "#8AADF4"
+
+"yellow" = "#EED49F"
+
+"green" = "#A6DA95"
+
+"red" = "#ED8796"
+
+"black" = "#494D64"
+
+
+["colors"."bright"]
+"white" = "#A5ADCB"
+
+"cyan" = "#8BD5CA"
+
+"magenta" = "#F5BDE6"
+
+"blue" = "#8AADF4"
+
+"yellow" = "#EED49F"
+
+"green" = "#A6DA95"
+
+"red" = "#ED8796"
+
+"black" = "#5B6078"
+
+
+["colors"."normal"]
+"white" = "#B8C0E0"
+
+"cyan" = "#8BD5CA"
+
+"magenta" = "#F5BDE6"
+
+"blue" = "#8AADF4"
+
+"yellow" = "#EED49F"
+
+"green" = "#A6DA95"
+
+"red" = "#ED8796"
+
+"black" = "#494D64"
+
+
+["colors"."selection"]
+"background" = "#F4DBD6"
+
+"text" = "#24273A"
+
+
+["colors"."hints"]
+["colors"."hints"."end"]
+"background" = "#A5ADCB"
+
+"foreground" = "#24273A"
+
+
+["colors"."hints"."start"]
+"background" = "#EED49F"
+
+"foreground" = "#24273A"
+
+
+
+["colors"."search"]
+["colors"."search"."footer_bar"]
+"background" = "#A5ADCB"
+
+"foreground" = "#24273A"
+
+
+["colors"."search"."focused_match"]
+"background" = "#A6DA95"
+
+"foreground" = "#24273A"
+
+
+["colors"."search"."matches"]
+"background" = "#A5ADCB"
+
+"foreground" = "#24273A"
+
+
+
+["colors"."vi_mode_cursor"]
+"cursor" = "#B7BDF8"
+
+"text" = "#24273A"
+
+
+["colors"."cursor"]
+"cursor" = "#F4DBD6"
+
+"text" = "#24273A"
+
+
+["colors"."primary"]
+"bright_foreground" = "#CAD3F5"
+
+"dim_foreground" = "#CAD3F5"
+
+"foreground" = "#CAD3F5"
+
+"background" = "#24273A"
+
+
+[["colors"."indexed_colors"]]
+"color" = "#F5A97F"
+
+"index" = 16
+
+
+[["colors"."indexed_colors"]]
+"color" = "#F4DBD6"
+
+"index" = 17
+
+
+
+
+

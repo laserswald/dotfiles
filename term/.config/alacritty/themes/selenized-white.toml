@@ -1,0 +1,46 @@
+["colors"]
+["colors"."bright"]
+"white" = "0x282828"
+
+"cyan" = "0x009a8a"
+
+"magenta" = "0xc7008b"
+
+"blue" = "0x0054cf"
+
+"yellow" = "0xaf8500"
+
+"green" = "0x008400"
+
+"red" = "0xbf0000"
+
+"black" = "0xcdcdcd"
+
+
+["colors"."normal"]
+"white" = "0x878787"
+
+"cyan" = "0x00ad9c"
+
+"magenta" = "0xdd0f9d"
+
+"blue" = "0x0064e4"
+
+"yellow" = "0xc49700"
+
+"green" = "0x1d9700"
+
+"red" = "0xd6000c"
+
+"black" = "0xebebeb"
+
+
+["colors"."primary"]
+"foreground" = "0x474747"
+
+"background" = "0xffffff"
+
+
+
+
+

@@ -1,1 +1,0 @@
-/gnu/store/7jj6zygw0pwl17jris5hzmkbffc6m1ci-home-dotfiles--config-alacritty-alacritty-yml-m4

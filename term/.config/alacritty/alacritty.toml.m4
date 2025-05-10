@@ -1,3 +1,4 @@
+[general]
 import = ["_THEME"]
 live_config_reload = true
 working_directory = "None"

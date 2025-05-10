@@ -1,0 +1,4 @@
+0 10 * * * alacritty-set-theme -l -t selenized-light
+0 12 * * * alacritty-set-theme -l -t selenized-white
+0 18 * * * alacritty-set-theme -d -t selenized-dark
+0 20 * * * alacritty-set-theme -d -t selenized-black

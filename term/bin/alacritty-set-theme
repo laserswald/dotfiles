@@ -1,32 +1,18 @@
 #!/bin/sh
 dir="$HOME/.config/alacritty"
-theme="$dir/theme.m4"
-file="$dir/alacritty.yml.m4"
+theme="${dir}/theme.m4"
+file="$dir/alacritty.toml.m4"
 
 if [ -L "$file" ]
 then
-	file=$(realpath $file)
+    file=$(realpath $file)
 fi
+
 if [ -L "$theme" ]
 then
-	theme=$(realpath $theme)
+    theme=$(realpath $theme)
 fi
 
-definitions=
+definitions="-D _THEME_NAME=$1 "
 
-while getopts "dlf:s:t:" flag;
-do
-	case $flag in
-		d)
-			definitions="$definitions-D _SHADE=dark "
-			;;
-		l)
-			definitions="$definitions-D _SHADE=light "
-			;;
-		t)
-			definitions="$definitions-D _THEME_NAME=${OPTARG} "
-			;;
-	esac
-done
-
-m4 -d $definitions "$theme" "$file" >"$dir/alacritty.yml"
+m4 -d $definitions "$theme" "$file" > "${dir}/alacritty.toml"

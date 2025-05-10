@@ -57,6 +57,8 @@
  (lazr shells)
  (lazr mail))
 
+(include "term/config.scm")
+
 ;;;
 ;;; Development tools.
 ;;;
@@ -180,13 +182,13 @@
 
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
+	
         (service home-dotfiles-service-type
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
                   (packages (list "wayland"
                                   "xorg"
-                                  "term"
                                   "vc"
                                   "chat"
                                   "news"
@@ -206,6 +208,7 @@
      libiconv))
    (services
     (append lazr-shell-services
+	    lazr-term-services
             lazr-development-services
             ;; lazr-creative-services
             communications-services
