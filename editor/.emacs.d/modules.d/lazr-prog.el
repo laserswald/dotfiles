@@ -139,18 +139,25 @@
   (intern-soft (mapconcat #'symbol-name symbols "-")))
 
 (defvar lz/lisps
-  '(lisp emacs-lisp scheme racket clojure))
+  "Lisp variants that I am aware of and may possibly write code in"
+  '(lisp emacs-lisp scheme racket clojure fennel arc))
 
 (defun lz/sym-mode (sym)
   "Get the mode hook for the language SYM."
   (lz/symcat-soft sym 'mode))
 
 (use-package parinfer-rust-mode :ensure t
-  :init (setq parinfer-rust-auto-download t)
-  :hook (mapcar lz/sym-mode lz/lisps))
+  :init (setq parinfer-rust-auto-download t))
 
-(use-package rainbow-delimiters :ensure t
-  :hook (mapcar lz/sym-mode lz/lisps))
+(use-package rainbow-delimiters :ensure t)
+
+(dolist (lmh (mapcar (lambda (lisp-name)
+                       (lz/symcat-soft lisp-name 'mode-hook))
+                     lz/lisps))
+  (when lmh
+    (message "lazr-prog: installing lisp mode hooks to %s" lmh)
+    (add-hook lmh 'parinfer-rust-mode)
+    (add-hook lmh 'rainbow-delimiters-mode)))
 
 ;;
 ;; Emacs Lisp
@@ -212,6 +219,8 @@
 (require 'ob-scheme)
 
 (use-package racket-mode :ensure t)
+
+(use-package clojure-mode :ensure t)
 
 
 ;; Elixir (It's a Lisp, fite me)
