@@ -6,11 +6,10 @@ GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 .PHONY: reconfigure
 reconfigure:
 	$(GUIX_HOME) reconfigure home-configuration.scm
-	# Hot reload my emacs configuration.
 	emacsclient -e '(lazr-reload-config)'
-	# Restart some services
 	sv restart $(HOME)/var/sv/waybar
 	river-reload
+	kanshictl reload
 
 .PHONY: container
 container:
@@ -18,7 +17,7 @@ container:
 
 .PHONY: repl
 repl:
-	$(GUIX) repl -L ./guix-modules
+	$(GUIX) repl -L ./guix-modules -L .
 
 ifdef LEGACY
 

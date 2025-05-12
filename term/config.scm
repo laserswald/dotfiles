@@ -5,6 +5,7 @@
 	(gnu home services)
 	(gnu home)
 	(gnu packages m4)
+	(gnu packages guile-xyz)
 	(guix gexp)
 	(lazr base)
 	(lazr executable-file))
@@ -14,12 +15,7 @@
 
    ;; Make sure Alacritty and dependent packages are installed.
    (packages-service 'lazr-alacritty-packages-service
-		     alacritty m4)
-
-   (service home-mcron-service-type
-	    (home-mcron-configuration
-	     (jobs
-	      `(,(local-file (lazr-config-file "term/.cron/alacritty-day-cycle.vixie") "lazr-alacritty-cronjob")))))
+		     alacritty m4 mcron)
 
    ;; Install the framework for the Alacritty terminal, with theming 
    (simple-service
@@ -42,6 +38,9 @@
        ,(local-file (lazr-config-file "term/.config/alacritty/theme.m4")
 		    "lazr-alacritty-theme-defns"))
 
+      (".config/cron/alacritty-day-cycle.vixie"
+       ,(local-file (lazr-config-file "term/.cron/alacritty-day-cycle.vixie")
+		    "lazr-alacritty-day-cycle-job"))
 
       ,(script "alacritty-set-theme" "term/bin/")
 
