@@ -44,7 +44,7 @@ cmd=$1; shift
 case $cmd in
     save|s) save_skeleton $@ ;;
     build|b) build_skeleton $@ ;;
-    l|list) make_skeleton $@ ;;
+    l|list) list_skeletons $@ ;;
     *) usage; exit 1;;
 esac
 

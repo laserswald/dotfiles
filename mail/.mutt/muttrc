@@ -24,9 +24,15 @@ set quit
 unset mark_old
 set beep_new
 set pipe_decode
-set crypt_autosign
 set edit_headers = yes
-set editor = 'kak %s'
+set editor = 'emacsclient -t %s'
+
+set crypt_autosign = no
+set crypt_verify_sig 
+
+set pgp_auto_decode = yes
+set pgp_use_gpg_agent = yes
+set pgp_default_key=BDA690A5E71CDE81572021E4DFD6012446A5EA44
 
 # set imap_check_subscribed
 
