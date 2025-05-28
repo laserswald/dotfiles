@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+#
+
+declare TIDYFILE=${TIDYFILE:=.tidyfile}
+
+exec_tidyfile () {
+	local $tidyfile=$1; shift
+	while read glob path; do 
+	    mv ./$glob "./$path"
+	done < ${TIDYFILE}
+}
+
+clean_old_files () {
+	find ~ -iname "*.tmp" \
+	   -or -iname "#*#" \
+	   -print0 | xargs rm -f
+}
+
+clean_old_files
+
+if [ -f $TIDYFILE ]; do
+	exec_tidyfile $TIDYFILE
+done
+
