@@ -151,7 +151,7 @@
 
                    (script "skel" "bin/bin/")
                    (script "sync-etc" "bin/bin/")
-                   (script "tidyhome" "bin/bin/")
+                   (script "tidy" "bin/bin/")
                    (script "pass-remember" "bin/bin/")
 
                    (script "audioctl" "bin/bin/")
