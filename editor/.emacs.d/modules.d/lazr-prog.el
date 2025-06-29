@@ -3,6 +3,10 @@
 (require 'lazr-core "./lazr-core.el")
 (require 'lazr-keybindings "./lazr-keybindings.el")
 
+;;; Keyword lookup
+
+(make-variable-buffer-local 'evil-lookup-func)
+
 ;;;
 ;;; Intelligent code completion and such using LSP and tree-sitter
 ;;;
@@ -135,20 +139,14 @@
      "E" ,eval-buffer
      "r" ,open-repl))
 
-(defun lz/symcat-soft (&rest symbols)
-  "Get the symbol created by concatenating the SYMBOLS together with '-'."
-  (intern-soft (mapconcat #'symbol-name symbols "-")))
-
 (defconst lz/lisps
   '(lisp emacs-lisp scheme racket clojure fennel arc)
   "Lisp variants that I am aware of and may possibly write code in")
 
-(defun lz/sym-mode (sym)
-  "Get the mode hook for the language SYM."
-  (lz/symcat-soft sym 'mode))
-
-(use-package parinfer-rust-mode :ensure t
-  :init (setq parinfer-rust-auto-download t))
+(use-package parinfer-rust-mode
+  :ensure t
+  :init
+  (setq parinfer-rust-auto-download t))
 
 (use-package rainbow-delimiters :ensure t)
 
@@ -156,7 +154,9 @@
                        (lz/symcat-soft lisp-name 'mode-hook))
                      lz/lisps))
   (when lmh
-    (message "lazr-prog: installing lisp mode hooks to %s" lmh)
+    (message "lazr-prog: installing lisp mode hook to %s" lmh)
+    (add-hook lmh
+              (lambda () (setf indent-tabs-mode nil)))
     (add-hook lmh 'parinfer-rust-mode)
     (add-hook lmh 'rainbow-delimiters-mode)))
 
@@ -216,6 +216,11 @@
   'geiser-eval-definition
   'geiser-eval-buffer
   'geiser)
+
+(add-hook 'scheme-mode-hook
+	  (lambda ()
+	    (setf evil-lookup-func lazr-scheme-lookup)))
+		  
 
 (require 'ob-scheme)
 

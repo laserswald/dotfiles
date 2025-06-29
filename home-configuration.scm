@@ -17,6 +17,7 @@
  
  (gnu packages admin)
  (gnu packages audio)
+ (gnu packages autotools)
  (gnu packages base)
  (gnu packages emacs)
  (gnu packages emacs-xyz)
@@ -42,6 +43,8 @@
  (gnu packages toys)
  (gnu packages video)
  (gnu packages web)
+ (gnu packages cmake)
+ (gnu packages fonts)
  
  (guix gexp)
  (guix packages)
@@ -59,6 +62,13 @@
 
 (include "term/config.scm")
 
+;; Fix locale issue
+
+(define lazr-glibc-locales
+  (make-glibc-utf8-locales
+   glibc
+   #:locales (list "en_US" "es_US")
+   #:name "glibc-united-states-locales"))
 ;;;
 ;;; Development tools.
 ;;;
@@ -74,7 +84,10 @@
 
 (define-packages-service lazr-emacs-packages-service
   (emacs
-   emacs-guix))
+   emacs-guix
+   ;; For vterm mode compilation
+   cmake
+   libtool))
 
 (define (emacs-server-shepherd-service config)
   (list (shepherd-service
@@ -205,7 +218,13 @@
      ncurses
      procps
      password-store
-     libiconv))
+     libiconv
+     font-latin-modern
+     font-fira-code
+     font-fira-sans
+     lazr-glibc-locales
+     font-cmu-nerdfont
+     ))
    (services
     (append lazr-shell-services
 	    lazr-term-services

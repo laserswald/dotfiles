@@ -1,6 +1,7 @@
 
 (define-library (lazr packages)
-  (export oh-my-zsh python-llm)
+  (export oh-my-zsh
+          font-cmu-nerdfont)
 
   (import (scheme base)
 	  (guix packages)
@@ -11,11 +12,31 @@
 	  (guix build-system gnu)
 	  (guix build-system python)
 	  (guix build-system trivial)
+	  (guix build-system font)
 
 	  (gnu packages shells)
 	  (guix gexp))
   
   (begin 
+
+    (define font-cmu-nerdfont
+      (package
+       (name "font-cmu-nerdfont")
+       (license silofl1.1)
+       (version "1.0.0")
+       (synopsis "Computer Modern Unicode with Nerd Font glyphs")
+       (description "This is a patched version of Donald E. Knuth's fonts based on the TTF CMU set. The patch includes all Nerd Font glyphs.")
+       (home-page "https://github.com/kindjie/cmu_nerdfont")
+       (outputs '("out" "ttf"))
+       (source (origin 
+                  (method git-fetch)
+                  (uri (git-reference 
+			(url "https://github.com/kindjie/cmu_nerdfont")
+			(commit (string-append "v" version))))
+		  (file-name (git-file-name name version))
+                  (sha256
+                   (base32 "0z4rg9s3qhmy5r3nqzr38g693bv2p68bi3g0xcsifwdlqs2rhfqs"))))
+       (build-system font-build-system)))
 
     (define oh-my-zsh
       (package
@@ -31,10 +52,10 @@ It comes bundled with thousands of helpful functions, helpers, plugins, themes, 
                   (method git-fetch)
                   (uri (git-reference 
 			(url "https://github.com/ohmyzsh/ohmyzsh")
-			(commit "master")))
+			(commit "2fbdfa93f942611c56bb02657a39f577bd7f0ef0")))
 		  (file-name (git-file-name name version))
                   (sha256
-                   (base32 "0p149mikcj5q88cqh04x8y0mrmb52y5ch3gcqhdfxadr6vk3b33p"))))
+                   (base32 "0wwwh5h15gwk68k30wh4bnyy7wbz9v80khgf86gql0gmipzm5038"))))
 	(inputs (list zsh))
 	(build-system copy-build-system)
 	(arguments

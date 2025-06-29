@@ -67,6 +67,14 @@
 ; Search using Counsel
 (use-package counsel-notmuch :ensure t)
 
+(defun lz/symcat-soft (&rest symbols)
+  "Get the symbol created by concatenating the SYMBOLS together with '-'."
+  (intern-soft (mapconcat #'symbol-name symbols "-")))
+
+(defun lz/sym-mode (sym)
+  "Get the mode hook for the language SYM."
+  (lz/symcat-soft sym 'mode))
+
 ;;
 ;; Core settings.
 ;;

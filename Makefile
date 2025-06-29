@@ -7,10 +7,10 @@ GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 reconfigure:
 	git submodule update --init --recursive 
 	$(GUIX_HOME) reconfigure home-configuration.scm
-	emacsclient -e '(lazr-reload-config)'
-	sv restart $(HOME)/var/sv/waybar
-	river-reload
-	kanshictl reload
+	# emacsclient -e '(lazr-reload-config)'
+	# sv restart $(HOME)/var/sv/waybar
+	# river-reload
+	# kanshictl reload
 
 .PHONY: container
 container:
