@@ -20,23 +20,24 @@
   (begin 
 
     (define font-cmu-nerdfont
-      (package
-       (name "font-cmu-nerdfont")
-       (license silofl1.1)
-       (version "1.0.0")
-       (synopsis "Computer Modern Unicode with Nerd Font glyphs")
-       (description "This is a patched version of Donald E. Knuth's fonts based on the TTF CMU set. The patch includes all Nerd Font glyphs.")
-       (home-page "https://github.com/kindjie/cmu_nerdfont")
-       (outputs '("out" "ttf"))
-       (source (origin 
+      (let ((revision "2")
+            (commit "dd09d3e5fe40ca79d51ccb8e12ef7af8a36965e4"))
+        (package
+         (name "font-cmu-nerdfont")
+         (license silofl1.1)
+         (version (git-version "1.0.0" revision commit))
+         (synopsis "Computer Modern Unicode with Nerd Font glyphs")
+         (description "This is a patched version of Donald E. Knuth's fonts based on the TTF CMU set. The patch includes all Nerd Font glyphs.")
+         (home-page "https://github.com/kindjie/cmu_nerdfont")
+         (source (origin 
                   (method git-fetch)
                   (uri (git-reference 
-			(url "https://github.com/kindjie/cmu_nerdfont")
-			(commit (string-append "v" version))))
-		  (file-name (git-file-name name version))
+                        (url "https://github.com/kindjie/cmu_nerdfont")
+                        (commit commit)))
+                  (file-name (git-file-name name version))
                   (sha256
                    (base32 "0z4rg9s3qhmy5r3nqzr38g693bv2p68bi3g0xcsifwdlqs2rhfqs"))))
-       (build-system font-build-system)))
+         (build-system font-build-system))))
 
     (define oh-my-zsh
       (package

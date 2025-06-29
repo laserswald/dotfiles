@@ -28,7 +28,7 @@
   :config (doom-modeline-mode 1))
 
 					; Icons for the modeline.
-(use-package all-the-icons :ensure t)
+(use-package nerd-icons :ensure t)
 
 					; User interface for quickly browsing hierarchies in code and files.
 (use-package treemacs :ensure t)

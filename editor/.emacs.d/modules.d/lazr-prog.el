@@ -46,15 +46,6 @@
 ;; When writing program source code, if there is not already a system in place,
 ;; use the "indent with tabs and align with spaces" convention.
 ;;
-(use-package smart-tabs-mode
-  :ensure t
-  :hook (cc-mode
-         java-mode
-         go-mode
-         rust-mode
-         javascript-mode
-         php-mode
-         lua-mode))
 
 ;;;
 ;;; Algol family.
@@ -155,10 +146,10 @@
                      lz/lisps))
   (when lmh
     (message "lazr-prog: installing lisp mode hook to %s" lmh)
-    (add-hook lmh
-              (lambda () (setf indent-tabs-mode nil)))
     (add-hook lmh 'parinfer-rust-mode)
-    (add-hook lmh 'rainbow-delimiters-mode)))
+    (add-hook lmh 'rainbow-delimiters-mode)
+    (add-hook lmh
+              (lambda () (setf indent-tabs-mode nil)))))
 
 ;;
 ;; Emacs Lisp
@@ -217,9 +208,9 @@
   'geiser-eval-buffer
   'geiser)
 
-(add-hook 'scheme-mode-hook
-	  (lambda ()
-	    (setf evil-lookup-func lazr-scheme-lookup)))
+;; (add-hook 'scheme-mode-hook
+;; 	  (lambda ()
+;; 	    (setf evil-lookup-func lazr-scheme-lookup)))
 		  
 
 (require 'ob-scheme)
