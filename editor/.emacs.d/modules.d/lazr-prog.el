@@ -1,6 +1,7 @@
 ;;;; lazr-prog --- Programming language specific settings. -*- lexical-binding: t -*-
 
 (require 'lazr-core "./lazr-core.el")
+(require 'lazr-keybindings "./lazr-keybindings.el")
 
 ;;;
 ;;; Intelligent code completion and such using LSP and tree-sitter
@@ -75,7 +76,7 @@
 ;;
 
 (use-package shell-script-mode
-  :init
+  :config
   (reformatter-define shell-script-format
     :program "shfmt"
     :args '("--simplify" "--case-indent" "--func-next-line" "-"))
@@ -138,9 +139,9 @@
   "Get the symbol created by concatenating the SYMBOLS together with '-'."
   (intern-soft (mapconcat #'symbol-name symbols "-")))
 
-(defvar lz/lisps
-  "Lisp variants that I am aware of and may possibly write code in"
-  '(lisp emacs-lisp scheme racket clojure fennel arc))
+(defconst lz/lisps
+  '(lisp emacs-lisp scheme racket clojure fennel arc)
+  "Lisp variants that I am aware of and may possibly write code in")
 
 (defun lz/sym-mode (sym)
   "Get the mode hook for the language SYM."
@@ -232,5 +233,8 @@
 
 (use-package haskell-mode :ensure t)
 (require 'ob-haskell)
+
+
+(use-package rec-mode :ensure t)
 
 (provide 'lazr-prog)
