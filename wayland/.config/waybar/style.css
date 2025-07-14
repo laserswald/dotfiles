@@ -2,12 +2,13 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, "Victor Mono Regular", monospace;
-    font-size: 13pt;
+    font-family: FontAwesome, "Fira Code", monospace;
+    font-size: 14pt;
+    border-radius: 0;
 }
 
 window#waybar {
-    background-color: @bg_0;
+    background-color: rgba(0, 0, 0, 0);
     color: @fg_0;
     transition-property: background-color;
     transition-duration: .5s;
@@ -17,22 +18,30 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-    background-color: @bg_1;
-}
-
-window#waybar.chromium {
+.modules-left, .modules-right, .modules-center {
     background-color: @bg_0;
-    border: none;
+    padding: 3px;
+    border-color: @bg_2;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.modules-left {
+    border-bottom-right-radius: 5px;
+    border-right-width: 1px;
+}
+.modules-right {
+    border-bottom-left-radius: 5px;
+    border-left-width: 1px;
+}
+.modules-center {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right-width: 1px;
+    border-left-width: 1px;
 }
 
 button {
@@ -49,11 +58,6 @@ button:hover {
     box-shadow: inset 0 -3px @fg_0;
 }
 
-/* you can set a style on hover for any module like this */
-#pulseaudio:hover {
-    background-color: #a37800;
-}
-
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
@@ -61,7 +65,7 @@ button:hover {
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.9);
 }
 
 #workspaces button.active {
@@ -84,12 +88,12 @@ button:hover {
 }
 
 #tags button.focused {
-    background-color: #64727D;
+    background-color: @bg_2;
     box-shadow: inset 0 -3px @fg_0;
 }
 
 #tags button.urgent {
-    background-color: #eb4d4b;
+    background-color: @orange;
 }
 
 
@@ -114,14 +118,16 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#window,
 #mpd {
-    padding: 0 10px;
+    background-color: @bg_0;
     color: @fg_0;
+    margin: 0 1rem;
 }
 
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 0;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -135,17 +141,17 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    color: @fg_1;
 }
 
+/* Batteries. */
+
 #battery {
-    background-color: @fg_0;
-    color: #000000;
+    color: @fg_0;
 }
 
 #battery.charging, #battery.plugged {
-    color: @fg_0;
-    background-color: #26A65B;
+    color: @br_green;
 }
 
 @keyframes blink {
@@ -157,8 +163,7 @@ button:hover {
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: @fg_0;
+    color: @br_red;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -166,23 +171,21 @@ button:hover {
     animation-direction: alternate;
 }
 
+
 #power-profiles-daemon {
     padding-right: 15px;
 }
 
 #power-profiles-daemon.performance {
-    background-color: #f53c3c;
-    color: @fg_0;
+    color: @red;
 }
 
 #power-profiles-daemon.balanced {
-    background-color: #2980b9;
-    color: @fg_0;
+    color: @yellow;
 }
 
 #power-profiles-daemon.power-saver {
-    background-color: #2ecc71;
-    color: #000000;
+    color: @green;
 }
 
 label:focus {
@@ -190,38 +193,35 @@ label:focus {
 }
 
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
+    color: @green;
 }
 
 #memory {
-    background-color: #9b59b6;
+    color: @magenta;
 }
 
 #disk {
-    background-color: #964B00;
+    color: #964B00;
 }
 
 #backlight {
-    background-color: #90b1b1;
+    color: #90b1b1;
 }
 
 #network {
-    background-color: #2980b9;
+    color: @blue;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    color: @red;
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    color: #f1c40f;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    color: #90b1b1;
 }
 
 #wireplumber {
@@ -248,15 +248,14 @@ label:focus {
 }
 
 #temperature {
-    background-color: #f0932b;
+    color: @br_orange;
 }
 
 #temperature.critical {
-    background-color: #eb4d4b;
+    color: @red;
 }
 
 #tray {
-    background-color: #2980b9;
 }
 
 #tray > .passive {
