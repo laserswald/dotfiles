@@ -3,15 +3,12 @@
 GUIX = $(HOME)/.config/guix/current/bin/guix 
 GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 
-.PHONY: reconfigure
-reconfigure:
-	git submodule update --init --recursive 
-	$(GUIX_HOME) reconfigure home-configuration.scm
+.PHONY: all
+all: reconfigure
 	fc-cache -f -v 
 	emacsclient -e '(lazr-reload-config)'
-	# sv restart $(HOME)/var/sv/waybar
-	# river-reload
-	# kanshictl reload
+	# Refresh Waybar
+	pkill -SIGUSR2 waybar
 
 .PHONY: container
 container:
@@ -21,13 +18,26 @@ container:
 repl:
 	$(GUIX) repl -L ./guix-modules -L .
 
-ifdef LEGACY
+.PHONY: reconfigure
+reconfigure: update-submodules install-secrets
+	$(GUIX_HOME) reconfigure home-configuration.scm
 
+.PHONY: update-submodules
+update-submodules:
+	git submodule update --init --recursive 
+
+.PHONY: install-secrets
+install-secrets: ~/.authinfo
+
+~/.authinfo: secrets/authinfo.gpg
+	gpg -d < $< > $@
+
+.PHONY: refresh-theme
+refresh-theme: reconfigure
+
+ifdef LEGACY
 include legacy.mk
 all: core
-
 else # NOT LEGACY
-
 all: reconfigure
-
 endif # LEGACY

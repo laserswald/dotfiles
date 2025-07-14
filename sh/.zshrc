@@ -38,5 +38,5 @@ plugins=(
 
 # This shell theme is really similar to my standard shell theme.
 # Let's just use it for a while.
-ZSH_THEME="ys"
+ZSH_THEME=""
 

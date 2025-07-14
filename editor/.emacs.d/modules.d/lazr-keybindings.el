@@ -62,8 +62,8 @@
  "C" 'lazr-open-config
 
  ; Projects
- "p" 'project-switch-project
- )
+ "p" 'project-switch-project)
+ 
 
 ;;;
 ;;; Main leader.
@@ -78,12 +78,12 @@
 (lazr-leader-map
   "a" 'org-agenda
   "c" 'org-capture
-  "R" 'lazr-reload-config
   "s" 'multi-vterm-dedicated-toggle
   "C" 'comment-dwim
   "w" 'lazr-save-buffer
-  )
-
+  "g" 'gptel-send)
+  
+  
 (lazr-leader-map :infix "p"
   "f" 'project-find-file
   "g" 'project-search
@@ -92,8 +92,8 @@
   "v" 'project-vc-dir
   "s" 'project-shell
   "e" 'project-eshell
-  "c" 'project-compile
-  )
+  "c" 'project-compile)
+  
 
 ;; 'F'uzzy finding
 (lazr-leader-map :infix "f"
@@ -131,5 +131,6 @@
 
 (lazr-local-leader-map :keymaps 'todotxt-mode-map
   "c" 'todotxt-complete-toggle)
+
 
 (provide 'lazr-keybindings)

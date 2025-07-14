@@ -67,6 +67,12 @@
 ; Search using Counsel
 (use-package counsel-notmuch :ensure t)
 
+;;
+;; Secrets and security
+;;
+
+
+
 (defun lz/symcat-soft (&rest symbols)
   "Get the symbol created by concatenating the SYMBOLS together with '-'."
   (intern-soft (mapconcat #'symbol-name symbols "-")))
