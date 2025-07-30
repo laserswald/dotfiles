@@ -30,12 +30,17 @@
 +junk - from:"Domino's Pizza"
 +junk - from:Reddit
 +junk - from:"DICK'S Sporting Goods"
-+junk - from:kamala or from:walz or from:KamalaHarris.org
++junk - from:kamala or from:walz or from:KamalaHarris.org or from:kamalaharris.com
 +junk - from:doctorswithoutborders.org OR from:msf.org
 +junk - from:"Wolfram Research"
 +junk - from:"Stack Exchange"
 +junk - from:"team@email.anthropic.com"
-+junk - from:adhdrewired.com
++junk - from:"adhdrewired.com"
++junk - from:team@email.remarkable.com
++junk - from:"email.consumerreports.com"
++junk - from:"email.trustage.com"
++junk - from:"KSU Alumni"
++junk - from:"The Cerebral Team"
 
 +ads - from:"REI"
 +ads - from:"Roberts Space Industries"
@@ -55,11 +60,13 @@
 +ads - from:shop.kobo.com
 +ads - from:theCut
 +ads - from:Expedia
++ads - from:Shop
 
 +ads - subject:"(deal sale coupon save savings clearance offer exclusive rewards points free eligible overpay)"
 
 +ads - subject:"/[0-9]+% [oO]ff/"
 
++legal_updates -ads -- subject:"terms of service" OR subject:policy
 +receipts -ads -- subject:receipt OR subject:invoice OR subject:order
 
 # software development stuff
@@ -75,7 +82,7 @@
 #
 
 ## Sort all the job search alert crap into a tag
-+job_search -- from:"/(Glassdoor|Indeed|Monster|Stack\ Overflow\ Jobs|Kimble Group|LinkedIn Job Alerts|LinkedIn)/"
++job_search -- from:"/(Glassdoor|Indeed|Monster|Stack\ Overflow\ Jobs|Kimble Group|LinkedIn Job Alerts|LinkedIn|Freelancer.com)/"
 +job_search -- from:hiring.cafe
 -inbox -- tag:job_search and tag:inbox
 
@@ -83,7 +90,9 @@
 
 +job_apps -- subject:application AND NOT (from:*.edu OR body:"(college university)" OR tag:job_search)
 +job_apps -- subject:"thank you" and subject:"(apply applying application)"
--job_apps -unread -inbox +job_ghosted -- +job_apps AND date:..3m
+-inbox -- tag:job_apps
+
+-job_apps -unread -inbox -flagged -job_search +job_ghosted -- tag:job_apps AND date:..3m
 
 ##
 ## Azalea
@@ -97,23 +106,26 @@
 # Delete everything from old Azalea.
 -inbox -unread +deleted -- tag:ahi 
 
-
 # Personal stuff
 
-+lists -inbox -- to:/.*@lists.sr.ht/
-+lists -inbox -- from:/.*robert@stuffwithstuff.com.*/
-+lists -inbox -- from:/.*sir@cmpwn.com.*/
-+lists -inbox -- from:/.*srfi.schemers.org.*/
++lists -- to:/.*@lists.sr.ht/
++lists -- from:/.*robert@stuffwithstuff.com.*/
++lists -- from:/.*sir@cmpwn.com.*/
 +lists -- from:substack.com
++lists -- from:contact@zsa.io
 
 +remarkable +flagged -- from:my@remarkable.com
 
-+flagged +news -job_search -- from:Tangle
++news -- from:Tangle
 +news -- from:"New York Times"
++news -- from:nextdoor.com AND from:Kingsland
++news -- from:join1440.com
+
+-inbox -flagged -- tag:news OR tag:lists
 
 +flagged -- subject:appointment
 
--inbox -unread +social_networks -- from:notify@twitter.com OR from:about.me OR from:youtube OR from:tumblr OR from:instagram OR from:facebook OR from:foursquare OR from:x.com
+-inbox -unread +social_networks -- from:notify@twitter.com OR from:about.me OR from:youtube OR from:tumblr OR from:instagram OR from:facebook OR from:foursquare OR from:x.com OR from:pintrest
 
 #
 # Finances
@@ -137,11 +149,13 @@
 +finances -- tag:taxes OR tag:receipts OR tag:statements
 
 -inbox -unread +finances -- from:mint.com
--inbox -- tag:receipts OR tag:statements
+-inbox -- tag:taxes OR tag:receipts OR tag:statements
 
 # Health and wellness
 
 +health +flagged -- from:"Peds and Parents"
++health -- subject:appointment 
+-inbox -unread +deleted -- subject:appointment AND date:..1m 
 +health -inbox -- from:Aetna
 
 # College shit
