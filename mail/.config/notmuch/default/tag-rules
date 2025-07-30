@@ -1,13 +1,15 @@
 # Specific email tags
+
 +lazr -bdr -- to:me@lazr.space
 -lazr +bdr -- to:ben.davenportray@gmail.com
 
 # Folder tags
--inbox +arch_linux -- folder:"Arch Linux"
--inbox +github +dev -- folder:"Github"
+
 +news -- folder:"News"
 +personal -- folder:"Personal"
 -inbox +receipts -- folder:"Receipts"
+
++scouting -inbox -unread -- to:cor.troop226@gmail.com
 
 # junk
 
@@ -28,7 +30,12 @@
 +junk - from:"Domino's Pizza"
 +junk - from:Reddit
 +junk - from:"DICK'S Sporting Goods"
-+junk - from:kamala or from:walz
++junk - from:kamala or from:walz or from:KamalaHarris.org
++junk - from:doctorswithoutborders.org OR from:msf.org
++junk - from:"Wolfram Research"
++junk - from:"Stack Exchange"
++junk - from:"team@email.anthropic.com"
++junk - from:adhdrewired.com
 
 +ads - from:"REI"
 +ads - from:"Roberts Space Industries"
@@ -40,19 +47,47 @@
 +ads - from:"Levi's"
 +ads - from:"eBay"
 +ads - from:"Bethesda Gear"
++ads - from:"neebo.com"
++ads - from:Monoprice
++ads - from:"Humble Bundle"
++ads - from:"Rack Room Rewards"
++ads - from:brew@aeropress.com
++ads - from:shop.kobo.com
++ads - from:theCut
++ads - from:Expedia
 
-+ads - subject:deal or subject:sale or subject:coupon or subject:save or subject:savings or subject:clearance or subject:offer or subject:exclusive or subject:rewards or subject:points or subject:free
++ads - subject:"(deal sale coupon save savings clearance offer exclusive rewards points free eligible overpay)"
 
-+ads - subject:/[0-9]+% off/
++ads - subject:"/[0-9]+% [oO]ff/"
 
 +receipts -ads -- subject:receipt OR subject:invoice OR subject:order
 
 # software development stuff
 
++arch_linux +dev -- folder:"Arch Linux"
++github +dev -- folder:"Github"
 +dev - from:sourcehut
 +dev - from:github
++dev - from:snyk
 
+#
+# Jobs and shit.
+#
+
+## Sort all the job search alert crap into a tag
++job_search -- from:"/(Glassdoor|Indeed|Monster|Stack\ Overflow\ Jobs|Kimble Group|LinkedIn Job Alerts|LinkedIn)/"
++job_search -- from:hiring.cafe
+-inbox -- tag:job_search and tag:inbox
+
+## If it's older than 6 months it's effectively useless
+
++job_apps -- subject:application AND NOT (from:*.edu OR body:"(college university)" OR tag:job_search)
++job_apps -- subject:"thank you" and subject:"(apply applying application)"
+-job_apps -unread -inbox +job_ghosted -- +job_apps AND date:..3m
+
+##
 ## Azalea
+##
 
 +ahi -- to:ben.davenportray@azaleahealth.com
 +ahi -- to:bdavenportray@azaleahealth.com
@@ -62,8 +97,6 @@
 # Delete everything from old Azalea.
 -inbox -unread +deleted -- tag:ahi 
 
-+job_search -- from:"/(Glassdoor|Indeed|Monster|Stack\ Overflow\ Jobs|Kimble Group|LinkedIn Job Alerts|LinkedIn)/"
--inbox -- tag:job_search and tag:inbox
 
 # Personal stuff
 
@@ -71,6 +104,7 @@
 +lists -inbox -- from:/.*robert@stuffwithstuff.com.*/
 +lists -inbox -- from:/.*sir@cmpwn.com.*/
 +lists -inbox -- from:/.*srfi.schemers.org.*/
++lists -- from:substack.com
 
 +remarkable +flagged -- from:my@remarkable.com
 
@@ -79,13 +113,30 @@
 
 +flagged -- subject:appointment
 
+-inbox -unread +social_networks -- from:notify@twitter.com OR from:about.me OR from:youtube OR from:tumblr OR from:instagram OR from:facebook OR from:foursquare OR from:x.com
+
+#
 # Finances
+#
+
++taxes -- subject:"(tax irs e-file)"
 
 +receipts -- from:Zelle
 +receipts -- from:"DoorDash"
++receipts -- from:shipment-tracking@amazon.com OR from:service@paypal.com
++receipts -- subject:"payment received"
++receipts -- subject:"digital purchase"
+
 +statements -- from:"Discover Card"
 +statements -- from:"HealthEquity"
++statements -- from:"Venmo" AND subject:statement
++statements -- subject:"billing statement"
 
++finances -- subject:credit
+
++finances -- tag:taxes OR tag:receipts OR tag:statements
+
+-inbox -unread +finances -- from:mint.com
 -inbox -- tag:receipts OR tag:statements
 
 # Health and wellness
@@ -93,7 +144,15 @@
 +health +flagged -- from:"Peds and Parents"
 +health -inbox -- from:Aetna
 
-# Remove tagged stuff
+# College shit
 
+-inbox -unread +college -- from:jwu.edu OR from:ksu.edu OR from:ccga.edu OR from:spsu.edu OR from:secularstudents.org
+
+# Archive old garbage
+
+-inbox -unread +deleted -- from:lift.do OR from:engagementlab.org
+-inbox -- date:..1y
+
+# Remove tagged stuff
 -inbox -unread +deleted -- tag:junk OR tag:ads
 

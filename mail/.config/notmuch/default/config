@@ -11,7 +11,7 @@
 #
 
 [database]
-path=/home/ben/var/mail
+path=var/mail
 
 # User configuration
 #

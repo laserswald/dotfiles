@@ -1,11 +1,26 @@
 (define-library (lazr mail)
   (export communications-services)
   (import (scheme base)
+          (guile)
 	  (lazr base)
 	  (gnu services)
 	  (gnu home services dotfiles)
-          (gnu packages mail))
+	  (gnu home services)
+          (gnu packages mail)
+          (guix gexp))
   (begin
+
+    (define mail-directory
+      (string-append (getenv "HOME") "/var/mail"))
+
+    (define mail-account-dirs
+      (map (lambda (x) (string-append mail-directory "/" x)) '("bdr" "lazr")))
+
+    (define mail-storage-service
+      (service home-activation-service-type
+                #~(begin
+                    (mkdir mail-directory)
+                    (for-each mkdir mail-account-dirs))))
 
     (define mail-transfer-services
       (services
