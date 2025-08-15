@@ -63,6 +63,7 @@
 
  ; Projects
  "p" 'project-switch-project)
+
  
 
 ;;;
@@ -76,12 +77,13 @@
   :prefix "SPC")
 
 (lazr-leader-map
+  "C" 'comment-dwim
   "a" 'org-agenda
   "c" 'org-capture
+  "g" 'gptel-send
   "s" 'multi-vterm-dedicated-toggle
-  "C" 'comment-dwim
-  "w" 'lazr-save-buffer
-  "g" 'gptel-send)
+  "t" 'lazr-switch-theme-bg
+  "w" 'lazr-save-buffer)
   
   
 (lazr-leader-map :infix "p"
@@ -93,7 +95,6 @@
   "s" 'project-shell
   "e" 'project-eshell
   "c" 'project-compile)
-  
 
 ;; 'F'uzzy finding
 (lazr-leader-map :infix "f"
@@ -103,9 +104,8 @@
 
 ;;; 'V'ersion control
 (lazr-leader-map :infix "v"
-  "s" 'magit-status
-  "a" 'magit-stage-file
-  "c" 'magit-commit)
+  "v" 'vc-next-action
+  "d" 'project-vc-dir)
 
 ;;; 'O'rg mode
 (lazr-leader-map :infix "o"
