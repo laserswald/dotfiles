@@ -10,35 +10,36 @@
 ;; User interface components: turning things on and off to look nice
 ;;
 
-					; Disable the toolbar.
+;; Disable the toolbar.
 (tool-bar-mode -1)
 
-					; Disable the menu bar.
+;; Disable the menu bar.
 (menu-bar-mode -1)
 
-					; If the scroll bar is available, disable it.
-(when (boundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;; If the scroll bar is available, disable it.
+(when (boundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
 
-					; Show line numbers for every buffer. All of them. No exceptions.
+;; Show line numbers for every buffer. All of them. No exceptions.
 (global-display-line-numbers-mode)
 
 ;; Modeline.
-(use-package doom-modeline :ensure t
+(use-package doom-modeline
   :init (setf doom-modeline-height 32)
   :config (doom-modeline-mode 1))
 
 					; Icons for the modeline.
-(use-package nerd-icons :ensure t)
+(use-package nerd-icons)
 
 					; User interface for quickly browsing hierarchies in code and files.
-(use-package treemacs :ensure t)
+(use-package treemacs)
 
 					; Use evil mode bindings for Treemacs.
-(use-package treemacs-evil :ensure t
+(use-package treemacs-evil
   :after evil treemacs)
 
 					; Integrate Magit with Treemacs
-(use-package treemacs-magit :ensure t
+(use-package treemacs-magit
   :after treemacs magit
   :config)
 
@@ -46,9 +47,9 @@
 ;;; Themes
 ;;;
 
-(use-package doom-themes :ensure t)
-(use-package modus-themes :ensure t)
-(use-package ef-themes :ensure t)
+(use-package doom-themes)
+(use-package modus-themes)
+(use-package ef-themes)
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
@@ -61,7 +62,7 @@
     (load-theme lazr-custom-theme)))
 
 (defvar lazr-theme-pair
-  '(doom-solarized-light . doom-solarized-dark)
+  '(doom-tomorrow-day . doom-tomorrow-night)
   "A pair of light and dark themes for switching.")
 
 (defvar lazr-theme-shade
@@ -89,6 +90,12 @@
 ;;; Fonts
 ;;;
 
+(defun lazr-set-font-all! (font)
+  "Set the font for all frames at once."
+  (dolist (frame (frame-list))
+    (set-frame-font font nil t)))
+
+
 (defvar lazr-fonts
   '("Victor Mono Nerd Font" "Fira Code Nerd Font"))
 
@@ -105,19 +112,25 @@
     (set-frame-font font-face t t)))
 
 (defun lazr/setup-frame (frame)
-  "Set up the FRAME after it has been created"
+  "Set up the FRAME after it has been created."
   (if (display-graphic-p)
       (progn ; Graphical frames
+
 	;; Enable scrolling that allows for views unbound by character cells
 	(pixel-scroll-mode)
+
 	;; Enable the right-click menu.
 	(context-menu-mode)
+
 	(apply 'lazr-setup-fonts lazr-fonts)
+
 	(set-frame-size frame 300 60)
+
 	;; Apply my theme.
 	(lazr-apply-theme))
     (progn
       ;; Terminal frames.
+      (message "Setting up")
       (load-theme 'chameleon)
       (xterm-mouse-mode 1))))
 

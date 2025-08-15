@@ -17,29 +17,31 @@
 
    ;; :bold :underline :foreground :background :
 
-   ;; Fix some strangeness with faces in the terminal.
    `(default
      ((,class
-       (:background "background"
-        :foreground "foreground"))))
+       (:foreground "undefined"
+        :background "undefined"))))
 
    `(tab-bar
      ((,class
-       (:foreground ,similar
+       (:foreground ,brightcontrast
 	:background ,brightsimilar))))
 
    `(region
      ((,class (:background ,brightsimilar))))
    `(highlight
-     ((,class (:foreground ,contrast
-	       :background ,similar))))
+     ((,class (:foreground ,brightcontrast
+	       :background ,brightsimilar))))
    `(hl-line
-     ((,class (:background ,similar))))
+     ((,class (:background ,brightsimilar))))
    `(fringe
-     ((,class (:background ,contrast
-	       :foreground ,similar))))
+     ((,class (:background ,brightcontrast
+	       :foreground ,brightsimilar))))
+   `(line-number
+     ((,class (:background ,similar
+	       :foreground ,brightcontrast))))
    `(cursor
-     ((,class (:background ,contrast))))
+     ((,class (:background ,brightcontrast))))
    `(show-paren-match-face
      ((,class (:background "brightcyan"))))
    `(isearch
@@ -49,9 +51,10 @@
      ((,class (:background ,similar
 	       :foreground ,similar))))
    `(mode-line
-     ((,class (:box (:line-width 1 :color nil) :bold t
-		    :background ,brightsimilar
-		    :foreground ,brightcontrast))))
+     ((,class (:box (:line-width 1 :color nil)
+	       :bold t
+	       :background ,brightsimilar
+	       :foreground ,brightcontrast))))
    `(mode-line-inactive
      ((,class (:box (:line-width 1 :color nil :style pressed-button)
 		    :background ,similar
@@ -69,15 +72,13 @@
 
    `(font-lock-comment-face
      ((,class
-       (:foreground "white"
-		    :italic t))))
+       (:foreground ,contrast :italic t))))
    `(font-lock-comment-delimiter-face
      ((,class
-       (:foreground "white"
-		    :italic t))))
+       (:foreground ,contrast :italic t))))
    `(font-lock-doc-face
      ((,class
-       (:foreground "brightwhite"
+       (:foreground ,contrast
 		    :italic t))))
    `(font-lock-doc-markup-face
      ((,class
@@ -94,16 +95,19 @@
        (:foreground "yellow"))))
    `(font-lock-function-name-face
      ((,class
-       (:foreground "brightblue"))))
+       (:foreground "brightblue"
+	:bold t))))
    `(font-lock-variable-name-face
      ((,class
-       (:foreground "brightblue"))))
+       (:foreground "blue"
+	:bold t))))
    `(font-lock-variable-use-face
      ((,class
        (:foreground "blue"))))
    `(font-lock-type-face
      ((,class
-       (:foreground "brightyellow"))))
+       (:foreground "brightyellow"
+	:bold t))))
    `(font-lock-constant-face
      ((,class
        (:foreground "brightred"))))
@@ -160,4 +164,7 @@
 (provide-theme 'chameleon)
 
 (enable-theme 'chameleon)
+
+
+
 

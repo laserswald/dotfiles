@@ -105,7 +105,7 @@
 ;; Start the timer when we first load this file
 (run-with-idle-timer lazr-org-refresh-agenda-time-seconds t 'lazr-org-refresh-agenda)
 
-(use-package evil-org :ensure t
+(use-package evil-org
   :after evil org
 
   :hook
@@ -115,21 +115,21 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-(use-package org-pomodoro :ensure t
+(use-package org-pomodoro
   :after org)
 
-(use-package deft :ensure t
+(use-package deft
   :config (setq deft-directory lazr-org-directory))
 
-(use-package markdown-mode :ensure t)
+(use-package markdown-mode)
 
-(use-package org-roam :ensure t
+(use-package org-roam
   :after org)
 
-(use-package org-modern :ensure t
+(use-package org-modern
   :config (global-org-modern-mode))
 
-(use-package org-caldav :ensure t
+(use-package org-caldav
   :after org)
 
 ;; Keybindings
@@ -185,13 +185,13 @@
 ;;;
 ;;; This is a contact list that is integrated within Emacs.
 
-(use-package bbdb :ensure t
+(use-package bbdb
   :init
   (setf bbdb-file "~/org/contacts.bbdb"))
 
 ;; Provide import and export via vCard for BBDB contacts.
-(use-package bbdb-vcard :ensure t)
+(use-package bbdb-vcard)
 
-(use-package telega :ensure t)
+(use-package telega)
 
 (provide 'lazr-org)
