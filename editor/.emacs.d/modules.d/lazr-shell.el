@@ -6,12 +6,12 @@
       explicit-zsh-args '("--login" "--interactive"))
 
 (use-package exec-path-from-shell
-  :ensure t
+ 
   :config
   (exec-path-from-shell-initialize))
 
 (use-package multi-term
-  :ensure t)
+ )
 
 (defun zsh-shell-mode-setup ()
   "Set up Zsh when launched as an inferior shell."
@@ -20,9 +20,9 @@
 (add-hook 'shell-mode-hook
           #'zsh-shell-mode-setup)
 
-(use-package vterm :ensure t)
+(use-package vterm)
 
-(use-package multi-vterm :ensure t
+(use-package multi-vterm
   :config
   (add-hook 'vterm-mode-hook
 	    (lambda ()

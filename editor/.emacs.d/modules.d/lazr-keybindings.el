@@ -1,7 +1,7 @@
 
 (require 'lazr-package-setup)
 
-(use-package which-key :ensure t :config (which-key-mode))
+(use-package which-key :config (which-key-mode))
 
 ;;; Custom functions that should be bound to keys
 
@@ -19,7 +19,7 @@
 (defun lazr-open-config ()
   "Open my configuration directory."
   (interactive)
-  (find-file "~/etc/emacs/.emacs.d"))
+  (find-file "~/etc/editor/.emacs.d"))
 
 (defun lazr-open-repl ()
   "Open a REPL session for the current filetype."

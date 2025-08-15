@@ -42,8 +42,6 @@ function Install-PackageSet {
 
 Install-PackageSet $BasePackages
 
-
-
 if ($env:COMPUTERNAME -eq "gargantua") {
     Install-PackageSet $GamingPackages
 }

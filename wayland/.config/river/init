@@ -8,6 +8,8 @@
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete
 # documentation.
 
+exec 2>&1 >$HOME/.river-init.log
+
 run_services()
 {
 	services=$1
@@ -19,6 +21,8 @@ run_services()
 		runsvdir $services &
 	fi
 }
+
+
 
 # Use the "logo" key as the primary modifier
 mod="Mod4"

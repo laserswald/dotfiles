@@ -1,7 +1,7 @@
 
 (require 'lazr-core)
 
-(use-package gptel :ensure t
+(use-package gptel
   :init
 
   ;; OpenRouter offers an OpenAI compatible API

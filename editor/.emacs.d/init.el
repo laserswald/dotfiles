@@ -8,9 +8,6 @@
 
 (require 'cl-lib)
 
-(defvar lz/emacsd-root
-  (file-name-directory load-file-name))
-
 (let ((modules-dir (expand-file-name "./modules.d/" user-emacs-directory)))
   (when (file-directory-p modules-dir)
     (message "Adding modules directory to load path: " modules-dir)

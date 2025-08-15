@@ -7,53 +7,46 @@
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
-(package-refresh-contents)
 
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+(defun lazr/require-package (name)
+  (unless (package-installed-p name)
+    (package-install name)))
+
+(lazr/require-package 'use-package)
 
 ;;
-;; Extensible Vi Layer.
+;; Set up the most heinous of all Emacs packages
 ;;
 
-; Configure the Evil layer.
-(use-package evil :ensure t
+(lazr/require-package 'undo-tree)       ; Provide a tree of undo-states. Needed by Evil.
+(lazr/require-package 'evil)            ; Extensible Vi Layer
+(lazr/require-package 'evil-collection) ; Extra bindings for different modes
+(lazr/require-package 'general)         ; Better keybinding tools
 
-  :init
-  (setf evil-want-integration t)
-  (setf evil-want-keybinding  nil)
-  (setf evil-undo-system      'undo-redo)
+(setf
+ evil-want-integration t
+ evil-want-keybinding  nil
+ evil-undo-system      'undo-redo)
 
-  :config
+(setf
+ evil-collection-mode-list
+ '(apropos dired eglot eldoc eshell vc-dir vc-git magit notmuch process-menu woman xref))
 
-  ; Enable vi keybindings.
-  (evil-mode 1)
+(require 'evil)
+(require 'evil-collection)
+(require 'general)
 
-  ; Use Emacs mode for vterms.
-  (evil-set-initial-state 'vterm-mode 'emacs)
+; Use Emacs mode for vterms.
+(evil-set-initial-state 'vterm-mode 'emacs)
 
-  ; Vim-vinegar replacement
-  (define-key evil-normal-state-map (kbd "-")
-    #'(lambda () (interactive) (find-file "."))))
+; Vim-vinegar replacement
+(define-key evil-normal-state-map
+            (kbd "-")
+            #'(lambda () (interactive) (find-file ".")))
 
-; Provide a tree of undo-states. Needed by Evil.
-(use-package undo-tree :ensure t)
-
-; Extra keybindings for default Evil stuff.
-(use-package evil-collection :ensure t
-  :after evil
-
-  :init
-  (setf evil-collection-mode-list
-        '(apropos dired eglot eldoc eshell vc-dir vc-git
-                  magit
-                  notmuch process-menu woman xref))
-
-  :config
-  (evil-collection-init))
-
-(use-package general :ensure t
-  :init
-  (general-evil-setup t))
+; Enable vi keybindings.
+(evil-mode 1)
+(evil-collection-init)
+(general-evil-setup t)
 
 (provide 'lazr-package-setup)
