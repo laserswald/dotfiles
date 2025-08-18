@@ -117,7 +117,7 @@
 ;;; Lisp family.
 ;;;
 
-(defmacro lazr-define-lisp-keybinds (mode
+(defmacro lz/define-interactive-keybinds (mode
                                      eval-defun
                                      eval-buffer
                                      open-repl)
@@ -150,7 +150,7 @@
 ;; Emacs Lisp
 ;;
 
-(lazr-define-lisp-keybinds 'emacs-lisp-mode-map
+(lz/define-interactive-keybinds 'emacs-lisp-mode-map
   'eval-defun
   'eval-buffer
   'ielm)
@@ -167,7 +167,7 @@
   :config
   (setf inferior-lisp-program "sbcl"))
 
-(lazr-define-lisp-keybinds 'lisp-mode-map
+(lz/define-interactive-keybinds 'lisp-mode-map
   'slime-eval-defun
   'slime-compile-and-load-file
   'slime)
@@ -195,7 +195,7 @@
   (add-to-list 'geiser-guile-load-path
                "~/src/gnu/guix"))
 
-(lazr-define-lisp-keybinds 'scheme-mode-map
+(lz/define-interactive-keybinds 'scheme-mode-map
   'geiser-eval-definition
   'geiser-eval-buffer
   'geiser)
@@ -216,7 +216,8 @@
 (use-package clojure-mode)
 (use-package cider)
 ; (require 'ob-clojure-eval-with-babashka)
-(lazr-define-lisp-keybinds 'clojure-mode-map
+
+(lz/define-interactive-keybinds 'clojure-mode-map
   'cider-eval-defun-at-point
   'cider-eval-buffer
   'cider-jack-in-clj&cljs)
@@ -234,5 +235,14 @@
 (require 'ob-haskell)
 
 (use-package rec-mode)
+(lazr-local-leader-map :keymaps 'rec-mode-map
+  "n" 'rec-cmd-goto-next-rec
+  "p" 'rec-cmd-goto-previous-rec
+  "d" 'rec-cmd-show-descriptor
+  "t" 'rec-find-type
+  "SPC" 'rec-cmd-toggle-field-visibility
+  "R" 'rec-edit-record
+  "T" 'rec-edit-type
+  "B" 'rec-edit-buffer)
 
 (provide 'lazr-prog)
