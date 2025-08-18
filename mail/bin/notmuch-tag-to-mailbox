@@ -17,7 +17,7 @@ delete_search()
 	notmuch search --output=files --format=text0 "$query" | xargs -r0 rm
 }
 
-move_search "tag:job_search AND NOT folder:'Job Searches'" "$HOME/var/mail/bdr/Job Searches"
-move_search "tag:news AND NOT folder:'News'" "$HOME/var/mail/bdr/News"
+move_search "tag:job_search AND NOT folder:'Job Searches' AND tag:bdr" "$HOME/var/mail/bdr/Job Searches"
+move_search "tag:news AND NOT folder:'News' AND tag:bdr" "$HOME/var/mail/bdr/News"
+move_search "NOT tag:inbox AND folder:/[Ii]nbox/ AND tag:bdr" "$HOME/var/mail/bdr/archive"
 
-delete_search "tag:deleted"

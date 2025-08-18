@@ -61,6 +61,7 @@
 +ads - from:theCut
 +ads - from:Expedia
 +ads - from:Shop
++ads - from:AliExpress
 
 +ads - subject:"(deal sale coupon save savings clearance offer exclusive rewards points free eligible overpay)"
 
@@ -155,6 +156,7 @@
 
 # Health and wellness
 
++health +lists -inbox -- from:self-compassion.org
 +health +flagged -- from:"Peds and Parents"
 +health -- subject:appointment 
 -inbox -unread +deleted -- subject:appointment AND date:..1m 
