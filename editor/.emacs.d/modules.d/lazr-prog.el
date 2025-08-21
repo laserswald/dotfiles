@@ -231,9 +231,21 @@
 ;;; ML family.
 ;;;
 
+;; Standard ML
+(use-package sml-mode :ensure t)
+
+;; OCaml
+
+;; Haskell
 (use-package haskell-mode)
 (require 'ob-haskell)
 
+;;;
+;;; Databases, configuration files, etc
+;;;
+
+
+;; Recutils mode
 (use-package rec-mode)
 (lazr-local-leader-map :keymaps 'rec-mode-map
   "n" 'rec-cmd-goto-next-rec
