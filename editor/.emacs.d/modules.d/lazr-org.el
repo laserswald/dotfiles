@@ -154,7 +154,6 @@
     (error "No choices available")
     (elt sequence (random (length sequence)))))
 
-;;
 (defun lz/org-after-todo-state-change (&optional state)
   "Play a silly sound when an org todo STATE (also could be given manually to test) has been set to one of the DONE states."
   (when (member (if (boundp 'org-state) org-state state)

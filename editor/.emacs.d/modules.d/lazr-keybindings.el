@@ -132,5 +132,4 @@
 (lazr-local-leader-map :keymaps 'todotxt-mode-map
   "c" 'todotxt-complete-toggle)
 
-
 (provide 'lazr-keybindings)
