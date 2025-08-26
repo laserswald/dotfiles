@@ -80,6 +80,12 @@
   "Get the mode hook for the language SYM."
   (lz/symcat-soft sym 'mode))
 
+(defun lz/choose-randomly (sequence)
+  "Choose one item randomly out of the SEQUENCE."
+  (if (zerop (length sequence))
+    (error "No choices available")
+    (elt sequence (random (length sequence)))))
+
 ;;
 ;; Core settings.
 ;;
