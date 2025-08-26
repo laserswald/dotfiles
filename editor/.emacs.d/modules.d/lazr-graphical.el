@@ -1,6 +1,6 @@
 ;;;; -*- lexical-binding: t -*-
 ;;;;
-;;;; lazr-graphical.el - Graphics, UI, etc.
+;;;; lazr/graphical.el - Graphics, UI, etc.
 
 
 (require 'cl-lib)
@@ -53,53 +53,53 @@
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
-(let ((lazr-custom-theme nil))
-  (defun lazr-switch-theme (theme)
+(let ((lazr/custom-theme nil))
+  (defun lazr/switch-theme (theme)
     "Save and switch to the given theme."
-    (if lazr-custom-theme
-        (disable-theme lazr-custom-theme))
-    (setf lazr-custom-theme theme)
-    (load-theme lazr-custom-theme)))
+    (if lazr/custom-theme
+        (disable-theme lazr/custom-theme))
+    (setf lazr/custom-theme theme)
+    (load-theme lazr/custom-theme)))
 
-(defvar lazr-theme-pair
+(defvar lazr/theme-pair
   '(doom-tomorrow-day . doom-tomorrow-night)
   "A pair of light and dark themes for switching.")
 
-(defvar lazr-theme-shade
+(defvar lazr/theme-shade
   'light
   "The color theme to choose on startup.")
 
-(defun lazr-apply-theme ()
+(defun lazr/apply-theme ()
   "Apply the theme shade."
   (interactive)
-  (lazr-switch-theme
+  (lazr/switch-theme
    (funcall
-    (if (eq lazr-theme-shade 'light) #'car #'cdr)
-    lazr-theme-pair)))
+    (if (eq lazr/theme-shade 'light) #'car #'cdr)
+    lazr/theme-pair)))
 
-(defun lazr-switch-theme-bg ()
+(defun lazr/switch-theme-bg ()
   "Switch theme shade from light to dark to light..."
   (interactive)
-  (setf lazr-theme-shade
-        (cond ((eq lazr-theme-shade 'light) 'dark)
-              ((eq lazr-theme-shade 'dark)  'light)
+  (setf lazr/theme-shade
+        (cond ((eq lazr/theme-shade 'light) 'dark)
+              ((eq lazr/theme-shade 'dark)  'light)
               (t                            (error "Some SHIT happened"))))
-  (lazr-apply-theme))
+  (lazr/apply-theme))
 
 ;;;
 ;;; Fonts
 ;;;
 
-(defun lazr-set-font-all! (font)
+(defun lazr/set-font-all! (font)
   "Set the font for all frames at once."
   (dolist (frame (frame-list))
     (set-frame-font font nil t)))
 
 
-(defvar lazr-fonts
+(defvar lazr/fonts
   '("Victor Mono Nerd Font" "Fira Code Nerd Font"))
 
-(defun lazr-setup-fonts (&rest fonts)
+(defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
   (let* ((font-size 16)
          (font-face (cl-find-if (lambda (f)
@@ -122,15 +122,14 @@
 	;; Enable the right-click menu.
 	(context-menu-mode)
 
-	(apply 'lazr-setup-fonts lazr-fonts)
+	(apply 'lazr/setup-fonts lazr/fonts)
 
 	(set-frame-size frame 300 60)
 
 	;; Apply my theme.
-	(lazr-apply-theme))
+	(lazr/apply-theme))
     (progn
       ;; Terminal frames.
-      (message "Setting up")
       (load-theme 'chameleon)
       (xterm-mouse-mode 1))))
 

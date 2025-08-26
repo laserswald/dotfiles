@@ -2,7 +2,7 @@
 
 ;;;; Package setup.
 
-(setq package-archives
+(setf package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
 

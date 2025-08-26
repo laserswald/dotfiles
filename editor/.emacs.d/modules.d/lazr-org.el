@@ -3,15 +3,15 @@
 (require 'lazr-core)
 (require 'lazr-keybindings)
 
-(defvar lazr-org-directory "~/org"
+(defvar lazr/org-directory "~/org"
   "Directory where my org mode files live.")
 
-(defun lazr-org-file (file)
+(defun lazr/org-file (file)
   "Get the path of the FILE in my org directory."
-  (concat lazr-org-directory file))
+  (concat lazr/org-directory file))
 
-(setf lazr-org-agenda-file (lazr-org-file "/agenda/main.org")
-      lazr-org-journal-file (lazr-org-file "/journal.org"))
+(setf lazr/org-agenda-file (lazr/org-file "/agenda/main.org")
+      lazr/org-journal-file (lazr/org-file "/journal.org"))
 
 (use-package org
 
@@ -48,31 +48,31 @@
    org-outline-path-complete-in-steps t
    
 
-   org-default-notes-file (concat lazr-org-directory "/index.org")
+   org-default-notes-file (concat lazr/org-directory "/index.org")
 
-   org-agenda-files (list (lazr-org-file "/agenda")
-                          (lazr-org-file "/agenda/projects"))
+   org-agenda-files (list (lazr/org-file "/agenda")
+                          (lazr/org-file "/agenda/projects"))
 
-   org-archive-location (concat lazr-org-directory "/archive.org::")
+   org-archive-location (concat lazr/org-directory "/archive.org::")
 
    org-capture-templates
    `(("t"
       "To-do item"
       entry
-      (file+datetree ,lazr-org-agenda-file)
-      "* TODO %?\n  %T\n  %i\n  %a")
+      (file ,lazr/org-agenda-file)
+      "* TODO %?\n  %T\n  %a")
 
      ("e"
       "Calendar event"
       entry
-      (file+datetree ,lazr-org-agenda-file)
+      (file ,lazr/org-agenda-file)
       "* %?\n  %T\n  %i"
       :time-prompt t)
 
      ("j"
       "Journal entry"
       entry
-      (file+olp+datetree ,lazr-org-agenda-file)))
+      (file ,lazr/org-agenda-file)))
 
    org-todo-keywords
     '((sequence "TODO" "NEXT" "|" "DONE" "WAIT" "CANCEL")
@@ -81,13 +81,13 @@
   :config
   (add-to-list 'org-modules 'org-habit))
 
-(defvar lazr-org-refresh-agenda-time-seconds 30)
-(defvar lazr-org-refresh-agenda-timer nil)
+(defvar lazr/org-refresh-agenda-time-seconds 30)
+(defvar lazr/org-refresh-agenda-timer nil)
 
-(defun lazr-org-refresh-agenda ()
+(defun lazr/org-refresh-agenda ()
   "Refreshes the org agenda buffer when idle."
-  (when lazr-org-refresh-agenda-timer
-    (cancel-timer lazr-org-refresh-agenda-timer))
+  (when lazr/org-refresh-agenda-timer
+    (cancel-timer lazr/org-refresh-agenda-timer))
   (save-window-excursion
     (save-excursion
       (dolist (buffer (buffer-list))
@@ -95,15 +95,15 @@
 	  (if (derived-mode-p 'org-agenda-mode)
 	    (org-agenda-redo t))))))
 
-  (setf lazr-org-refresh-agenda-timer
+  (setf lazr/org-refresh-agenda-timer
         (run-with-idle-timer
          (time-add (current-idle-time)
-		   lazr-org-refresh-agenda-time-seconds)
+		   lazr/org-refresh-agenda-time-seconds)
          nil
-         'lazr-org-refresh-agenda)))
+         'lazr/org-refresh-agenda)))
 
 ;; Start the timer when we first load this file
-(run-with-idle-timer lazr-org-refresh-agenda-time-seconds t 'lazr-org-refresh-agenda)
+(run-with-idle-timer lazr/org-refresh-agenda-time-seconds t #'lazr/org-refresh-agenda)
 
 (use-package evil-org
   :after evil org
@@ -113,18 +113,18 @@
 
   :config
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (evil-org-agenda-set-keys)
+  (add-hook 'org-mode-hook #'auto-revert-mode))
 
 (use-package org-pomodoro
   :after org)
 
 (use-package deft
-  :config (setq deft-directory lazr-org-directory))
+  :config (setq deft-directory lazr/org-directory))
 
 (use-package markdown-mode)
 
-(use-package org-roam
-  :after org)
+(use-package org-roam :after org)
 
 (use-package org-modern
   :config (global-org-modern-mode))
@@ -134,7 +134,7 @@
 
 ;; Keybindings
 
-(lazr-local-leader-map :keymaps 'org-mode-map
+(lazr/local-leader-map :keymaps 'org-mode-map
   "," 'org-ctrl-c-ctrl-c
   "." 'org-time-stamp
   "A" 'org-archive-all-old
@@ -148,13 +148,8 @@
 ;; Ensure that Tab can open/close outlines
 (general-define-key :states 'normal :keymaps 'org-mode-map "<TAB>" 'org-cycle)
 
-(defun lz/choose-randomly (sequence)
-  "Choose one item randomly out of the SEQUENCE."
-  (if (zerop (length sequence))
-    (error "No choices available")
-    (elt sequence (random (length sequence)))))
 
-(defun lz/org-after-todo-state-change (&optional state)
+(defun lazr/org-after-todo-state-change (&optional state)
   "Play a silly sound when an org todo STATE (also could be given manually to test) has been set to one of the DONE states."
   (when (member (if (boundp 'org-state) org-state state)
 		(list "DONE" "COMPLETE"))
@@ -164,7 +159,7 @@
      (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\\.\\(mp3\\|ogg\\|wav\\)"))))))
 
 (add-hook 'org-after-todo-state-change-hook
-	  'lz/org-after-todo-state-change)
+	  'lazr/org-after-todo-state-change)
 
 ;;;
 ;;; Setup for Dungeons and Dragons
@@ -175,7 +170,7 @@
 (setq dnd-srd-dir "~/org/fun/rpg/dnd/org-dnd-srd-main/"
       dnd-snippet-dir "./dnd-mode/snippets")
 
-(lazr-local-leader-map :keymaps 'dnd-mode-map
+(lazr/local-leader-map :keymaps 'dnd-mode-map
   "r" 'rtd
   "E" 'dnd-eval-charsheet
   "s" 'dnd-select-session-target)

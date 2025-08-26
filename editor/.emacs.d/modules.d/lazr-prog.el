@@ -108,7 +108,7 @@
   (add-to-list 'eglot-server-programs
                '(php-mode . ("phpactor" "language-server"))))
 
-(lazr-local-leader-map :keymaps 'php-mode-map
+(lazr/local-leader-map :keymaps 'php-mode-map
   "ta" 'phpunit-current-project
   "tt" 'phpunit-current-test
   "tc" 'phpunit-current-class)
@@ -122,7 +122,7 @@
                                      eval-buffer
                                      open-repl)
   "Define Lisp keybindings in a consistent manner."
-  `(lazr-local-leader-map :keymaps ,mode
+  `(lazr/local-leader-map :keymaps ,mode
      "e" ,eval-defun
      "E" ,eval-buffer
      "r" ,open-repl))
@@ -141,7 +141,7 @@
                        (lz/symcat-soft lisp-name 'mode-hook))
                      lz/lisps))
   (when lmh
-    (message "lazr-prog: installing lisp mode hook to %s" lmh)
+    (message "lazr/prog: installing lisp mode hook to %s" lmh)
     (add-hook lmh 'parinfer-rust-mode)
     (add-hook lmh 'rainbow-delimiters-mode)
     (add-hook lmh (lambda () (setf indent-tabs-mode nil)))))
@@ -202,7 +202,7 @@
 
 ;; (add-hook 'scheme-mode-hook
 ;; 	  (lambda ()
-;; 	    (setf evil-lookup-func lazr-scheme-lookup)))
+;; 	    (setf evil-lookup-func lazr/scheme-lookup)))
 		  
 
 (require 'ob-scheme)
@@ -247,7 +247,7 @@
 
 ;; Recutils mode
 (use-package rec-mode)
-(lazr-local-leader-map :keymaps 'rec-mode-map
+(lazr/local-leader-map :keymaps 'rec-mode-map
   "n" 'rec-cmd-goto-next-rec
   "p" 'rec-cmd-goto-previous-rec
   "d" 'rec-cmd-show-descriptor
