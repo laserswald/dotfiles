@@ -21,6 +21,7 @@
 (lazr/require-package 'undo-tree)       ; Provide a tree of undo-states. Needed by Evil.
 (lazr/require-package 'evil)            ; Extensible Vi Layer
 (lazr/require-package 'evil-collection) ; Extra bindings for different modes
+(lazr/require-package 'evil-surround)   ; Surround an object
 (lazr/require-package 'general)         ; Better keybinding tools
 
 (setf
@@ -48,5 +49,6 @@
 (evil-mode 1)
 (evil-collection-init)
 (general-evil-setup t)
+(global-evil-surround-mode 1)
 
 (provide 'lazr-package-setup)
