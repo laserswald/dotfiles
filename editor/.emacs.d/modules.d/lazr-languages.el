@@ -27,18 +27,29 @@
 ;;; Data storage and configuration languages.
 ;;;
 
-(use-package yaml-mode)
-(use-package toml-mode)
+;; Generic configuration files.
+(use-package json-mode :ensure t)
+(use-package yaml-mode :ensure t)
+(use-package toml-mode :ensure t)
 
-(use-package terraform-mode)
-(use-package nix-mode)
+;; Data exchange format descriptions.
+(use-package protobuf-mode :ensure t)
 
-(use-package todotxt)
-(use-package rec-mode)
+;; Unix system configuration modes.
+(use-package ssh-config-mode :ensure t)
+(use-package systemd-mode
+  :config
+  (add-to-list 'auto-mode-alist
+               (cons (rx (one-or-more nonl)
+                         "."
+                         (or "container" "volume" "network"
+                             "kube" "image" "build" "pod"))
+                     'systemd-mode)))
 
-(use-package protobuf-mode)
-; (use-package guix)
-(use-package dockerfile-mode)
+;; Infrastructure-as-code modes.
+(use-package terraform-mode :ensure t)
+(use-package nix-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
 
 ;;;
 ;;; Template configuration languages.
