@@ -22,33 +22,32 @@
    ;; Set some variables to modify how Org buffers look
    ;;
 
-   ; Entities (timestamps, etc) should look nice
+   ;; Entities (timestamps, etc) should look nice
    org-pretty-entities t
 
-   ; Don't show the leading stars
+   ;; Don't show the leading stars
    org-hide-leading-stars t
 
-   ; Don't show emphasis or bold markers
+   ;; Don't show emphasis or bold markers
    org-hide-emphasis-markers t
 
-   ; Always indent headlines
+   ;; Always indent headlines
    org-startup-indented t
 
-   ; Fold as much as possible so I don't get overwhelmed
+   ;; Fold as much as possible so I don't get overwhelmed
    org-startup-folded t
 
    ;;
    ;; Refiling
    ;;
 
-   ; Use file paths when refiling
+   ;; Use file paths when refiling
    org-refile-use-outline-path t
 
-   ; Allow me to select a destination in steps
+   ;; Allow me to select a destination in steps
    org-outline-path-complete-in-steps t
    
-
-   org-default-notes-file (concat lazr/org-directory "/index.org")
+   org-default-notes-file lazr-org-agenda-file
 
    org-agenda-files (list (lazr/org-file "/agenda")
                           (lazr/org-file "/agenda/projects"))
@@ -186,6 +185,13 @@
 ;; Provide import and export via vCard for BBDB contacts.
 (use-package bbdb-vcard)
 
-(use-package telega)
+;; Telegram support
+(use-package telega :ensure t)
+
+;; Legacy todo list format
+(use-package todotxt :ensure t)
+
+;; Mini-database used in my notes systems
+(use-package rec-mode :ensure t)
 
 (provide 'lazr-org)
