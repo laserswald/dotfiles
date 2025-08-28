@@ -1,7 +1,8 @@
-
+;;;; -*- lexical-binding: t -*-
 (require 'lazr-package-setup)
 
-(use-package which-key :config (which-key-mode))
+(use-package which-key :ensure t
+  :config (which-key-mode))
 
 ;;; Custom functions that should be bound to keys
 
@@ -64,8 +65,6 @@
  ; Projects
  "p" 'project-switch-project)
 
- 
-
 ;;;
 ;;; Main leader.
 ;;;
@@ -85,7 +84,7 @@
   "t" 'lazr/switch-theme-bg
   "w" 'lazr/save-buffer)
   
-  
+;; Project-wide commands
 (lazr/leader-map :infix "p"
   "f" 'project-find-file
   "g" 'project-search

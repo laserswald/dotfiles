@@ -19,8 +19,8 @@
 
    `(default
      ((,class
-       (:foreground "undefined"
-        :background "undefined"))))
+       (:background ,similar
+        :foreground ,contrast))))
 
    `(tab-bar
      ((,class
