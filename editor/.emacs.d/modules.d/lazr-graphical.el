@@ -28,18 +28,18 @@
   :init (setf doom-modeline-height 32)
   :config (doom-modeline-mode 1))
 
-					; Icons for the modeline.
-(use-package nerd-icons)
+;; Icons for the modeline.
+(use-package nerd-icons :ensure t)
 
-					; User interface for quickly browsing hierarchies in code and files.
-(use-package treemacs)
+;; User interface for quickly browsing hierarchies in code and files.
+(use-package treemacs :ensure t)
 
-					; Use evil mode bindings for Treemacs.
-(use-package treemacs-evil
+;; Use evil mode bindings for Treemacs.
+(use-package treemacs-evil :ensure t
   :after evil treemacs)
 
-					; Integrate Magit with Treemacs
-(use-package treemacs-magit
+;; Integrate Magit with Treemacs
+(use-package treemacs-magit :ensure t
   :after treemacs magit
   :config)
 
@@ -95,43 +95,53 @@
   (dolist (frame (frame-list))
     (set-frame-font font nil t)))
 
-
 (defvar lazr/fonts
-  '("Victor Mono Nerd Font" "Fira Code Nerd Font"))
+  '("Victor Mono Nerd Font"
+    "Victor Mono"
+    "CMU Typewriter NF"
+    "CMU Typewriter"
+    "-PfEd-CMUTypewriter NF-medium-normal-normal-*-*-*-*-*-*-0-iso10646-1"
+    "Fira Code Nerd Font"
+    "Fira Code"
+    "Monospace"))
 
 (defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
-  (let* ((font-size 16)
+  (let* ((font-size 14)
          (font-face (cl-find-if (lambda (f)
                                   (find-font (font-spec :name f
-							:size font-size
-							:weight 'normal
-							:slant 'normal)))
+                                                        :size font-size
+                                                        :weight 'normal
+                                                        :slant 'normal)))
                                 fonts)))
+    (print (format "Selected font: %s" font-face))
     ;; Set the current frame's font and all future frames.
     (set-frame-font font-face t t)))
 
 (defun lazr/setup-frame (frame)
   "Set up the FRAME after it has been created."
-  (if (display-graphic-p)
+
+  ;; Mouse stuff
+  (xterm-mouse-mode 1)
+
+  ;; Enable the right-click menu.
+  (context-menu-mode)
+
+  (if (not (equal (framep frame) 't))
       (progn ; Graphical frames
 
-	;; Enable scrolling that allows for views unbound by character cells
-	(pixel-scroll-mode)
-
-	;; Enable the right-click menu.
-	(context-menu-mode)
+        ;; Enable scrolling that allows for views unbound by character cells
+        (pixel-scroll-mode)
 
 	(apply 'lazr/setup-fonts lazr/fonts)
 
-	(set-frame-size frame 300 60)
+        (set-frame-size frame 300 60)
 
-	;; Apply my theme.
+        ;; Apply my theme.
 	(lazr/apply-theme))
-    (progn
-      ;; Terminal frames.
-      (load-theme 'chameleon)
-      (xterm-mouse-mode 1))))
+
+    (progn ; Terminal frames.
+      (load-theme 'chameleon))))
 
 ;; Apply to the initial frame.
 (lazr/setup-frame (selected-frame))
