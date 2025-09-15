@@ -43,7 +43,7 @@
 
 +ads - subject:deal or subject:sale or subject:coupon or subject:save or subject:savings or subject:clearance or subject:offer or subject:exclusive or subject:rewards or subject:points or subject:free
 
-+ads - subject:/[0-9]+% off/
++ads - subject:"/[0-9]+% off/"
 
 +receipts -ads -- subject:receipt OR subject:invoice OR subject:order
 

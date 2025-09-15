@@ -135,10 +135,9 @@
         lazr-emacs-config-service))
   
 (define lazr-development-services
-  (append lazr-kakoune-services
+  (append #;lazr-kakoune-services
           lazr-emacs-services
           (list lazr-scheme-packages-service)))
-                
 
 ;;;
 ;;; Creative packages, mostly media editing, etc

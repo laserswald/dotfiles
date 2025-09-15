@@ -46,11 +46,11 @@ main(int argc, char *argv[])
 		usage(argv[0], EXIT_FAILURE);
 	}
 
-    if (strcmp(argv[1], "foreground") == 0) {
+	if (strcmp(argv[1], "foreground") == 0) {
 		puts(colors[16]);
-    } else if (strcmp(argv[1], "background") == 0) {
+	} else if (strcmp(argv[1], "background") == 0) {
 		puts(colors[17]);
-    } else {
+	} else {
 		char *end = NULL;
 		long colornum = strtol(argv[1], &end, 10);
 		if (*end != '\0') {
@@ -62,7 +62,7 @@ main(int argc, char *argv[])
 		}
 
 		puts(colors[colornum]);
-    }
+	}
 
 	return EXIT_SUCCESS;
 }

@@ -28,16 +28,16 @@
 ;;;
 
 ;; Generic configuration files.
-(use-package json-mode :ensure t)
 (use-package yaml-mode :ensure t)
 (use-package toml-mode :ensure t)
 
-;; Data exchange format descriptions.
+;; Data exchange formats. 
+(use-package json-mode :ensure t)
 (use-package protobuf-mode :ensure t)
 
 ;; Unix system configuration modes.
 (use-package ssh-config-mode :ensure t)
-(use-package systemd-mode
+(use-package systemd-mode :ensure t
   :config
   (add-to-list 'auto-mode-alist
                (cons (rx (one-or-more nonl)
@@ -55,13 +55,12 @@
 ;;; Template configuration languages.
 ;;;
 
-(use-package poly-ansible
- 
+(use-package poly-ansible :ensure t 
   :config 
   (add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode)))
  
 (use-package feature-mode
- 
+  :ensure t
   :config
   (add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode)))
 

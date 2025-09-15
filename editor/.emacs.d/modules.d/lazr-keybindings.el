@@ -30,6 +30,18 @@
     (ielm)))
 
 ;;;
+;;; Kakoune-like muliple cursors. It's finally happening.
+;;;
+
+(use-package multiple-cursors
+  :ensure t
+  :config
+    (evil-define-key '(normal visual) evil-normal-state-map
+      "c" 'mc/cursor)
+  )
+
+
+;;;
 ;;; Roots of the leader mapping trees.
 ;;;
 

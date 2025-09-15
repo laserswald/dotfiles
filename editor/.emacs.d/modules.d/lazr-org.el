@@ -47,7 +47,7 @@
    ;; Allow me to select a destination in steps
    org-outline-path-complete-in-steps t
    
-   org-default-notes-file lazr-org-agenda-file
+   org-default-notes-file lazr/org-agenda-file
 
    org-agenda-files (list (lazr/org-file "/agenda")
                           (lazr/org-file "/agenda/projects"))
@@ -74,8 +74,11 @@
       (file ,lazr/org-agenda-file)))
 
    org-todo-keywords
-    '((sequence "TODO" "NEXT" "|" "DONE" "WAIT" "CANCEL")
-      (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
+   (list
+     ;; Standard tasks
+     ('sequence "TODO" "|" "DONE" "CANCEL")
+     ;; Software tickets
+     ('sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
 
   :config
   (add-to-list 'org-modules 'org-habit))
@@ -133,15 +136,19 @@
 
 ;; Keybindings
 
+
 (lazr/local-leader-map :keymaps 'org-mode-map
   "," 'org-ctrl-c-ctrl-c
   "." 'org-time-stamp
-  "A" 'org-archive-all-old
   "a" 'org-archive-subtree
+  "c" 'org-capture
+  "d" 'org-deadline
   "l" 'org-store-link
-  "p" 'org-insert
+  "p" 'org-pomodoro
   "r" 'org-refile
-  "t" 'org-todo)
+  "s" 'org-schedule
+  "t" 'org-todo
+  )
 
 ;; For some reason, this is overridden somewhere.
 ;; Ensure that Tab can open/close outlines

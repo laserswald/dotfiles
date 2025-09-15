@@ -1,10 +1,12 @@
-
+;;;; Entry
+;;;;
+;;;;
 (define-library (lazr base)
   (export define-packages-service
           packages-service
-	  services
+      	  services
 
-	  configurable-location
+      	  configurable-location
           lazr-config-file
           lazr-config-directory)
 
@@ -26,8 +28,8 @@
     ;; sees.
     (define (configurable-location my-env-var std-env-var backup-loc)
       (or (get-environment-variable my-env-var)
-	  (get-environment-variable std-env-var)
-	  backup-loc))
+	        (get-environment-variable std-env-var)
+	        backup-loc))
 
     ;; Directory to find configuration files.
     (define lazr-config-directory

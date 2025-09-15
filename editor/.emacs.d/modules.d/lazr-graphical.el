@@ -105,12 +105,22 @@
     "Fira Code"
     "Monospace"))
 
+(defvar lazr/font-size 14)
+
+(defun lazr/available-fonts ()
+  (cl-remove-if-not
+   (lambda (f)
+     (find-font (font-spec :name f
+                           :size lazr/font-size
+                           :weight 'normal
+                           :slant 'normal)))
+   lazr/fonts))
+
 (defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
-  (let* ((font-size 14)
-         (font-face (cl-find-if (lambda (f)
+  (let ((font-face (cl-find-if (lambda (f)
                                   (find-font (font-spec :name f
-                                                        :size font-size
+                                                        :size lazr/font-size
                                                         :weight 'normal
                                                         :slant 'normal)))
                                 fonts)))

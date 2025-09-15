@@ -72,6 +72,7 @@
 ;; Functions 
 ;;
 
+
 (defun lz/symcat-soft (&rest symbols)
   "Get the symbol created by concatenating the SYMBOLS together with '-'."
   (intern-soft (mapconcat #'symbol-name symbols "-")))
