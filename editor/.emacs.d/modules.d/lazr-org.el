@@ -74,11 +74,10 @@
       (file ,lazr/org-agenda-file)))
 
    org-todo-keywords
-   (list
-     ;; Standard tasks
-     ('sequence "TODO" "|" "DONE" "CANCEL")
+   `(;; Standard tasks
+     (sequence "TODO" "|" "DONE" "CANCEL")
      ;; Software tickets
-     ('sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
+     (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
 
   :config
   (add-to-list 'org-modules 'org-habit))
