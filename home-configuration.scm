@@ -3,6 +3,8 @@
 (install-r7rs!)
 
 (import
+ (scheme base)
+ (scheme process-context)
  (ice-9 ftw)
 
  (gnu home)
@@ -11,6 +13,11 @@
  (gnu home services syncthing)
  (gnu home services shells)
  (gnu home services dotfiles)
+ (guix gexp)
+ (guix packages)
+ (guix licenses)
+ (guix git-download)
+ (guix build-system copy)
  
  (gnu services)
  (gnu services configuration)
@@ -19,10 +26,9 @@
  (gnu packages audio)
  (gnu packages autotools)
  (gnu packages base)
- (gnu packages emacs)
- (gnu packages emacs-xyz)
  (gnu packages gimp)
  (gnu packages guile)
+ (gnu packages gnome-xyz)
  (gnu packages inkscape)
  (gnu packages kde)
  (gnu packages linux)
@@ -38,7 +44,6 @@
  (gnu packages ssh)
  (gnu packages syndication)
  (gnu packages terminals)
- (gnu packages text-editors)
  (gnu packages tmux)
  (gnu packages toys)
  (gnu packages video)
@@ -46,21 +51,16 @@
  (gnu packages cmake)
  (gnu packages fonts)
  
- (guix gexp)
- (guix packages)
- (guix licenses)
- (guix git-download)
- (guix build-system copy)
- 
  (lazr base)
  (lazr packages)
  (lazr executable-file)
  (lazr kakoune)
  (lazr kakoune-plugins)
- (lazr shells)
  (lazr mail))
 
 (include "term/config.scm")
+(include "sh/config.scm")
+(include "editor/config.scm")
 
 ;; Fix locale issue
 
@@ -69,6 +69,7 @@
    glibc
    #:locales (list "en_US" "es_US")
    #:name "glibc-united-states-locales"))
+
 ;;;
 ;;; Development tools.
 ;;;
@@ -80,59 +81,6 @@
    racket
    slib
    r7rs-small-texinfo))
-
-
-(define-packages-service lazr-emacs-packages-service
-  (emacs
-   emacs-guix
-   ;; For vterm mode compilation
-   cmake
-   libtool))
-
-(define (emacs-server-shepherd-service config)
-  (list (shepherd-service
-         (documentation "Emacs server.")
-         (provision '(emacs-server))
-         (start #~(make-forkexec-constructor
-                   (list #$(file-append emacs "/bin/emacs") "--fg-daemon")))
-         (stop #~(make-kill-destructor)))))
-
-(define home-emacs-server-service-type
-  (service-type
-   (name 'home-emacs-server)
-   (extensions (list (service-extension home-shepherd-service-type
-                                        emacs-server-shepherd-service)))
-   (default-value #f)
-   (description "Run Emacs in server mode.")))
-
-(define lazr-emacs-config-service
-  (simple-service 'lazr-emacs-config-service
-                  home-files-service-type
-                  `((".emacs.d/init.el"
-                     ,(local-file
-                       (lazr-config-file "editor/.emacs.d/init.el")
-                       "emacs-init-el"))
-                    ("var/sound-effects"
-                     ,(local-file
-                       (lazr-config-file "editor/var/sound-effects")
-                       "sound-effects"
-                       #:recursive? #t))
-                    (".emacs.d/modules.d"
-                     ,(local-file
-                       (lazr-config-file "editor/.emacs.d/modules.d")
-                       "emacs-modules-d"
-                       #:recursive? #t))
-                    (".emacs.d/themes"
-                     ,(local-file
-                       (lazr-config-file "editor/.emacs.d/themes")
-                       "emacs-themes"
-                       #:recursive? #t)))))
-                     
-
-(define lazr-emacs-services
-  (list lazr-emacs-packages-service
-        (service home-emacs-server-service-type)
-        lazr-emacs-config-service))
   
 (define lazr-development-services
   (append #;lazr-kakoune-services
@@ -177,8 +125,6 @@
                    (script "favorite-terminal" "xorg/bin/")
                    (script "favorite-browser" "xorg/bin/")
                    (script "graphical-menu" "xorg/bin/"))))
-                   
-
 
 (define lazr-media-services
   (services
@@ -192,46 +138,59 @@
              (directories (list lazr-config-directory))
              (packages (list "media"))))))
 
+(define lazr-graphical-services
+  (services
+   (packages-service 'lazr-graphical-packages
+                     font-latin-modern
+                     font-fira-code
+                     font-fira-sans
+                     font-cmu-nerdfont
+                     font-awesome
+                     bibata-cursor-theme)
+   (service home-dotfiles-service-type
+            (home-dotfiles-configuration
+             (layout 'stow)
+             (directories (list lazr-config-directory))
+             (packages (list "wayland" "xorg"))))))
+
 (define lazr-misc-services
   (list (service home-syncthing-service-type)
-	
         (service home-dotfiles-service-type
                  (home-dotfiles-configuration
                   (layout 'stow)
                   (directories (list lazr-config-directory))
-                  (packages (list "wayland"
-                                  "xorg"
-                                  "vc"
-                                  "chat"
-                                  "news"
-                                  "core"))))
+                  (packages (list "vc" "chat" "news" "core"))))
         lazr-scripts-service))
-        
+
+(define lazr-server-home
+  (home-environment
+   (packages
+    (list lazr-glibc-locales jq grep ncurses procps password-store libiconv))
+   (services (append lazr-shell-services
+                     lazr-term-services
+                     lazr-development-services))))
 
 (define lazr-workstation-home 
   (home-environment
    (packages
-    (list 
-     jq
-     grep
-     ncurses
-     procps
-     password-store
-     libiconv
-     font-latin-modern
-     font-fira-code
-     font-fira-sans
-     lazr-glibc-locales
-     font-cmu-nerdfont
-     ))
+    (list lazr-glibc-locales jq grep ncurses procps password-store libiconv))
    (services
     (append lazr-shell-services
 	    lazr-term-services
             lazr-development-services
             ;; lazr-creative-services
             communications-services
+            lazr-graphical-services
             lazr-media-services
             lazr-misc-services))))
 
-lazr-workstation-home
+
+
+(let ((host (gethostname)))
+  (cond ((member host '("gargantua" "polaris" "betelgeuse"))
+         lazr-workstation-home)
+        ((member host '("sol" "andromeda" "baked" "vespa"))
+         lazr-server-home)
+        (else
+         (error "Unknown hostname: " host))))
 

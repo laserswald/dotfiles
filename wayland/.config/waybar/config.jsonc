@@ -9,10 +9,12 @@
 	// Choose the order of the modules
 	"modules-left": [
 	    "river/tags",
+	    "hyprland/workspaces",
 	    "custom/media"
 	],
 	"modules-center": [
-	    "river/window"
+	    "river/window",
+	    "hyprland/window"
 	],
 	"modules-right": [
 	    "pulseaudio",

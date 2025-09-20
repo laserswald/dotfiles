@@ -37,7 +37,7 @@
 
 ;; Unix system configuration modes.
 (use-package ssh-config-mode :ensure t)
-(use-package systemd-mode :ensure t
+(use-package systemd :ensure t
   :config
   (add-to-list 'auto-mode-alist
                (cons (rx (one-or-more nonl)
