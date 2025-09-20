@@ -12,7 +12,7 @@ define(`define_font', `
 define_default(`_THEME', `THEME_HOME/_THEME_NAME.toml')
 
 # define_font(`CMUTypewriter NF', `16')
-define_font(`FiraCode Nerd Font', `13')
+define_font(`Fira Code', `13')
 # define_font(`Hack', `13')
 # define_font(`IBM Plex Mono', `13')
 # define_font(`Inconsolata Nerd Font', `13')

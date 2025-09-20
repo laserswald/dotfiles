@@ -9,6 +9,7 @@ all: reconfigure
 	emacsclient -e '(lazr/reload-config)'
 	# Refresh Waybar
 	if pgrep waybar; then pkill -SIGUSR2 waybar; fi
+	if pgrep Hyprland || pgrep hyprland; then hyprctl reload; fi
 
 .PHONY: container
 container:
