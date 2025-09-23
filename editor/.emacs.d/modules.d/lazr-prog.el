@@ -89,12 +89,12 @@
 ;; Web technologies
 
 ; Enables web page template highlighting, including PHP
-(use-package web-mode
+(use-package web-mode :ensure t 
   :init
   (setf web-mode-enable-engine-detection t
         web-mode-markup-indent-offset 2))
 
-(use-package js-comint
+(use-package js-comint :ensure t
   :init
   (setf js-comint-program-command "qjs"))
 
@@ -131,7 +131,7 @@
   '(lisp emacs-lisp scheme racket clojure fennel arc)
   "Lisp variants that I am aware of and may possibly write code in")
 
-(use-package parinfer-rust-mode
+(use-package parinfer-rust-mode :ensure t
   :init
   (setq parinfer-rust-auto-download t))
 
@@ -213,8 +213,8 @@
 ;;; Clojure
 ;;;
 
-(use-package clojure-mode)
-(use-package cider)
+(use-package clojure-mode :ensure t)
+(use-package cider :ensure t)
 ; (require 'ob-clojure-eval-with-babashka)
 
 (lz/define-interactive-keybinds 'clojure-mode-map
@@ -225,7 +225,7 @@
 (evil-define-key 'normal clojure-mode-map "K" 'cider-doc)
 
 ;; Elixir (It's a Lisp, fite me)
-(use-package elixir-mode)
+(use-package elixir-mode :ensure t)
 
 ;;;
 ;;; ML family.

@@ -6,9 +6,9 @@ GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 .PHONY: all
 all: reconfigure
 	fc-cache -f -v 
-	emacsclient -e '(lazr-reload-config)'
+	emacsclient -e '(lazr/reload-config)'
 	# Refresh Waybar
-	pkill -SIGUSR2 waybar
+	if pgrep waybar; then pkill -SIGUSR2 waybar; fi
 
 .PHONY: container
 container:

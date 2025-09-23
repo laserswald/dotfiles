@@ -1,4 +1,5 @@
 #!/bin/sh
+# Log into Weechat using my password manager
 
 export WEECHAT_PASSPHRASE=$(pass im/weechat)
 exec weechat $@
