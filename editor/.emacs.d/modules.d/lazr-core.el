@@ -20,8 +20,7 @@
   :after evil
   :config
   (add-hook 'dired-mode-hook
-	    (lambda () (dired-omit-mode)))
-
+            (lambda () (dired-omit-mode)))
   (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
   ;; When in Dired, use normal mode, since dired has pretty good keybindings already
   (evil-set-initial-state 'dired-mode 'normal)
@@ -77,7 +76,6 @@
 ;;
 ;; Functions 
 ;;
-
 
 (defun lz/symcat-soft (&rest symbols)
   "Get the symbol created by concatenating the SYMBOLS together with '-'."
