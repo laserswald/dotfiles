@@ -108,11 +108,13 @@
 
 # Personal stuff
 
-+lists -- to:/.*@lists.sr.ht/
-+lists -- from:/.*robert@stuffwithstuff.com.*/
-+lists -- from:/.*sir@cmpwn.com.*/
-+lists -- from:substack.com
-+lists -- from:contact@zsa.io
++lists -inbox -- to:/.*@lists.sr.ht/
++lists -inbox -- from:/.*robert@stuffwithstuff.com.*/
++lists -inbox -- from:/.*sir@cmpwn.com.*/
++lists -inbox -- from:/.*srfi.schemers.org.*/
++lists -inbox -- from:substack.com
++lists -inbox -- from:contact@zsa.io
++lists -inbox -- from:substack.com
 
 +remarkable +flagged -- from:my@remarkable.com
 
