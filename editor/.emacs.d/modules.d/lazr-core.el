@@ -20,8 +20,7 @@
   :after evil
   :config
   (add-hook 'dired-mode-hook
-	    (lambda () (dired-omit-mode)))
-
+            (lambda () (dired-omit-mode)))
   (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
   ;; When in Dired, use normal mode, since dired has pretty good keybindings already
   (evil-set-initial-state 'dired-mode 'normal)
@@ -62,8 +61,14 @@
 ;; Communication tools.
 ;;
 
-;; Interface for high speed mail searcher
-(use-package notmuch)
+; Interface for high speed mail searcher
+(use-package notmuch :ensure t
+  :config
+  (evil-set-initial-state '(notmuch-hello-mode
+                            notmuch-search-mode
+                            notmuch-tree-mode
+                            notmuch-show-mode)
+                          'emacs))
 
 ;; Search using Counsel
 (use-package counsel-notmuch)
@@ -71,7 +76,6 @@
 ;;
 ;; Functions 
 ;;
-
 
 (defun lz/symcat-soft (&rest symbols)
   "Get the symbol created by concatenating the SYMBOLS together with '-'."

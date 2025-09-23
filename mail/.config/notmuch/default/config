@@ -11,7 +11,7 @@
 #
 
 [database]
-path=~/var/mail
+path=var/mail
 
 # User configuration
 #
