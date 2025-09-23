@@ -98,6 +98,7 @@
 (defvar lazr/fonts
   '("Victor Mono Nerd Font"
     "Victor Mono"
+    "Terminess"
     "CMU Typewriter NF"
     "CMU Typewriter"
     "-PfEd-CMUTypewriter NF-medium-normal-normal-*-*-*-*-*-*-0-iso10646-1"
@@ -105,7 +106,7 @@
     "Fira Code"
     "Monospace"))
 
-(defvar lazr/font-size 14)
+(defvar lazr/font-size 12)
 
 (defun lazr/available-fonts ()
   (cl-remove-if-not

@@ -6,11 +6,11 @@
 (deftheme chameleon
   "Lazr's preferred terminal-based theme.")
 
-(let ((class '((class color)))
-      (contrast "white")
-      (brightcontrast "brightwhite")
-      (similar "black")
-      (brightsimilar "brightblack"))
+(let* ((class '((class color)))
+       (contrast "white")
+       (brightcontrast "brightwhite")
+       (similar "black")
+       (brightsimilar "brightblack"))
 
   (custom-theme-set-faces
    'chameleon
@@ -18,14 +18,12 @@
    ;; :bold :underline :foreground :background :
 
    `(default
-     ((,class
-       (:background ,similar
-        :foreground ,contrast))))
+     ((,class)))
 
    `(tab-bar
      ((,class
-       (:foreground ,brightcontrast
-	:background ,brightsimilar))))
+       (:foreground ,brightsimilar
+	:background ,brightcontrast))))
 
    `(region
      ((,class (:background ,brightsimilar))))
@@ -38,8 +36,8 @@
      ((,class (:background ,brightcontrast
 	       :foreground ,brightsimilar))))
    `(line-number
-     ((,class (:background ,similar
-	       :foreground ,brightcontrast))))
+     ((,class (:background ,brightsimilar
+	       :foreground ,contrast))))
    `(cursor
      ((,class (:background ,brightcontrast))))
    `(show-paren-match-face
@@ -48,7 +46,7 @@
      ((,class (:bold t :foreground "brightmagenta" :background ,brightsimilar))))
 
    `(vertical-border
-     ((,class (:background ,similar
+     ((,class (:background ,brightsimilar
 	       :foreground ,similar))))
    `(mode-line
      ((,class (:box (:line-width 1 :color nil)
@@ -57,7 +55,7 @@
 	       :foreground ,brightcontrast))))
    `(mode-line-inactive
      ((,class (:box (:line-width 1 :color nil :style pressed-button)
-		    :background ,similar
+		    :background ,brightsimilar
 		    :foreground ,contrast
 		    :weight normal))))
    `(mode-line-buffer-id
