@@ -31,6 +31,7 @@
   :config
   (setenv "TERM" "ansi"))
 
+
 ;; Provide a better interactive choice dialog than the normal Emacs one.
 (use-package ivy 
   :config

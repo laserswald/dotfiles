@@ -4,6 +4,13 @@
 
 declare TIDYFILE=${TIDYFILE:=.tidyfile}
 
+IMAGE_EXTENSIONS="
+	jpg jpeg
+	png
+	gif
+	
+"
+
 exec_tidyfile () {
 	local $tidyfile=$1; shift
 	while read glob path; do 

@@ -169,7 +169,7 @@ bar {
 }
 
 # Looks and feels {{{
-font pango:FiraCode 10
+font pango:FiraCode 16
 for_window [class="^.*"] border pixel 2
 for_window [class="Polybar"] border none
 # gaps inner 5

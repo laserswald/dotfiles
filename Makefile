@@ -5,10 +5,10 @@ GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 
 .PHONY: all
 all: reconfigure
-	fc-cache -f -v 
+	fc-cache -f
 	emacsclient -e '(lazr/reload-config)'
-	# Refresh Waybar
-	if pgrep waybar; then pkill -SIGUSR2 waybar; fi
+	pgrep waybar && pkill -SIGUSR2 waybar
+	pgrep river && river-reload
 	if pgrep Hyprland || pgrep hyprland; then hyprctl reload; fi
 
 .PHONY: container

@@ -5,6 +5,7 @@
 (import
  (scheme base)
  (scheme process-context)
+ (srfi 1)
  (ice-9 ftw)
 
  (gnu home)
@@ -26,6 +27,9 @@
  (gnu packages audio)
  (gnu packages autotools)
  (gnu packages base)
+ (gnu packages emacs)
+ (gnu packages emacs-xyz)
+ (gnu packages gnome)
  (gnu packages gimp)
  (gnu packages guile)
  (gnu packages gnome-xyz)
@@ -178,7 +182,20 @@
 (define lazr-workstation-home 
   (home-environment
    (packages
-    (list lazr-glibc-locales jq grep ncurses procps password-store libiconv))
+    (list 
+     jq
+     grep
+     ncurses
+     procps
+     password-store
+     libiconv
+     font-latin-modern
+     font-fira-code
+     font-fira-sans
+     lazr-glibc-locales
+     font-cmu-nerdfont
+     libnotify
+     ))
    (services
     (append lazr-shell-services
 	    lazr-term-services
@@ -190,11 +207,10 @@
             lazr-misc-services))))
 
 
-
 (let ((host (gethostname)))
   (cond ((member host '("gargantua" "polaris" "betelgeuse"))
          lazr-workstation-home)
-        ((member host '("sol" "andromeda" "baked" "vespa"))
+        ((member host '("sol" "andromeda" "baked" "vespa" "french-fry"))
          lazr-server-home)
         (else
          (error "Unknown hostname: " host))))

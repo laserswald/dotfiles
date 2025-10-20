@@ -10,7 +10,8 @@
 
 (defun lazr/require-package (name)
   (unless (package-installed-p name)
-    (package-install name)))
+    (package-install name))
+  (require name))
 
 (lazr/require-package 'use-package)
 
@@ -24,14 +25,14 @@
 (lazr/require-package 'evil-surround)   ; Surround an object
 (lazr/require-package 'general)         ; Better keybinding tools
 
+
 (setf
  evil-want-integration t
  evil-want-keybinding  nil
  evil-undo-system      'undo-redo)
 
-(setf
- evil-collection-mode-list
- '(apropos dired eglot eldoc eshell vc-dir vc-git magit notmuch process-menu woman xref))
+(setf evil-collection-mode-list
+      '(apropos dired eglot eldoc eshell vc-dir vc-git magit notmuch process-menu woman xref info minibuffer))
 
 (require 'evil)
 (require 'evil-collection)

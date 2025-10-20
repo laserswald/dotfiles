@@ -1,3 +1,18 @@
 #!/bin/sh
 
-RIVERCTL_RELOADING=1 $HOME/.config/river/init
+export RIVERCTL_RELOADING=1
+
+# If WAYLAND_DISPLAY is not set (could be from running it under emacs or whatever)
+# attempt to set it.
+if [ -z "$WAYLAND_DISPLAY" ]
+then
+    # Check the standard place
+    if [ -S "$XDG_RUNTIME_DIR/wayland-1" ]
+    then
+	export WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/wayland-1"
+    fi
+fi
+
+notify-send "Reloading River configuration..."
+${HOME}/.config/river/init
+notify-send "Done!"

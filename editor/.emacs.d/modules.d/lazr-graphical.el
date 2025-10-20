@@ -106,7 +106,7 @@
     "Fira Code"
     "Monospace"))
 
-(defvar lazr/font-size 12)
+(defvar lazr/font-size 16)
 
 (defun lazr/available-fonts ()
   (cl-remove-if-not
@@ -119,12 +119,7 @@
 
 (defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
-  (let ((font-face (cl-find-if (lambda (f)
-                                  (find-font (font-spec :name f
-                                                        :size lazr/font-size
-                                                        :weight 'normal
-                                                        :slant 'normal)))
-                                fonts)))
+  (let ((font-face (lazr/available-fonts)))
     (print (format "Selected font: %s" font-face))
     ;; Set the current frame's font and all future frames.
     (set-frame-font font-face t t)))
@@ -153,9 +148,6 @@
 
     (progn ; Terminal frames.
       (load-theme 'chameleon))))
-
-;; Apply to the initial frame.
-(lazr/setup-frame (selected-frame))
 
 ;; Apply to all future frames
 (add-hook 'after-make-frame-functions 'lazr/setup-frame)

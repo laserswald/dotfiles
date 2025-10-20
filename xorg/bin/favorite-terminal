@@ -3,46 +3,50 @@
 #
 # Abstract away differences between terminals for launching programs
 
-TERM="alacritty"
+TERMS="footclient ghostty alacritty kitty xst st xterm"
+
+# TERM="alacritty"
 # TERM="xst"
 
 WINDOW_CLASS=
-TERMINAL_CMD=$TERM
 
-while getopts 'c:t:' arg; do
-	case $arg in
-		c)
-			WINDOW_CLASS=$OPTARG
-			;;
-		t)
-			WINDOW_TITLE=$OPTARG
-			;;
-		*) 
-			echo "Unknown option"
+while getopts 'c:' arg; do
+    case $arg in
+	c)
+	    WINDOW_CLASS=$OPTARG
+	    ;;
+	*) 
+	    echo "Unknown option"
             exit 1
             ;; 
-	esac
+    esac
 done
 shift $((OPTIND-1))
 
 COMMAND=$@
 
+# Build the command line
+
+for term in $TERMS
+do
+    if command -v "$term"
+    then
+	TERMINAL_CMD=$term
+	break
+    fi
+done
+
 # Install window class
 if [ "$WINDOW_CLASS" ]
 then
-	# kitty --class "$WINDOW_CLASS" "$COMMAND"
-	TERMINAL_CMD="$TERMINAL_CMD -n '$WINDOW_CLASS'"
-	# TERMINAL_CMD="$TERMINAL_CMD -a '$WINDOW_CLASS'"
+    TERMINAL_CMD="$TERMINAL_CMD --class $WINDOW_CLASS"
 fi
 
 # Install command
 if [ "$COMMAND" ]
 then
-	TERMINAL_CMD="$TERMINAL_CMD --command $COMMAND"
-	# TERMINAL_CMD="$TERMINAL_CMD $COMMAND"
+    TERMINAL_CMD="$TERMINAL_CMD --command $COMMAND"
 fi
 
-# Install title
-
-$TERMINAL_CMD
-
+# Execute it
+exec $TERMINAL_CMD

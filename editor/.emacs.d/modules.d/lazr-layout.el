@@ -1,3 +1,5 @@
+;;;; -*- lexical-binding: t -*-
+
 (require 'lazr-core)
 (require 'lazr-keybindings)
 

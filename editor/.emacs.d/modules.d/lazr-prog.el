@@ -3,10 +3,19 @@
 (require 'lazr-core "./lazr-core.el")
 (require 'lazr-keybindings "./lazr-keybindings.el")
 
-;;; Keyword lookup
+;;; Interacting with a REPL or similar 
+
+(defun lz/define-interactive-keybinds (keymap eval-defun eval-buffer open-repl)
+  "Define Lisp keybindings in a consistent manner."
+
+  (lazr/local-leader-map :keymaps keymap
+    "e" eval-defun
+    "E" eval-buffer
+    "r" open-repl))
+
+;;; Keyword/documentation lookup
 
 (make-variable-buffer-local 'evil-lookup-func)
-
 (evil-define-key 'normal ielm-map "K" 'describe-symbol)
 
 ;;;
@@ -76,6 +85,8 @@
   :hook
   '(shell-script-mode . shell-script-format-on-save-mode))
 
+(evil-define-key 'normal ielm-map "K" 'describe-symbol)
+
 ;;
 ;; Python.
 ;;
@@ -86,7 +97,7 @@
 ; Make python available with Org-Babel.
 (require 'ob-python)
 
-;; Web technologies
+;;; Web technologies
 
 ; Enables web page template highlighting, including PHP
 (use-package web-mode :ensure t 
@@ -94,17 +105,30 @@
   (setf web-mode-enable-engine-detection t
         web-mode-markup-indent-offset 2))
 
-(use-package js-comint :ensure t
-  :init
-  (setf js-comint-program-command "qjs"))
+;;
+;; JavaScript
+;;
 
-; PHP 
+(use-package js2-mode :ensure t)
+
+(use-package js-comint :ensure t
+  :init (setf js-comint-program-command "qjs"))
+
+(lz/define-interactive-keybinds 'js2-mode-map
+                                #'js-comint-send-last-sexp
+                                #'js-comint-send-buffer
+                                #'js-comint-repl)
+
+(require 'ob-js)
+
+;;
+;; PHP 
+;;
 
 (use-package php-mode)
 (use-package phpunit)
 
 (with-eval-after-load 'eglot
-
   (add-to-list 'eglot-server-programs
                '(php-mode . ("phpactor" "language-server"))))
 
@@ -117,15 +141,6 @@
 ;;; Lisp family.
 ;;;
 
-(defmacro lz/define-interactive-keybinds (mode
-                                     eval-defun
-                                     eval-buffer
-                                     open-repl)
-  "Define Lisp keybindings in a consistent manner."
-  `(lazr/local-leader-map :keymaps ,mode
-     "e" ,eval-defun
-     "E" ,eval-buffer
-     "r" ,open-repl))
 
 (defconst lz/lisps
   '(lisp emacs-lisp scheme racket clojure fennel arc)
@@ -182,7 +197,6 @@
 
 ;; Use the Geiser interaction mode for Scheme.
 (use-package geiser
- 
   :mode (("\\.sld" . scheme-mode))
   :config
   (setq geiser-active-implementations

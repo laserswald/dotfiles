@@ -1,55 +1,150 @@
 #!/bin/sh
+# My River configuration file.
+set -eu
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
+# This variable is set when called from `river-reload`.
+# Guard things that should not be launched twice here
+: ${RIVERCTL_RELOADING:=}
 
-exec 2>&1 >$HOME/.river-init.log
+# run_services SERVICE_DIRECTORY
+# Run the `runit` services needed to provide a full desktop with River.
+run_services()
+{
+    service_directory=$1
+
+    if ! pgrep "runsvdir $service_directory"
+    then
+	runsvdir $service_directory &
+    fi
+}
+
+#
+# LOGGING
+#
+
+LOG_PATH_FMT="${XDG_STATE_HOME}/river/init.%i.log"
+LOG_KEEP_AMOUNT=10
+
+# rotate_log
+# Rotates the logs for this River instance
+rotate_log()
+{
+    # Create the logging directory
+    mkdir -p "$XDG_STATE_HOME/river"
+
+    # Remove the oldest log.
+    rm -f "$(printf $LOG_PATH_FMT $LOG_KEEP_AMOUNT)"
+
+    # For each log file in the directory, we move it to the next slot
+    #
+    # We need to do it backwards so that we don't accidentally overwrite
+    # an older log with a newer log.
+    for i in $(seq $((LOG_KEEP_AMOUNT - 1)) -1 0)
+    do	
+	log_name=$(printf $LOG_PATH_FMT $i)
+	if [ -f "$log_name" ]
+	then
+	    mv "$log_name" "$( printf $LOG_PATH_FMT $((i + 1)) )"
+	fi
+    done
+}
+
+rotate_log
+exec 2>&1 >$(printf $LOG_PATH_FMT 0)
+
+##
+## Desktop and laptop events.
+##
+
+screenshotcmd="grim"
+
+# Various media key mapping examples for both normal and locked mode which do
+# not have a modifier
+for mode in normal locked
+do
+    # Eject the optical drive
+    riverctl map $mode None XF86Eject spawn "eject -T"
+
+    # Control system volume uing `pactl` which should be installed generally
+    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    riverctl map $mode None XF86AudioMute         spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    riverctl map $mode None XF86AudioMicMute      spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+
+    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+    riverctl map $mode None XF86AudioMedia spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioPlay  spawn "playerctl play-pause"
+    riverctl map $mode None XF86AudioPrev  spawn "playerctl previous"
+    riverctl map $mode None XF86AudioNext  spawn "playerctl next"
+
+    # Control screen backlight brighness with brightnessctl
+    riverctl map -repeat $mode None XF86MonBrightnessUp   spawn "brightnessctl set +5"
+    riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl set -5"
+
+    riverctl map $mode None Print spawn "$screenshotcmd"
+
+    # riverctl map-switch $mode lid close 
+    # riverctl map-switch $mode lid open
+done
+
+##
+## Keybinding setup.
+##
 
 # Use the "logo" key as the primary modifier
 mod="Mod4"
 
-term="$HOME/bin/favorite-terminal"
-term_instance () {
-	echo $term '-c' $1 $1
-}
-
+# Custom modifier on the right side of my Ergodox
 hyper="Mod4+Shift+Mod1+Control"
+
+# Custom modifier on the left side of my Ergodox
 meh="Shift+Mod1+Control"
 
-menucmd="$HOME/bin/graphical-menu"
-browsercmd="web"
-lockcmd="gtklock"
-searchcmd="web-search"
-screenshotcmd="grim"
-secretscmd="passmenu --type"
+##
+## Preferred applications
+##
 
+# Abstract terminal so I don't have to reload River just to switch terms
+term="$HOME/bin/favorite-terminal"
+riverctl map normal $mod+Shift Return spawn "$term"
+riverctl map normal $hyper Return spawn "$term"
+
+# term_instance COMMAND
+# Launch COMMAND in a new terminal instance.
+term_instance () {
+    echo $term '-c' $1 $1
+}
 chatcmd=$(term_instance "wee")
 fmcmd=$(term_instance "ranger")
 scratchpadcmd=$(term_instance "scratchpad")
 mailcmd=$(term_instance "neomutt")
 
-riverctl map normal $mod P spawn "$menucmd"
-riverctl map normal $hyper P spawn "$menucmd"
-riverctl map normal $meh Space spawn "$lockcmd"
+# Choose an XDG Desktop application.
+riverctl map normal $mod Space spawn "wofi --show drun"
+
+# Choose a command-line application.
+riverctl map normal $mod+Shift Space spawn "wofi --show run"
+
+# Command to launch a browser.
+browsercmd="$HOME/bin/favorite-browser"
+
+# Command to search the web for a query.
+searchcmd="$HOME/bin/web-search"
+
+secretscmd="passmenu --type"
 riverctl map normal $meh S spawn "$secretscmd"
 
-riverctl map normal $mod+Shift Return spawn "$term"
-riverctl map normal $hyper Return spawn "$term"
-
-# Mod+Q to close the focused view
+# Mod+C to close the focused view, just like dwm
 riverctl map normal $mod C close
 
-# Mod+E to exit river
-riverctl map normal $mod+Shift E spawn "pkill --signal SIGHUP runsvdir; riverctl exit"
+# Security commands
+lockcmd="gtklock"
+riverctl map normal $mod Q spawn "$lockcmd"
+riverctl map normal $mod+Shift Q spawn "pkill --signal SIGHUP runsvdir; riverctl exit"
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
-riverctl map normal $mod J focus-view next
-riverctl map normal $mod K focus-view previous
+riverctl map normal $mod J focus-view down
+riverctl map normal $mod K focus-view up
 
 # Mod+Shift+J and Mod+Shift+K to swap the focused view with the next/previous
 # view in the layout stack
@@ -57,12 +152,12 @@ riverctl map normal $mod+Shift J swap next
 riverctl map normal $mod+Shift K swap previous
 
 # Mod+Period and Mod+Comma to focus the next/previous output
-riverctl map normal $mod Period focus-output previous
-riverctl map normal $mod Comma focus-output next
+riverctl map normal $mod Comma focus-output left
+riverctl map normal $mod Period focus-output right
 
 # Mod+Shift+{Period,Comma} to send the focused view to the next/previous output
-riverctl map normal $mod+Shift Period send-to-output previous
-riverctl map normal $mod+Shift Comma send-to-output next
+riverctl map normal $mod+Shift Comma send-to-output left
+riverctl map normal $mod+Shift Period send-to-output right
 
 # Mod+Return to bump the focused view to the top of the layout stack
 riverctl map normal $mod Return zoom
@@ -123,10 +218,10 @@ riverctl map normal $mod 0 set-focused-tags $all_tags
 riverctl map normal $mod+Shift 0 set-view-tags $all_tags
 
 # Mod+Space to toggle float
-riverctl map normal $mod Space toggle-float
-  
+riverctl map normal $mod F toggle-float
+
 # Mod+F to toggle fullscreen
-riverctl map normal $mod F toggle-fullscreen
+riverctl map normal $mod+Shift F toggle-fullscreen
 
 # Mod+{Up,Right,Down,Left} to change layout orientation
 riverctl map normal $mod Up    send-layout-cmd rivertile "main-location top"
@@ -149,32 +244,6 @@ riverctl map normal $mod F11 enter-mode passthrough
 # Mod+F11 to return to normal mode
 riverctl map passthrough $mod F11 enter-mode normal
 
-# Various media key mapping examples for both normal and locked mode which do
-# not have a modifier
-for mode in normal locked
-do
-    # Eject the optical drive
-    riverctl map $mode None XF86Eject spawn "eject -T"
-
-    # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map $mode None XF86AudioRaiseVolume  spawn "pamixer -i 5"
-    riverctl map $mode None XF86AudioLowerVolume  spawn "pamixer -d 5"
-    riverctl map $mode None XF86AudioMute         spawn "pamixer --toggle-mute"
-    riverctl map $mode None XF86AudioMicMute      spawn "pamixer --default-source --toggle-mute"
-
-    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-    riverctl map $mode None XF86AudioMedia spawn "playerctl play-pause"
-    riverctl map $mode None XF86AudioPlay  spawn "playerctl play-pause"
-    riverctl map $mode None XF86AudioPrev  spawn "playerctl previous"
-    riverctl map $mode None XF86AudioNext  spawn "playerctl next"
-
-    # Control screen backlight brighness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MonBrightnessUp   spawn "light -A 5"
-    riverctl map $mode None XF86MonBrightnessDown spawn "light -U 5"
-
-    riverctl map $mode None Print spawn "$screenshotcmd"
-done
-
 # Set repeat rate
 riverctl set-repeat 50 300
 
@@ -185,25 +254,27 @@ riverctl rule-add -app-id "popup" float
 # Set app-ids of views which should use client side decorations
 riverctl rule-add -app-id "gedit" csd
 riverctl rule-add -app-id "epiphany" csd
+
 riverctl rule-del -app-id "nwggrid" csd
 riverctl rule-del -app-id "emacs" csd
 
 riverctl focus-follows-cursor normal
 
 if ! [ $RIVERCTL_RELOADING ]; then
-	dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
-	systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+    dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
+    systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
 
-	# swayidle -w timeout 300 'gtklock' &
+    # swayidle -w timeout 300 'gtklock' &
 
-	# Run some desktop services
-	waybar &
-	swaybg &	
-	kanshi &
-	dunst &
+    # Run some desktop services
+    waybar &
+    swaybg &	
+    kanshi &
+    dunst &
 
-	# Optional services
-	command -v telegram-desktop && telegram-desktop &
+    # Optional services
+    command -v telegram-desktop && telegram-desktop &
+    command -v foot && foot --server &
 fi
 
 # Set and exec into the default layout generator, rivertile.
@@ -211,5 +282,5 @@ fi
 riverctl default-layout rivertile
 
 if ! [ $RIVERCTL_RELOADING ]; then
-	exec rivertile
+    exec rivertile
 fi
