@@ -19,13 +19,6 @@
 ;; Set up the most heinous of all Emacs packages
 ;;
 
-(lazr/require-package 'undo-tree)       ; Provide a tree of undo-states. Needed by Evil.
-(lazr/require-package 'evil)            ; Extensible Vi Layer
-(lazr/require-package 'evil-collection) ; Extra bindings for different modes
-(lazr/require-package 'evil-surround)   ; Surround an object
-(lazr/require-package 'general)         ; Better keybinding tools
-
-
 (setf
  evil-want-integration t
  evil-want-keybinding  nil
@@ -34,9 +27,11 @@
 (setf evil-collection-mode-list
       '(apropos dired eglot eldoc eshell vc-dir vc-git magit notmuch process-menu woman xref info minibuffer))
 
-(require 'evil)
-(require 'evil-collection)
-(require 'general)
+(lazr/require-package 'undo-tree)       ; Provide a tree of undo-states. Needed by Evil.
+(lazr/require-package 'evil)            ; Extensible Vi Layer
+(lazr/require-package 'evil-collection) ; Extra bindings for different modes
+(lazr/require-package 'evil-surround)   ; Surround an object
+(lazr/require-package 'general)         ; Better keybinding tools
 
 ; Use Emacs mode for vterms.
 (evil-set-initial-state 'vterm-mode 'emacs)

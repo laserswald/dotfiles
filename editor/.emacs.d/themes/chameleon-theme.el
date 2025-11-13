@@ -4,7 +4,35 @@
 (require 'cl-lib)
 
 (deftheme chameleon
-  "Lazr's preferred terminal-based theme.")
+  "Lazr's preferred terminal-based meta-theme. Each color means the same things
+in all the possible themes.")
+
+(defvar chameleon-color-meanings
+  `((:background . :black) ; Background
+    (:keyword . :red) ; Keywords
+    (:string . :green) ; Strings
+    (:type . :yellow) ; Types
+    (:variable . :blue) ; Variables
+    (:metadata . :magenta) ; Metadata / modules / macros, etc
+    (:function . :cyan) ; Functions
+    (:foreground . :white) ; Everything else
+
+    (:comment . :bright-black) ; Comments
+    (:important-kw . :bright-red) ; "important" keywords
+    (:string-hl . :bright-green) ; String format codes, escape chars, etc
+    (:user-type . :bright-yellow) ; User-defined types
+    (:user-variable . :bright-blue) ; Variable definitions
+    (:user-meta . :bright-magenta) ; User-defined syntax / modules
+    (:user-function . :bright-cyan) ; Function definitions
+    (:documentation . :bright-white) ; Documentation
+    ))
+
+
+(defun chameleon--build-face (graphical-color terminal-color)
+  "Build a face depending on the cl"
+  (if (window-system (selected-frame))
+      `(:foreground ,graphical-color)
+     `(:foreground ,terminal-color)))
 
 (let* ((class '((class color)))
        (contrast "white")
@@ -68,6 +96,9 @@
    `(minibuffer-prompt
      ((,class (:bold t :foreground "red"))))
 
+   ;; Font locking.
+
+   ;; Comments and documentation.
    `(font-lock-comment-face
      ((,class
        (:foreground ,contrast :italic t))))
@@ -82,6 +113,8 @@
      ((,class
        (:foreground "brightmagenta"
 		    :italic t))))
+
+   ;; Code 
    `(font-lock-keyword-face
      ((,class
        (:foreground "red"))))
@@ -160,9 +193,3 @@
        (:foreground "black"))))))
 
 (provide-theme 'chameleon)
-
-(enable-theme 'chameleon)
-
-
-
-

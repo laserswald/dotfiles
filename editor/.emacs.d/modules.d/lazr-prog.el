@@ -60,6 +60,11 @@
 ;;
 ;; C and C++ modes
 ;;
+
+(setf c-default-style
+      '((cc-mode . "linux")
+        (java-mode . "java")
+        (other . "k&r")))
  
 ;;
 ;; Go

@@ -3,7 +3,7 @@
 #
 # Abstract away differences between terminals for launching programs
 
-TERMS="footclient ghostty alacritty kitty xst st xterm"
+TERMS="foot ghostty alacritty kitty xst st xterm"
 
 # TERM="alacritty"
 # TERM="xst"

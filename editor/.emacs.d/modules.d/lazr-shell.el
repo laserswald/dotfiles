@@ -5,12 +5,9 @@
 (setq explicit-shell-file-name "bash"
       explicit-zsh-args '("--login" "--interactive"))
 
-(use-package exec-path-from-shell
- 
+(use-package exec-path-from-shell 
   :config
   (exec-path-from-shell-initialize))
-
-(use-package multi-term)
 
 (defun lazr/zsh-shell-mode-setup ()
   "Set up Zsh when launched as an inferior shell."
