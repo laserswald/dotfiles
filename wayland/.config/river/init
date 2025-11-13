@@ -10,20 +10,6 @@
 
 exec 2>&1 >$HOME/.river-init.log
 
-run_services()
-{
-	services=$1
-
-	echo "Attempting to run $services"
-
-	if ! ps -e | grep -v grep | grep -q "runsvdir $services"
-	then
-		runsvdir $services &
-	fi
-}
-
-
-
 # Use the "logo" key as the primary modifier
 mod="Mod4"
 
@@ -210,7 +196,14 @@ if ! [ $RIVERCTL_RELOADING ]; then
 
 	# swayidle -w timeout 300 'gtklock' &
 
-	run_services $HOME/var/service
+	# Run some desktop services
+	waybar &
+	swaybg &	
+	kanshi &
+	dunst &
+
+	# Optional services
+	command -v telegram-desktop && telegram-desktop &
 fi
 
 # Set and exec into the default layout generator, rivertile.

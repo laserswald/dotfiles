@@ -48,6 +48,7 @@
  (gnu packages toys)
  (gnu packages video)
  (gnu packages web)
+ (gnu packages wm)
  (gnu packages cmake)
  (gnu packages fonts)
  
@@ -108,7 +109,7 @@
                   (list
                    (script "256colors" "bin/bin/")
                    (script "invaders" "bin/bin/")
-
+                   
                    (script "skel" "bin/bin/")
                    (script "sync-etc" "bin/bin/")
                    (script "tidy" "bin/bin/")
@@ -146,7 +147,11 @@
                      font-fira-sans
                      font-cmu-nerdfont
                      font-awesome
-                     bibata-cursor-theme)
+                     bibata-cursor-theme
+                     dunst
+                     kanshi
+                     swaybg
+                     )
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
              (layout 'stow)

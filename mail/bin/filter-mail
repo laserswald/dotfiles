@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notmuch tag --batch --input="$HOME/.config/notmuch/default/tag-rules" 
