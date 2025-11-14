@@ -3,9 +3,32 @@
 
 (require 'cl-lib)
 
+(defvar chameleon-selenized-black
+  `((:black .   "#181818") ; Background
+    (:red .     "#ed4a46") ; Keywords
+    (:green .   "#70b433") ; Strings
+    (:yellow .  "#dbb32d") ; Types
+    (:blue .    "#368aeb") ; Variables
+    (:magenta . "#eb6eb7") ; Metadata / modules / macros, etc
+    (:cyan .    "#3fc5b7") ; Functions
+    (:white .   "#b9b9b9") ; Everything else
+
+    (:bright-black .   "#252525") ; Comments
+    (:bright-red .     "#ff5e56") ; "important" keywords
+    (:bright-green .   "#83c746") ; String format codes, escape chars, etc
+    (:bright-yellow .  "#efc541") ; User-defined types
+    (:bright-blue .    "#4f9cfe") ; Variable definitions
+    (:bright-magenta . "#ff81ca") ; User-defined syntax / modules
+    (:bright-cyan .    "#56d8c9") ; Function definitions
+    (:bright-white .   "#dedede") ; Documentation
+    ))
+
 (deftheme chameleon
   "Lazr's preferred terminal-based meta-theme. Each color means the same things
 in all the possible themes.")
+
+(defvar chameleon-current-theme
+  chameleon-selenized-black)
 
 (defvar chameleon-color-meanings
   `((:background . :black) ; Background
@@ -27,6 +50,9 @@ in all the possible themes.")
     (:documentation . :bright-white) ; Documentation
     ))
 
+(defun chameleon-color (role)
+  (assoc (assoc role chameleon-color-meanings)
+         chameleon-current-theme))
 
 (defun chameleon--build-face (graphical-color terminal-color)
   "Build a face depending on the cl"
