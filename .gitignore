@@ -30,4 +30,3 @@ weechat/.weechat/logs/*
 weechat/.weechat/*.log
 */var/sv/*/supervise
 */var/sv/*/log
-
