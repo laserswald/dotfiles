@@ -98,31 +98,29 @@
 (defvar lazr/fonts
   '("Victor Mono Nerd Font"
     "Victor Mono"
-    "Terminess"
-    "CMU Typewriter NF"
-    "CMU Typewriter"
-    "-PfEd-CMUTypewriter NF-medium-normal-normal-*-*-*-*-*-*-0-iso10646-1"
+    "CMUTypewriter NF"
+    "Terminess Nerd Font"
     "Fira Code Nerd Font"
     "Fira Code"
     "Monospace"))
 
-(defvar lazr/font-size 16)
+;; NOTE: floating points are point font (heh)
+(defvar lazr/font-size 12.0)
 
-(defun lazr/available-fonts ()
-  (cl-remove-if-not
-   (lambda (f)
-     (find-font (font-spec :name f
-                           :size lazr/font-size
-                           :weight 'normal
-                           :slant 'normal)))
-   lazr/fonts))
+(defun lazr/available-font-families ()
+  (cl-remove-if-not (lambda (f) (x-list-fonts f))
+                    lazr/fonts))
 
 (defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
-  (let ((font-face (lazr/available-fonts)))
-    (print (format "Selected font: %s" font-face))
+  (let ((font-family (car (lazr/available-font-families))))
+    (print (format "Selected font: %s" font-family))
     ;; Set the current frame's font and all future frames.
-    (set-frame-font font-face t t)))
+    (set-frame-font
+     (font-spec :family font-family
+                :weight 'medium
+                :size 12.0)
+     t t)))
 
 (defun lazr/setup-frame (frame)
   "Set up the FRAME after it has been created."
