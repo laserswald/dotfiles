@@ -63,6 +63,9 @@
  (lazr kakoune-plugins)
  (lazr mail))
 
+(define lazr-favorite-font
+  "")
+
 (include "term/config.scm")
 (include "sh/config.scm")
 (include "editor/config.scm")
@@ -154,8 +157,7 @@
                      bibata-cursor-theme
                      dunst
                      kanshi
-                     swaybg
-                     )
+                     swaybg)
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
              (layout 'stow)

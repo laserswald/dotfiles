@@ -6,9 +6,10 @@ GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
 .PHONY: all
 all: reconfigure
 	fc-cache -f
-	emacsclient -e '(lazr/reload-config)'
+	test -S "${XDG_RUNTIME_DIR}/emacs/server" && emacsclient -e '(lazr/reload-config)'
 	pgrep waybar && pkill -SIGUSR2 waybar
 	pgrep river && river-reload
+	pgrep kanshi && kanshictl reload
 	if pgrep Hyprland || pgrep hyprland; then hyprctl reload; fi
 
 .PHONY: container

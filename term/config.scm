@@ -57,7 +57,7 @@
                     "lazr-foot-themes"
                     #:recursive? #t))))
    (packages-service 'lazr-foot-packages-service foot)
-   (service home-foot-server-service-type)))
+   #;(service home-foot-server-service-type)))
 
 (define lazr-alacritty-services
   (services
