@@ -125,13 +125,12 @@
 (defun lazr/setup-frame (frame)
   "Set up the FRAME after it has been created."
 
-  ;; Mouse stuff
-  (xterm-mouse-mode 1)
+  (print (concat "Frame being set up: " frame))
 
   ;; Enable the right-click menu.
   (context-menu-mode)
 
-  (if (not (equal (framep frame) 't))
+  (if (not (equal (framep frame) t))
       (progn ; Graphical frames
 
         ;; Enable scrolling that allows for views unbound by character cells
@@ -145,9 +144,18 @@
 	(lazr/apply-theme))
 
     (progn ; Terminal frames.
-      (load-theme 'chameleon))))
+
+      ;; Mouse stuff
+      (xterm-mouse-mode 1)
+
+      ;; Load my terminal theme
+      ;(load-theme 'chameleon)
+      )))
 
 ;; Apply to all future frames
 (add-hook 'after-make-frame-functions 'lazr/setup-frame)
+
+(if (not (server-running-p))
+    (lazr/setup-frame (selected-frame)))
 
 (provide 'lazr-graphical)
