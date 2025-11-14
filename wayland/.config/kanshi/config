@@ -1,7 +1,14 @@
 
+# Framework builtin screen
 output "BOE 0x0BC9 Unknown" alias $builtin
+
+# Outputs at my standing desk
 output "Samsung Electric Company LS27A800U HCJT604170" alias $home_samsung
 output "Dell Inc. DELL U2720QM 8N8JX13" alias $home_dell
+
+# Outputs at my gaming desk
+output "GIGA-BYTE TECHNOLOGY CO., LTD. G27Q *" alias $gaming_main
+output "GIGA-BYTE TECHNOLOGY CO., LTD. M27F A *" alias $gaming_secondary
 
 profile standalone {	
 	output $builtin enable position 0,0
@@ -11,4 +18,9 @@ profile home_office {
 	output $home_samsung enable position 0,0
 	output $home_dell enable position 3840,0
 	output $builtin enable position 7680,560
+}
+
+profile gaming_machine {
+	output $gaming_secondary enable position 0,0
+	output $gaming_main enable position 1920,0
 }
