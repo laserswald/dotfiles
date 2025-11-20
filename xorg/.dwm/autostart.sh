@@ -3,3 +3,4 @@
 
 $HOME/bin/dwm-status &
 runsvdir $HOME/var/pw-service &
+dex -a &

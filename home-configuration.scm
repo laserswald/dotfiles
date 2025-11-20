@@ -27,12 +27,14 @@
  (gnu packages audio)
  (gnu packages autotools)
  (gnu packages base)
+ (gnu packages cmake)
  (gnu packages emacs)
  (gnu packages emacs-xyz)
- (gnu packages gnome)
+ (gnu packages fonts)
  (gnu packages gimp)
- (gnu packages guile)
+ (gnu packages gnome)
  (gnu packages gnome-xyz)
+ (gnu packages guile)
  (gnu packages inkscape)
  (gnu packages kde)
  (gnu packages linux)
@@ -53,9 +55,8 @@
  (gnu packages video)
  (gnu packages web)
  (gnu packages wm)
- (gnu packages cmake)
- (gnu packages fonts)
- 
+ (gnu packages xdisorg)
+
  (lazr base)
  (lazr packages)
  (lazr executable-file)
@@ -63,8 +64,6 @@
  (lazr kakoune-plugins)
  (lazr mail))
 
-(define lazr-favorite-font
-  "")
 
 (include "term/config.scm")
 (include "sh/config.scm")
@@ -146,18 +145,23 @@
              (directories (list lazr-config-directory))
              (packages (list "media"))))))
 
+(define lazr-favorite-font "CMUTypewriter NF")
+
 (define lazr-graphical-services
   (services
    (packages-service 'lazr-graphical-packages
-                     font-latin-modern
-                     font-fira-code
-                     font-fira-sans
-                     font-cmu-nerdfont
-                     font-awesome
                      bibata-cursor-theme
                      dunst
+                     font-awesome
+                     font-cmu-nerdfont
+                     font-fira-code
+                     font-fira-sans
+                     font-latin-modern
                      kanshi
-                     swaybg)
+                     libnotify
+                     swaybg
+                     dex
+                     )
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
              (layout 'stow)
@@ -191,12 +195,7 @@
      procps
      password-store
      libiconv
-     font-latin-modern
-     font-fira-code
-     font-fira-sans
      lazr-glibc-locales
-     font-cmu-nerdfont
-     libnotify
      ))
    (services
     (append lazr-shell-services
