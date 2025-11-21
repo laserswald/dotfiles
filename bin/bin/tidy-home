@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Move things in the home dir to the destination folder
+move_to () {
+	dest=$1; shift
+	for ext in "$@"; do
+		find . -maxdepth 1 -iname "*.$ext" -type f -exec mv '{}' $dest \;
+	done
+}
+
+# Move pre-built directories to my preferred spots
+move_prebuilt () {
+	from=$1
+	to=$2
+	if [ -d "$from" ]; then
+		[ -d "$to" ] || mkdir "$to"
+		mv $from/** "$to" || true
+		mv $from/.* "$to" || true
+		rmdir "$from"
+	fi
+}
+
+cd $HOME
+rm -f \#*\#
+rm -f *.\~
+
+move_to ~/src/lazr/experiments c h cc hh cxx hxx cpp hpp
+move_to ~/src/lazr/experiments scm sld ss lisp clj 
+move_to ~/src/lazr/experiments ml hs 
+move_to ~/src/lazr/experiments java go zig rb js jsx ts cs fsx
+
+move_to ~/img png jpg jpeg
+move_to ~/vid mp4 avi
+move_to ~/docs doc docx odt xls xlsx ods
+
+
+move_prebuilt "$HOME/Desktop" "$HOME/desk"
+move_prebuilt "$HOME/Documents" "$HOME/docs"
+move_prebuilt "$HOME/doc" "$HOME/docs"
+move_prebuilt "$HOME/Downloads" "$HOME/tmp/downloads"
+move_prebuilt "$HOME/Pictures" "$HOME/img"
+move_prebuilt "$HOME/Photos" "$HOME/img"
+move_prebuilt "$HOME/Music" "$HOME/music"
+move_prebuilt "$HOME/Public" "$HOME/share"
+move_prebuilt "$HOME/Templates" "$HOME/skel"
+move_prebuilt "$HOME/Videos" "$HOME/vid"
+
+cd -

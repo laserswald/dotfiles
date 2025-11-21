@@ -1,3 +1,5 @@
+echo "zshrc"
+
 # Source the machine's profile, if it exists.
 [ -f "/etc/profile" ] && source "/etc/profile"
 

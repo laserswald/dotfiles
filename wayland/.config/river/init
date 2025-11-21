@@ -262,13 +262,13 @@ riverctl focus-follows-cursor normal
 
 if ! [ $RIVERCTL_RELOADING ]; then
     dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
-    systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+    systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE
 
     # swayidle -w timeout 300 'gtklock' &
 
     # Run some desktop services
     waybar &
-    swaybg &	
+    swaybg -i ~/img/wallpaper &
     kanshi &
     dunst &
 

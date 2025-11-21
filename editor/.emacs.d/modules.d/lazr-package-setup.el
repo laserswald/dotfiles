@@ -6,6 +6,8 @@
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
+(package-refresh-contents)
+
 (package-initialize)
 
 (defun lazr/require-package (name)

@@ -15,6 +15,7 @@
 (defun lazr/reload-config ()
   "Reload my configuration."
   (interactive)
+  (package-refresh-contents)
   (load user-init-file))
 
 (defun lazr/open-config ()
@@ -37,8 +38,8 @@
   :ensure t
   :config
     (evil-define-key '(normal visual) evil-normal-state-map
-      "c" 'mc/cursor)
-  )
+      "c" 'mc/cursor))
+  
 
 
 ;;;
