@@ -6,6 +6,8 @@
 (require 'cl-lib)
 (require 'lazr-package-setup)
 
+(message "Loading graphical.el")
+
 ;;
 ;; User interface components: turning things on and off to look nice
 ;;
@@ -125,7 +127,7 @@
 (defun lazr/setup-frame (frame)
   "Set up the FRAME after it has been created."
 
-  (print (concat "Frame being set up: " frame))
+  (message "Frame being set up: " frame)
 
   ;; Enable the right-click menu.
   (context-menu-mode)
@@ -154,8 +156,5 @@
 
 ;; Apply to all future frames
 (add-hook 'after-make-frame-functions 'lazr/setup-frame)
-
-(if (not (server-running-p))
-    (lazr/setup-frame (selected-frame)))
 
 (provide 'lazr-graphical)
