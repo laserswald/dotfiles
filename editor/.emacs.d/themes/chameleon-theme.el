@@ -1,4 +1,4 @@
-
+;;; -*- lexical-binding: t -*-
 ;;; Code:
 
 (require 'cl-lib)
@@ -54,17 +54,33 @@ in all the possible themes.")
   (assoc (assoc role chameleon-color-meanings)
          chameleon-current-theme))
 
-(defun chameleon--build-face (graphical-color terminal-color)
+(defun color-pair (graphical terminal)
+  (cons graphical terminal))
+
+(defun color-pair-graphical (p)
+  (car p))
+(defun color-pair-terminal (p)
+  (cdr p))
+
+(defun chameleon--build-face (foreground background &optional bold)
   "Build a face depending on the cl"
-  (if (window-system (selected-frame))
-      `(:foreground ,graphical-color)
-     `(:foreground ,terminal-color)))
+  `((((type graphic) (class color))
+     (:foreground ,(color-pair-graphical foreground)
+                  :background ,(color-pair-graphical background)
+                  :bold bold))
+    (((class color) (min-colors 16))
+     (:foreground ,(color-pair-terminal foreground)
+      :background ,(color-pair-terminal background)
+      :bold bold))))
 
 (let* ((class '((class color)))
-       (contrast "white")
-       (brightcontrast "brightwhite")
-       (similar "black")
-       (brightsimilar "brightblack"))
+       (background (color-pair "#181818" "undefined"))
+       (contrast (color-pair "#b9b9b9" "white"))
+       (brightcontrast (color-pair "#dedede" "brightwhite"))
+       (similar (color-pair "#252525" "black"))
+       (brightsimilar (color-pair "#3b3b3b" "brightblack"))
+       (brightcyan (color-pair "#53d6c7" "brightcyan"))
+       (brightmagenta (color-pair "#ff84cd" "brightmagenta")))
 
   (custom-theme-set-faces
    'chameleon
@@ -72,31 +88,29 @@ in all the possible themes.")
    ;; :bold :underline :foreground :background :
 
    `(default
-     ((,class)))
+     ,(chameleon--build-face contrast background))
 
    `(tab-bar
-     ((,class
-       (:foreground ,brightsimilar
-	:background ,brightcontrast))))
+     ,(chameleon--build-face brightsimilar brightcontrast))
 
    `(region
-     ((,class (:background ,brightsimilar))))
+     ,(chameleon--build-face brightsimilar background))
+
    `(highlight
-     ((,class (:foreground ,brightcontrast
-	       :background ,brightsimilar))))
+     ,(chameleon--build-face brightcontrast brightsimilar))
+
    `(hl-line
-     ((,class (:background ,brightsimilar))))
+     ,(chameleon--build-face brightsimilar background))
    `(fringe
-     ((,class (:background ,brightcontrast
-	       :foreground ,brightsimilar))))
+     ,(chameleon--build-face brightcontrast brightsimilar))
    `(line-number
-     ((,class (:background ,brightsimilar
-	       :foreground ,contrast))))
+     ,(chameleon--build-face brightsimilar contrast))
    `(cursor
-     ((,class (:background ,brightcontrast))))
+     ,(chameleon--build-face contrast background))
    `(show-paren-match-face
-     ((,class (:background "brightcyan"))))
+     ,(chameleon--build-face (color-pair "" "") background))
    `(isearch
+     ,(chameleon--build-face brightmagenta background t))
      ((,class (:bold t :foreground "brightmagenta" :background ,brightsimilar))))
 
    `(vertical-border
@@ -213,9 +227,8 @@ in all the possible themes.")
      ((,class
        (:foreground "blue"))))
 
-
    `(org-hide
      ((,class
-       (:foreground "black"))))))
+       (:foreground "black")))))
 
 (provide-theme 'chameleon)
