@@ -62,8 +62,7 @@
 ;;
 
 (setf c-default-style
-      '((cc-mode . "linux")
-        (java-mode . "java")
+      '((java-mode . "java")
         (other . "k&r")))
  
 ;;
@@ -91,6 +90,23 @@
   '(shell-script-mode . shell-script-format-on-save-mode))
 
 (evil-define-key 'normal ielm-map "K" 'describe-symbol)
+
+;;
+;; Perl and Raku
+;;
+
+(use-package raku-mode
+  :ensure t
+  :defer t)
+
+(use-package flycheck-raku
+  :ensure t
+  :defer t)
+
+(lz/define-interactive-keybinds 'raku-mode-map
+  nil
+  #'raku-send-buffer-to-repl
+  #'run-raku)
 
 ;;
 ;; Python.
@@ -226,7 +242,9 @@
 
 (require 'ob-scheme)
 
-(use-package racket-mode)
+(use-package racket-mode
+  :ensure t
+  :defer t)
 
 ;;;
 ;;; Clojure
