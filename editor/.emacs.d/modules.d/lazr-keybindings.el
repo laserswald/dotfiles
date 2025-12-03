@@ -10,7 +10,7 @@
   "Write the buffer and add it to version control."
   (interactive)
   (save-buffer)
-  (magit-stage-file (buffer-file-name)))
+  (vc-next-action))
 
 (defun lazr/reload-config ()
   "Reload my configuration."
@@ -34,13 +34,11 @@
 ;;; Kakoune-like muliple cursors. It's finally happening.
 ;;;
 
-(use-package multiple-cursors
-  :ensure t
-  :config
-    (evil-define-key '(normal visual) evil-normal-state-map
-      "c" 'mc/cursor))
-  
-
+;; (use-package multiple-cursors
+;;  :ensure t
+;;  :config
+;;    (evil-define-key '(normal visual) evil-normal-state-map
+;;      "c" 'mc/cursor))
 
 ;;;
 ;;; Roots of the leader mapping trees.
@@ -95,7 +93,8 @@
   "g" 'gptel-send
   "s" 'multi-vterm-dedicated-toggle
   "t" 'lazr/switch-theme-bg
-  "w" 'lazr/save-buffer)
+  "w" 'lazr/save-buffer
+  "v" 'vc-prefix-map)
   
 ;; Project-wide commands
 (lazr/leader-map :infix "p"
@@ -114,11 +113,6 @@
   "t" 'xref-find-apropos
   "f" 'counsel-find-file)
 
-;;; 'V'ersion control
-(lazr/leader-map :infix "v"
-  "v" 'vc-next-action
-  "d" 'project-vc-dir)
-
 ;;; 'O'rg mode
 (lazr/leader-map :infix "o"
   "p" 'org-pomodoro)
@@ -132,6 +126,8 @@
   :prefix ",")
 
 (lazr/local-leader-map
+  "," '(lambda ()
+         ())
   "c" 'comment-line
   "C" 'comment-box
   ;;; "d" 'delete-buffer

@@ -5,8 +5,31 @@
 
 ;;; Interacting with a REPL or similar 
 
+(defun lz/interactive-operation-p (x)
+  "Returns T if X is an interactive operation"
+  (memq x '(open-repl eval-defun eval-buffer)))
+
+(defvar lz/interaction-functions
+  (make-hash-table)
+  "A nested hash map of SYMBOL -> SYMBOL -> FUNCTION that stores functions which interact with a
+REPL session.
+The first symbol is the main keymap of the filetype, the second is ")
+
+(defun lz/interaction-function-register! (keymap-symbol operation function)
+  (let ((keymap-hash (gethash keymap-symbol lz/interaction-functions (make-hash-table))))
+    (puthash operation function keymap-hash)
+    (puthash keymap-symbol keymap-hash lz/interaction-functions)))
+
+(defun lz/interaction-function-ref (keymap-symbol operation)
+  (let ((keymap-hash (gethash keymap-symbol lz/interaction-functions (make-hash-table))))
+    (gethash operation keymap-hash nil)))
+
 (defun lz/define-interactive-keybinds (keymap eval-defun eval-buffer open-repl)
   "Define Lisp keybindings in a consistent manner."
+
+  (lz/interaction-function-register! keymap 'open-repl open-repl)
+  (lz/interaction-function-register! keymap 'eval-defun eval-defun)
+  (lz/interaction-function-register! keymap 'eval-buffer eval-buffer)
 
   (lazr/local-leader-map :keymaps keymap
     "e" eval-defun
@@ -30,14 +53,16 @@
 
 ;; Install the built-in Emacs language server client.
 (use-package eglot
+  :ensure t
+  :defer t
   :commands eglot-ensure
   :hook (((c-mode
+           c++-mode
            go-mode
            rust-mode
            python-mode
            php-mode
            shell-script-mode) . eglot-ensure)))
-
 
 ;; Registers LSP checks with flycheck.
 (use-package flycheck-eglot)
@@ -64,6 +89,12 @@
 (setf c-default-style
       '((java-mode . "java")
         (other . "k&r")))
+
+(use-package cmake-mode :ensure t)
+
+(use-package cmake-project
+  :ensure t
+  :init (setq cmake-project-default-build-dir-name "build/"))
  
 ;;
 ;; Go

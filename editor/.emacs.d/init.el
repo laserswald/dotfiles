@@ -5,8 +5,19 @@
 
 ;;;; Code:
 
-
 (require 'cl-lib)
+
+;;
+;; Consistent logging of my emacs init
+;;
+
+(defvar lz/messages-enabled nil)
+
+(defun lz/message (&rest rest)
+  "Display a message but only when a flag is set."
+  (when lz/messages-enabled
+    (apply #'message rest)))
+
 
 (let ((modules-dir (expand-file-name "./modules.d/" user-emacs-directory)))
   (when (file-directory-p modules-dir)
