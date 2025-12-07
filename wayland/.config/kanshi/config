@@ -10,17 +10,17 @@ output "Dell Inc. DELL U2720QM 8N8JX13" alias $home_dell
 output "GIGA-BYTE TECHNOLOGY CO., LTD. G27Q *" alias $gaming_main
 output "GIGA-BYTE TECHNOLOGY CO., LTD. M27F A *" alias $gaming_secondary
 
-profile standalone {	
-	output $builtin enable position 0,0
+profile standalone {		
+	output $builtin enable position 0,0 adaptive_sync on
 }
 
 profile home_office {
-	output $home_samsung enable position 0,0
-	output $home_dell enable position 3840,0
-	output $builtin enable position 7680,560
+	output $home_samsung enable position 0,0 adaptive_sync on
+	output $home_dell enable position 3840,0 adaptive_sync on
+	output $builtin enable position 7680,560 adaptive_sync on
 }
 
 profile gaming_machine {
-	output $gaming_secondary enable position 0,0
-	output $gaming_main enable position 1920,0
+	output $gaming_secondary enable position 0,0 adaptive_sync on
+	output $gaming_main enable position 1920,0 adaptive_sync on
 }

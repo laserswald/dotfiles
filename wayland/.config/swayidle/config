@@ -1,0 +1,12 @@
+# Configuration for Swayidle.
+
+timeout 300 'swaylock -f'
+
+timeout 600 'systemctl sleep'
+before-sleep 'swaylock -f; '
+
+# Lock the system using 'swaylock'
+lock 'swaylock -f'
+
+# Unlock the system using 'swaylock'
+unlock 'pkill --signal SIGUSR1 swaylock'

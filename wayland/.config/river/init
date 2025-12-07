@@ -138,7 +138,7 @@ riverctl map normal $meh S spawn "$secretscmd"
 riverctl map normal $mod C close
 
 # Security commands
-lockcmd="gtklock"
+lockcmd="swaylock"
 riverctl map normal $mod Q spawn "$lockcmd"
 riverctl map normal $mod+Shift Q spawn "pkill --signal SIGHUP runsvdir; riverctl exit"
 
@@ -264,11 +264,17 @@ if ! [ $RIVERCTL_RELOADING ]; then
     dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
     systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE
 
-    # swayidle -w timeout 300 'gtklock' &
+    swayidle -w &
 
     # Run some desktop services
+
+    # Status bar 
     waybar &
+
+    # Desktop background.
     swaybg -i ~/img/wallpaper &
+
+    # 
     kanshi &
     dunst &
 

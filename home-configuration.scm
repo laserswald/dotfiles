@@ -151,6 +151,8 @@
   (services
    (packages-service 'lazr-graphical-packages
                      bibata-cursor-theme
+                     brightnessctl
+                     dex
                      dunst
                      font-awesome
                      font-cmu-nerdfont
@@ -158,9 +160,10 @@
                      font-fira-sans
                      font-latin-modern
                      kanshi
-                     libnotify
+                     libnotify ;; For notify-send
                      swaybg
-                     dex
+                     swayidle
+                     swaylock
                      )
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
