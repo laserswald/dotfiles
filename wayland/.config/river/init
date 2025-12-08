@@ -78,12 +78,12 @@ do
     riverctl map $mode None XF86AudioNext  spawn "playerctl next"
 
     # Control screen backlight brighness with brightnessctl
-    riverctl map -repeat $mode None XF86MonBrightnessUp   spawn "brightnessctl set +5"
-    riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl set -5"
+    riverctl map -repeat $mode None XF86MonBrightnessUp   spawn "brightnessctl set +10%"
+    riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl set 10%-"
 
     riverctl map $mode None Print spawn "$screenshotcmd"
 
-    # riverctl map-switch $mode lid close 
+    riverctl map-switch $mode lid close spawn "systemctl sleep"
     # riverctl map-switch $mode lid open
 done
 

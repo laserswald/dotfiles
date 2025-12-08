@@ -161,6 +161,7 @@
                      font-latin-modern
                      kanshi
                      libnotify ;; For notify-send
+                     playerctl
                      swaybg
                      swayidle
                      swaylock
