@@ -34,7 +34,9 @@ The first symbol is the main keymap of the filetype, the second is ")
   (lazr/local-leader-map :keymaps keymap
     "e" eval-defun
     "E" eval-buffer
-    "r" open-repl))
+    "r" open-repl)
+
+  )
 
 ;;; Keyword/documentation lookup
 
@@ -120,7 +122,7 @@ The first symbol is the main keymap of the filetype, the second is ")
   :hook
   '(shell-script-mode . shell-script-format-on-save-mode))
 
-(evil-define-key 'normal ielm-map "K" 'describe-symbol)
+(evil-define-key 'normal shell-script-mode-map "K" 'woman)
 
 ;;
 ;; Perl and Raku
