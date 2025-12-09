@@ -134,6 +134,13 @@
                    (script "favorite-browser" "xorg/bin/")
                    (script "graphical-menu" "xorg/bin/"))))
 
+(define lazr-tidy-service
+  (simple-service
+   'lazr-tidy-home home-shepherd-service-type
+   (list (shepherd-timer '(lazr-tidy-home)
+                         #~(calendar-event #:hours '(8 20))
+                         #~("tidy-home")))))
+
 (define lazr-media-services
   (services
    (packages-service 'lazr-media-packages
@@ -182,7 +189,8 @@
                   (layout 'stow)
                   (directories (list lazr-config-directory))
                   (packages (list "vc" "chat" "news" "core"))))
-        lazr-scripts-service))
+        lazr-scripts-service
+        lazr-tidy-service))
 
 (define lazr-server-home
   (home-environment
