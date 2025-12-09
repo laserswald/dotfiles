@@ -94,7 +94,9 @@
   "s" 'multi-vterm-dedicated-toggle
   "t" 'lazr/switch-theme-bg
   "w" 'lazr/save-buffer
-  "v" 'vc-prefix-map)
+  "v" 'vc-prefix-map
+  "=" 'lz/increase-font-size
+  "-" 'lz/decrease-font-size)
   
 ;; Project-wide commands
 (lazr/leader-map :infix "p"

@@ -98,16 +98,24 @@
     (set-frame-font font nil t)))
 
 (defvar lazr/fonts
-  '("Victor Mono Nerd Font"
-    "Victor Mono"
-    "CMUTypewriter NF"
-    "Terminess Nerd Font"
-    "Fira Code Nerd Font"
-    "Fira Code"
-    "Monospace"))
+  (list
+   "Victor Mono Nerd Font"
+   "CMUTypewriter NF"
+   "Terminess Nerd Font"
+   "Fira Code Nerd Font"
+   "Fira Code"
+   "Monospace"))
 
 ;; NOTE: floating points are point font (heh)
-(defvar lazr/font-size 12.0)
+(defvar lazr/font-size 16.0)
+
+(defun lz/increase-font-size ()
+  (interactive)
+  (setf lazr/font-size (+ 1.0 lazr/font-size)))
+
+(defun lz/decrease-font-size ()
+  (interactive)
+  (setf lazr/font-size (- lazr/font-size 1.0)))
 
 (defun lazr/available-font-families ()
   (cl-remove-if-not (lambda (f) (x-list-fonts f))
@@ -116,13 +124,19 @@
 (defun lazr/setup-fonts (&rest fonts)
   "Find the first font in the list FONTS that exists on the system, and then set it as the default font."
   (let ((font-family (car (lazr/available-font-families))))
-    (print (format "Selected font: %s" font-family))
     ;; Set the current frame's font and all future frames.
     (set-frame-font
      (font-spec :family font-family
                 :weight 'medium
-                :size 12.0)
+                :size lazr/font-size)
      t t)))
+
+(defun lazr/on-font-preferences-change (symbol newval operation where)
+  (message "Setting new font preferences")
+  (lazr/setup-fonts))
+
+(add-variable-watcher 'lazr/fonts #'lazr/on-font-preferences-change)
+(add-variable-watcher 'lazr/font-size #'lazr/on-font-preferences-change)
 
 (defun lazr/setup-frame (frame)
   "Set up the FRAME after it has been created."
@@ -135,6 +149,7 @@
   (if (not (equal (framep frame) t))
       (progn ; Graphical frames
 
+        (message "graphical frame being set up")
         ;; Enable scrolling that allows for views unbound by character cells
         (pixel-scroll-mode)
 
@@ -146,6 +161,7 @@
 	(lazr/apply-theme))
 
     (progn ; Terminal frames.
+      (message "Terminal frame being set up")
 
       ;; Mouse stuff
       (xterm-mouse-mode 1)
