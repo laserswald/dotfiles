@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. "$HOME/.config/user-dirs.dirs"
+
+SCREENSHOTDIR="${XDG_PICTURES_DIR}/screen"
+mkdir -p ${SCREENSHOTDIR}
+FILENAME="${SCREENSHOTDIR}/$(date +%s-$(hostname).png)"
+
+case $1 in
+    # Select a region, then screenshot it
+    "region")
+	slurp | grim -g - $FILENAME
+	;;
+
+    # Screenshot the entire desktop
+    "desktop"|"")
+	grim $FILENAME
+	;;
+
+    # Anything else, fail
+    *)
+	notify-send "screenshot" "Unknown screenshot type: $1"
+	exit 1;;
+esac
+
+notify-send -h "string:image-path:$FILENAME" "Screenshot saved!" "$FILENAME"
+

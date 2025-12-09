@@ -56,8 +56,6 @@ exec 2>&1 >$(printf $LOG_PATH_FMT 0)
 ## Desktop and laptop events.
 ##
 
-screenshotcmd="grim"
-
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked
@@ -81,7 +79,9 @@ do
     riverctl map -repeat $mode None XF86MonBrightnessUp   spawn "brightnessctl set +10%"
     riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl set 10%-"
 
-    riverctl map $mode None Print spawn "$screenshotcmd"
+    # Screenshots 
+    riverctl map $mode None Print spawn "$HOME/bin/screenshot-tool"
+    riverctl map $mode Control Print spawn "$HOME/bin/screenshot-tool region"
 
     riverctl map-switch $mode lid close spawn "systemctl sleep"
     # riverctl map-switch $mode lid open

@@ -23,6 +23,7 @@
  (gnu services)
  (gnu services configuration)
  
+ (gnu packages image)
  (gnu packages admin)
  (gnu packages audio)
  (gnu packages autotools)
@@ -165,6 +166,8 @@
                      swaybg
                      swayidle
                      swaylock
+                     grim
+                     slurp
                      )
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
