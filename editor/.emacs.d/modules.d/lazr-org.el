@@ -191,9 +191,6 @@
 ;; Provide import and export via vCard for BBDB contacts.
 (use-package bbdb-vcard)
 
-;; Telegram support
-(use-package telega :ensure t)
-
 ;; Legacy todo list format
 (use-package todotxt :ensure t)
 
