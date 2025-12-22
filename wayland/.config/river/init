@@ -1,6 +1,7 @@
 #!/bin/sh
 # My River configuration file.
-set -eu
+
+set -e
 
 # This variable is set when called from `river-reload`.
 # Guard things that should not be launched twice here
@@ -281,14 +282,11 @@ if ! [ $RIVERCTL_RELOADING ]; then
     # Optional services
     command -v telegram-desktop && telegram-desktop &
     command -v foot && foot --server &
-
-    dex -a
+    command -v dex && dex -a &
 fi
 
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
+rivertile &
 
-if ! [ $RIVERCTL_RELOADING ]; then
-    exec rivertile
-fi
