@@ -7,16 +7,18 @@
 
 (require 'cl-lib)
 
-;;
-;; Consistent logging of my emacs init
-;;
+;;;
+;;; Consistent logging of my emacs init
+;;;
 
-(defvar lz/messages-enabled nil)
+(defvar lz/messages-enabled nil
+  "Should debug messages using lz/message be enabled?")
 
 (defun lz/message (&rest rest)
-  "Display a message but only when a flag is set."
+  "Display a message containing REST but only when the flag lz/messages-enabled is set."
   (when lz/messages-enabled
     (apply #'message rest)))
+
 
 
 (let ((modules-dir (expand-file-name "./modules.d/" user-emacs-directory)))
