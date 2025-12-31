@@ -35,9 +35,9 @@
  (gnu packages gimp)
  (gnu packages gnome)
  (gnu packages gnome-xyz)
+ (gnu packages kde-graphics)
  (gnu packages guile)
  (gnu packages inkscape)
- (gnu packages kde)
  (gnu packages linux)
  (gnu packages mail)
  (gnu packages mpd)
@@ -145,7 +145,6 @@
   (services
    (packages-service 'lazr-media-packages
                      mpd
-                     beets
                      ncmpcpp)
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
