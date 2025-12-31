@@ -1,15 +1,18 @@
 #!/bin/sh
 
 MAIL_PID_FILE=$HOME/var/mail.pid
-
 if [ -f $MAIL_PID_FILE ]; then
     notify-send -i 'mail' "Mail" "Mail daemon already running."
     exit 0
 fi
 
-notify-send -i mail-send-recieve "Mail" "Fetching mail..."
+# notify-send -i mail-send-recieve "Mail" "Fetching mail..."
 notmuch new
 echo $! > $MAIL_PID_FILE
-notify-send -i mail-unread "Mail" "You have $(notmuch count tag:inbox AND tag:unread) unread messages."
-canberra-gtk-play -i message
-rm $MAIL_PID_FILE
+
+unread_count=$(notmuch count tag:inbox AND tag:unread)
+if [ $unread_count -gt 0 ]
+then
+    notify-send -i mail-unread "Mail" "You have $unread_count unread messages."
+fi
+trap "rm $MAIL_PID_FILE" EXIT

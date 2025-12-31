@@ -189,7 +189,9 @@
                   (directories (list lazr-config-directory))
                   (packages (list "vc" "chat" "news" "core"))))
         lazr-scripts-service
-        lazr-tidy-service))
+        lazr-tidy-service
+        (service home-mcron-service-type
+                 (home-mcron-configuration))))
 
 (define lazr-server-home
   (home-environment

@@ -43,3 +43,7 @@ plugins=(
 # Let's just use it for a while.
 ZSH_THEME=""
 
+# Configure email alerting.
+
+mailpath=("$HOME/var/mail/bdr?You have new mail in $_."
+	  "$HOME/var/mail/lazr?You have new mail in $_.:")
