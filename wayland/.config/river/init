@@ -283,6 +283,7 @@ if ! [ $RIVERCTL_RELOADING ]; then
     command -v telegram-desktop && telegram-desktop &
     command -v foot && foot --server &
     command -v dex && dex -a &
+    command -v shepherd && shepherd &
 fi
 
 # Set and exec into the default layout generator, rivertile.
