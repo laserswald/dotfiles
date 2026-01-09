@@ -3,232 +3,158 @@
 
 (require 'cl-lib)
 
-(defvar chameleon-selenized-black
-  `((:black .   "#181818") ; Background
-    (:red .     "#ed4a46") ; Keywords
-    (:green .   "#70b433") ; Strings
-    (:yellow .  "#dbb32d") ; Types
-    (:blue .    "#368aeb") ; Variables
-    (:magenta . "#eb6eb7") ; Metadata / modules / macros, etc
-    (:cyan .    "#3fc5b7") ; Functions
-    (:white .   "#b9b9b9") ; Everything else
-
-    (:bright-black .   "#252525") ; Comments
-    (:bright-red .     "#ff5e56") ; "important" keywords
-    (:bright-green .   "#83c746") ; String format codes, escape chars, etc
-    (:bright-yellow .  "#efc541") ; User-defined types
-    (:bright-blue .    "#4f9cfe") ; Variable definitions
-    (:bright-magenta . "#ff81ca") ; User-defined syntax / modules
-    (:bright-cyan .    "#56d8c9") ; Function definitions
-    (:bright-white .   "#dedede") ; Documentation
-    ))
-
 (deftheme chameleon
   "Lazr's preferred terminal-based meta-theme. Each color means the same things
 in all the possible themes.")
 
+(defvar chameleon-selenized-black
+  `((black .   "#252525") ; Background
+    (red .     "#ed4a46") ; Keywords
+    (green .   "#70b433") ; Strings
+    (yellow .  "#dbb32d") ; Types
+    (blue .    "#368aeb") ; Variables
+    (magenta . "#eb6eb7") ; Metadata / modules / macros, etc
+    (cyan .    "#3fc5b7") ; Functions
+    (white .   "#b9b9b9") ; Everything else
+
+    (brightblack .   "#3b3b3b") ; Comments
+    (brightred .     "#ff5e56") ; "important" keywords
+    (brightgreen .   "#83c746") ; String format codes, escape chars, etc
+    (brightyellow .  "#efc541") ; User-defined types
+    (brightblue .    "#4f9cfe") ; Variable definitions
+    (brightmagenta . "#ff81ca") ; User-defined syntax / modules
+    (brightcyan .    "#56d8c9") ; Function definitions
+    (brightwhite .   "#dedede") ; Documentation
+
+    (foreground . "#b9b9b9")
+    (background . "#181818")))
+
 (defvar chameleon-current-theme
   chameleon-selenized-black)
 
-(defvar chameleon-color-meanings
-  `((:background . :black) ; Background
-    (:keyword . :red) ; Keywords
-    (:string . :green) ; Strings
-    (:type . :yellow) ; Types
-    (:variable . :blue) ; Variables
-    (:metadata . :magenta) ; Metadata / modules / macros, etc
-    (:function . :cyan) ; Functions
-    (:foreground . :white) ; Everything else
+(defun chameleon-graphical-color (name)
+  (cdr (assoc name chameleon-current-theme)))
 
-    (:comment . :bright-black) ; Comments
-    (:important-kw . :bright-red) ; "important" keywords
-    (:string-hl . :bright-green) ; String format codes, escape chars, etc
-    (:user-type . :bright-yellow) ; User-defined types
-    (:user-variable . :bright-blue) ; Variable definitions
-    (:user-meta . :bright-magenta) ; User-defined syntax / modules
-    (:user-function . :bright-cyan) ; Function definitions
-    (:documentation . :bright-white) ; Documentation
-    ))
-
-(defun chameleon-color (role)
-  (assoc (assoc role chameleon-color-meanings)
-         chameleon-current-theme))
-
-(defun color-pair (graphical terminal)
-  (cons graphical terminal))
-
-(defun color-pair-graphical (p)
-  (car p))
-(defun color-pair-terminal (p)
-  (cdr p))
-
-(defun chameleon--build-face (foreground background &optional bold)
-  "Build a face depending on the cl"
+(defun chameleon--build-face (foreground background &rest extras)
   `((((type graphic) (class color))
-     (:foreground ,(color-pair-graphical foreground)
-                  :background ,(color-pair-graphical background)
-                  :bold bold))
+     (:foreground ,(if (equal 'default foreground)
+                       (chameleon-graphical-color 'foreground)
+                       (chameleon-graphical-color foreground))
+      :background ,(if (equal 'default background)
+                       (chameleon-graphical-color 'background)
+                       (chameleon-graphical-color background))
+      ,extras))
     (((class color) (min-colors 16))
-     (:foreground ,(color-pair-terminal foreground)
-      :background ,(color-pair-terminal background)
-      :bold bold))))
+     (:foreground ,(if (equal foreground 'default)
+                       "unspecified"
+                       (symbol-name foreground))
+      :background ,(if (equal 'background 'default) "unspecified" (symbol-name background))
+      ,extras))))
 
-(let* ((class '((class color)))
-       (background (color-pair "#181818" "undefined"))
-       (contrast (color-pair "#b9b9b9" "white"))
-       (brightcontrast (color-pair "#dedede" "brightwhite"))
-       (similar (color-pair "#252525" "black"))
-       (brightsimilar (color-pair "#3b3b3b" "brightblack"))
-       (brightcyan (color-pair "#53d6c7" "brightcyan"))
-       (brightmagenta (color-pair "#ff84cd" "brightmagenta")))
+(custom-theme-set-faces 'chameleon
+  `(default ,(chameleon--build-face 'foreground 'background))
+  `(tab-bar ,(chameleon--build-face 'brightwhite 'brightblack))
+  `(region ,(chameleon--build-face 'default 'brightblack))
+  `(highlight ,(chameleon--build-face 'brightblack 'brightwhite))
+  `(hl-line ,(chameleon--build-face 'brightblack 'background))
+  `(fringe ,(chameleon--build-face 'brightblack 'brightwhite))
+  `(line-number
+    ,(chameleon--build-face 'brightblack 'black))
+  `(cursor
+    ,(chameleon--build-face 'black 'white))
+  `(show-paren-match-face
+    ,(chameleon--build-face 'brightmagenta 'black))
+  `(isearch
+    ,(chameleon--build-face 'brightmagenta 'black :bold t))
 
-  (custom-theme-set-faces
-   'chameleon
+  `(vertical-border
+    ,(chameleon--build-face 'brightblack 'black))
 
-   ;; :bold :underline :foreground :background :
+  `(mode-line
+    ,(chameleon--build-face 'brightwhite 'brightblack :bold t))
 
-   `(default
-     ,(chameleon--build-face contrast background))
+  `(mode-line-inactive
+    ,(chameleon--build-face 'white 'brightblack))
 
-   `(tab-bar
-     ,(chameleon--build-face brightsimilar brightcontrast))
+  `(mode-line-buffer-id
+    ,(chameleon--build-face 'cyan 'brightblack))
+  `(mode-line-highlight
+    ,(chameleon--build-face 'red 'default :bold t))
+  `(mode-line-emphasis
+    ,(chameleon--build-face 'white 'brightblack))
 
-   `(region
-     ,(chameleon--build-face brightsimilar background))
+  `(minibuffer-prompt
+    ,(chameleon--build-face 'red 'default :bold t))
 
-   `(highlight
-     ,(chameleon--build-face brightcontrast brightsimilar))
+  ;; Font locking.
 
-   `(hl-line
-     ,(chameleon--build-face brightsimilar background))
-   `(fringe
-     ,(chameleon--build-face brightcontrast brightsimilar))
-   `(line-number
-     ,(chameleon--build-face brightsimilar contrast))
-   `(cursor
-     ,(chameleon--build-face contrast background))
-   `(show-paren-match-face
-     ,(chameleon--build-face (color-pair "" "") background))
-   `(isearch
-     ,(chameleon--build-face brightmagenta background t))
-     ((,class (:bold t :foreground "brightmagenta" :background ,brightsimilar))))
+  ;; Comments and documentation.
+  `(font-lock-comment-face
+    ,(chameleon--build-face 'white 'default :italic t))
+  `(font-lock-comment-delimiter-face
+    ,(chameleon--build-face 'white 'default :italic t :bold t))
+  `(font-lock-doc-face
+    ,(chameleon--build-face 'white 'default :italic t))
+  `(font-lock-doc-markup-face
+    ,(chameleon--build-face 'cyan 'default :italic t))
 
-   `(vertical-border
-     ((,class (:background ,brightsimilar
-	       :foreground ,similar))))
-   `(mode-line
-     ((,class (:box (:line-width 1 :color nil)
-	       :bold t
-	       :background ,brightsimilar
-	       :foreground ,brightcontrast))))
-   `(mode-line-inactive
-     ((,class (:box (:line-width 1 :color nil :style pressed-button)
-		    :background ,brightsimilar
-		    :foreground ,contrast
-		    :weight normal))))
-   `(mode-line-buffer-id
-     ((,class (:bold t :foreground "cyan" :background nil))))
-   `(mode-line-highlight
-     ((,class (:foreground "red" :box nil :weight bold))))
-   `(mode-line-emphasis
-     ((,class (:foreground ,contrast))))
+  ;;; Code 
 
-   `(minibuffer-prompt
-     ((,class (:bold t :foreground "red"))))
+  `(font-lock-keyword-face
+    ,(chameleon--build-face 'red 'default))
 
-   ;; Font locking.
+  `(font-lock-builtin-face
+    ,(chameleon--build-face 'brightyellow 'default))
 
-   ;; Comments and documentation.
-   `(font-lock-comment-face
-     ((,class
-       (:foreground ,contrast :italic t))))
-   `(font-lock-comment-delimiter-face
-     ((,class
-       (:foreground ,contrast :italic t))))
-   `(font-lock-doc-face
-     ((,class
-       (:foreground ,contrast
-		    :italic t))))
-   `(font-lock-doc-markup-face
-     ((,class
-       (:foreground "brightmagenta"
-		    :italic t))))
+  `(font-lock-operator-face
+    ,(chameleon--build-face 'yellow 'default))
 
-   ;; Code 
-   `(font-lock-keyword-face
-     ((,class
-       (:foreground "red"))))
-   `(font-lock-builtin-face
-     ((,class
-       (:foreground "brightyellow"))))
-   `(font-lock-operator-face
-     ((,class
-       (:foreground "yellow"))))
-   `(font-lock-function-name-face
-     ((,class
-       (:foreground "brightblue"
-	:bold t))))
-   `(font-lock-variable-name-face
-     ((,class
-       (:foreground "blue"
-	:bold t))))
-   `(font-lock-variable-use-face
-     ((,class
-       (:foreground "blue"))))
-   `(font-lock-type-face
-     ((,class
-       (:foreground "brightyellow"
-	:bold t))))
-   `(font-lock-constant-face
-     ((,class
-       (:foreground "brightred"))))
-   `(font-lock-preprocessor-face
-     ((,class
-       (:foreground "magenta"))))
+  `(font-lock-function-name-face
+    ,(chameleon--build-face 'brightblue 'default :bold t))
 
-   `(font-lock-string-face
-     ((,class
-       (:foreground "green"))))
-   `(font-lock-escape-face
-     ((,class
-       (:foreground "brightgreen"))))
+  `(font-lock-variable-name-face
+    ,(chameleon--build-face 'blue 'default :bold t))
+  `(font-lock-variable-use-face
+    ,(chameleon--build-face 'blue 'default))
 
-   `(font-lock-property-name-face
-     ((,class
-       (:foreground "brightcyan"))))
-   `(font-lock-property-use-face
-     ((,class
-       (:foreground "cyan"))))
+  `(font-lock-type-face
+    ,(chameleon--build-face 'brightyellow 'default :bold t))
+  `(font-lock-constant-face
+    ,(chameleon--build-face 'brightred 'default))
+  `(font-lock-preprocessor-face
+    ,(chameleon--build-face 'magenta 'default))
 
-   ;;; Outlining and Org mode
+  `(font-lock-string-face
+    ,(chameleon--build-face 'green 'default))
+  `(font-lock-escape-face
+    ,(chameleon--build-face 'brightgreen 'default))
 
-   `(outline-1
-     ((,class
-       (:foreground "magenta"))))
-   `(outline-2
-     ((,class
-       (:foreground "blue"))))
-   `(outline-3
-     ((,class
-       (:foreground "cyan"))))
-   `(outline-4
-     ((,class
-       (:foreground "green"))))
-   `(outline-5
-     ((,class
-       (:foreground "yellow"))))
-   `(outline-6
-     ((,class
-       (:foreground "red"))))
-   `(outline-7
-     ((,class
-       (:foreground "magenta"))))
-   `(outline-8
-     ((,class
-       (:foreground "blue"))))
+  `(font-lock-property-name-face
+    ,(chameleon--build-face 'brightcyan 'default))
+  `(font-lock-property-use-face
+    ,(chameleon--build-face 'cyan 'default))
 
-   `(org-hide
-     ((,class
-       (:foreground "black")))))
+  ;;; Outlining and Org mode
+
+  `(outline-1
+    ,(chameleon--build-face 'magenta 'default))
+  `(outline-2
+    ,(chameleon--build-face 'blue 'default))
+  `(outline-3
+    ,(chameleon--build-face 'cyan 'default))
+  `(outline-4
+    ,(chameleon--build-face 'green 'default))
+  `(outline-5
+    ,(chameleon--build-face 'yellow 'default))
+  `(outline-6
+    ,(chameleon--build-face 'red 'default))
+  `(outline-7
+    ,(chameleon--build-face 'magenta 'default))
+  `(outline-8
+    ,(chameleon--build-face 'blue 'default))
+
+  `(org-hide
+    ,(chameleon--build-face 'black 'default)))
 
 (provide-theme 'chameleon)
+(enable-theme 'chameleon)
