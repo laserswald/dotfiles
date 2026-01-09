@@ -1,2 +1,2 @@
 MAILTO = 
-*/5 * * * * $HOME/bin/mail-fetcher >> $XDG_DATA_HOME/log/mail-fetcher.log 2>&1
+*/20 * * * * $HOME/bin/mail-fetcher >> $XDG_DATA_HOME/log/mail-fetcher.log 2>&1
