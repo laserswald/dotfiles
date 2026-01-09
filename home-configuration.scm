@@ -91,7 +91,7 @@
    r7rs-small-texinfo))
   
 (define lazr-development-services
-  (append lazr-kakoune-services
+  (append #;lazr-kakoune-services
           lazr-emacs-services
           (list lazr-scheme-packages-service)))
 
