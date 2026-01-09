@@ -21,47 +21,44 @@
 ;;
 ;; Define commands that run reformatters on the current buffer.
 ;;
-(use-package reformatter)
+(lazr/require-package 'reformatter)
 
 ;;;
 ;;; Data storage and configuration languages.
 ;;;
 
 ;; Generic configuration files.
-(use-package yaml-mode :ensure t)
-(use-package toml-mode :ensure t)
+(lazr/require-package 'yaml-mode)
+(lazr/require-package 'toml-mode)
 
 ;; Data exchange formats. 
-(use-package json-mode :ensure t)
-(use-package protobuf-mode :ensure t)
+(lazr/require-package 'json-mode)
+(lazr/require-package 'protobuf-mode)
 
 ;; Unix system configuration modes.
-(use-package ssh-config-mode :ensure t)
-(use-package systemd :ensure t
-  :config
-  (add-to-list 'auto-mode-alist
-               (cons (rx (one-or-more nonl)
-                         "."
-                         (or "container" "volume" "network"
-                             "kube" "image" "build" "pod"))
-                     'systemd-mode)))
+(lazr/require-package 'ssh-config-mode)
+
+(lazr/require-package 'systemd)
+(add-to-list 'auto-mode-alist
+             (cons (rx (one-or-more nonl)
+                       "."
+                       (or "container" "volume" "network"
+                           "kube" "image" "build" "pod"))
+                   'systemd-mode))
 
 ;; Infrastructure-as-code modes.
-(use-package terraform-mode :ensure t)
-(use-package nix-mode :ensure t)
-(use-package dockerfile-mode :ensure t)
+(lazr/require-package 'terraform-mode)
+(lazr/require-package 'nix-mode)
+(lazr/require-package 'dockerfile-mode)
 
 ;;;
 ;;; Template configuration languages.
 ;;;
 
-(use-package poly-ansible :ensure t 
-  :config 
-  (add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode)))
- 
-(use-package feature-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode)))
+(lazr/require-package 'poly-ansible)
+(add-to-list 'auto-mode-alist '(".*\\.ya?ml\\.j2" . poly-ansible-mode))
+
+(lazr/require-package 'feature-mode)
+(add-to-list 'auto-mode-alist '(".*\\.feature" . feature-mode))
 
 (provide 'lazr-languages)

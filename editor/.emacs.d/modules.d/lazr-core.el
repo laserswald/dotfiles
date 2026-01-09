@@ -1,10 +1,28 @@
-;;;; lazr-core --- Core editor features -*- lexical-binding: t -*-
+;;; lazr-core.el --- Core editor features            -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2025  Ben Davenport-Ray
+
+;; Author: Ben Davenport-Ray <ben@polaris>
+;; Keywords: 
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;;
-;;; lazr-core adds fundamental packages that define how Ben uses Emacs.
-;;; Currently this will load Evil and friends, along with automatic systems like
-;;; spell checking, autocompletion, etc.
+
+;; lazr-core adds fundamental packages that define how Ben uses Emacs.
+;; Currently this will load Evil and friends, along with automatic systems like
+;; spell checking, autocompletion, etc.
 
 ;;; Code:
 
@@ -59,7 +77,7 @@
   :config (ivy-mode 1))
 
 ;; Search quickly
-(use-package ripgrep )
+(use-package ripgrep)
 
 ;; Use dumb jump if we don't have a smart enough code searcher
 (use-package dumb-jump 
@@ -67,7 +85,7 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 ;; Interface to the `pass` password vault.
-(use-package password-store )
+(use-package password-store)
 
 ;;
 ;; Communication tools.
@@ -110,5 +128,4 @@
 (desktop-save-mode -1) ; Save the current configuration of windows, buffers, etc.
 
 (provide 'lazr-core)
-
 ;;; lazr-core.el ends here

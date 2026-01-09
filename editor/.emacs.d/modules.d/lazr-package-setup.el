@@ -6,13 +6,11 @@
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
-(package-refresh-contents)
-
-(package-initialize)
+(defun lazr/ensure-package (name)
+  (unless (package-installed-p name) (package-install name)))
 
 (defun lazr/require-package (name)
-  (unless (package-installed-p name)
-    (package-install name))
+  (lazr/ensure-package name)
   (require name))
 
 (lazr/require-package 'use-package)
@@ -38,15 +36,15 @@
 ; Use Emacs mode for vterms.
 (evil-set-initial-state 'vterm-mode 'emacs)
 
-; Vim-vinegar replacement
-(define-key evil-normal-state-map
-            (kbd "-")
-            #'(lambda () (interactive) (find-file ".")))
 
 ; Enable vi keybindings.
 (evil-mode 1)
 (evil-collection-init)
 (general-evil-setup t)
 (global-evil-surround-mode 1)
+
+; Vim-vinegar replacement
+(define-key evil-normal-state-map (kbd "-")
+  #'(lambda () (interactive) (find-file ".")))
 
 (provide 'lazr-package-setup)

@@ -76,6 +76,7 @@
  ; Projects
  "p" 'project-switch-project)
 
+
 ;;;
 ;;; Main leader.
 ;;;
@@ -83,14 +84,13 @@
 ;;;
 
 (general-create-definer lazr/leader-map
-  :states 'normal
+  :states '(normal visual)
   :prefix "SPC")
 
 (lazr/leader-map
   "C" 'comment-dwim
   "a" 'org-agenda
   "c" 'org-capture
-  "g" 'gptel-send
   "s" 'multi-vterm-dedicated-toggle
   "t" 'lazr/switch-theme-bg
   "w" 'lazr/save-buffer
@@ -124,12 +124,10 @@
 ;;;
 
 (general-create-definer lazr/local-leader-map
-  :states 'normal
+  :states '(normal visual)
   :prefix ",")
 
 (lazr/local-leader-map
-  "," '(lambda ()
-         ())
   "c" 'comment-line
   "C" 'comment-box
   ;;; "d" 'delete-buffer

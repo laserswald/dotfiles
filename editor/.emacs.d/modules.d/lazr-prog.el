@@ -1,6 +1,7 @@
 ;;;; lazr-prog --- Programming language specific settings. -*- lexical-binding: t -*-
 
 (require 'lazr-core "./lazr-core.el")
+(require 'lazr-package-setup "./lazr-package-setup.el")
 (require 'lazr-keybindings "./lazr-keybindings.el")
 
 ;;; Interacting with a REPL or similar 
@@ -41,39 +42,39 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;; Keyword/documentation lookup
 
 (make-variable-buffer-local 'evil-lookup-func)
-(evil-define-key 'normal ielm-map "K" 'describe-symbol)
 
 ;;;
 ;;; Intelligent code completion and such using LSP and tree-sitter
 ;;;
 
 ; Completion framework
-(use-package company :config (global-company-mode))
+(lazr/require-package 'company)
+(global-company-mode)
 
 ; On-the-fly checking.
-(use-package flycheck :config (global-flycheck-mode))
+(lazr/require-package 'flycheck)
+(global-flycheck-mode)
 
 ;; Install the built-in Emacs language server client.
-(use-package eglot
-  :ensure t
-  :defer t
-  :commands eglot-ensure
-  :hook (((c-mode
-           c++-mode
-           go-mode
-           rust-mode
-           python-mode
-           php-mode
-           shell-script-mode) . eglot-ensure)))
+(lazr/ensure-package 'eglot)
+(defvar lazr/lsp-enabled-modes
+  '(c-mode-hook
+    c++-mode-hook
+    go-mode-hook
+    rust-mode-hook
+    python-mode-hook
+    php-mode-hook
+    shell-script-mode-hook))
 
 ;; Registers LSP checks with flycheck.
-(use-package flycheck-eglot)
+(lazr/ensure-package 'flycheck-eglot)
+(add-hook 'eglot-connect-hook #'flycheck-eglot-mode)
 
 ;; Enable ultra-smart syntax awareness using Tree-Sitter.
-(use-package tree-sitter :config (global-tree-sitter-mode))
+(lazr/require-package 'tree-sitter)
+(global-tree-sitter-mode)
 
 ;; Add as many tree-sitter languages as possible.
-(use-package tree-sitter-langs)
 
 ;;
 ;; When writing program source code, if there is not already a system in place,
@@ -88,54 +89,52 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;; C and C++ modes
 ;;
 
-(setf c-default-style
+(setq c-default-style
       '((java-mode . "java")
         (other . "k&r")))
 
-(use-package cmake-mode :ensure t)
+;; Cmake support
 
-(use-package cmake-project
-  :ensure t
-  :init (setq cmake-project-default-build-dir-name "build/"))
+(setq cmake-project-default-build-dir-name "build/")
+
+(lazr/ensure-package 'cmake-mode)
+(lazr/ensure-package 'cmake-project)
+
+(defun maybe-cmake-project-mode ()
+  (if (or (file-exists-p "CMakeLists.txt")
+          (file-exists-p (expand-file-name "CMakeLists.txt" (car (project-roots (project-current))))))
+      (cmake-project-mode)))
+
+(add-hook 'c-mode-hook 'maybe-cmake-project-mode)
+(add-hook 'c++-mode-hook 'maybe-cmake-project-mode)
  
 ;;
 ;; Go
 ;;
-(use-package go-mode)
+(lazr/ensure-package 'go-mode)
 
 ;;
 ;; Rust
 ;;
 
-(use-package rust-mode)
+(lazr/ensure-package 'rust-mode)
 
 ;;
 ;; Shell scripts.
 ;;
 
-(use-package shell-script-mode
-  :config
-  (reformatter-define shell-script-format
-    :program "shfmt"
-    :args '("--simplify" "--case-indent" "--func-next-line" "-"))
-
-  :hook
-  '(shell-script-mode . shell-script-format-on-save-mode))
-
+(reformatter-define shell-script-format
+  :program "shfmt"
+  :args '("--simplify" "--case-indent" "--func-next-line" "-"))
+(add-hook 'shell-script-mode-hook #'shell-script-format-on-save-mode)
 (evil-define-key 'normal shell-script-mode-map "K" 'woman)
 
 ;;
 ;; Perl and Raku
 ;;
 
-(use-package raku-mode
-  :ensure t
-  :defer t)
-
-(use-package flycheck-raku
-  :ensure t
-  :defer t)
-
+(lazr/ensure-package 'raku-mode)
+(lazr/require-package 'flycheck-raku)
 (lz/define-interactive-keybinds 'raku-mode-map
   nil
   #'raku-send-buffer-to-repl
@@ -144,9 +143,9 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;
 ;; Python.
 ;;
-(use-package elpy
-  :config
-  (elpy-enable))
+
+(lazr/ensure-package 'elpy)
+(add-hook 'python-mode-hook #'elpy-enable)
 
 ; Make python available with Org-Babel.
 (require 'ob-python)
@@ -163,10 +162,13 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;; JavaScript
 ;;
 
-(use-package js2-mode :ensure t)
+(lazr/ensure-package 'js2-mode)
+(lazr/ensure-package 'js-comint)
 
-(use-package js-comint :ensure t
-  :init (setf js-comint-program-command "qjs"))
+(setf js-comint-program-command
+      (or (executable-find "bun")
+          (executable-find "node")
+          (executable-find "qjs")))
 
 (lz/define-interactive-keybinds 'js2-mode-map
                                 #'js-comint-send-last-sexp
@@ -179,8 +181,8 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;; PHP 
 ;;
 
-(use-package php-mode)
-(use-package phpunit)
+(lazr/ensure-package 'php-mode)
+(lazr/ensure-package 'phpunit)
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
@@ -210,10 +212,11 @@ The first symbol is the main keymap of the filetype, the second is ")
                        (lz/symcat-soft lisp-name 'mode-hook))
                      lz/lisps))
   (when lmh
-    (message "lazr/prog: installing lisp mode hook to %s" lmh)
-    (add-hook lmh 'parinfer-rust-mode)
-    (add-hook lmh 'rainbow-delimiters-mode)
-    (add-hook lmh (lambda () (setf indent-tabs-mode nil)))))
+    (lz/message "lazr/prog: installing lisp mode hook to %s" lmh)
+    (add-hook lmh (lambda ()
+                    (indent-tabs-mode nil)
+                    (parinfer-rust-mode)
+                    (rainbow-delimiters-mode)))))
 
 ;;
 ;; Emacs Lisp
@@ -221,11 +224,11 @@ The first symbol is the main keymap of the filetype, the second is ")
 
 (lz/define-interactive-keybinds 'emacs-lisp-mode-map
   'eval-defun
-  'eval-buffer
+  'elisp-eval-region-or-buffer
   'ielm)
 
-(evil-define-key 'normal emacs-lisp-mode-map
-  "K" 'describe-symbol)
+(evil-define-key 'normal emacs-lisp-mode-map "K" 'describe-symbol)
+(evil-define-key 'normal ielm-map "K" 'describe-symbol)
 
 ;;
 ;; Common Lisp
@@ -248,20 +251,17 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;; Scheme
 ;;;
 
-
 ;; Use the Geiser interaction mode for Scheme.
-(use-package geiser
-  :mode (("\\.sld" . scheme-mode))
-  :config
-  (setq geiser-active-implementations
-        '(guile gauche racket)))
+(lazr/ensure-package 'geiser)
+(lazr/ensure-package 'geiser-gauche)
+(lazr/ensure-package 'geiser-guile)
 
-(use-package geiser-gauche)
-(use-package geiser-guile
-  :config
-  ;; Add the Guix source code to the load path to hack
-  (add-to-list 'geiser-guile-load-path
-               "~/src/gnu/guix"))
+(setq geiser-active-implementations '(guile gauche racket))
+
+(add-to-list 'auto-mode-alist '("\\.sld" . scheme-mode))
+
+(add-hook 'geiser-mode-hook (lambda ()
+  (add-to-list 'geiser-guile-load-path "~/src/gnu/guix")))
 
 (lz/define-interactive-keybinds 'scheme-mode-map
   'geiser-eval-definition
@@ -269,15 +269,13 @@ The first symbol is the main keymap of the filetype, the second is ")
   'geiser)
 
 ;; (add-hook 'scheme-mode-hook
-;; 	  (lambda ()
-;; 	    (setf evil-lookup-func lazr/scheme-lookup)))
-		  
+;;           (lambda ()
+;;             (setf evil-lookup-func lazr/scheme-lookup)))
+                  
 
 (require 'ob-scheme)
 
-(use-package racket-mode
-  :ensure t
-  :defer t)
+(lazr/ensure-package 'racket-mode)
 
 ;;;
 ;;; Clojure
@@ -316,7 +314,7 @@ The first symbol is the main keymap of the filetype, the second is ")
 
 
 ;; Recutils mode
-(use-package rec-mode)
+(lazr/require-package 'rec-mode)
 (lazr/local-leader-map :keymaps 'rec-mode-map
   "n" 'rec-cmd-goto-next-rec
   "p" 'rec-cmd-goto-previous-rec
@@ -326,5 +324,8 @@ The first symbol is the main keymap of the filetype, the second is ")
   "R" 'rec-edit-record
   "T" 'rec-edit-type
   "B" 'rec-edit-buffer)
+
+(dolist (m lazr/lsp-enabled-modes)
+  (add-hook m #'eglot-ensure))
 
 (provide 'lazr-prog)
