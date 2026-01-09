@@ -15,22 +15,33 @@
 ;; Built-in Emacs packages
 ;;
 
-;; Directory editor
-(use-package dired
-  :after evil
-  :config
-  (add-hook 'dired-mode-hook
-            (lambda () (dired-omit-mode)))
-  (evil-define-key 'normal dired-mode-map "-" 'dired-up-directory)
-  ;; When in Dired, use normal mode, since dired has pretty good keybindings already
-  (evil-set-initial-state 'dired-mode 'normal)
-  (put 'dired-find-alternate-file 'disabled nil))
+;; Dired, the directory editor
 
-;; Remote file editing
-(use-package tramp
-  :config
-  (setenv "TERM" "ansi"))
+(require 'dired-x)
 
+(lazr/require-package 'dired-git-info)
+
+(add-hook 'dired-mode-hook
+          (lambda () (dired-omit-mode)))
+
+;; When in Dired, use normal mode, since dired has pretty good keybindings already
+(evil-set-initial-state 'dired-mode 'normal)
+(evil-define-key 'normal dired-mode-map
+  "-" 'dired-up-directory
+  ")" 'dired-git-info-mode)
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; Remote file editing using TRAMP
+(setenv "TERM" "ansi")
+
+;; Automatic insert mode.
+(auto-insert-mode t)
+
+;; Viewing manual pages using WOMAN
+(setq woman-use-topic-at-point t)
+
+(setq help-display-function-type t
+      help-window-keep-selected t)
 
 ;; Provide a better interactive choice dialog than the normal Emacs one.
 (use-package ivy 
