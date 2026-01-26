@@ -71,13 +71,14 @@ in all the possible themes.")
     ,(chameleon--build-face 'brightblack 'black))
 
   `(mode-line
-    ,(chameleon--build-face 'brightwhite 'brightblack :bold t))
-
+    ,(chameleon--build-face 'black 'brightblack :bold t))
   `(mode-line-inactive
-    ,(chameleon--build-face 'white 'brightblack))
-
+    ,(chameleon--build-face 'brightblack 'black))
   `(mode-line-buffer-id
-    ,(chameleon--build-face 'cyan 'brightblack))
+    ((((class color) (min-colors 16))
+      (:foreground "cyan"))))
+     
+    
   `(mode-line-highlight
     ,(chameleon--build-face 'red 'default :bold t))
   `(mode-line-emphasis
@@ -116,6 +117,8 @@ in all the possible themes.")
     ,(chameleon--build-face 'blue 'default :bold t))
   `(font-lock-variable-use-face
     ,(chameleon--build-face 'blue 'default))
+
+  ;;; Types 
 
   `(font-lock-type-face
     ,(chameleon--build-face 'brightyellow 'default :bold t))

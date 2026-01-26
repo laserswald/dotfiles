@@ -56,7 +56,7 @@
 					      "source \"" zsh-syntax-highlighting "/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n"
 					      "fpath=(" zsh-completions "/share/zsh/site-functions $fpath) \n"
 					      "export ZSH=\"" oh-my-zsh "/share/zsh/oh-my-zsh\" \n"
-					      "source $ZSH/oh-my-zsh.sh \n"
+					      ; "source $ZSH/oh-my-zsh.sh \n"
                                               "export GUIX_PROFILE=$HOME/.guix-profile\n"
                                               "source $GUIX_PROFILE/etc/profile\n"
 					      )))))

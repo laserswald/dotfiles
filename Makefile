@@ -1,7 +1,7 @@
 # Guix stuff lives here.
 
 GUIX = $(HOME)/.config/guix/current/bin/guix 
-GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 5
+GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 9
 
 .PHONY: all
 all: reconfigure

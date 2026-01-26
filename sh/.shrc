@@ -5,7 +5,7 @@
 # Read and execute the system default files.
 case $SHELL in
 	*mksh)
-            [ -f "/etc/skel/.mkshrc" ] && source "/etc/skel/.mkshrc"
+            [ -f "/etc/skel/.mkshrc" ] && . "/etc/skel/.mkshrc"
         ;;
 esac
 

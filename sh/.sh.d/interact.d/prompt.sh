@@ -2,15 +2,23 @@
 # Lazr's prompt.
 #
 
-fblack=`tput setaf 0`
-fred=`tput setaf 1`
-fgreen=`tput setaf 2`
-fyellow=`tput setaf 3`
-fblue=`tput setaf 4`
-fmagenta=`tput setaf 5`
-fcyan=`tput setaf 6`
-fwhite=`tput setaf 7`
-normal=`tput sgr0`
+# Early exit if the $TERM reports itself as dumb.
+if [ $TERM = "dumb" ]
+then
+   export PS1='$ '
+   return 0
+fi
+
+
+fblack=$(tput setaf 0)
+fred=$(tput setaf 1)
+fgreen=$(tput setaf 2)
+fyellow=$(tput setaf 3)
+fblue=$(tput setaf 4)
+fmagenta=$(tput setaf 5)
+fcyan=$(tput setaf 6)
+fwhite=$(tput setaf 7)
+normal=$(tput sgr0)
 
 # Set up nonprinting character support.
 
@@ -38,6 +46,7 @@ _nonprint () {
     printf "%s%s%s" "$npstart" "$1" "$npend"
 }
 
+# Change the foreground color.
 prompt_fg () {
     printf "%s%s%s" "$(_nonprint $1)" "$2" "$(_nonprint $normal)"
 }
@@ -56,7 +65,7 @@ prompt_host () {
     if [ $host = "betelgeuse" ]; then
 	hostcolor=$fred
     elif [ $host = "gargantua" ]; then
-	hostcolor=$fgreen
+	hostcolor=$fmagenta
     elif [ $host = "polaris" ]; then
 	hostcolor=$fred
     fi
@@ -87,17 +96,21 @@ prompt_git () {
         return 0
     fi
 
-    git_branchname=`git rev-parse --abbrev-ref HEAD`
+    git_branchname=$(git rev-parse --abbrev-ref HEAD)
 
     printf " %s" $(prompt_fg $fyellow "($(shorten 20 "$git_branchname"))")
 
     unset git_status
 }
 
+# A prompt component that will show a small tag if I am currently in a
+# modified environment (i.e. guix, nix, direnv, etc)
 prompt_environ () {
     if [ -n "$GUIX_ENVIRONMENT" ]; then
 	printf " [%s]" $(prompt_fg $fmagenta "guix")
     elif [ -n "$IN_NIX_SHELL" ]; then
+	printf " [%s]" $(prompt_fg $fmagenta "nix")
+    elif [ -n "$DIRENV" ]; then
 	printf " [%s]" $(prompt_fg $fmagenta "nix")
     fi
 }
@@ -112,6 +125,7 @@ prompt_status_color () {
 
 ## Generate the prompt string
 
+# Get the current prompt by calling this shell function.
 prompt () {
     statusc=$(prompt_status_color)
     printf '%s' "$(prompt_host) $(prompt_dir)$(prompt_git)$(prompt_environ) ${statusc}\$$(_nonprint $normal) "
@@ -130,5 +144,4 @@ case $SHELL in
 	;;
 esac
 
-[ $TERM = "dumb" ] && export PS1='$ '
 

@@ -15,7 +15,7 @@ run_services()
 
     if ! pgrep "runsvdir $service_directory"
     then
-	runsvdir $service_directory &
+	s6-svscan $service_directory &
     fi
 }
 
@@ -57,6 +57,7 @@ exec 2>&1 >$(printf $LOG_PATH_FMT 0)
 ## Desktop and laptop events.
 ##
 
+echo "init: starting normal/locked mapping"
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked
@@ -87,6 +88,8 @@ do
     riverctl map-switch $mode lid close spawn "systemctl sleep"
     # riverctl map-switch $mode lid open
 done
+
+echo "installing mappings"
 
 ##
 ## Keybinding setup.
@@ -245,6 +248,8 @@ riverctl map normal $mod F11 enter-mode passthrough
 # Mod+F11 to return to normal mode
 riverctl map passthrough $mod F11 enter-mode normal
 
+echo "configuring floating and client side decorations"
+
 # Set repeat rate
 riverctl set-repeat 50 300
 
@@ -262,22 +267,18 @@ riverctl rule-del -app-id "emacs" csd
 riverctl focus-follows-cursor normal
 
 if ! [ $RIVERCTL_RELOADING ]; then
+    echo "importing environment variables"
     dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP=river &
+
     systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY XDG_SESSION_TYPE
 
-    swayidle -w &
+    run_services $HOME/var/service/
 
     # Run some desktop services
-
-    # Status bar 
-    waybar &
-
-    # Desktop background.
-    swaybg -i ~/img/wallpaper &
-
-    # 
-    kanshi &
+    # swayidle -w &
     dunst &
+
+    echo starting optional services
 
     # Optional services
     command -v telegram-desktop && telegram-desktop &
@@ -288,6 +289,9 @@ fi
 
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
+echo starting layout generator
+
 riverctl default-layout rivertile
+
 rivertile &
 

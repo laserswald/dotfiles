@@ -46,6 +46,7 @@
  (gnu packages package-management)
  (gnu packages password-utils)
  (gnu packages racket)
+ (gnu packages rust-apps)
  (gnu packages scheme)
  (gnu packages shells)
  (gnu packages ssh)
@@ -82,25 +83,30 @@
 ;;; Development tools.
 ;;;
 
+(define-packages-service lazr-development-packages 
+  (jq 
+   just 
+   ripgrep 
+   fd))
+
 (define-packages-service lazr-scheme-packages-service
   (gauche
    akku
-   mit-scheme
-   racket
    slib
    r7rs-small-texinfo))
   
 (define lazr-development-services
-  (append #;lazr-kakoune-services
-          lazr-emacs-services
-          (list lazr-scheme-packages-service)))
+  (services #;lazr-kakoune-services
+            lazr-emacs-services 
+            lazr-development-packages
+            lazr-scheme-packages-service))
 
 ;;;
 ;;; Creative packages, mostly media editing, etc
 ;;;
 
 (define-packages-service lazr-creative-packages-service
-  (openshot audacity gimp inkscape krita))
+  (audacity gimp inkscape krita))
 
 (define lazr-creative-services
   (list lazr-creative-packages-service))
@@ -189,7 +195,7 @@
                   (directories (list lazr-config-directory))
                   (packages (list "vc" "chat" "news" "core"))))
         lazr-scripts-service
-        lazr-tidy-service
+        ; lazr-tidy-service
         (service home-mcron-service-type
                  (home-mcron-configuration))))
 
@@ -205,7 +211,6 @@
   (home-environment
    (packages
     (list 
-     jq
      grep
      ncurses
      procps

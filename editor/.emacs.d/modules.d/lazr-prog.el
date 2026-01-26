@@ -35,9 +35,9 @@ The first symbol is the main keymap of the filetype, the second is ")
   (lazr/local-leader-map :keymaps keymap
     "e" eval-defun
     "E" eval-buffer
-    "r" open-repl)
+    "r" open-repl))
 
-  )
+  
 
 ;;; Keyword/documentation lookup
 
@@ -261,7 +261,7 @@ The first symbol is the main keymap of the filetype, the second is ")
 (add-to-list 'auto-mode-alist '("\\.sld" . scheme-mode))
 
 (add-hook 'geiser-mode-hook (lambda ()
-  (add-to-list 'geiser-guile-load-path "~/src/gnu/guix")))
+                             (add-to-list 'geiser-guile-load-path "~/src/gnu/guix")))
 
 (lz/define-interactive-keybinds 'scheme-mode-map
   'geiser-eval-definition

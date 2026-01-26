@@ -73,6 +73,21 @@
       entry
       (file ,lazr/org-agenda-file)))
 
+   ;;
+   ;; Modifications to behavior
+   ;;
+
+   org-enforce-todo-dependencies t
+   org-enforce-todo-checkbox-dependencies t
+
+   org-duration-units
+   `(("min" . 1)
+     ("h" . 60)
+     ("d" . ,(* 60 8))
+     ("w" . ,(* 60 8 5))
+     ("m" . ,(* 60 8 5 4))
+     ("y" . ,(* 60 8 5 48)))
+
    org-todo-keywords
    `(;; Standard tasks
      (sequence "TODO" "|" "DONE" "CANCEL")
@@ -80,7 +95,9 @@
      (sequence "READY" "INPROGRESS" "REVIEW" "|" "COMPLETE")))
 
   :config
+  (org-duration-set-regexps)
   (add-to-list 'org-modules 'org-habit))
+
 
 (defvar lazr/org-refresh-agenda-time-seconds 30)
 (defvar lazr/org-refresh-agenda-timer nil)

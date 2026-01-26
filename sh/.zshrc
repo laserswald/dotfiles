@@ -1,5 +1,3 @@
-echo "zshrc"
-
 # Source the machine's profile, if it exists.
 [ -f "/etc/profile" ] && source "/etc/profile"
 
@@ -10,9 +8,6 @@ source_dir "$HOME/.sh.d/interact.d"
 setopt PROMPT_SUBST
 
 # zsh specifics: completion
-
-autoload -U compinit
-compinit
 
 alias zshconfig="$EDITOR ~/.zshrc"
 

@@ -19,6 +19,7 @@
   
   (begin 
 
+
     (define font-cmu-nerdfont
       (let ((revision "2")
             (commit "dd09d3e5fe40ca79d51ccb8e12ef7af8a36965e4"))
@@ -38,7 +39,7 @@
                   (sha256
                    (base32 "0z4rg9s3qhmy5r3nqzr38g693bv2p68bi3g0xcsifwdlqs2rhfqs"))))
          (build-system font-build-system))))
-
+   
     (define oh-my-zsh
       (package
 	(name "oh-my-zsh")
