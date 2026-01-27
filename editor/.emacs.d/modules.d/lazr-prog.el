@@ -64,7 +64,9 @@ The first symbol is the main keymap of the filetype, the second is ")
     rust-mode-hook
     python-mode-hook
     php-mode-hook
-    shell-script-mode-hook))
+    js2-mode
+    shell-script-mode-hook
+    typescript-ts-mode))
 
 ;; Registers LSP checks with flycheck.
 (lazr/ensure-package 'flycheck-eglot)
@@ -175,21 +177,34 @@ The first symbol is the main keymap of the filetype, the second is ")
         web-mode-markup-indent-offset 2))
 
 ;;
-;; JavaScript
+;; JavaScript and TypeScript.
 ;;
 
 (lazr/ensure-package 'js2-mode)
 (lazr/ensure-package 'js-comint)
+(lazr/ensure-package 'ts-comint)
 
-(setf js-comint-program-command
-      (or (executable-find "bun")
-          (executable-find "node")
-          (executable-find "qjs")))
+(setq-default js-indent-level 2)
 
-(lz/define-interactive-keybinds 'js2-mode-map
+(add-hook 'js-mode-hook
+          (lambda ()
+            (lazr/disable-tabs)
+            (js2-minor-mode)
+            (rainbow-delimiters-mode)))
+
+(defun lazr/js-comint-repl ()
+  (interactive)
+  (setf js-comint-program-command
+        (or (executable-find "bun")
+            (executable-find "node")
+            (executable-find "qjs")))
+  (js-comint-repl))
+
+
+(lz/define-interactive-keybinds 'js-mode-map
                                 #'js-comint-send-last-sexp
                                 #'js-comint-send-buffer
-                                #'js-comint-repl)
+                                #'lazr/js-comint-repl)
 
 (require 'ob-js)
 
