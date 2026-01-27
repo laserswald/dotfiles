@@ -33,8 +33,9 @@
 ;; Built-in Emacs packages
 ;;
 
-;; Dired, the directory editor
+(lz/message "Setting up Emacs built-in packages.")
 
+;; Dired, the directory editor
 (require 'dired-x)
 
 (lazr/require-package 'dired-git-info)
@@ -61,10 +62,17 @@
 (setq help-display-function-type t
       help-window-keep-selected t)
 
+;; Proced
+(when (boundp 'proced-available)
+  (lz/message "Setting up Proced.")
+  (setq proced-enable-color-flag t)
+  (define-key proced-mode-map (kbd "/") isearch-forward))
+
 ;; Provide a better interactive choice dialog than the normal Emacs one.
-(use-package ivy 
+(use-package ivy
   :config
   (ivy-mode 1))
+(evil-define-key nil ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 
 ;; Snippets management
 (use-package yasnippet 
@@ -72,9 +80,6 @@
   (yas-global-mode 1))
 
 ;;; Searching and navigating.
-
-(use-package counsel 
-  :config (ivy-mode 1))
 
 ;; Search quickly
 (use-package ripgrep)
@@ -91,7 +96,7 @@
 ;; Communication tools.
 ;;
 
-; Interface for high speed mail searcher
+                                        ; Interface for high speed mail searcher
 (use-package notmuch :ensure t
   :config
   (evil-set-initial-state '(notmuch-hello-mode
@@ -118,7 +123,7 @@
 (defun lz/choose-randomly (sequence)
   "Choose one item randomly out of the SEQUENCE."
   (if (zerop (length sequence))
-    (error "No choices available")
+      (error "No choices available")
     (elt sequence (random (length sequence)))))
 
 ;;

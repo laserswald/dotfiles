@@ -6,7 +6,7 @@
 (require 'cl-lib)
 (require 'lazr-package-setup)
 
-(message "Loading graphical.el")
+(lz/message "Loading graphical.el")
 
 ;;
 ;; User interface components: turning things on and off to look nice
@@ -132,7 +132,7 @@
      t t)))
 
 (defun lazr/on-font-preferences-change (symbol newval operation where)
-  (message "Setting new font preferences")
+  (lz/message "Setting new font preferences")
   (lazr/setup-fonts))
 
 (add-variable-watcher 'lazr/fonts #'lazr/on-font-preferences-change)
@@ -167,7 +167,7 @@
       (xterm-mouse-mode 1)
 
       ;; Load my terminal theme
-      ;(load-theme 'chameleon)
+      (load-theme 'chameleon t t)
       )))
 
 ;; Apply to all future frames

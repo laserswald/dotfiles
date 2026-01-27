@@ -107,7 +107,8 @@
   "v" 'project-vc-dir
   "s" 'project-shell
   "e" 'project-eshell
-  "c" 'project-compile)
+  "b" 'project-recompile
+  "B" 'project-compile)
 
 ;; 'F'uzzy finding
 (lazr/leader-map :infix "f"
@@ -131,13 +132,13 @@
   "c" 'comment-line
   "C" 'comment-box
   ;;; "d" 'delete-buffer
-  "m" 'recompile
-  "M" 'compile
+  "b" 'recompile
+  "B" 'compile
   "w" 'lazr/save-buffer
   "/" 'swiper
   "?" 'swiper-backward)
 
 (lazr/local-leader-map :keymaps 'todotxt-mode-map
-  "c" 'todotxt-complete-toggle)
+  "," 'todotxt-complete-toggle)
 
 (provide 'lazr-keybindings)

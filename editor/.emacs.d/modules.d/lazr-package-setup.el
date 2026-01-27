@@ -27,7 +27,23 @@
  evil-undo-system      'undo-redo)
 
 (setf evil-collection-mode-list
-      '(apropos dired eglot eldoc eshell vc-dir vc-git magit notmuch process-menu woman xref info minibuffer))
+      '(apropos
+        dired
+        eglot
+        eldoc
+        eshell
+        vc-dir
+        vc-git
+        magit
+        notmuch
+        proced
+        process-menu
+        woman
+        xref
+        info
+        minibuffer
+        ivy))
+                
 
 (lazr/require-package 'undo-tree)       ; Provide a tree of undo-states. Needed by Evil.
 (lazr/require-package 'evil)            ; Extensible Vi Layer

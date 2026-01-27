@@ -99,7 +99,7 @@
                   (commit "master")))
            (sha256
              (base32
-               "1hlals4d9x5i4mwigxjlx4f9xgc9rw15yzvbvc64cminxic2i3i8"))))
+               "0q2gwf6il7dwj2bynwhcwh4cxa6mg7z9aiwdzfi98ki62qgb79z0"))))
        (inputs (list kakoune fzf))
        (build-system copy-build-system)
        (arguments (list #:install-plan #~'(("rc" "rc"))))))

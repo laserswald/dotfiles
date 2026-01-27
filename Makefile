@@ -1,15 +1,14 @@
 # Guix stuff lives here.
 
 GUIX = $(HOME)/.config/guix/current/bin/guix 
-GUIX_HOME = $(GUIX) home -L guix-modules -c 4 -v 9
+GUIX_HOME = $(GUIX) home -L guix-modules -c 4
 
 .PHONY: all
 all: reconfigure
-	fc-cache -f
-	test -S "${XDG_RUNTIME_DIR}/emacs/server" && emacsclient -e '(lazr/reload-config)' || true
-	pgrep waybar && pkill -SIGUSR2 waybar
-	pgrep river && river-reload
-	pgrep kanshi && kanshictl reload
+	if test -S "${XDG_RUNTIME_DIR}/emacs/server"; then emacsclient -e '(lazr/reload-config)'; fi
+	if pgrep waybar; then pkill -SIGUSR2 waybar; fi
+	if pgrep river; then river-reload; fi
+	if pgrep kanshi; then kanshictl reload; fi
 	if pgrep Hyprland || pgrep hyprland; then hyprctl reload; fi
 
 .PHONY: container

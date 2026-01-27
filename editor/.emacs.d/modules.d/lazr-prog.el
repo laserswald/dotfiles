@@ -4,6 +4,9 @@
 (require 'lazr-package-setup "./lazr-package-setup.el")
 (require 'lazr-keybindings "./lazr-keybindings.el")
 
+(setf lz/messages-enabled t)
+
+(lz/message "Starting lazr-prog")
 ;;; Interacting with a REPL or similar 
 
 (defun lz/interactive-operation-p (x)
@@ -107,9 +110,7 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;; C and C++ modes
 ;;
 
-(setq c-default-style
-      '((java-mode . "java")
-        (other . "k&r")))
+(setq-default c-default-style '((java-mode . "java") (other . "bsd")))
 
 ;; Cmake support
 
@@ -279,13 +280,14 @@ The first symbol is the main keymap of the filetype, the second is ")
 (require 'ob-lisp)
 
 ;;;
-;;; Scheme
+;;; Scheme (and Racket)
 ;;;
 
 ;; Use the Geiser interaction mode for Scheme.
 (lazr/ensure-package 'geiser)
 (lazr/ensure-package 'geiser-gauche)
 (lazr/ensure-package 'geiser-guile)
+(lazr/ensure-package 'racket-mode)
 
 (setq geiser-active-implementations '(guile gauche racket))
 
@@ -306,7 +308,6 @@ The first symbol is the main keymap of the filetype, the second is ")
 
 (require 'ob-scheme)
 
-(lazr/ensure-package 'racket-mode)
 
 ;;;
 ;;; Clojure
@@ -346,8 +347,8 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;; Databases, configuration files, etc
 ;;;
 
-
-;; Recutils mode
+;; Recutils is an open-source plain-text database format.
+;; I use it for my resume.
 (lazr/require-package 'rec-mode)
 (lazr/local-leader-map :keymaps 'rec-mode-map
   "n" 'rec-cmd-goto-next-rec
@@ -359,7 +360,10 @@ The first symbol is the main keymap of the filetype, the second is ")
   "T" 'rec-edit-type
   "B" 'rec-edit-buffer)
 
+;; For each lsp-enabled mode, let's 
 (dolist (m lazr/lsp-enabled-modes)
   (add-hook m #'eglot-ensure))
+
+(lz/message "Finishing lazr-prog")
 
 (provide 'lazr-prog)

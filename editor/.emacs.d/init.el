@@ -14,6 +14,23 @@
 (defvar lz/messages-enabled nil
   "Should debug messages using lz/message be enabled?")
 
+(defmacro lz/with-messages-enabled (&rest body)
+  "Debug a bit of configuration by surrounding it in a context where messages are enabled."
+  (let ((old-messages-enabled (gensym)))
+    `(let ((,old-messages-enabled lz/messages-enabled))
+       (unwind-protect
+           (progn
+             (setq lz/messages-enabled t)
+             ,@body)
+         (setq lz/messages-enabled
+               ,old-messages-enabled)))))
+
+(ert-deftest lz/with-messages-enabled-test ()
+  (should (equal nil lz/messages-enabled))
+  (lz/with-messages-enabled
+   (should (equal t lz/messages-enabled)))
+  (should (equal nil lz/messages-enabled)))
+
 (defun lz/message (&rest rest)
   "Display a message containing REST but only when the flag lz/messages-enabled is set."
   (when lz/messages-enabled
@@ -21,7 +38,7 @@
 
 (let ((modules-dir (expand-file-name "./modules.d/" user-emacs-directory)))
   (when (file-directory-p modules-dir)
-    (message "Adding modules directory to load path: " modules-dir)
+    (lz/message "Adding modules directory to load path: %s" modules-dir)
     (add-to-list 'load-path modules-dir)))
 
 (setf gc-cons-threshold 10000000
