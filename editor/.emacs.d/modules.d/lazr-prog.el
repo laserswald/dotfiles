@@ -35,9 +35,9 @@ The first symbol is the main keymap of the filetype, the second is ")
   (lazr/local-leader-map :keymaps keymap
     "e" eval-defun
     "E" eval-buffer
-    "r" open-repl))
+    "r" open-repl)) 
 
-  
+;;; Tabs and spaces.
 
 ;;; Keyword/documentation lookup
 
@@ -237,7 +237,7 @@ The first symbol is the main keymap of the filetype, the second is ")
   :init
   (setq parinfer-rust-auto-download t))
 
-(use-package rainbow-delimiters)
+(lazr/require-package rainbow-delimiters)
 
 (dolist (lmh (mapcar (lambda (lisp-name)
                        (lz/symcat-soft lisp-name 'mode-hook))

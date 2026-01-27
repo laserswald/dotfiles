@@ -19,8 +19,6 @@
   (when lz/messages-enabled
     (apply #'message rest)))
 
-
-
 (let ((modules-dir (expand-file-name "./modules.d/" user-emacs-directory)))
   (when (file-directory-p modules-dir)
     (message "Adding modules directory to load path: " modules-dir)

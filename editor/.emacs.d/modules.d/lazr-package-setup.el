@@ -7,9 +7,11 @@
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (defun lazr/ensure-package (name)
+  "Make sure the packaged named NAME is installed."
   (unless (package-installed-p name) (package-install name)))
 
 (defun lazr/require-package (name)
+  "Make sure the package is installed, and require it in this lisp file."
   (lazr/ensure-package name)
   (require name))
 
