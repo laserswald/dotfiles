@@ -76,10 +76,26 @@ The first symbol is the main keymap of the filetype, the second is ")
 
 ;; Add as many tree-sitter languages as possible.
 
-;;
+;;;
+;;; Indentation and whitespace configuration.
+;;;
+
+(defconst lazr/tab-width 4
+  "How many spaces a tab should be.")
+
+(defun lazr/enable-tabs ()
+  "Enable tab indentation for this mode."
+  (evil-define-key 'insert prog-mode-map (kbd "TAB") 'tab-to-tab-stop)
+  (setq indent-tabs-mode t)
+  (setq tab-width lazr/tab-width))
+
+(defun lazr/disable-tabs ()
+  "Disable tabs in this mode."
+  (setq indent-tabs-mode nil))
+   
 ;; When writing program source code, if there is not already a system in place,
 ;; use the "indent with tabs and align with spaces" convention.
-;;
+(add-hook 'prog-mode-hook 'lazr/enable-tabs)
 
 ;;;
 ;;; Algol family.
@@ -214,7 +230,7 @@ The first symbol is the main keymap of the filetype, the second is ")
   (when lmh
     (lz/message "lazr/prog: installing lisp mode hook to %s" lmh)
     (add-hook lmh (lambda ()
-                    (indent-tabs-mode nil)
+                    (lazr/disable-tabs)
                     (parinfer-rust-mode)
                     (rainbow-delimiters-mode)))))
 
@@ -300,7 +316,10 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;;
 
 ;; Standard ML
-(use-package sml-mode :ensure t)
+(lazr/require-package 'sml-mode)
+(add-hook 'sml-mode-hook
+          (lambda ()
+            (lazr/disable-tabs)))
 
 ;; OCaml
 
