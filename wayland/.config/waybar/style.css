@@ -2,14 +2,16 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Font Awesome", "Fira Code", monospace;
-    font-size: 10pt;
+    font-family: "Font Awesome", "CMUTypewriter NF", monospace;
+    font-size: 14pt;
     border-radius: 0;
 }
 
 window#waybar {
     background-color: rgba(0, 0, 0, 0);
+    /* background-color: @bg_0; */
     color: @fg_0;
+    opacity: 1;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -20,15 +22,14 @@ window#waybar.hidden {
 
 .modules-left, .modules-right, .modules-center {
     background-color: @bg_0;
-    padding: 3px;
+    margin: 5px;
+    padding: 5px;
     border-color: @bg_2;
     border-style: solid;
-    border-bottom-width: 1px;
-    border-top-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
+    border-width: 1px;
+    border-radius: 10px;
 }
-
+/*
 .modules-left {
     border-bottom-right-radius: 5px;
     border-right-width: 1px;
@@ -43,10 +44,9 @@ window#waybar.hidden {
     border-right-width: 1px;
     border-left-width: 1px;
 }
+*/
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
     border-radius: 0;
@@ -87,9 +87,12 @@ button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
+#tags button.occupied {
+    color: @cyan
+}
+
 #tags button.focused {
-    background-color: @bg_2;
-    box-shadow: inset 0 -3px @fg_0;
+    color: @green;
 }
 
 #tags button.urgent {
@@ -102,7 +105,6 @@ button:hover {
     box-shadow: inset 0 -3px @fg_0;
 }
 
-#clock,
 #battery,
 #cpu,
 #memory,
@@ -125,9 +127,17 @@ button:hover {
     margin: 0 1rem;
 }
 
+#clock {
+    font-weight: bold;
+}
+
 #window,
 #workspaces {
     margin: 0;
+}
+
+#window {
+    font-style: italic;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -205,7 +215,7 @@ label:focus {
 }
 
 #backlight {
-    color: #90b1b1;
+    color: @fg_0;
 }
 
 #network {
@@ -217,11 +227,11 @@ label:focus {
 }
 
 #pulseaudio {
-    color: #f1c40f;
+    color: @yellow;
 }
 
 #pulseaudio.muted {
-    color: #90b1b1;
+    color: @fg_0;
 }
 
 #wireplumber {
@@ -331,17 +341,17 @@ label:focus {
 
 #privacy-item {
     padding: 0 5px;
-    color: white;
+    color: @fg_0;
 }
 
 #privacy-item.screenshare {
-    background-color: #cf5700;
+    background-color: @orange;
 }
 
 #privacy-item.audio-in {
-    background-color: #1ca000;
+    background-color: @green;
 }
 
 #privacy-item.audio-out {
-    background-color: #0069d4;
+    background-color: @blue;
 }

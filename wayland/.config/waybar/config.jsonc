@@ -10,13 +10,14 @@
 	"modules-left": [
 	    "river/tags",
 	    "hyprland/workspaces",
-	    "custom/media"
-	],
-	"modules-center": [
 	    "river/window",
 	    "hyprland/window"
 	],
+	"modules-center": [
+	    "clock"
+	],
 	"modules-right": [
+	    "custom/media",
             "idle_inhibitor",
 	    "pulseaudio",
 	    "network",
@@ -27,13 +28,13 @@
 	    "battery",
 	    "battery#bat2",
 	    "tray",
-	    "clock",
 	    "custom/power"
 	],
 
 	"reload_style_on_change": true,
 
 	// Modules configuration
+
 	// "sway/workspaces": {
 	//     "disable-scroll": true,
 	//     "all-outputs": true,
@@ -97,9 +98,9 @@
             "spacing": 10
 	},
 	"clock": {
+            "format": "{:%F %H:%M}",
             // "timezone": "America/New_York",
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-            "format-alt": "{:%Y-%m-%d}"
 	},
 	"cpu": {
             "format": "{usage}% ",
