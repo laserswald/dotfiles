@@ -147,11 +147,21 @@
                          #~(calendar-event #:hours '(8 20))
                          #~("tidy-home")))))
 
+(define home-mpd-server-service
+  (simple-service 'home-mpd-server home-shepherd-service-type
+				  (list (shepherd-service
+						 (documentation "Music player daemon server.")
+						 (provision '(mpd-server))
+						 (start #~(make-forkexec-constructor
+								   (list #$(file-append mpd "/bin/mpd") "--no-daemon")))
+						 (stop #~(make-kill-destructor))))))
+
 (define lazr-media-services
   (services
    (packages-service 'lazr-media-packages
                      mpd
                      ncmpcpp)
+   home-mpd-server-service
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
              (layout 'stow)
@@ -179,8 +189,7 @@
                      swayidle
                      swaylock
                      grim
-                     slurp
-                     )
+                     slurp)
    (service home-dotfiles-service-type
             (home-dotfiles-configuration
              (layout 'stow)
