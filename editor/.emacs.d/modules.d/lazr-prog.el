@@ -238,7 +238,7 @@ The first symbol is the main keymap of the filetype, the second is ")
   :init
   (setq parinfer-rust-auto-download t))
 
-(lazr/require-package rainbow-delimiters)
+(lazr/require-package 'rainbow-delimiters)
 
 (dolist (lmh (mapcar (lambda (lisp-name)
                        (lz/symcat-soft lisp-name 'mode-hook))
