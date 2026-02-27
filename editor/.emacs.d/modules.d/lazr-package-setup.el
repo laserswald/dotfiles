@@ -4,7 +4,8 @@
 
 (setf package-archives
       '(("melpa" . "https://melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
+        ("gnu" . "https://elpa.gnu.org/packages/")
+		("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 (defun lazr/ensure-package (name)
   "Make sure the packaged named NAME is installed."

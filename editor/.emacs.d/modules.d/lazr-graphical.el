@@ -55,13 +55,18 @@
 
 (setf custom-theme-directory "~/.emacs.d/themes")
 
-(let ((lazr/custom-theme nil))
-  (defun lazr/switch-theme (theme)
-    "Save and switch to the given theme."
-    (if lazr/custom-theme
-        (disable-theme lazr/custom-theme))
-    (setf lazr/custom-theme theme)
-    (load-theme lazr/custom-theme)))
+(lz/with-messages-enabled
+ (let ((lazr/custom-theme nil))
+   (defun lazr/switch-theme (theme)
+	 "Save and switch to the given theme."
+	 (lz/message "Current theme is %s" lazr/custom-theme)
+	 (if lazr/custom-theme
+		 (progn 
+		   (lz/message "Disabling theme %s" lazr/custom-theme)
+		   (disable-theme lazr/custom-theme)))
+	 (lz/message "Enabling theme %s" theme)
+	 (setf lazr/custom-theme theme)
+	 (load-theme lazr/custom-theme))))
 
 (defvar lazr/theme-pair
   '(doom-tomorrow-day . doom-tomorrow-night)
@@ -99,9 +104,9 @@
 
 (defvar lazr/fonts
   (list
-   "Victor Mono Nerd Font"
    "CMUTypewriter NF"
-   "Terminess Nerd Font"
+   "Victor Mono Nerd Font"
+   ; "Terminess Nerd Font"
    "Fira Code Nerd Font"
    "Fira Code"
    "Monospace"))
@@ -153,12 +158,12 @@
         ;; Enable scrolling that allows for views unbound by character cells
         (pixel-scroll-mode)
 
-	(apply 'lazr/setup-fonts lazr/fonts)
+		(apply 'lazr/setup-fonts lazr/fonts)
 
         (set-frame-size frame 300 60)
 
         ;; Apply my theme.
-	(lazr/apply-theme))
+		(lazr/apply-theme))
 
     (progn ; Terminal frames.
       (message "Terminal frame being set up")
@@ -166,8 +171,8 @@
       ;; Mouse stuff
       (xterm-mouse-mode 1)
 
-      ;; Load my terminal theme
-      (load-theme 'chameleon t t)
+      ;; Load my theme
+	  (lazr/apply-theme)
       )))
 
 ;; Apply to all future frames

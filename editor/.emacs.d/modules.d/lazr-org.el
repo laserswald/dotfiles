@@ -98,6 +98,8 @@
   (org-duration-set-regexps)
   (add-to-list 'org-modules 'org-habit))
 
+(lazr/require-package 'org-contrib)
+(require 'org-checklist)
 
 (defvar lazr/org-refresh-agenda-time-seconds 30)
 (defvar lazr/org-refresh-agenda-timer nil)
@@ -170,7 +172,6 @@
 ;; Ensure that Tab can open/close outlines
 (general-define-key :states 'normal :keymaps 'org-mode-map "<TAB>" 'org-cycle)
 
-
 (defun lazr/org-after-todo-state-change (&optional state)
   "Play a silly sound when an org todo STATE (also could be given manually to test) has been set to one of the DONE states."
   (when (member (if (boundp 'org-state) org-state state)
@@ -181,7 +182,9 @@
      (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\\.\\(mp3\\|ogg\\|wav\\)"))))))
 
 (add-hook 'org-after-todo-state-change-hook
-	  'lazr/org-after-todo-state-change)
+	      'lazr/org-after-todo-state-change)
+
+(defun lazr/org-reset-checkboxes-on)
 
 ;;;
 ;;; Setup for Dungeons and Dragons
