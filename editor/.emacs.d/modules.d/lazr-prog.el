@@ -5,9 +5,11 @@
 (require 'lazr-keybindings "./lazr-keybindings.el")
 
 (setf lz/messages-enabled t)
-
 (lz/message "Starting lazr-prog")
-;;; Interacting with a REPL or similar 
+
+;;;
+;;; Framework for registering consistent keybindings for interaction with a REPL.
+;;;
 
 (defun lz/interactive-operation-p (x)
   "Returns T if X is an interactive operation"
@@ -17,7 +19,7 @@
   (make-hash-table)
   "A nested hash map of SYMBOL -> SYMBOL -> FUNCTION that stores functions which interact with a
 REPL session.
-The first symbol is the main keymap of the filetype, the second is ")
+The first symbol is the main keymap of the filetype, the second is the operation to perform. ")
 
 (defun lz/interaction-function-register! (keymap-symbol operation function)
   (let ((keymap-hash (gethash keymap-symbol lz/interaction-functions (make-hash-table))))
@@ -40,9 +42,14 @@ The first symbol is the main keymap of the filetype, the second is ")
     "E" eval-buffer
     "r" open-repl)) 
 
-;;; Tabs and spaces.
-
+;;;
 ;;; Keyword/documentation lookup
+;;;
+
+
+(defun lazr/define-docs-keybinding (mode-map func)
+  "Defines the keybinding for looking up the documentation for the symbol under the cursor."
+  (evil-define-key 'normal mode "K" func))
 
 (make-variable-buffer-local 'evil-lookup-func)
 
@@ -50,11 +57,11 @@ The first symbol is the main keymap of the filetype, the second is ")
 ;;; Intelligent code completion and such using LSP and tree-sitter
 ;;;
 
-; Completion framework
+;; Completion framework
 (lazr/require-package 'company)
 (global-company-mode)
 
-; On-the-fly checking.
+;; On-the-fly checking.
 (lazr/require-package 'flycheck)
 (global-flycheck-mode)
 
@@ -103,7 +110,7 @@ The first symbol is the main keymap of the filetype, the second is ")
 (add-hook 'prog-mode-hook 'lazr/enable-tabs)
 
 ;;;
-;;; Algol family.
+;;; Curly-brace language families.
 ;;;
 
 ;;
@@ -121,8 +128,11 @@ The first symbol is the main keymap of the filetype, the second is ")
 
 (defun maybe-cmake-project-mode ()
   (if (or (file-exists-p "CMakeLists.txt")
-          (file-exists-p (expand-file-name "CMakeLists.txt" (car (project-roots (project-current))))))
-      (cmake-project-mode)))
+          (and (project-current)
+               (file-exists-p
+                (expand-file-name "CMakeLists.txt"
+                                  (car (project-roots (project-current)))))))
+    (cmake-project-mode)))
 
 (add-hook 'c-mode-hook 'maybe-cmake-project-mode)
 (add-hook 'c++-mode-hook 'maybe-cmake-project-mode)
@@ -322,7 +332,7 @@ The first symbol is the main keymap of the filetype, the second is ")
   'cider-eval-buffer
   'cider-jack-in-clj&cljs)
 
-(evil-define-key 'normal clojure-mode-map "K" 'cider-doc)
+(lazr/define-docs-keybinding 'clojure-mode-map #'cider-clojuredocs-lookup)
 
 ;; Elixir (It's a Lisp, fite me)
 (use-package elixir-mode :ensure t)
@@ -360,7 +370,10 @@ The first symbol is the main keymap of the filetype, the second is ")
   "T" 'rec-edit-type
   "B" 'rec-edit-buffer)
 
-;; For each lsp-enabled mode, let's 
+;;;
+;;; 
+;;;
+
 (dolist (m lazr/lsp-enabled-modes)
   (add-hook m #'eglot-ensure))
 
