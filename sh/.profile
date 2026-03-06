@@ -1,8 +1,6 @@
-# Laserswald's standard profile. This is loaded only once.
+# Laserswald's standard profile. This is loaded only once, during login.
 
-if [ $LAZR_PROFILE_LOADED -eq 1 ]; then
-    return 0
-fi
+if [ $LAZR_PROFILE_LOADED -eq 1 ]; then return 0; fi
 
 # I always use US, UTF-8 for my locale.
 export LC_CTYPE="en_US.UTF-8"
@@ -21,7 +19,6 @@ export ENV="$HOME/.shrc"
 
 # Same for on-login stuff.
 [ -d "$HOME/.sh.d/login.d" ] && source_dir "$HOME/.sh.d/login.d"
-
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
