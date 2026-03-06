@@ -122,6 +122,7 @@
          nil
          'lazr/org-refresh-agenda)))
 
+
 ;; Start the timer when we first load this file
 (run-with-idle-timer lazr/org-refresh-agenda-time-seconds t #'lazr/org-refresh-agenda)
 
@@ -172,19 +173,28 @@
 ;; Ensure that Tab can open/close outlines
 (general-define-key :states 'normal :keymaps 'org-mode-map "<TAB>" 'org-cycle)
 
-(defun lazr/org-after-todo-state-change (&optional state)
+(defun lazr/org-done-p (state)
+  (member state '("DONE" "COMPLETE")))
+
+(defun lazr/org-play-jingle-on-done (&optional state)
   "Play a silly sound when an org todo STATE (also could be given manually to test) has been set to one of the DONE states."
-  (when (member (if (boundp 'org-state) org-state state)
-		(list "DONE" "COMPLETE"))
+  (when (lazr/org-done-p (if (boundp 'org-state) org-state state))
     (message "Good job!")
     (start-process-shell-command
      "org-done-sound-effect" nil
      (concat "mpv " (lz/choose-randomly (directory-files "~/var/sound-effects/" t ".*\\.\\(mp3\\|ogg\\|wav\\)"))))))
 
-(add-hook 'org-after-todo-state-change-hook
-	      'lazr/org-after-todo-state-change)
+(defun lazr/org-reset-checkboxes-on-done (&optional state)
+  (interactive "*")
+  (when (and (lazr/org-done-p (if (boundp 'org-state) org-state state))
+             (org-entry-get (point) "RESET_CHECK_BOXES"))
+    (org-reset-checkbox-state-subtree)))
 
-(defun lazr/org-reset-checkboxes-on)
+(add-hook 'org-after-todo-state-change-hook
+	      'lazr/org-play-jingle-on-done)
+
+(add-hook 'org-after-todo-state-change-hook
+	      'lazr/org-reset-checkboxes-on-done)
 
 ;;;
 ;;; Setup for Dungeons and Dragons
@@ -205,8 +215,7 @@
 ;;; This is a contact list that is integrated within Emacs.
 
 (use-package bbdb
-  :init
-  (setf bbdb-file "~/org/contacts.bbdb"))
+  :init (setf bbdb-file "~/org/contacts.bbdb"))
 
 ;; Provide import and export via vCard for BBDB contacts.
 (use-package bbdb-vcard)
