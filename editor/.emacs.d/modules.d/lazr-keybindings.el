@@ -91,7 +91,7 @@
   "C" 'comment-dwim
   "a" 'org-agenda
   "c" 'org-capture
-  "s" 'multi-vterm-dedicated-toggle
+  ; "s" 'multi-vterm-dedicated-toggle
   "t" 'lazr/switch-theme-bg
   "w" 'lazr/save-buffer
   "v" 'vc-prefix-map
